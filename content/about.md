@@ -1,12 +1,12 @@
 +++
-title = "About me"
+title = "About"
 date = "2021-05-21"
 aliases = ["about-us","about-hugo","contact"]
 [ author ]
   name = "Quac Tran"
 +++
-### General
-Hi! I'm Quac Tran, a Security Researcher and Red Teamer in Viet Nam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
+## Whoami
+Hi! I'm Quac Tran, a Security Researcher, Pentester, and Red Teamer in VietNam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
 ### Certifications
 * OSCP (21/4/2021 - 21 Year Old)
 * OSWE (Training)

@@ -1,66 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hi, I&#39;m Quac Tran!</title>
+    <title>Quac Tran</title>
     <link>https://tranquac.github.io/</link>
-    <description>Recent content on Hi, I&#39;m Quac Tran!</description>
+    <description>Recent content on Quac Tran</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Creating a New Theme</title>
-      <link>https://tranquac.github.io/posts/2014/09/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2014/09/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
-    </item>
-    
-    <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>https://tranquac.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</guid>
-      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
-▾ &amp;lt;root&amp;gt;/▾ images/logo.png should become
-▾ &amp;lt;root&amp;gt;/▾ static/▾ images/logo.png Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
-    </item>
-    
-    <item>
-      <title>About me</title>
+      <title>About</title>
       <link>https://tranquac.github.io/about/</link>
       <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/about/</guid>
-      <description>General Hi! I&amp;rsquo;m Quac Tran, a Security Researcher and Red Teamer in Viet Nam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
+      <description>Whoami Hi! I&amp;rsquo;m Quac Tran, a Security Researcher, Pentester, and Red Teamer in VietNam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
 Certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  Programing  C/C++ Python PHP Java Javascript Powershell / Bash  Interests  Automation Security Pentesting Hacking Music &amp;hellip;  Contact me  Twitter Email  </description>
     </item>
     
     <item>
-      <title>(Hu)go Template Primer</title>
-      <link>https://tranquac.github.io/posts/2014/04/hugo-template-primer/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>OSCP CheatSheet Full</title>
+      <link>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/posts/2014/04/hugo-template-primer/</guid>
-      <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.
-This document is a brief primer on using Go templates.</description>
+      <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</guid>
+      <description>This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
+ Try Harder
+ Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
+updatedb
+locate ssh.config
+which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
+which python
+find  find / -name &#39;file*&#39; find / -name &#39;foldername&#39; -type d find / -name &#39;filename&#39; -type f find / -name &#39;sbd*&#39; -exec file {} \;  Managing Kali Linux Services The standard Kali services include ssh, http, sql, which by default would load at boot time, however Kali prevents this by not allowing that, and includes a management system to control their status.</description>
     </item>
     
     <item>
-      <title>Getting Started with Hugo</title>
-      <link>https://tranquac.github.io/posts/2014/04/getting-started-with-hugo/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>
+      <link>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</link>
+      <pubDate>Wed, 21 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/posts/2014/04/getting-started-with-hugo/</guid>
-      <description>Step 1. Install Hugo Go to Hugo releases and download the appropriate version for your OS and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at Install Hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
-Follow the following steps:
- Clone the Hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+      <guid>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</guid>
+      <description>28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.</description>
+    </item>
+    
+    <item>
+      <title>Linux privilege escalation full</title>
+      <link>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation-full/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation-full/</guid>
+      <description>Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.</description>
     </item>
     
   </channel>

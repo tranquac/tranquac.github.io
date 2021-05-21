@@ -1,5 +1,5 @@
 baseURL = "https://tranquac.github.io"
-title   = "Hi, I'm Quac Tran!"
+title   = "Quac Tran"
 languageCode = "en-us"
 theme = "hello-friend-ng"
 
@@ -61,7 +61,7 @@ disableHugoGeneratorInject = false
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly"
+  homeSubtitle = "[ Welcome to my personal blog! I ramble about security and hacking, mostly. Hacking is a boundless passion for me! ]"
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -172,12 +172,12 @@ disableHugoGeneratorInject = false
 
 [languages]
   [languages.en]
-    subtitle  = "Hello Friend"
+    subtitle  = ""
     weight    = 1
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
 
   [languages.fr]
-    subtitle  = "Hello Friend"
+    subtitle  = ""
     weight    = 2
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
 

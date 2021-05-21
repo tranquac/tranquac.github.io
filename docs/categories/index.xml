@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Hi, I&#39;m Quac Tran!</title>
+    <title>Categories on Quac Tran</title>
     <link>https://tranquac.github.io/categories/</link>
-    <description>Recent content in Categories on Hi, I&#39;m Quac Tran!</description>
+    <description>Recent content in Categories on Quac Tran</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Development</title>
-      <link>https://tranquac.github.io/categories/development/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>infosec</title>
+      <link>https://tranquac.github.io/categories/infosec/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/categories/development/</guid>
+      <guid>https://tranquac.github.io/categories/infosec/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>golang</title>
-      <link>https://tranquac.github.io/categories/golang/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>oscp</title>
+      <link>https://tranquac.github.io/categories/oscp/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/categories/golang/</guid>
+      <guid>https://tranquac.github.io/categories/oscp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://tranquac.github.io/categories/linux/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privilege-escalation</title>
+      <link>https://tranquac.github.io/categories/privilege-escalation/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/categories/privilege-escalation/</guid>
       <description></description>
     </item>
     

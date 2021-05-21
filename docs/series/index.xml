@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Series on Hi, I&#39;m Quac Tran!</title>
+    <title>Series on Quac Tran</title>
     <link>https://tranquac.github.io/series/</link>
-    <description>Recent content in Series on Hi, I&#39;m Quac Tran!</description>
+    <description>Recent content in Series on Quac Tran</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hugo 101</title>
-      <link>https://tranquac.github.io/series/hugo-101/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      <title>OSCP</title>
+      <link>https://tranquac.github.io/series/oscp/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/series/hugo-101/</guid>
+      <guid>https://tranquac.github.io/series/oscp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://tranquac.github.io/series/linux/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/series/linux/</guid>
       <description></description>
     </item>
     
