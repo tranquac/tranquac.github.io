@@ -1,5 +1,5 @@
 baseURL = "https://tranquac.github.io"
-title   = "Quac Tran"
+title   = "Hi, I'm Quac Tran"
 languageCode = "en-us"
 theme = "hello-friend-ng"
 
@@ -48,20 +48,20 @@ disableHugoGeneratorInject = false
   series   = "series"
 
 [params]
-  dateform        = "Jan 2, 2006"
+  dateform        = "Jan 2, 2021"
   dateformShort   = "Jan 2"
-  dateformNum     = "2006-01-02"
-  dateformNumTime = "2006-01-02 15:04"
+  dateformNum     = "2021-01-02"
+  dateformNumTime = "2021-01-02 15:04"
 
   # Metadata mostly used in document's head
   # 
-  description = "Nice theme for homepages and blogs"
+  description = "Welcome to my personal blog!"
   keywords = ""
-  images = [""]
+  images = ["https://pbs.twimg.com/profile_images/1390346481970802689/qMVDRriV_400x400.jpg"]
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "[ Welcome to my personal blog! I ramble about security and hacking, mostly. Hacking is a boundless passion for me! ]"
+  homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. Hacking is a boundless passion for me!"
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -80,7 +80,7 @@ disableHugoGeneratorInject = false
   # Per default, this option is off. 
   # The theme is respecting the prefers-color-scheme of the operating systeme. 
   # With this option on, the page user is able to set the scheme he wants. 
-  enableThemeToggle = true
+  enableThemeToggle = false
 
   # Sharing buttons
   #
@@ -125,7 +125,7 @@ disableHugoGeneratorInject = false
     logoText     = "Security ramblings"
     logoHomeLink = "/"
     # Set true to remove the logo cursor entirely.
-    # logoCursorDisabled = false
+    #logoCursorDisabled = true
     # Set to a valid CSS color to change the cursor in the logo.
     # logoCursorColor    = "#67a2c9"
     # Set to a valid CSS time value to change the animation duration, "0s" to disable.
@@ -140,14 +140,14 @@ disableHugoGeneratorInject = false
   # Uncomment this to enable Commento.
   #
   # [params.commento]
-  #   url = ""
+  #  url = ""
 
   # Uncomment this if you want a portrait on your start page
   #
-  # [params.portrait]
-  #   path     = "/img/image.jpg"
-  #   alt      = "Portrait"
-  #   maxWidth = "50px"
+   [params.portrait]
+     path     = "https://pbs.twimg.com/profile_images/1390346481970802689/qMVDRriV_400x400.jpg"
+     alt      = "Portrait"
+     maxWidth = "130px"
 
   # Social icons
   [[params.social]]
@@ -167,8 +167,8 @@ disableHugoGeneratorInject = false
     url  = "https://www.linkedin.com/"
 
   [[params.social]]
-    name = "stackoverflow"
-    url  = "https://www.stackoverflow.com/"
+    name = "telegram"
+    url  = "https://t.me/TranQuac"
 
 [languages]
   [languages.en]
