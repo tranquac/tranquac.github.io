@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>write-up on Hi, I&#39;m Quac Tran</title>
+    <link>https://tranquac.github.io/categories/write-up/</link>
+    <description>Recent content in write-up on Hi, I&#39;m Quac Tran</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 30 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/write-up/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[attackdefense.com] Privilege Escalation</title>
+      <link>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</link>
+      <pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</guid>
+      <description>Summary  Student to Teacher Teacher to Admin Admin to Root Break out of the container  Link https://attackdefense.com/challengedetails?cid=2021
+Student to Teacher Find SUID binaries Using ‘Strings’ to view
+When we run the read-submission file. It will call and run the read-file. Read file is a binary file. We will use the PATH variable method
+First create another read-file executable file in / tmp with the content to generate a shell.</description>
+    </item>
+    
+  </channel>
+</rss>

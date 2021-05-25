@@ -1,5 +1,5 @@
 +++
-title = "Linux privilege escalation full"
+title = "Linux Privilege Escalation"
 description = ""
 type = ["posts","post"]
 tags = [

@@ -10,23 +10,39 @@
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>OSCP CheatSheet Full</title>
-            <link>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</link>
+            <title>OSCP CheatSheet</title>
+            <link>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</link>
             <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
             
-            <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</guid>
+            <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</guid>
             <description>This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
- Try Harder
- Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
-updatedb
-locate ssh.config
-which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
-which python
-find  find / -name &#39;file*&#39; find / -name &#39;foldername&#39; -type d find / -name &#39;filename&#39; -type f find / -name &#39;sbd*&#39; -exec file {} \;  Managing Kali Linux Services The standard Kali services include ssh, http, sql, which by default would load at boot time, however Kali prevents this by not allowing that, and includes a management system to control their status.</description>
+ Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb</description>
             <content type="html"><![CDATA[<p>This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.</p>
 <blockquote>
-<p>Try Harder</p>
+<h3 id="try-harder">Try Harder</h3>
 </blockquote>
+<h2 id="summary">Summary</h2>
+<ul>
+<li><a href="#around-kali">Around Kali</a></li>
+<li><a href="#the-essential-tools">The Essential Tools</a></li>
+<li><a href="#passive-info-gathering">Passive Info Gathering</a></li>
+<li><a href="#active-information-gathering">Active Information Gathering</a></li>
+<li><a href="#vulnerability-scanning">Vulnerability Scanning</a></li>
+<li><a href="#buffer-overflows">Buffer Overflows</a></li>
+<li><a href="#win32-buffer-overflows">Win32 Buffer Overflows</a></li>
+<li><a href="#linux-buffer-overflows">Linux Buffer Overflows</a></li>
+<li><a href="#exploits">Exploits</a></li>
+<li><a href="#file-transfers">File Transfers</a></li>
+<li><a href="#privilege-escalation">Privilege Escalation</a></li>
+<li><a href="#client-side-attacks">Client Side Attacks</a></li>
+<li><a href="#web-application-attacks">Web Application Attacks</a></li>
+<li><a href="#password-attacks">Password Attacks</a></li>
+<li><a href="#port-redirection-and-tunneling">Port Redirection and Tunneling</a></li>
+<li><a href="#metasploit">Metasploit</a></li>
+<li><a href="#bypassing-antivirus-software">Bypassing Antivirus Software</a></li>
+<li><a href="#forensics">Forensics</a></li>
+</ul>
+<h1 id="around-kali">Around Kali</h1>
 <h2 id="finding-around-kali">Finding Around Kali</h2>
 <h3 id="find-locate-and-which">Find, Locate, and Which</h3>
 <h4 id="locate">locate</h4>
@@ -2150,7 +2166,12 @@ john -show -format:nt <span style="color:#f92672">[</span>hash.txt<span style="c
 unshadow passwd shadow &gt; unshadow.txt <span style="color:#75715e"># combine them</span>
 john -rules -wordlist:/usr/share/wordlists/rockyou.txt <span style="color:#f92672">[</span>unshadow.txt<span style="color:#f92672">]</span> <span style="color:#75715e"># dictionary + john&#39;s mangle rules</span>
 </code></pre></div><h1 id="port-redirection-and-tunneling">Port Redirection and Tunneling</h1>
-<h2 id="local-port-forwarding">Local Port Forwarding</h2>
+<h2 id="ssh-not-interactive">SSH not interactive</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sshpass -p <span style="color:#e6db74">&#34;monkey&#34;</span> ssh sean@10.11.1.251 
+</code></pre></div><h2 id="sshutle">sshutle</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sshuttle -r sean@10.11.1.251 10.1.1.27 <span style="color:#75715e"># create connect from kali to 10.1.1.27 via 10.11.1.251</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sshuttle -r sean@10.11.1.251 10.1.1.0/24 <span style="color:#75715e"># subnet</span>
+</code></pre></div><h2 id="local-port-forwarding">Local Port Forwarding</h2>
 <p>Opens a local port that forwards all traffice headed to that port to the destination</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Alice:8080 -&gt; Bob:22 -&gt; Bob:80</span>
 <span style="color:#75715e"># On Alice</span>
@@ -2461,11 +2482,11 @@ photorec <span style="color:#f92672">[</span>file<span style="color:#f92672">]</
         </item>
         
         <item>
-            <title>Linux privilege escalation full</title>
-            <link>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation-full/</link>
+            <title>Linux Privilege Escalation</title>
+            <link>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</link>
             <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
             
-            <guid>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation-full/</guid>
+            <guid>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</guid>
             <description>Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.</description>
             <content type="html"><![CDATA[<h1 id="linux-privilege-escalation">Linux-Privilege-Escalation</h1>
 <h2 id="synthesize-supplement-from-a-number-of-other-resources">Synthesize, supplement from a number of other resources</h2>

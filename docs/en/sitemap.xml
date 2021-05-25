@@ -46,7 +46,7 @@
     <loc>https://tranquac.github.io/categories/oscp/</loc>
     <lastmod>2021-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</loc>
+    <loc>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</loc>
     <lastmod>2021-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/</loc>
@@ -90,7 +90,7 @@
     <loc>https://tranquac.github.io/categories/linux/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation-full/</loc>
+    <loc>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/tags/privilege-escalation/</loc>
@@ -98,5 +98,23 @@
   </url><url>
     <loc>https://tranquac.github.io/categories/privilege-escalation/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/attackdefense/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/write-up/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/write-up/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/write-up/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/write-up/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
   </url>
 </urlset>

@@ -9,19 +9,13 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/oscp/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>OSCP CheatSheet Full</title>
-      <link>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</link>
+      <title>OSCP CheatSheet</title>
+      <link>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</link>
       <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet-full/</guid>
+      <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</guid>
       <description>This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
- Try Harder
- Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
-updatedb
-locate ssh.config
-which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
-which python
-find  find / -name &#39;file*&#39; find / -name &#39;foldername&#39; -type d find / -name &#39;filename&#39; -type f find / -name &#39;sbd*&#39; -exec file {} \;  Managing Kali Linux Services The standard Kali services include ssh, http, sql, which by default would load at boot time, however Kali prevents this by not allowing that, and includes a management system to control their status.</description>
+ Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb</description>
     </item>
     
     <item>
