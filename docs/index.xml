@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Androi pentest part 1</title>
+      <link>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</link>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</guid>
+      <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure\ Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc.\ The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
+    </item>
+    
     <item>
       <title>Linux backdoors</title>
       <link>https://tranquac.github.io/posts/2021/06/linux-backdoors/</link>
