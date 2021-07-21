@@ -15,7 +15,7 @@
             <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
             
             <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</guid>
-            <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure\ Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc.\ The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
+            <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#concept">Concept</a></li>
 <li><a href="#decompile-and-compile">Decompile and compile</a></li>
@@ -26,22 +26,22 @@
 <img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/2.png" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/2.png"></p>
 <h4 id="structure">Structure</h4>
 <ul>
-<li><strong>AndroidManifest file</strong> contains the application’s structure\</li>
-<li><strong>Res folder</strong> contains all the resources that the application needs to run , including user interface layout, icons, audio, etc.\</li>
+<li><strong>AndroidManifest file</strong> contains the application’s structure</li>
+<li><strong>Res folder</strong> contains all the resources that the application needs to run , including user interface layout, icons, audio, etc.</li>
 <li><strong>The most interesting files for us are the classes.dex files</strong> because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</li>
 </ul>
 <h4 id="tools">Tools</h4>
 <ul>
-<li><strong>Apktool</strong> : tool for reverse engineering Android apk files. In this case we are using to extract files from apk and rebuild.\</li>
-<li><strong>Keytool</strong> : Java tool for creating keys/certs, that comes with the JDK.\</li>
-<li><strong>Jarsigner</strong> : Java tool for signing JAR/APK files, that comes with the JDK.\</li>
-<li><strong>Zipalign</strong> : archive alignment tool, that comes with the Android SDK.\</li>
-<li><strong>JD-GUI</strong> : To view java code.\</li>
-<li><strong>dex2jar</strong> : Converts Android dex files to class/jar files.\</li>
-<li><strong>MobSF</strong> : Mobile Security Framework (MobSF) is an automated, all-in-one mobile application (Android/iOS/Windows) pen-testing.\</li>
-<li><strong>Adb</strong> : is a versatile command-line tool that lets you communicate with a device.\</li>
-<li><strong>Frida</strong> : Dynamic Binary Instrumentation tool.\</li>
-<li><strong>How to Frida work?</strong> : Frida is writing code directly in process memory. When you attach frida to a running application, frida on the background uses ptrace to hijack the thread. A bootstrapper populates this thread and starts a new one, connecting to the frida server that is running on the device and loads a dynamically generated library that has the frida agent along with our instrumentation code. This last part is where all the magic happens. The hijacked thread is being restored to its original state and resumes, then the process continues normally. (<a href="https://erev0s.com/blog/frida-code-snippets-for-android/)">https://erev0s.com/blog/frida-code-snippets-for-android/)</a>.\</li>
+<li><strong>Apktool</strong> : tool for reverse engineering Android apk files. In this case we are using to extract files from apk and rebuild.</li>
+<li><strong>Keytool</strong> : Java tool for creating keys/certs, that comes with the JDK.</li>
+<li><strong>Jarsigner</strong> : Java tool for signing JAR/APK files, that comes with the JDK.</li>
+<li><strong>Zipalign</strong> : archive alignment tool, that comes with the Android SDK.</li>
+<li><strong>JD-GUI</strong> : To view java code.</li>
+<li><strong>dex2jar</strong> : Converts Android dex files to class/jar files.</li>
+<li><strong>MobSF</strong> : Mobile Security Framework (MobSF) is an automated, all-in-one mobile application (Android/iOS/Windows) pen-testing.</li>
+<li><strong>Adb</strong> : is a versatile command-line tool that lets you communicate with a device.</li>
+<li><strong>Frida</strong> : Dynamic Binary Instrumentation tool.</li>
+<li><strong>How to Frida work?</strong> : Frida is writing code directly in process memory. When you attach frida to a running application, frida on the background uses ptrace to hijack the thread. A bootstrapper populates this thread and starts a new one, connecting to the frida server that is running on the device and loads a dynamically generated library that has the frida agent along with our instrumentation code. This last part is where all the magic happens. The hijacked thread is being restored to its original state and resumes, then the process continues normally. (<a href="https://erev0s.com/blog/frida-code-snippets-for-android/)">https://erev0s.com/blog/frida-code-snippets-for-android/)</a>.</li>
 <li><strong>APKLab</strong> : extension VSCode for apk (good).</li>
 </ul>
 <h2 id="decompile-and-compile">Decompile and compile</h2>
@@ -51,10 +51,10 @@
 </ul>
 <h4 id="to-decompile-an">To decompile an</h4>
 <ul>
-<li><code>apktool d -r -s application.apk</code>\</li>
-<li>or <code>apktool d application.apk</code>\</li>
-<li>or <code>java -jar Bytecode-Viewer-2.10.12.jar -&gt; load apk file</code>\</li>
-<li>or <code>using extension ApkLap in Visual Studio Code</code>\</li>
+<li><code>apktool d -r -s application.apk</code></li>
+<li>or <code>apktool d application.apk</code></li>
+<li>or <code>java -jar Bytecode-Viewer-2.10.12.jar -&gt; load apk file</code></li>
+<li>or <code>using extension ApkLap in Visual Studio Code</code></li>
 <li>or <code>using jadx</code> (<a href="https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe">https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe</a>)</li>
 </ul>
 <h4 id="convert-the-dex-files-into-standard-class-files">Convert the Dex files into standard class files</h4>
@@ -63,38 +63,38 @@
 </ul>
 <h4 id="use-the-jd-java-decompiler-to-inspect-the-source">Use the JD (Java Decompiler) to inspect the source</h4>
 <ul>
-<li><code>java -jar jd-gui.jar classes-dex2jar.jar</code>\</li>
-<li>or <code>java -jar recaf-2.20.1-J8-jar-with-dependencies.jar --input=classes-dex2jar.jar</code>\</li>
+<li><code>java -jar jd-gui.jar classes-dex2jar.jar</code></li>
+<li>or <code>java -jar recaf-2.20.1-J8-jar-with-dependencies.jar --input=classes-dex2jar.jar</code></li>
 <li>Once you have made your changes, you need to repack the APK. This will create a my_application.apkfile:</li>
 </ul>
 <h4 id="to-recompilebuild-the-apk">To recompile(build) the apk</h4>
 <ul>
-<li>After modify apk file (smili code,&hellip;) you can recompile apk app\</li>
-<li><code>apktool b -f -d application</code>\</li>
-<li>or <code>using APKLap in VSCode (https://github.com/APKLab/APKLab)</code>\</li>
-<li>After recompiling (building) the apk the new apk will be generated in Dist folder.(using apk tools)\</li>
-<li>New apk save in : Application -&gt; Dist -&gt;  application.apk\</li>
-<li>The APK must be signed before you run on your device.\</li>
-<li>Before signing an apk, create a key if you don’t have an existing one. If prompted for a password, create your own password.<br>
-<strong>To generate a key</strong>\</li>
-<li><code>keytool -genkey -v -keystore my-release-key.keystore -alias alias_name  -keyalg RSA -keysize 2048 -validity 10000</code><br>
-<strong>Sign the apk</strong>\</li>
-<li><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name</code><br>
-<strong>Verify apk (Option)</strong>\</li>
-<li><code>jarsigner -verify -verbose -certs my_application.apk</code>\</li>
-<li>Finally, the apk must be aligned for optimal loading:\</li>
-<li><code>./zipalign -v 4 my_application.apk my_application-aligned.apk</code>\</li>
+<li>After modify apk file (smili code,&hellip;) you can recompile apk app</li>
+<li><code>apktool b -f -d application</code></li>
+<li>or <code>using APKLap in VSCode (https://github.com/APKLab/APKLab)</code></li>
+<li>After recompiling (building) the apk the new apk will be generated in Dist folder.(using apk tools)</li>
+<li>New apk save in : Application -&gt; Dist -&gt;  application.apk</li>
+<li>The APK must be signed before you run on your device.</li>
+<li>Before signing an apk, create a key if you don’t have an existing one. If prompted for a password, create your own password.
+<strong>To generate a key</strong></li>
+<li><code>keytool -genkey -v -keystore my-release-key.keystore -alias alias_name  -keyalg RSA -keysize 2048 -validity 10000</code>
+<strong>Sign the apk</strong></li>
+<li><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name</code>
+<strong>Verify apk (Option)</strong></li>
+<li><code>jarsigner -verify -verbose -certs my_application.apk</code></li>
+<li>Finally, the apk must be aligned for optimal loading:</li>
+<li><code>./zipalign -v 4 my_application.apk my_application-aligned.apk</code></li>
 <li>You have a my_application-aligned.apk file, which you can install onto your device.</li>
 </ul>
 <h2 id="using-adb-and-frida-interact-android">Using Adb and Frida interact Android</h2>
 <h4 id="adb">Adb</h4>
 <ul>
-<li>adb devices : list devices\</li>
-<li>adb connect IP:Port : connect to devices\</li>
-<li>adb shell : spawn shell\</li>
-<li>adb root : run with root user\</li>
-<li>adb backup -apk -shared com.android.insecurebankv2 (android:allowBackup=&ldquo;true&rdquo; in AndroidMainfest.xml) : backup apk file\</li>
-<li>cat backup.ab | ( dd bs=24 count=0 skip=1; cat) | zlib-flate-uncompress &gt; backup.tar : read backup file\</li>
+<li>adb devices : list devices</li>
+<li>adb connect IP:Port : connect to devices</li>
+<li>adb shell : spawn shell</li>
+<li>adb root : run with root user</li>
+<li>adb backup -apk -shared com.android.insecurebankv2 (android:allowBackup=&ldquo;true&rdquo; in AndroidMainfest.xml) : backup apk file</li>
+<li>cat backup.ab | ( dd bs=24 count=0 skip=1; cat) | zlib-flate-uncompress &gt; backup.tar : read backup file</li>
 </ul>
 <h4 id="frida">Frida</h4>
 <ul>
@@ -136,7 +136,7 @@ script<span style="color:#f92672">.</span>on(<span style="color:#e6db74">&#39;me
 script<span style="color:#f92672">.</span>load()
 sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
 </code></pre></div><ul>
-<li>Run: <code>python login_bypass.py</code><br>
+<li>Run: <code>python login_bypass.py</code>
 <strong>Check root bypass</strong></li>
 <li>APP : bankinsecurev2 (download apk -&gt; adb install bankinsecurev2.apk)</li>
 <li>The application uses two functions to check whether the device is rooted or not as shown below in the decompiled APK of the InsecureBank app: doesSUexist, doesSuperuserApkExist
