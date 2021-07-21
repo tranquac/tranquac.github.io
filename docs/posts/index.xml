@@ -46,67 +46,68 @@
 </ul>
 <h2 id="decompile-and-compile">Decompile and compile</h2>
 <h4 id="unpack-file-apk">Unpack file apk</h4>
-<ul>
-<li><code>unzip application.apk</code></li>
-</ul>
+<p><code>unzip application.apk</code></p>
 <h4 id="to-decompile-an">To decompile an</h4>
-<ul>
-<li><code>apktool d -r -s application.apk</code></li>
-<li>or <code>apktool d application.apk</code></li>
-<li>or <code>java -jar Bytecode-Viewer-2.10.12.jar -&gt; load apk file</code></li>
-<li>or <code>using extension ApkLap in Visual Studio Code</code></li>
-<li>or <code>using jadx</code> (<a href="https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe">https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe</a>)</li>
-</ul>
+<p><code>apktool d -r -s application.apk</code><br>
+or<br>
+<code>apktool d application.apk</code><br>
+or<br>
+<code>java -jar Bytecode-Viewer-2.10.12.jar -&gt; load apk file</code><br>
+or<br>
+<code>using extension ApkLap in Visual Studio Code</code><br>
+or<br>
+<code>using jadx</code> (<a href="https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe">https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-gui-1.2.0-no-jre-win.exe</a>)</p>
 <h4 id="convert-the-dex-files-into-standard-class-files">Convert the Dex files into standard class files</h4>
-<ul>
-<li><code>sh d2j-dex2jar.sh application/classes.dex </code>(classes.dex have from unzip application)</li>
-</ul>
+<p><code>sh d2j-dex2jar.sh application/classes.dex </code><br>
+(classes.dex have from unzip application)</p>
 <h4 id="use-the-jd-java-decompiler-to-inspect-the-source">Use the JD (Java Decompiler) to inspect the source</h4>
+<p><code>java -jar jd-gui.jar classes-dex2jar.jar</code><br>
+or<br>
+<code>java -jar recaf-2.20.1-J8-jar-with-dependencies.jar --input=classes-dex2jar.jar</code>\</p>
 <ul>
-<li><code>java -jar jd-gui.jar classes-dex2jar.jar</code></li>
-<li>or <code>java -jar recaf-2.20.1-J8-jar-with-dependencies.jar --input=classes-dex2jar.jar</code></li>
 <li>Once you have made your changes, you need to repack the APK. This will create a my_application.apkfile:</li>
 </ul>
 <h4 id="to-recompilebuild-the-apk">To recompile(build) the apk</h4>
 <ul>
-<li>After modify apk file (smili code,&hellip;) you can recompile apk app</li>
-<li><code>apktool b -f -d application</code></li>
-<li>or <code>using APKLap in VSCode (https://github.com/APKLab/APKLab)</code></li>
+<li>After modify apk file (smili code,&hellip;) you can recompile apk app<br>
+<code>apktool b -f -d application</code></li>
+<li>or<br>
+<code>using APKLap in VSCode (https://github.com/APKLab/APKLab)</code></li>
 <li>After recompiling (building) the apk the new apk will be generated in Dist folder.(using apk tools)</li>
 <li>New apk save in : Application -&gt; Dist -&gt;  application.apk</li>
 <li>The APK must be signed before you run on your device.</li>
-<li>Before signing an apk, create a key if you don’t have an existing one. If prompted for a password, create your own password.
-<strong>To generate a key</strong></li>
-<li><code>keytool -genkey -v -keystore my-release-key.keystore -alias alias_name  -keyalg RSA -keysize 2048 -validity 10000</code>
-<strong>Sign the apk</strong></li>
-<li><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name</code>
-<strong>Verify apk (Option)</strong></li>
-<li><code>jarsigner -verify -verbose -certs my_application.apk</code></li>
-<li>Finally, the apk must be aligned for optimal loading:</li>
-<li><code>./zipalign -v 4 my_application.apk my_application-aligned.apk</code></li>
+<li>Before signing an apk, create a key if you don’t have an existing one. If prompted for a password, create your own password.\</li>
+<li><strong>To generate a key</strong><br>
+<code>keytool -genkey -v -keystore my-release-key.keystore -alias alias_name  -keyalg RSA -keysize 2048 -validity 10000</code></li>
+<li><strong>Sign the apk</strong><br>
+<code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name</code></li>
+<li><strong>Verify apk (Option)</strong><br>
+<code>jarsigner -verify -verbose -certs my_application.apk</code></li>
+<li>Finally, the apk must be aligned for optimal loading:<br>
+<code>./zipalign -v 4 my_application.apk my_application-aligned.apk</code></li>
 <li>You have a my_application-aligned.apk file, which you can install onto your device.</li>
 </ul>
 <h2 id="using-adb-and-frida-interact-android">Using Adb and Frida interact Android</h2>
 <h4 id="adb">Adb</h4>
 <ul>
-<li>adb devices : list devices</li>
-<li>adb connect IP:Port : connect to devices</li>
-<li>adb shell : spawn shell</li>
-<li>adb root : run with root user</li>
-<li>adb backup -apk -shared com.android.insecurebankv2 (android:allowBackup=&ldquo;true&rdquo; in AndroidMainfest.xml) : backup apk file</li>
-<li>cat backup.ab | ( dd bs=24 count=0 skip=1; cat) | zlib-flate-uncompress &gt; backup.tar : read backup file</li>
+<li><code>adb devices</code> : list devices</li>
+<li><code>adb connect IP:Port</code> : connect to devices</li>
+<li><code>adb shell</code> : spawn shell</li>
+<li><code>adb root</code> : run with root user</li>
+<li><code>adb backup -apk -shared com.android.insecurebankv2</code> (android:allowBackup=&ldquo;true&rdquo; in AndroidMainfest.xml) : backup apk file</li>
+<li><code>cat backup.ab</code> | ( dd bs=24 count=0 skip=1; cat) | zlib-flate-uncompress &gt; backup.tar : read backup file</li>
 </ul>
 <h4 id="frida">Frida</h4>
 <ul>
-<li>wget <a href="https://github.com/frida/frida/releases/download/15.0.0/frida-inject-15.0.0-android-x86.xz">https://github.com/frida/frida/releases/download/15.0.0/frida-inject-15.0.0-android-x86.xz</a> : download</li>
-<li>adb push frida-server /data/local/tmp : push Frida server to Androi</li>
-<li>adb shell &ldquo;chmod 755 /data/local/tmp/frida-server&rdquo;: set permission Frida binari</li>
-<li>adb shell &ldquo;/data/local/tmp/frida-server&rdquo; &amp; : run Frida-server in Android</li>
-<li>Frida-ps -U : list running process</li>
-<li>Frida-ps -aU | grep -i &ldquo;name&rdquo; : check process name</li>
+<li><code>wget https://github.com/frida/frida/releases/download/15.0.0/frida-inject-15.0.0-android-x86.xz</code> : download</li>
+<li><code>adb push frida-server /data/local/tmp</code> : push Frida server to Androi</li>
+<li><code>adb shell &quot;chmod 755 /data/local/tmp/frida-server&quot;</code>: set permission Frida binari</li>
+<li><code>adb shell &quot;/data/local/tmp/frida-server&quot; &amp;</code> : run Frida-server in Android</li>
+<li><code>Frida-ps -U</code> : list running process</li>
+<li><code>Frida-ps -aU | grep -i &quot;name&quot;</code> : check process name</li>
 </ul>
 <h4 id="example-frida">Example Frida</h4>
-<p><strong>Login bypass</strong>\</p>
+<p><strong>Login bypass</strong></p>
 <ul>
 <li>APP : Sieve (download apk -&gt; adb install sieve.apk)</li>
 <li>A function named “checkKeyResult”. If the boolean value is true, the application redirects the flow to loginSuccessful() function if false then to loginFailed(). 
@@ -136,7 +137,7 @@ script<span style="color:#f92672">.</span>on(<span style="color:#e6db74">&#39;me
 script<span style="color:#f92672">.</span>load()
 sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
 </code></pre></div><ul>
-<li>Run: <code>python login_bypass.py</code>
+<li>Run: <code>python login_bypass.py</code><br>
 <strong>Check root bypass</strong></li>
 <li>APP : bankinsecurev2 (download apk -&gt; adb install bankinsecurev2.apk)</li>
 <li>The application uses two functions to check whether the device is rooted or not as shown below in the decompiled APK of the InsecureBank app: doesSUexist, doesSuperuserApkExist
