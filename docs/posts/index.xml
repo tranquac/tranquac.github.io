@@ -115,64 +115,69 @@ or<br>
 <li>Frida has support for binding with multiple languages like Python,C,.NET and Swift. However, we are using python to demonstrate the bypass</li>
 <li>Check process name : <code>frida-ps -aU | grep -i &quot;sieve&quot;</code></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> frida<span style="color:#f92672">,</span> sys
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_message</span>(message, data):
-    <span style="color:#66d9ef">if</span> message[<span style="color:#e6db74">&#39;type&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;send&#39;</span>:
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;[*] {0}&#34;</span><span style="color:#f92672">.</span>format(message[<span style="color:#e6db74">&#39;payload&#39;</span>]))
-    <span style="color:#66d9ef">else</span>:
-        <span style="color:#66d9ef">print</span>(message)
-jscode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">Java.perform(function () {
-</span><span style="color:#e6db74">    var MainActivity = Java.use(&#39;com.mwr.example.sieve.MainLoginActivity&#39;); //Obtain referrence of the Activity currently running
-</span><span style="color:#e6db74">    MainActivity.checkKeyResult.implementation = function (b) { //Obtain reference of the function whcih needs to be called
-</span><span style="color:#e6db74">        send(&#39;checkKeyResult&#39;);
-</span><span style="color:#e6db74">        this.checkKeyResult(true); //Calling the function and passing the boolean parameter as true
-</span><span style="color:#e6db74">        console.log(&#39;Done:&#39;);
-</span><span style="color:#e6db74">    };
-</span><span style="color:#e6db74">});
-</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-process <span style="color:#f92672">=</span> frida<span style="color:#f92672">.</span>get_usb_device()<span style="color:#f92672">.</span>attach(<span style="color:#e6db74">&#39;com.mwr.example.sieve&#39;</span>)
-script <span style="color:#f92672">=</span> process<span style="color:#f92672">.</span>create_script(jscode)
-script<span style="color:#f92672">.</span>on(<span style="color:#e6db74">&#39;message&#39;</span>, on_message)
-script<span style="color:#f92672">.</span>load()
-sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">perform</span>(<span style="color:#66d9ef">function</span> () {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">MainActivity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#39;com.mwr.example.sieve.MainLoginActivity&#39;</span>); <span style="color:#75715e">//Obtain referrence of the Activity currently running
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">MainActivity</span>.<span style="color:#a6e22e">checkKeyResult</span>.<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">b</span>) { <span style="color:#75715e">//Obtain reference of the function whcih needs to be called
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;checkKeyResult&#39;</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">checkKeyResult</span>(<span style="color:#66d9ef">true</span>); <span style="color:#75715e">//Calling the function and passing the boolean parameter as true
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Done:&#39;</span>);
+    };
+});
 </code></pre></div><ul>
-<li>Run: <code>python login_bypass.py</code><br>
+<li>Run: <code>frida -U --no-pause -l bypass.js -f appname</code><br>
 <strong>Check root bypass</strong></li>
 <li>APP : bankinsecurev2 (download apk -&gt; adb install bankinsecurev2.apk)</li>
 <li>The application uses two functions to check whether the device is rooted or not as shown below in the decompiled APK of the InsecureBank app: doesSUexist, doesSuperuserApkExist
 <img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/5.png" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/5.png"></li>
 <li>Script bypass:</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> frida<span style="color:#f92672">,</span> sys
-<span style="color:#75715e"># tranquac</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_message</span>(message, data):
-    <span style="color:#66d9ef">if</span> message[<span style="color:#e6db74">&#39;type&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;send&#39;</span>:
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;[*] {0}&#34;</span><span style="color:#f92672">.</span>format(message[<span style="color:#e6db74">&#39;payload&#39;</span>]))
-    <span style="color:#66d9ef">else</span>:
-        <span style="color:#66d9ef">print</span>(message)
-
-jscode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">Java.perform(function () {
-</span><span style="color:#e6db74">    var MainActivity = Java.use(&#39;com.android.insecurebankv2.PostLogin&#39;);
-</span><span style="color:#e6db74">    MainActivity.doesSUexist.implementation = function () {
-</span><span style="color:#e6db74">        console.log(&#39;Done: doesSUexist&#39;);
-</span><span style="color:#e6db74">		return false;
-</span><span style="color:#e6db74">    };
-</span><span style="color:#e6db74">	
-</span><span style="color:#e6db74">	MainActivity.doesSuperuserApkExist.implementation = function (b) {
-</span><span style="color:#e6db74">        console.log(&#39;Done: doesSuperuserApkExist&#39;);
-</span><span style="color:#e6db74">		return false;
-</span><span style="color:#e6db74">    };
-</span><span style="color:#e6db74">});
-</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-process <span style="color:#f92672">=</span> frida<span style="color:#f92672">.</span>get_usb_device()<span style="color:#f92672">.</span>attach(<span style="color:#e6db74">&#39;com.android.insecurebankv2&#39;</span>)
-script <span style="color:#f92672">=</span> process<span style="color:#f92672">.</span>create_script(jscode)
-script<span style="color:#f92672">.</span>on(<span style="color:#e6db74">&#39;message&#39;</span>, on_message)
-script<span style="color:#f92672">.</span>load()
-sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">perform</span>(<span style="color:#66d9ef">function</span> () {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">MainActivity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#39;com.android.insecurebankv2.PostLogin&#39;</span>);
+    <span style="color:#a6e22e">MainActivity</span>.<span style="color:#a6e22e">doesSUexist</span>.<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Done: doesSUexist&#39;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    };
+	
+	<span style="color:#a6e22e">MainActivity</span>.<span style="color:#a6e22e">doesSuperuserApkExist</span>.<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">b</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Done: doesSuperuserApkExist&#39;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    };
+});
 </code></pre></div><ul>
-<li>Running: <code>python bypass_checkroot.py</code></li>
+<li>Running: <code>frida -U --no-pause -l bypass.js -f appname</code><br>
+<strong>Real world</strong></li>
+<li>Check emulator:<br>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/7.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/7.PNG"></li>
+<li>In class StringUtil
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/9.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/9.PNG"></li>
+<li>Check root:<br>
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/8.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/8.PNG"></li>
+<li>In class RootUtil
+<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/10.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/10.PNG"></li>
+<li>Bypass check emulator and root (overload 2 method a() in StringUtil and a() in RootUtil):\</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">perform</span>(<span style="color:#66d9ef">function</span>(){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nBypass emulator detection&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">StringUtil</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#39;package.name&#39;</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nHijacking a() function in StringUtil class&#39;</span>);
+    <span style="color:#a6e22e">StringUtil</span>.<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">overload</span>(<span style="color:#e6db74">&#39;java.lang.String&#39;</span>).<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nInside the a() function&#39;</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+    };
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nEmulator detection bypassed&#39;</span>);
+
+
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nBypass root detection&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">RootUtil</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#39;package.name&#39;</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nHijacking a() function in RootUtil class&#39;</span>);
+    <span style="color:#a6e22e">RootUtil</span>.<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">overload</span>(<span style="color:#e6db74">&#39;android.content.Context&#39;</span>).<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nInside the a() function&#39;</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    };
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nRoot detection bypassed&#39;</span>);
+});
+</code></pre></div><ul>
+<li>Running: <code>frida -U --no-pause -l bypass.js -f appname</code></li>
 </ul>
 <h2 id="refer">Refer</h2>
 <p><a href="https://frida.re/docs">https://frida.re/docs</a><br>
