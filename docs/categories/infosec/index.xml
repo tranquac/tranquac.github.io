@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 21 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JWT Attack</title>
+      <link>https://tranquac.github.io/posts/2021/07/jwt-attack/</link>
+      <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/07/jwt-attack/</guid>
+      <description>Jwt là gì  Header Payload Signature Ví dụ jwt   Phương thức tấn công  Thuật toán mã hóa Brute force secret key Sửa đổi thông số KID Sửa đổi thông số JKU / X5U Các phương pháp khác    Jwt la gi  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token.</description>
+    </item>
+    
     <item>
       <title>Androi pentest part 1</title>
       <link>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</link>
