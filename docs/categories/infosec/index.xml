@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tunneling, Pivoting to Attack Internal Network</title>
+      <link>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</link>
+      <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</guid>
+      <description>Giới thiệu Các công cụ phổ biến tạo tunnel  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel   Create SOCKS Proxy to Attack Internal Network Đọc thêm  Intro   Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều.</description>
+    </item>
+    
     <item>
       <title>JWT Attack</title>
       <link>https://tranquac.github.io/posts/2021/07/jwt-attack/</link>
