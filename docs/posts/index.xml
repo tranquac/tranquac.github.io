@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Quac Tran</title>
+        <title>Posts on Tran Quac</title>
         <link>https://tranquac.github.io/posts/</link>
-        <description>Recent content in Posts on Quac Tran</description>
+        <description>Recent content in Posts on Tran Quac</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
@@ -15,10 +15,10 @@
             <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
             
             <guid>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</guid>
-            <description>Giới thiệu Các công cụ phổ biến tạo tunnel  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel   Create SOCKS Proxy to Attack Internal Network Đọc thêm  Intro   Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều.</description>
+            <description>Giới thiệu Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Metasploit Framework   Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều.</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#Intro">Giới thiệu</a></li>
-<li><a href="#cac-cong-cu-pho-bien-tao-tunnel">Các công cụ phổ biến tạo tunnel</a>
+<li><a href="#tools-for-tunneling">Tools for tunneling</a>
 <ul>
 <li><a href="#ssh-tunnel">SSH Tunnel</a>
 <ul>
@@ -31,10 +31,11 @@
 <li><a href="#netword-layer-tunnel">Netword Layer Tunnel</a></li>
 <li><a href="#transport-layer-tunnel">Transport Layer Tunnel</a></li>
 <li><a href="#application-layer-tunnel">Application Layer Tunnel</a></li>
+<li><a href="#metasploit-framework">Metasploit Framework</a></li>
 </ul>
 </li>
 <li><a href="#create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</a></li>
-<li><a href="#refer">Đọc thêm</a></li>
+<li><a href="#refer">Refer</a></li>
 </ul>
 <h2 id="intro">Intro</h2>
 <ul>
@@ -59,75 +60,133 @@
 </ul>
 </li>
 </ul>
-<h2 id="cac-cong-cu-pho-bien-tao-tunnel">Cac cong cu pho bien tao tunnel</h2>
+<h2 id="tools-for-tunneling">Tools for Tunneling</h2>
 <h3 id="ssh-tunnel">SSH Tunnel</h3>
 <ul>
 <li>Vì đây là một phần quan trọng và sử dụng cực kì hữu ích trong thực tế nên tôi sẽ nói kĩ về nó. Nó nằm trong Application layer tunnel.</li>
 </ul>
 <h4 id="local-port-forwarding">Local Port Forwarding</h4>
-<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT</code>
--&gt; Tất cả traffic đến [LOCAL_IP:]LOCAL_PORT sẽ được forward đến DESTINATION:DESTINATION_PORT qua ssh tunnel<br>
-<code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT -L [LOCAL_IP2:]LOCAL_PORT2:DESTINATION2:DESTINATION_PORT2</code><br>
--&gt; Multi local port forwarding<br>
-<code>ssh user@10.66.66.4 -CNfg -L 13389:127.0.0.1:3389</code><br>
--&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 127.0.0.1:3389 trên server<br>
-<code>ssh user@10.66.66.4 -CNfg -L 13389:10.9.9.123:3389</code><br>
--&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 10.9.9.123:3389 nếu từ server có thể kết nối đến 10.9.9.123:3389<br>
-<code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389</code><br>
--&gt; Có thể forward port ssh từ local lên server public (remote port forwarding) để tất cả mọi người từ bên ngoài đều có thể kết nối được đến 10.9.9.123:3389 (mạng local)<br>
-<code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389 -L 13390:10.9.9.123:3390 -L 13391:10.9.9.123:3391</code><br>
--&gt; Ví dụ multi local port forwarding<br>
-<strong>Local port forwarding thường được sử dụng để kéo một port từ server hoặc trong vùng mạng với server -&gt; local</strong></p>
-<p><strong>Ví dụ thực tế</strong></p>
 <ul>
-<li>Kịch bản:<br>
+<li>
+<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT</code><br>
+-&gt; Tất cả traffic đến [LOCAL_IP:]LOCAL_PORT sẽ được forward đến DESTINATION:DESTINATION_PORT qua ssh tunnel</p>
+</li>
+<li>
+<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT -L [LOCAL_IP2:]LOCAL_PORT2:DESTINATION2:DESTINATION_PORT2</code><br>
+-&gt; Multi local port forwarding</p>
+</li>
+<li>
+<p><code>ssh user@10.66.66.4 -CNfg -L 13389:127.0.0.1:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 127.0.0.1:3389 trên server</p>
+</li>
+<li>
+<p><code>ssh user@10.66.66.4 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 10.9.9.123:3389 nếu từ server có thể kết nối đến 10.9.9.123:3389</p>
+</li>
+<li>
+<p><code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Có thể forward port ssh từ local lên server public (remote port forwarding) để tất cả mọi người từ bên ngoài đều có thể kết nối được đến 10.9.9.123:3389 (mạng local)</p>
+</li>
+<li>
+<p><code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389 -L 13390:10.9.9.123:3390 -L 13391:10.9.9.123:3391</code><br>
+-&gt; Ví dụ multi local port forwarding\</p>
+</li>
+<li>
+<p><strong>Local port forwarding thường được sử dụng để kéo một port từ server hoặc trong vùng mạng với server -&gt; local</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
     [KALI]    &lt;===&gt;    [Debian]    &lt;===&gt;    [Windows Server]<br>
 10.10.10.10        192.168.10.10                172.16.10.10<br>
 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
                                 &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
-&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</li>
-<li>Trong trường hợp này : Khi ta khai thác và chiếm quyền kiểm soát được máy chủ 192.168.10.10 của mục tiêu. 172.16.10.10 là một máy chủ nội bộ, không có kết nối internet và không thể kết nối đến mạng bên ngoài. Giả sử nó đang mở port 445. Vậy làm sao có thể khai thác và enum thông tin của nó từ máy của chúng ta?</li>
-<li>From KALI : <code>ssh -N -L 0.0.0.0:4445:172.16.10.10:445 root@192.168.10.10</code></li>
-<li>Sau khi sử dụng lệnh này trên máy KALI chúng ta có thể truy cập 172.16.10.10:445 từ <code>localhost:445</code></li>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</p>
+</li>
+<li>
+<p>Trong trường hợp này : Khi ta khai thác và chiếm quyền kiểm soát được máy chủ 192.168.10.10 của mục tiêu. 172.16.10.10 là một máy chủ nội bộ, không có kết nối internet và không thể kết nối đến mạng bên ngoài. Giả sử nó đang mở port 445. Vậy làm sao có thể khai thác và enum thông tin của nó từ máy của chúng ta?</p>
+</li>
+<li>
+<p>From KALI : <code>ssh -N -L 0.0.0.0:4445:172.16.10.10:445 root@192.168.10.10</code></p>
+</li>
+<li>
+<p>Sau khi sử dụng lệnh này trên máy KALI chúng ta có thể truy cập 172.16.10.10:445 từ <code>localhost:445</code></p>
+</li>
 </ul>
 <h4 id="remote-port-forwarding">Remote Port Forwarding</h4>
-<p><code>ssh -R [REMOTE:]REMOTE_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER</code><br>
--&gt; Tất cả traffic đến [REMOTE:]REMOTE_PORT trên server sẽ forward đến DESTINATION:DESTINATION_PORT (client)<br>
-<code>ssh user@remote.host -CNfg -R 8080:127.0.0.1:3000</code><br>
--&gt; Tất cả traffic đến port 8080 trên server sẽ được forward đến 127.0.0.1:3000 trên máy của bạn<br>
-<code>ssh -tt -R 3389:localhost:3389 root@103.81.86.132 -p 9020 ssh -L 103.81.86.132:3389:127.0.0.1:3389 root@localhost -p 9020</code><br>
--&gt; Ví dụ bạn có một server public. Bạn có thể sử dụng lệnh này để kéo port 3389 từ local lên server để mọi người từ internet có thể kết nối đến (trong trường hợp này là remote desktop). Vì remote port fowarding mặc định chỉ foward đến interface 127.0.0.1 nên tả sẽ sử dụng thêm một lệnh local port fowarding nữa để chuyển traffic qua interface public.<br>
-<strong>Remote port forwarding thường được sử dụng để kéo 1 port từ local hoặc trong vùng mạng của local -&gt; server</strong>
-<strong>Ví dụ thực tế</strong></p>
 <ul>
-<li>Kịch bản:<br>
+<li>
+<p><code>ssh -R [REMOTE:]REMOTE_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER</code><br>
+-&gt; Tất cả traffic đến [REMOTE:]REMOTE_PORT trên server sẽ forward đến DESTINATION:DESTINATION_PORT (client)</p>
+</li>
+<li>
+<p><code>ssh user@remote.host -CNfg -R 8080:127.0.0.1:3000</code><br>
+-&gt; Tất cả traffic đến port 8080 trên server sẽ được forward đến 127.0.0.1:3000 trên máy của bạn</p>
+</li>
+<li>
+<p><code>ssh -tt -R 3389:localhost:3389 root@103.81.86.132 -p 9020 ssh -L 103.81.86.132:3389:127.0.0.1:3389 root@localhost -p 9020</code><br>
+-&gt; Ví dụ bạn có một server public. Bạn có thể sử dụng lệnh này để kéo port 3389 từ local lên server để mọi người từ internet có thể kết nối đến (trong trường hợp này là remote desktop). Vì remote port fowarding mặc định chỉ foward đến interface 127.0.0.1 nên tả sẽ sử dụng thêm một lệnh local port fowarding nữa để chuyển traffic qua interface public.</p>
+</li>
+<li>
+<p><strong>Remote port forwarding thường được sử dụng để kéo 1 port từ local hoặc trong vùng mạng của local -&gt; server</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
      [KALI]                        [Debian]            <br>
 103.81.86.132              172.16.10.10   <br>
                                  (Compromised)<br>
         &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/22<br>
         &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/3306<br>
-      ANY &lt;&mdash;&mdash;V&mdash;&mdash;&mdash;&mdash;&ndash;</li>
-<li>From Debian : <code>ssh -N -R 103.81.86.132:2221:127.0.0.1:3306 kali@10.10.10.10</code></li>
-<li>Bây giờ trên Kali, khi traffic đến tcp / 2221, nó sẽ chuyển đến tcp / 3306 của Debian</li>
+      ANY &lt;&mdash;&mdash;V&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+</li>
+<li>
+<p>From Debian : <code>ssh -N -R 103.81.86.132:2221:127.0.0.1:3306 kali@10.10.10.10</code></p>
+</li>
+<li>
+<p>Bây giờ trên Kali, khi traffic đến tcp / 2221, nó sẽ chuyển đến tcp / 3306 của Debian</p>
+</li>
 </ul>
 <h4 id="dynamic-port-forwarding">Dynamic Port Forwarding</h4>
-<p><code>ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER</code><br>
-<code>ssh -CNfg -D 127.0.0.1:7777 root@192.168.1.1</code><br>
--&gt; Lúc này 127.0.0.1:7777 sẽ đóng vai trò như một SOCKS proxy forward mọi traffic qua nó đến vùng mạng của server<br>
-<strong>Dymanic port forwarding được sử dụng để tạo SOCKS proxy để truy cập mọi IP, port trên mạng server qua SOCKs proxy</strong>
-<strong>Ví dụ thực tế</strong></p>
 <ul>
-<li>Kịch bản:<br>
+<li>
+<p><code>ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER</code></p>
+</li>
+<li>
+<p><code>ssh -CNfg -D 127.0.0.1:7777 root@192.168.1.1</code>
+-&gt; Lúc này 127.0.0.1:7777 sẽ đóng vai trò như một SOCKS proxy forward mọi traffic qua nó đến vùng mạng của server</p>
+</li>
+<li>
+<p><strong>Dymanic port forwarding được sử dụng để tạo SOCKS proxy để truy cập mọi IP, port trên mạng server qua SOCKs proxy</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
    [KALI]      &lt;===&gt;      [Debian]      &lt;===&gt;      [Windows Server]<br>
 10.10.10.10            192.168.10.10                  172.16.10.10<br>
 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
                                            &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
                                            &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/any<br>
-&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</li>
-<li>From Kali: <code>ssh -N -D 127.0.0.1:8080 user@192.168.10.10</code></li>
-<li>Lúc này 127.0.0.1:8080 đóng vai trò như một SOCKS proxy forward toàn bộ traffic đi qua nó tới vùng mạng mà 192.168.10.10 có thể kết nối đến.</li>
-<li>Nếu là http traffic có thể sử dụng FoxyProxy, traffic khác có thể sử dụng proxychains</li>
-<li>Cấu hình /etc/proxychains.conf:</li>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</p>
+</li>
+<li>
+<p>From Kali: <code>ssh -N -D 127.0.0.1:8080 user@192.168.10.10</code></p>
+</li>
+<li>
+<p>Lúc này 127.0.0.1:8080 đóng vai trò như một SOCKS proxy forward toàn bộ traffic đi qua nó tới vùng mạng mà 192.168.10.10 có thể kết nối đến.</p>
+</li>
+<li>
+<p>Nếu là http traffic có thể sử dụng FoxyProxy, traffic khác có thể sử dụng proxychains</p>
+</li>
+<li>
+<p>Cấu hình /etc/proxychains.conf:</p>
+</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
 socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
@@ -135,13 +194,16 @@ socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
 <li>Scan nmap qua proxychains: <code>proxychains --top-ports -sT -Pn 172.16.10.10</code></li>
 </ul>
 <h4 id="options">Options</h4>
-<p>-C Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11 and TCP connections)<br>
+<ul>
+<li>Options:<br>
+-C Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11 and TCP connections)<br>
 -N Do not execute a remote command. This is useful for just forwarding ports<br>
 -g Allows remote hosts to connect to local forwarded ports.<br>
 -L Local port forwarding<br>
 -R Local port forwarding<br>
 -D Local port forwarding (SOCKS proxy)<br>
--p port</p>
+-p port</li>
+</ul>
 <h4 id="sshuttle">Sshuttle</h4>
 <ul>
 <li>Một công cụ rất hay chúng ta cũng có thể sử dụng là sshuttle (<a href="https://github.com/sshuttle/sshuttle">https://github.com/sshuttle/sshuttle</a>)</li>
@@ -211,10 +273,37 @@ socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
 </ul>
 </li>
 </ul>
+<h3 id="metasploit-framework">Metasploit Framework</h3>
+<ul>
+<li>Khi có shell meterpreter bạn hoàn toàn có thể sử dụng để tạo tunnel dễ dàng. Không cần phải có thông tin đăng nhập giống SSH. Với SSH ta phải có một tài khoản đăng nhập hay private-key SSH của server thì mới có thể kết nối đến và tạo tunnel.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd -h
+Usage: portfwd <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>add | delete | list | flush<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>args<span style="color:#f92672">]</span>
+OPTIONS:
+     -L &gt;opt&gt;  The local host to listen on <span style="color:#f92672">(</span>optional<span style="color:#f92672">)</span>.
+     -h        Help banner.
+     -l &gt;opt&gt;  The local port to listen on.
+     -p &gt;opt&gt;  The remote port to connect on.
+     -r &gt;opt&gt;  The remote host to connect on.
+meterpreter &gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd add –l <span style="color:#ae81ff">3389</span> –p <span style="color:#ae81ff">3389</span> –r 172.16.194.191
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Local TCP relay created: 0.0.0.0:3389 &gt;-&gt; 172.16.194.191:3389
+meterpreter &gt; 
+</code></pre></div><p>-&gt; Tạo một tunnel forward toàn bộ traffic đến port 3339 trên localhost tới 172.16.194.191 qua pivot là máy đang có shell meterpreter hiện tại.Nó cũng tương tự SSH local port forwarding vậy đó.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd delete –l <span style="color:#ae81ff">3389</span> –p <span style="color:#ae81ff">3389</span> –r 172.16.194.191
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully stopped TCP relay on 0.0.0.0:3389
+meterpreter &gt; 
+</code></pre></div><p>-&gt; Hủy một tunnel</p>
+<ul>
+<li>Liệt kê tất cả tunnel : <code>meterpreter &gt; portfwd list</code></li>
+<li>Xóa tất cả tunnel : <code>portfwd flush</code></li>
+<li>Xem chi tiết hơn tại : <a href="https://www.offensive-security.com/metasploit-unleashed/portfwd/">https://www.offensive-security.com/metasploit-unleashed/portfwd/</a></li>
+</ul>
 <h2 id="create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</h2>
 <h3 id="ssh">Ssh</h3>
 <ul>
 <li><a href="#dynamic-port-forwarding">Dynamic Port Porwarding</a></li>
+<li>Cũng có thể tạo một SOCKS proxy là chính máy của bạn: <code>ssh user@localhost -CNfg -D 9000</code></li>
 <li><a href="#sshuttle">Sshuttle</a></li>
 </ul>
 <h3 id="powershell">Powershell</h3>
@@ -233,6 +322,14 @@ socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
 <li><strong>Client</strong>: execute <code>ssf.exe -D 9999 -p 31337 127.0.0.1</code><br>
 -&gt; At this point you will have the socks server listening on port 9999 of your client.</li>
 </ol>
+<h3 id="metasploit-framework-1">Metasploit Framework</h3>
+<ul>
+<li><a href="https://www.offensive-security.com/metasploit-unleashed/proxytunnels/">https://www.offensive-security.com/metasploit-unleashed/proxytunnels/</a></li>
+</ul>
+<h3 id="cobalt-strike">Cobalt Strike</h3>
+<ul>
+<li><a href="https://www.cobaltstrike.com/help-socks-proxy-pivoting">https://www.cobaltstrike.com/help-socks-proxy-pivoting</a></li>
+</ul>
 <h3 id="http">HTTP</h3>
 <ul>
 <li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
