@@ -15,7 +15,7 @@ series = [""]
 [ author ]
   name = "Quac Tran"
 +++
-* [Giới thiệu](#Intro)
+* [Intro](#Intro)
 * [Tools for tunneling](#tools-for-tunneling)
   * [SSH Tunnel](#ssh-tunnel)
     * [Local Port Porwarding](#local-port-forwarding)
@@ -29,13 +29,13 @@ series = [""]
 * [Create SOCKS Proxy to Attack Internal Network](#create-socks-proxy-to-attack-internal-network)
 * [Refer](#refer)
 ## Intro
-- Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa rạng, và thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.
+- Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.
 
-- Tấn công,xâm nhập mạng nội bộ là: sử dụng các công nghệ tunnel khác nhau để vượt qua sự phong tỏa, phát hiện của tường lửa với các giao thức được tường lửa cho phép để đạt được quyền truy cập vào mạng mục tiêu bị chặn.
+- Tấn công,xâm nhập mạng nội bộ là sử dụng các công nghệ *tunnel* khác nhau để vượt qua sự phong tỏa, phát hiện của tường lửa với các giao thức được tường lửa cho phép để đạt được quyền truy cập vào mạng mục tiêu bị chặn.
 
-- Công nghệ tunnel (đường hầm) là một cách để truyền dữ liệu giữa các mạng bằng cách sử dụng cơ sở hạ tầng của Internet. Dữ liệu được truyền bằng tunnel có thể là các frame dữ liệu hoặc các package của các protocol khác nhau. Tunnel protocol đóng gói lại các frame dữ liệu hoặc package dữ liệu của các protocol khác này trong một header mới để truyền. Header mới cung cấp thông tin định tuyến để dữ liệu được đóng gói có thể được truyền qua Internet. Các package dữ liệu đóng gói được định tuyến giữa hai endpoint của tunnel thông qua mạng internet. Đường dẫn logic mà package dữ liệu đã đóng gói được truyền qua Internet được gọi là tunnel. Khi kết thúc, dữ liệu sẽ được giải nén và chuyển tiếp đến đích cuối cùng. Lưu ý rằng công nghệ tunnel đề cập đến toàn bộ quá trình bao gồm đóng gói, truyền và giải nén dữ liệu.
+- Công nghệ *tunnel* (đường hầm) là một cách để truyền dữ liệu giữa các mạng bằng cách sử dụng cơ sở hạ tầng của Internet. Dữ liệu được truyền bằng *tunnel* có thể là các *frame* dữ liệu hoặc các *package* của các protocol khác nhau. *Tunnel protocol* đóng gói lại các *frame* dữ liệu hoặc *package* dữ liệu của các *protocol* khác này trong một *header* mới để truyền. *Header* mới cung cấp thông tin định tuyến để dữ liệu được đóng gói có thể được truyền qua Internet. Các package dữ liệu đóng gói được định tuyến giữa hai *endpoint* của *tunnel* thông qua mạng internet. Đường dẫn logic mà package dữ liệu đã đóng gói được truyền qua Internet được gọi là *tunnel*. Khi kết thúc, dữ liệu sẽ được giải nén và chuyển tiếp đến đích cuối cùng. Lưu ý rằng công nghệ tunnel đề cập đến toàn bộ quá trình bao gồm đóng gói, truyền và giải nén dữ liệu.
 
-- Các công nghệ tunnel mà chúng tôi thường sử dụng để xâm nhập mạng nội bộ bao gồm dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel và các giao thức khác mà tường lửa cho phép.
+- Các công nghệ *tunnel* mà chúng tôi thường sử dụng để xâm nhập mạng nội bộ bao gồm dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel và các giao thức khác mà tường lửa cho phép.
 
 - Các công nghệ tunnel này có thể được phân lớp theo lớp giao thức:
   - Netword layer tunnel: ICMP tunnel, v.v.

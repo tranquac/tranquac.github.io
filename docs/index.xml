@@ -14,7 +14,7 @@
       <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</guid>
-      <description>Giới thiệu Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Metasploit Framework   Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, và các nguyên tắc, tình huống ít được đề cập,giải thích nhiều.</description>
+      <description>Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Metasploit Framework   Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.</description>
     </item>
     
     <item>
