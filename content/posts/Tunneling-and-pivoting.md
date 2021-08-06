@@ -25,7 +25,10 @@ series = [""]
   * [Netword Layer Tunnel](#netword-layer-tunnel)
   * [Transport Layer Tunnel](#transport-layer-tunnel)
   * [Application Layer Tunnel](#application-layer-tunnel)
-  * [Metasploit Framework](#metasploit-framework)
+  * [Other tools pivoting without SSH](#other-tools-pivoting-without-ssh)
+    * [Metasploit Framework](#metasploit-framework)
+    * [Chisel](#chisel)
+    * [Ssf](#ssf)
 * [Create SOCKS Proxy to Attack Internal Network](#create-socks-proxy-to-attack-internal-network)
 * [Refer](#refer)
 ## Intro
@@ -172,7 +175,8 @@ https://tranquac.com/posts/2021/06/linux-backdoors/
   - Venom
   - ssocks
   - s5.go
-### Metasploit Framework
+### Other tools pivoting without SSH
+#### Metasploit Framework
 - Khi có shell meterpreter bạn hoàn toàn có thể sử dụng để tạo tunnel dễ dàng. Không cần phải có thông tin đăng nhập giống SSH. Với SSH ta phải có một tài khoản đăng nhập hay private-key SSH của server thì mới có thể kết nối đến và tạo tunnel.
 ```bash
 meterpreter > portfwd -h
@@ -200,6 +204,22 @@ meterpreter >
 - Liệt kê tất cả tunnel : `meterpreter > portfwd list`
 - Xóa tất cả tunnel : `portfwd flush`
 - Xem chi tiết hơn tại : https://www.offensive-security.com/metasploit-unleashed/portfwd/
+#### Chisel
+- A fast TCP/UDP tunnel over HTTP (https://github.com/jpillora/chisel)
+- Sử dụng thông thường: Ví dụ Kali hoặc máy tấn công khác có IP là 10.10.15.13, máy client có IP là 10.10.10.10.
+- Trên máy tấn công bắt đầu tạo chisel server lắng nghe trên port 8000: 
+```bash
+./chisel server -p 8000 --reverse
+```
+- Trên máy client:
+| Command                                                  | Description                                                     |
+| --------------------------------------------             | ---------------------------------------------------------       |
+| chisel client 10.10.15.13:8000 R:80:127.0.0.1:80 R:389:localhost:389          | Listen on Kali 80,389, forward to localhost port 80,389 on client       |
+| chisel client 10.10.15.13:8000 R:4444:10.10.10.214:80    | Listen on Kali 4444, forward to 10.10.10.214 port 80            |
+| chisel client 10.10.15.13:8000 R:socks                   | Create SOCKS5 listener on 1080 on Kali, proxy through client    |
+- Lưu ý là Chisel phải chạy cả trên server và client
+#### Ssf
+- https://github.com/securesocketfunneling/ssf
 ## Create SOCKS Proxy to Attack Internal Network
 ### Ssh
 - [Dynamic Port Porwarding](#dynamic-port-forwarding)
@@ -232,6 +252,7 @@ meterpreter >
 - https://blog.csdn.net/qq_34801745/article/details/109022922
 - https://www.ms509.com/2020/06/17/Intranet-penetration/
 - https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/
+- https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Network%20Pivoting%20Techniques.md
 
 
 
