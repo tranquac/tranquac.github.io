@@ -6,7 +6,7 @@ aliases = ["about-us","about-hugo","contact"]
   name = "Quac Tran"
 +++
 ## Whoami
-Hi! I'm Quac Tran, a Security Researcher, Pentester, Red Teamer and Bug Bounty Hunter, Trader in free time in VietNam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
+Hi! I'm Quac Tran, a noob infosec. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
 ### Certifications
 * OSCP (21/4/2021 - 21 Year Old)
 * OSWE (Training)

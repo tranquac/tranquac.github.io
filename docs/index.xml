@@ -9,6 +9,15 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Notes on Code-Review</title>
+      <link>https://tranquac.github.io/posts/2021/07/my-notes-on-code-review/</link>
+      <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/07/my-notes-on-code-review/</guid>
+      <description>The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&amp;gt; Look for specific dangerous patterns like specific -&amp;gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&amp;gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.</description>
+    </item>
+    
+    <item>
       <title>Tunneling, Pivoting to Attack Internal Network</title>
       <link>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</link>
       <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
@@ -69,7 +78,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
       <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/about/</guid>
-      <description>Whoami Hi! I&amp;rsquo;m Quac Tran, a Security Researcher, Pentester, Red Teamer and Bug Bounty Hunter, Trader in free time in VietNam. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
+      <description>Whoami Hi! I&amp;rsquo;m Quac Tran, a noob infosec. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
 Certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  Programing  C/C++ Python PHP Java Javascript Powershell / Bash  Interests  Automation Security Pentesting Hacking Music &amp;hellip;  Contact me  Twitter Email  </description>
     </item>
     
@@ -90,15 +99,6 @@ Certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  Programing  C/C+
       
       <guid>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</guid>
       <description>28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.</description>
-    </item>
-    
-    <item>
-      <title>Linux Privilege Escalation</title>
-      <link>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</link>
-      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</guid>
-      <description>Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.</description>
     </item>
     
   </channel>
