@@ -21,24 +21,8 @@
     <loc>https://tranquac.github.io/categories/infosec/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/posts/2021/07/my-notes-on-code-review/</loc>
-    <lastmod>2021-07-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/posts/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/series/</loc>
-    <lastmod>2021-07-30T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://tranquac.github.io/fr/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://tranquac.github.io/series/"
-                />
   </url><url>
     <loc>https://tranquac.github.io/tags/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
@@ -75,13 +59,26 @@
     <loc>https://tranquac.github.io/posts/2021/07/tunneling-pivoting-to-attack-internal-network/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/series/web/</loc>
-    <lastmod>2021-07-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/posts/2021/07/jwt-attack/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://tranquac.github.io/series/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://tranquac.github.io/fr/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tranquac.github.io/series/"
+                />
+  </url><url>
     <loc>https://tranquac.github.io/tags/web/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/web/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/web/</loc>

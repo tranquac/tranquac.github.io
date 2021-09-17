@@ -7,16 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/web/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>My Notes on Code-Review</title>
-      <link>https://tranquac.github.io/posts/2021/07/my-notes-on-code-review/</link>
-      <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2021/07/my-notes-on-code-review/</guid>
-      <description>The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&amp;gt; Look for specific dangerous patterns like specific -&amp;gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&amp;gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.</description>
-    </item>
-    
+    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JWT Attack</title>
       <link>https://tranquac.github.io/posts/2021/07/jwt-attack/</link>
