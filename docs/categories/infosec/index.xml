@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 30 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
+      <link>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</link>
+      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</guid>
+      <description>Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &amp;ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&amp;rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&amp;hellip; theo mặc định.</description>
+    </item>
+    
     <item>
       <title>My Notes on Code-Review</title>
       <link>https://tranquac.github.io/posts/2021/08/my-notes-on-code-review/</link>
@@ -36,11 +46,11 @@
     </item>
     
     <item>
-      <title>Androi pentest part 1</title>
-      <link>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</link>
+      <title>Androi Pentest Note</title>
+      <link>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</link>
       <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</guid>
+      <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</guid>
       <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
     </item>
     
@@ -89,15 +99,6 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
       
       <guid>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</guid>
       <description>28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.</description>
-    </item>
-    
-    <item>
-      <title>Linux Privilege Escalation</title>
-      <link>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</link>
-      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/</guid>
-      <description>Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.</description>
     </item>
     
   </channel>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>red-team on Tran Quac</title>
+    <link>https://tranquac.github.io/series/red-team/</link>
+    <description>Recent content in red-team on Tran Quac</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/series/red-team/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
+      <link>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</link>
+      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</guid>
+      <description>Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &amp;ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&amp;rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&amp;hellip; theo mặc định.</description>
+    </item>
+    
+  </channel>
+</rss>

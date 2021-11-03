@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tranquac.github.io/categories/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -15,20 +15,29 @@
                 href="https://tranquac.github.io/categories/"
                 />
   </url><url>
+    <loc>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</loc>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://tranquac.github.io/tags/infosec/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/infosec/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/posts/2021/08/my-notes-on-code-review/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/red-team/</loc>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/red-team/</loc>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/red-team/</loc>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -41,7 +50,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -54,7 +63,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/</loc>
-    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -65,6 +74,9 @@
                 hreflang="en"
                 href="https://tranquac.github.io/"
                 />
+  </url><url>
+    <loc>https://tranquac.github.io/posts/2021/08/my-notes-on-code-review/</loc>
+    <lastmod>2021-08-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/web/</loc>
     <lastmod>2021-08-30T00:00:00+00:00</lastmod>
@@ -96,7 +108,7 @@
     <loc>https://tranquac.github.io/categories/androi/</loc>
     <lastmod>2021-07-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/posts/2021/07/androi-pentest-part-1/</loc>
+    <loc>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</loc>
     <lastmod>2021-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/linux/</loc>
