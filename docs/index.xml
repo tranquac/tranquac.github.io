@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tran Quac</title>
+    <title>TranQuac | Quabbles</title>
     <link>https://tranquac.github.io/</link>
-    <description>Recent content on Tran Quac</description>
+    <description>Recent content on TranQuac | Quabbles</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
@@ -89,7 +89,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
       
       <guid>https://tranquac.github.io/about/</guid>
       <description>Whoami Hi! I&amp;rsquo;m Quac Tran, a noob infosec. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
-Certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  Programing  C/C++ Python PHP Java Javascript Powershell / Bash  Interests  Automation Security Pentesting Hacking Music &amp;hellip;  Contact me  Twitter Email  </description>
+Certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  Programing  Golang C/C++ Python PHP Java Javascript Powershell / Bash  Interests  Golang Automation Security Pentesting Hacking Music &amp;hellip;  Contact me  Twitter Email  </description>
     </item>
     
     <item>
