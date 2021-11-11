@@ -11,6 +11,7 @@ Hi! I'm Quac Tran, a noob infosec. I like to play around with anything that is r
 * OSCP (21/4/2021 - 21 Year Old)
 * OSWE (Training)
 ### Programing
+* Golang
 * C/C++
 * Python
 * PHP
@@ -18,6 +19,7 @@ Hi! I'm Quac Tran, a noob infosec. I like to play around with anything that is r
 * Javascript
 * Powershell / Bash
 ### Interests
+* Golang
 * Automation
 * Security
 * Pentesting

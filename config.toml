@@ -1,5 +1,5 @@
 baseURL = "https://tranquac.github.io"
-title   = "Tran Quac"
+title   = "TranQuac | Quabbles"
 languageCode = "en-us"
 theme = "hello-friend-ng"
 
@@ -61,7 +61,7 @@ disableHugoGeneratorInject = false
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. Hacking is a boundless passion for me!"
+  homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. I like to write everything with Golang."
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -145,14 +145,14 @@ disableHugoGeneratorInject = false
   # Uncomment this if you want a portrait on your start page
   #
    [params.portrait]
-     path     = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/1.jpg"
+     path     = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/gopher.jpg"
      alt      = "Portrait"
      maxWidth = "150px"
 
   # Social icons
   [[params.social]]
     name = "twitter"
-    url  = "https://twitter.com/tranquac_0312"
+    url  = "https://twitter.com/quabbles33"
 
   [[params.social]]
     name = "email"
