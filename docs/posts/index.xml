@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on TranQuac | Quabbles</title>
+        <title>Posts on quac tran</title>
         <link>https://tranquac.github.io/posts/</link>
-        <description>Recent content in Posts on TranQuac | Quabbles</description>
+        <description>Recent content in Posts on quac tran</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
@@ -757,27 +757,27 @@ meterpreter &gt;
             <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
             
             <guid>https://tranquac.github.io/posts/2021/07/jwt-attack/</guid>
-            <description>Jwt là gì  Header Payload Signature Ví dụ jwt   Phương thức tấn công  Thuật toán mã hóa Brute force secret key Sửa đổi thông số KID Sửa đổi thông số JKU / X5U Các phương pháp khác    Jwt la gi  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token.</description>
+            <description>What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.</description>
             <content type="html"><![CDATA[<ul>
-<li><a href="#jwt-la-gi">Jwt là gì</a>
+<li><a href="#what-is-jwt">What is JWT?</a>
 <ul>
 <li><a href="#header">Header</a></li>
 <li><a href="#payload">Payload</a></li>
 <li><a href="#signature">Signature</a></li>
-<li><a href="#vi-du-jwt">Ví dụ jwt</a></li>
+<li><a href="#sample-jwt">Sample JWT</a></li>
 </ul>
 </li>
-<li><a href="#phuong-thuc-tan-cong">Phương thức tấn công</a>
+<li><a href="#attack-methods">Attack methods</a>
 <ul>
-<li><a href="#thuat-toan-ma-hoa">Thuật toán mã hóa</a></li>
+<li><a href="#encryption-algorithm">Encryption algorithm</a></li>
 <li><a href="#brute-force-secret-key">Brute force secret key</a></li>
-<li><a href="#sua-doi-thong-so-kid">Sửa đổi thông số KID</a></li>
-<li><a href="#sua-doi-thong-so-jku-hoac-x5u">Sửa đổi thông số JKU / X5U</a></li>
-<li><a href="#cac-phuong-phap-khac">Các phương pháp khác</a></li>
+<li><a href="#change-kid">Change KID</a></li>
+<li><a href="#change-jku-or-x5u">Change JKU / X5U</a></li>
+<li><a href="#other-methods">Other methods</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="jwt-la-gi">Jwt la gi</h2>
+<h2 id="what-is-jwt">What is JWT</h2>
 <ul>
 <li>Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.</li>
 <li>JWT bao gồm ba phần: <code>header</code>.<code>payload</code>.<code>signature</code>.</li>
@@ -809,7 +809,7 @@ meterpreter &gt;
 <li>Tóm tắt thành một công thức là:<br>
 <code>signature = HMAC-SHA256(base64urlEncode(header) + '.' + base64urlEncode(payload), secret_key)</code></li>
 </ul>
-<h3 id="vi-du-jwt">Vi du jwt</h3>
+<h3 id="sample-jwt">Sample JWT</h3>
 <ul>
 <li>Ví dụ sử dụng python hay jwt.io đều cho ra jwt tương ứng</li>
 </ul>
@@ -823,8 +823,8 @@ encoded_jwt <span style="color:#f92672">=</span> jwt<span style="color:#f92672">
 <li>jwt được tạo tương ứng:
 <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiJ9.jBrzPBuyrCIYNdAqeQZn9-696uNQoghaCQMnC33GQ9Y</code></li>
 </ul>
-<h2 id="phuong-thuc-tan-cong">Phuong thuc tan cong</h2>
-<h3 id="thuat-toan-ma-hoa">Thuat toan ma hoa</h3>
+<h2 id="attack-methods">Attack methods</h2>
+<h3 id="encryption-algorithm">Encryption algorithm</h3>
 <p><strong>Thuật toán mã hóa rỗng</strong></p>
 <ul>
 <li>JWT hỗ trợ việc sử dụng thuật toán mã hóa null, bạn có thể chỉ định <code>alg</code> trong tiêu đề thành <code>None</code></li>
@@ -861,7 +861,7 @@ encoded_jwt <span style="color:#f92672">=</span> jwt<span style="color:#f92672">
 <li>Công cụ liên quan: c-jwt-cracker (<a href="https://github.com/brendan-rius/c-jwt-cracker">https://github.com/brendan-rius/c-jwt-cracker</a>)
 <code>./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiJ9.jBrzPBuyrCIYNdAqeQZn9-696uNQoghaCQMnC33GQ9Y</code></li>
 </ul>
-<h3 id="sua-doi-thong-so-kid">Sua doi thong so KID</h3>
+<h3 id="change-kid">Change KID</h3>
 <ul>
 <li><code>kid</code> Nó là một tham số tùy chọn trong tiêu đề jwt, tên đầy đủ là key ID, nó được sử dụng để chỉ định khóa của thuật toán mã hóa</li>
 </ul>
@@ -897,12 +897,12 @@ encoded_jwt <span style="color:#f92672">=</span> jwt<span style="color:#f92672">
 <code>&quot;/ path / to / key_file | whoami&quot;</code></li>
 <li>Đối với các ngôn ngữ khác, chẳng hạn như php, nếu code sử dụng exec hoặc system đọc tệp khóa, nó cũng có thể gây ra hiện tượng chèn lệnh. Tất nhiên, khả năng này là tương đối nhỏ.</li>
 </ul>
-<h3 id="sua-doi-thong-so-jku-hoac-x5u">Sua doi thong so JKU hoac X5U</h3>
+<h3 id="change-jku-or-x5u">Change JKU or X5U</h3>
 <ul>
 <li><code>JKU</code> : Tên đầy đủ của là &ldquo;JSON Web Key Set URL&rdquo;, được sử dụng để chỉ định một tập hợp các URL được sử dụng để xác minh jwt. Tương tự <code>kid</code>,từ <code>JKU</code> người dùng cũng có thể chỉ định dữ liệu đầu vào. Nếu dữ liệu đó không được lọc chặt chẽ, bạn có thể chỉ định một tập hợp các tệp khóa tùy chỉnh và chỉ định rằng ứng dụng web sử dụng tập hợp khóa để xác minh jwt.</li>
 <li><code>X5U</code> : Cho phép kẻ tấn công chỉ định chứng chỉ khóa công khai hoặc chuỗi chứng chỉ được sử dụng để xác minh jwt, tương tự như <code>JKU</code> phương pháp khai thác tấn công.</li>
 </ul>
-<h3 id="cac-phuong-phap-khac">Cac phuong phap khac</h3>
+<h3 id="other-methods">Other methods</h3>
 <ul>
 <li>JWT đảm bảo tính toàn vẹn hơn là tính bảo mật trong quá trình truyền dữ liệu.</li>
 <li>Vì payload được encode base64url nên nó tương đương với truyền bản rõ. Nếu payload mang thông tin nhạy cảm (chẳng hạn như đường dẫn tệp nơi lưu trữ cặp khóa) và phần payload được base64url decode , thì thông tin được mang trong payload có thể được đọc .</li>
@@ -911,11 +911,11 @@ encoded_jwt <span style="color:#f92672">=</span> jwt<span style="color:#f92672">
         </item>
         
         <item>
-            <title>Androi Pentest Note</title>
-            <link>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</link>
+            <title>Android Pentest Note</title>
+            <link>https://tranquac.github.io/posts/2021/07/android-pentest-note/</link>
             <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
             
-            <guid>https://tranquac.github.io/posts/2021/07/androi-pentest-note/</guid>
+            <guid>https://tranquac.github.io/posts/2021/07/android-pentest-note/</guid>
             <description>Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.</description>
             <content type="html"><![CDATA[<ul>
 <li><a href="#concept">Concept</a></li>
@@ -1055,7 +1055,7 @@ or<br>
 <img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/8.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/8.PNG"></li>
 <li>In class RootUtil
 <img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/10.PNG" alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/androi/10.PNG"></li>
-<li>Bypass check emulator and root (overload 2 method a() in StringUtil and a() in RootUtil):\</li>
+<li>Bypass check emulator and root (overload 2 method a() in StringUtil and a() in RootUtil):</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">perform</span>(<span style="color:#66d9ef">function</span>(){
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;\nBypass emulator detection&#39;</span>);
@@ -1083,13 +1083,13 @@ or<br>
 <h2 id="refer">Refer</h2>
 <p><a href="https://frida.re/docs">https://frida.re/docs</a><br>
 <a href="https://11x256.github.io/Frida-hooking-android-part-1/">https://11x256.github.io/Frida-hooking-android-part-1/</a><br>
-<a href="https://11x256.github.io/Frida-hooking-android-part-2/">https://11x256.github.io/Frida-hooking-android-part-2/</a></p>
-<!-- raw HTML omitted -->
+<a href="https://11x256.github.io/Frida-hooking-android-part-2/">https://11x256.github.io/Frida-hooking-android-part-2/</a><br>
+<a href="https://notsosecure.com/pentesting-android-apps-using-frida/">https://notsosecure.com/pentesting-android-apps-using-frida/</a></p>
 ]]></content>
         </item>
         
         <item>
-            <title>Linux backdoors</title>
+            <title>Linux Backdoors</title>
             <link>https://tranquac.github.io/posts/2021/06/linux-backdoors/</link>
             <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
             

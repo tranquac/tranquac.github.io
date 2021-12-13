@@ -14,7 +14,7 @@
 
     <title>
         
-            Linux Privilege Escalation :: TranQuac | Quabbles 
+            Linux Privilege Escalation :: quac tran 
         
     </title>
 
@@ -44,10 +44,10 @@
 <meta itemprop="name" content="Linux Privilege Escalation">
 <meta itemprop="description" content="Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors."><meta itemprop="datePublished" content="2021-03-18T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-03-18T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3053"><meta itemprop="image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/>
+<meta itemprop="wordCount" content="3053"><meta itemprop="image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/Kali.png"/>
 <meta itemprop="keywords" content="oscp,infosec,linux,privilege-escalation," />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/>
+<meta name="twitter:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/Kali.png"/>
 
 <meta name="twitter:title" content="Linux Privilege Escalation"/>
 <meta name="twitter:description" content="Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors."/>
@@ -58,7 +58,7 @@
     <meta property="og:title" content="Linux Privilege Escalation" />
 <meta property="og:description" content="Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/" /><meta property="og:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://tranquac.github.io/posts/2021/03/linux-privilege-escalation/" /><meta property="og:image" content="https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/Kali.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-18T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2021-03-18T00:00:00&#43;00:00" />
 <meta property="og:see_also" content="https://tranquac.github.io/posts/2021/06/linux-backdoors/" />
@@ -113,7 +113,7 @@
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://tranquac.github.io/about/">About</a></li><li><a href="https://tranquac.github.io/posts/">Posts</a></li>
+    <ul class="menu__inner"><li><a href="https://tranquac.github.io/about/">about</a></li><li><a href="https://tranquac.github.io/posts/">posts</a></li><li><a href="https://tranquac.github.io/write-up/">write-up</a></li>
     </ul>
 </nav>
 
@@ -1113,7 +1113,7 @@ Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27)	45010
     <div class="footer__inner">
         <div class="footer__content">
             <span>&copy; 2021</span>
-            <span><a href="https://tranquac.github.io">Tran Quac</a></span>
+            <span><a href="https://tranquac.github.io">quac tran</a></span>
             <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
             <span><a href="https://tranquac.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
             

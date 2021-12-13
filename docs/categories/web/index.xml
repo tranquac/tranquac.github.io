@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>web on TranQuac | Quabbles</title>
+    <title>web on quac tran</title>
     <link>https://tranquac.github.io/categories/web/</link>
-    <description>Recent content in web on TranQuac | Quabbles</description>
+    <description>Recent content in web on quac tran</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
@@ -14,7 +14,7 @@
       <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/posts/2021/07/jwt-attack/</guid>
-      <description>Jwt là gì  Header Payload Signature Ví dụ jwt   Phương thức tấn công  Thuật toán mã hóa Brute force secret key Sửa đổi thông số KID Sửa đổi thông số JKU / X5U Các phương pháp khác    Jwt la gi  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token.</description>
+      <description>What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.</description>
     </item>
     
     <item>

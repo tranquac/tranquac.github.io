@@ -1,16 +1,16 @@
 +++
-title = "About"
+title = "about"
 date = "2021-05-21"
 aliases = ["about-us","about-hugo","contact"]
 [ author ]
   name = "Quac Tran"
 +++
-## Whoami
-Hi! I'm Quac Tran, a noob infosec. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
-### Certifications
+### > whoami
+Hi! I'm Quac Tran, a student/infosec/gopher. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
+### > certifications
 * OSCP (21/4/2021 - 21 Year Old)
 * OSWE (Training)
-### Programing
+### > programing
 * Golang
 * C/C++
 * Python
@@ -18,14 +18,14 @@ Hi! I'm Quac Tran, a noob infosec. I like to play around with anything that is r
 * Java
 * Javascript
 * Powershell / Bash
-### Interests
+### > interests
 * Golang
 * Automation
 * Security
 * Pentesting
 * Hacking
 * Music ...
-### Contact me
+### > contact me
 * [Twitter](https://twitter.com/tranquac_0312)
 * [Email](tranquac0312@gmail.com)
 

@@ -1,5 +1,5 @@
 baseURL = "https://tranquac.github.io"
-title   = "TranQuac | Quabbles"
+title   = "quac tran"
 languageCode = "en-us"
 theme = "hello-friend-ng"
 
@@ -37,7 +37,7 @@ disableHugoGeneratorInject = false
   posts = "/posts/:year/:month/:title/"
 
 [author]
-  name = "Tran Quac"
+  name = "quac tran"
 
 [blackfriday]
   hrefTargetBlank = true
@@ -57,11 +57,12 @@ disableHugoGeneratorInject = false
   # 
   description = "Welcome to my personal blog!"
   keywords = ""
-  images = ["https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/2.jpg"]
+  images = ["https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/Kali.png"]
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. I like to write everything with Golang."
+  # homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. I like to write everything with Golang."
+  homeSubtitle = "student/hacker/red teamer/infosec/gopher"
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -145,14 +146,14 @@ disableHugoGeneratorInject = false
   # Uncomment this if you want a portrait on your start page
   #
    [params.portrait]
-     path     = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/gopher.jpg"
+     path     = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/avatar.jpg"
      alt      = "Portrait"
      maxWidth = "150px"
 
   # Social icons
   [[params.social]]
     name = "twitter"
-    url  = "https://twitter.com/quabbles33"
+    url  = "https://twitter.com/qu4bbles33"
 
   [[params.social]]
     name = "email"
@@ -160,7 +161,7 @@ disableHugoGeneratorInject = false
 
   [[params.social]]
     name = "github"
-    url  = "https://github.com/tranquac"
+    url  = "https://github.com/tranquac_0312"
 
   [[params.social]]
     name = "linkedin"
@@ -168,7 +169,7 @@ disableHugoGeneratorInject = false
 
   [[params.social]]
     name = "telegram"
-    url  = "https://t.me/TranQuac"
+    url  = "https://t.me/quabbles"
 
 [languages]
   [languages.en]
@@ -184,10 +185,14 @@ disableHugoGeneratorInject = false
 [menu]
   [[menu.main]]
     identifier = "about"
-    name       = "About"
+    name       = "about"
     url        = "about/"
   [[menu.main]]
     identifier = "posts"
-    name       = "Posts"
+    name       = "posts"
     url        = "posts/"
+  [[menu.main]]
+    identifier = "write-up"
+    name       = "write-up"
+    url        = "write-up/"
   

@@ -14,6 +14,18 @@
                 href="https://tranquac.github.io/fr/categories/"
                 />
   </url><url>
+    <loc>https://tranquac.github.io/fr/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tranquac.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://tranquac.github.io/fr/"
+                />
+  </url><url>
     <loc>https://tranquac.github.io/fr/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -36,18 +48,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://tranquac.github.io/fr/tags/"
-                />
-  </url><url>
-    <loc>https://tranquac.github.io/fr/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://tranquac.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://tranquac.github.io/fr/"
                 />
   </url>
 </urlset>

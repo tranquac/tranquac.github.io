@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>linux on TranQuac | Quabbles</title>
+    <title>linux on quac tran</title>
     <link>https://tranquac.github.io/categories/linux/</link>
-    <description>Recent content in linux on TranQuac | Quabbles</description>
+    <description>Recent content in linux on quac tran</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Linux backdoors</title>
+      <title>Linux Backdoors</title>
       <link>https://tranquac.github.io/posts/2021/06/linux-backdoors/</link>
       <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
       
