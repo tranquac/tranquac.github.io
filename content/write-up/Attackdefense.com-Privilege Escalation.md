@@ -1,5 +1,5 @@
 +++
-title = "[attackdefense.com] Privilege Escalation"
+title = "[Attackdefense.com] Privilege Escalation"
 description = ""
 type = ["posts","post"]
 tags = [

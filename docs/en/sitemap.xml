@@ -99,13 +99,13 @@
     <loc>https://tranquac.github.io/categories/web/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tranquac.github.io/tags/androi/</loc>
-    <lastmod>2021-07-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/categories/androi/</loc>
+    <loc>https://tranquac.github.io/tags/android/</loc>
     <lastmod>2021-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/android/</loc>
+    <lastmod>2021-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/android/</loc>
     <lastmod>2021-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/2021/07/android-pentest-note/</loc>
@@ -159,7 +159,13 @@
     <loc>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</loc>
     <lastmod>2020-08-30T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://tranquac.github.io/write-up/vulnstack1/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://tranquac.github.io/tags/attackdefense/</loc>
+    <lastmod>2020-08-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/vulnstack/</loc>
     <lastmod>2020-08-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/tags/write-up/</loc>
