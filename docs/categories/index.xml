@@ -7,11 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>infosec</title>
       <link>https://tranquac.github.io/categories/infosec/</link>
-      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/categories/infosec/</guid>
       <description></description>
@@ -20,9 +20,18 @@
     <item>
       <title>red-team</title>
       <link>https://tranquac.github.io/categories/red-team/</link>
-      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/categories/red-team/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>write-up</title>
+      <link>https://tranquac.github.io/categories/write-up/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/categories/write-up/</guid>
       <description></description>
     </item>
     
@@ -77,15 +86,6 @@
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/categories/privilege-escalation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>write-up</title>
-      <link>https://tranquac.github.io/categories/write-up/</link>
-      <pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/categories/write-up/</guid>
       <description></description>
     </item>
     

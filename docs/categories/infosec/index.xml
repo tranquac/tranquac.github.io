@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/categories/infosec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network</title>
+      <link>https://tranquac.github.io/write-up/vulnstack1/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/write-up/vulnstack1/</guid>
+      <description>Summary  Introduce Setup Foothold  Recon RCE via MySQL Log File RCE via YxCMS   Recon Internal Network Exploit Internal Network Bloodhound  Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.</description>
+    </item>
+    
     <item>
       <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
       <link>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</link>
@@ -90,15 +99,6 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
       <guid>https://tranquac.github.io/posts/2021/04/oscp-cheatsheet/</guid>
       <description>This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
  Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb</description>
-    </item>
-    
-    <item>
-      <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>
-      <link>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</link>
-      <pubDate>Wed, 21 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2021/04/getting-the-oscp-certification-offensive-security-certified-professional-pen-200-review/</guid>
-      <description>28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.</description>
     </item>
     
   </channel>

@@ -8,7 +8,7 @@ tags = [
     "red-team",
     "vulnstack"
 ]
-date = "2020-08-30"
+date = "2021-12-20"
 categories = [
     "write-up",
     "infosec",
@@ -198,7 +198,7 @@ Và kết quả chúng ta có  được meterpreter shell xịn
 
 Dễ dàng đạt được đặc quyền cao nhất của windows: ```NT AUTHORITY\SYSTEM``` bằng metasploit với getsystem command\
 Nếu các bạn muốn thực hành tay lỗi này để leo lang đặc quyền trong windows thì xem ở đây:
- 
+
 https://medium.com/r3d-buck3t/impersonating-privileges-with-juicy-potato-e5896b20d505
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/35.jpg)
