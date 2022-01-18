@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 20 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
+      <link>https://tranquac.github.io/posts/2022/01/java-deserialization-th%E1%BA%A3o-lu%E1%BA%ADn-v%E1%BB%81-c%C6%A1-ch%E1%BA%BF-serialize-v%C3%A0-deserialize-trong-java/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2022/01/java-deserialization-th%E1%BA%A3o-lu%E1%BA%ADn-v%E1%BB%81-c%C6%A1-ch%E1%BA%BF-serialize-v%C3%A0-deserialize-trong-java/</guid>
+      <description>Lỗ hổng bảo mật liên quan đến Java Deserialization (Deser) là khó đối với tôi. Tôi đã mất nhiều thời gian để tìm hiểu nó. Và tôi không dừng lại. Tôi muốn tìm hiểu những thứ mới và tìm hiểu sâu hơn về nó. Bài viết đầu tiên này tôi sẽ giải thích cơ chế Serialize và Deserialize trong Java. Cũng chỉ như những gì tôi ghi chép lại cho việc mình đã học.</description>
+    </item>
+    
     <item>
       <title>[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network</title>
       <link>https://tranquac.github.io/write-up/vulnstack1/</link>
@@ -89,16 +98,6 @@
       <guid>https://tranquac.github.io/posts/2021/06/xxe/</guid>
       <description>What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
 XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:</description>
-    </item>
-    
-    <item>
-      <title>about</title>
-      <link>https://tranquac.github.io/about/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/about/</guid>
-      <description>&amp;gt; whoami Hi! I&amp;rsquo;m Quac Tran, a student/infosec/gopher. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I&amp;rsquo;ve learned, which is why I set up this blog!
-&amp;gt; certifications  OSCP (21/4/2021 - 21 Year Old) OSWE (Training)  &amp;gt; programing  Golang C/C++ Python PHP Java Javascript Powershell / Bash  &amp;gt; interests  Golang Automation Security Pentesting Hacking Music &amp;hellip;  &amp;gt; contact me  Twitter Email  </description>
     </item>
     
   </channel>

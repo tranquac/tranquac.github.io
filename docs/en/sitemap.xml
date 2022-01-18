@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://tranquac.github.io/write-up/vulnstack1/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <loc>https://tranquac.github.io/posts/2022/01/java-deserialization-th%E1%BA%A3o-lu%E1%BA%ADn-v%E1%BB%81-c%C6%A1-ch%E1%BA%BF-serialize-v%C3%A0-deserialize-trong-java/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -19,13 +19,25 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/infosec/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/infosec/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/java/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/java/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/java/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/posts/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -37,14 +49,8 @@
                 href="https://tranquac.github.io/"
                 />
   </url><url>
-    <loc>https://tranquac.github.io/tags/red-team/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/categories/red-team/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/series/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -57,7 +63,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/</loc>
-    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -68,6 +74,15 @@
                 hreflang="en"
                 href="https://tranquac.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://tranquac.github.io/write-up/vulnstack1/</loc>
+    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/red-team/</loc>
+    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/red-team/</loc>
+    <lastmod>2021-12-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/tags/vulnstack/</loc>
     <lastmod>2021-12-20T00:00:00+00:00</lastmod>
@@ -85,9 +100,6 @@
     <lastmod>2021-12-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/2021/11/crossc2-generate-cobaltstrikes-cross-platform-payload/</loc>
-    <lastmod>2021-11-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/posts/</loc>
     <lastmod>2021-11-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/series/red-team/</loc>
