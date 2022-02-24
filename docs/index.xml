@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 19 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</title>
+      <link>https://tranquac.github.io/write-up/mylab1/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/write-up/mylab1/</guid>
+      <description>Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.</description>
+    </item>
+    
     <item>
       <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
       <link>https://tranquac.github.io/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</link>
@@ -88,15 +99,6 @@
       
       <guid>https://tranquac.github.io/posts/2021/06/linux-backdoors/</guid>
       <description>Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &amp;hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.</description>
-    </item>
-    
-    <item>
-      <title>SQL</title>
-      <link>https://tranquac.github.io/posts/2021/06/sql/</link>
-      <pubDate>Tue, 08 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/posts/2021/06/sql/</guid>
-      <description>General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql -host=TARGETIP -u root -p mysql -u root -p password -e &amp;#39;show databases;&amp;#39; mysql -u root -p password DBNAME -e &amp;#39;select * from TABLENAME;&amp;#39; Access Locally: mysql -u root -p mysql&amp;gt; use DBNAME; mysql&amp;gt; show tables; Command Backdoor example: SELECT &amp;#34;&amp;lt;?</description>
     </item>
     
   </channel>

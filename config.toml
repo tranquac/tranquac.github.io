@@ -83,7 +83,7 @@ disableHugoGeneratorInject = false
   # Per default, this option is off. 
   # The theme is respecting the prefers-color-scheme of the operating systeme. 
   # With this option on, the page user is able to set the scheme he wants. 
-  enableThemeToggle = true
+  enableThemeToggle = false
 
   # Sharing buttons
   #
@@ -155,7 +155,7 @@ disableHugoGeneratorInject = false
   # Social icons
   [[params.social]]
     name = "twitter"
-    url  = "https://twitter.com/qu4bbles33"
+    url  = "https://twitter.com/tranquac_0312"
 
   [[params.social]]
     name = "email"
@@ -163,7 +163,7 @@ disableHugoGeneratorInject = false
 
   [[params.social]]
     name = "github"
-    url  = "https://github.com/tranquac_0312"
+    url  = "https://github.com/tranquac"
 
   [[params.social]]
     name = "linkedin"
