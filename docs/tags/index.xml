@@ -7,13 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 24 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tranquac.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>infosec</title>
       <link>https://tranquac.github.io/tags/infosec/</link>
-      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>oswe</title>
+      <link>https://tranquac.github.io/tags/oswe/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tranquac.github.io/tags/oswe/</guid>
       <description></description>
     </item>
     
@@ -86,15 +95,6 @@
       <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>https://tranquac.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>oscp</title>
-      <link>https://tranquac.github.io/tags/oscp/</link>
-      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://tranquac.github.io/tags/oscp/</guid>
       <description></description>
     </item>
     

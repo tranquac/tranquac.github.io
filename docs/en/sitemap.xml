@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://tranquac.github.io/write-up/mylab1/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/categories/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -18,14 +15,29 @@
                 href="https://tranquac.github.io/categories/"
                 />
   </url><url>
+    <loc>https://tranquac.github.io/posts/2022/06/getting-the-oswe-certification-offensive-security-web-expert-pen-300-review/</loc>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://tranquac.github.io/tags/infosec/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/infosec/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/series/oswe/</loc>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/oswe/</loc>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/oswe/</loc>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/posts/</loc>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -37,14 +49,8 @@
                 href="https://tranquac.github.io/"
                 />
   </url><url>
-    <loc>https://tranquac.github.io/tags/red-team/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/categories/red-team/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tranquac.github.io/series/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -57,7 +63,7 @@
                 />
   </url><url>
     <loc>https://tranquac.github.io/tags/</loc>
-    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -68,6 +74,15 @@
                 hreflang="en"
                 href="https://tranquac.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://tranquac.github.io/write-up/mylab1/</loc>
+    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/tags/red-team/</loc>
+    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tranquac.github.io/categories/red-team/</loc>
+    <lastmod>2022-02-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/tags/write-up/</loc>
     <lastmod>2022-02-24T00:00:00+00:00</lastmod>
@@ -91,9 +106,6 @@
     <lastmod>2022-01-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/categories/java/</loc>
-    <lastmod>2022-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tranquac.github.io/posts/</loc>
     <lastmod>2022-01-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tranquac.github.io/posts/2022/01/java-deserialization-th%E1%BA%A3o-lu%E1%BA%ADn-v%E1%BB%81-c%C6%A1-ch%E1%BA%BF-serialize-v%C3%A0-deserialize-trong-java/</loc>

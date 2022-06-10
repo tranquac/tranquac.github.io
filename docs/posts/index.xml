@@ -6,8 +6,28 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 19 Jan 2022 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://tranquac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Getting the OSWE Certification: &#39;Offensive Security Web Expert&#39; (PEN-300) review</title>
+            <link>https://tranquac.github.io/posts/2022/06/getting-the-oswe-certification-offensive-security-web-expert-pen-300-review/</link>
+            <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+            
+            <guid>https://tranquac.github.io/posts/2022/06/getting-the-oswe-certification-offensive-security-web-expert-pen-300-review/</guid>
+            <description>10-06-2022 / 22 Year Old Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)
+Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20h đối mặt với kì thi đầy cam go và khó khăn.</description>
+            <content type="html"><![CDATA[<h3 id="10-06-2022--22-year-old">10-06-2022 / 22 Year Old</h3>
+<p>Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/oswe/1.png" alt=""></p>
+<p>Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20h đối mặt với kì thi đầy cam go và khó khăn. Thật sự cảm ơn Offensive vì những kiến thức nâng cao mà khoá học đã đem lại. Nhiều thứ mới, vector mới trong khoá học chắc chắn sẽ giúp ích cho tôi rất nhiều trên con đường Offensive Security của tôi hiện tại và  trong tương lai.
+Bài viết này tôi cũng chỉ muốn chia sẻ một chút niềm vui của mình như vậy. Nhưng chắc chắn con đường học tập tri thức sẽ không dừng lại ở đây. Sẽ tiếp tục cố gắng và phát triển bản thân hơn nữa với những kiến thức, con đường và thế giới rộng lớn phía trước!</p>
+<h3 id="kết">Kết</h3>
+<p>Quá trình chuẩn bị của AWAE và OSWE là một quá trình phức tạp và khó khăn hơn bạn nghĩ. Bạn sẽ hiểu khi bạn thực sự bước chân vào nó. Quá trình này có thể hơi chông gai khi đi cùng với nó tôi vẫn phải đi học và đi làm, không tập trung được hoàn toàn vào nó nhưng tôi cũng gặp được rất nhiều người bạn xuất sắc trong quá trình ôn luyện và những người đồng nghiệp support tinh thần. Toàn bộ quá trình này thực chất là một quá trình leo núi, bạn phải luôn kiên trì leo lên, nếu không bạn có thể bỏ cuộc giữa chừng và không có kết quả. Nhưng khi nó thực sự kết thúc và bạn đã trải qua kỳ thi này, bạn có thể hiểu được ý nghĩa của từ Try Harder!</p>
+<p><img src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/oswe/2.png" alt=""></p>
+<p>Cảm ơn vì đã đọc đến đây!</p>
+]]></content>
+        </item>
         
         <item>
             <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
@@ -4854,7 +4874,7 @@ photorec <span style="color:#f92672">[</span>file<span style="color:#f92672">]</
 <ul>
 <li>Hành trình của tôi là như vậy đó. Suốt 3 tháng cố gắng, cuối cùng tôi đã được đền đáp bằng kết quả xứng đáng. 3 tháng đó quả là một quãng thời gian tôi đã vượt quá giới hạn của bản thân: ôn thi OSCP, học và kiểm tra trên trường, tôi đã đi làm cả ngày (bao gồm cả làm công việc ở công ty, ôn thi) và tối trở lại trường để học trên. Thời gian biểu của tôi trong 3 tháng đó như một vòng lặp : ngày đi làm, tối về đi học, khoảng 9h15 về đến nhà, làm việc hoặc làm labs oscp đến khoảng 12h-1h đi ngủ và hôm sau lại lặp lại. Đó quả là quãng thời gian đáng nhớ cho sự cố gắng của tôi!</li>
 <li>Hi vọng đây không phải bài viết cuối cùng, và tôi sẽ không dừng lại ở đó, sẽ cố gắng cho những đang dự định còn dang dở, còn rất nhiều thứ cần học hỏi ở phía trước.</li>
-<li>Cuối cùng tôi gửi lời cảm ơn những người bạn, đồng nghiệp đã giúp đỡ tôi, cùng tôi cố gắng trong suốt quãng thời gian đó: aishe, catmandx, minhnq22, ewind!</li>
+<li>Cuối cùng tôi gửi lời cảm ơn những người bạn, đồng nghiệp đã giúp đỡ tôi, cùng tôi cố gắng trong suốt quãng thời gian đó: aishee, catmandx, minhnq22, ewind!</li>
 </ul>
 <h2 id="update">Update</h2>
 <ul>
