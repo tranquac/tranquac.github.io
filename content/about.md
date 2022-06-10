@@ -8,8 +8,8 @@ aliases = ["about-us","about-hugo","contact"]
 ### > whoami
 Hi! I'm Quac Tran, a student/infosec/gopher. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
 ### > certifications
-* OSCP (21/4/2021 - 21 Year Old)
-* OSWE (Training)
+* OSCP (21/04/2021 - 21 Year Old)
+* OSWE (10/06/2022 - 22 Year Old)
 ### > programing
 * Golang
 * C/C++
