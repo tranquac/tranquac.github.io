@@ -155,11 +155,11 @@ disableHugoGeneratorInject = false
   # Social icons
   [[params.social]]
     name = "twitter"
-    url  = "https://twitter.com/tranquac_0312"
+    url  = "https://twitter.com/quactv1"
 
   [[params.social]]
     name = "email"
-    url  = "mailto:tranquac0312@gmail.com"
+    url  = "mailto:quactv1@gmail.com"
 
   [[params.social]]
     name = "github"
@@ -171,7 +171,7 @@ disableHugoGeneratorInject = false
 
   [[params.social]]
     name = "telegram"
-    url  = "https://t.me/quabbles"
+    url  = "https://t.me/quactv"
 
 [languages]
   [languages.en]
