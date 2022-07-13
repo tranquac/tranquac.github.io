@@ -1,21 +1,15 @@
-+++
-title = "[Attackdefense.com] Privilege Escalation"
-description = ""
-type = ["posts","post"]
-tags = [
-    "write-up",
-    "infosec",
-    "attackdefense",
+---
+title: "[Attackdefense.com] Privilege Escalation"
+date: 2020-08-30T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security",
+    "Lab"
 ]
-date = "2020-08-30"
-categories = [
-    "write-up",
-    "privilege-escalation",
+tags: [
+    "Linux","Privilege Escalation"
 ]
-series = ["write-up"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 ## Summary
 * [Student to Teacher](#student-to-teacher)
 * [Teacher to Admin](#teacher-to-admin)

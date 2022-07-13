@@ -1,18 +1,14 @@
-+++
-title = "My Notes on Code-Review"
-description = "Learn from everywhere"
-type = ["posts","post"]
-tags = [
-    "infosec",
+---
+title: "My Notes on Code-Review"
+date: 2021-08-30T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-08-30"
-categories = [
-    "infosec",
+tags: [
+    "Code"
 ]
-series = ["web"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [The Fast Approach](#the-fast-approach)
     * [First](#first)
     * [Leaked Secrets and Weak Encryption](#leaked-secrets-and-weak-wncryption)

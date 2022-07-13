@@ -1,21 +1,15 @@
-+++
-title = "Getting the OSWE Certification: 'Offensive Security Web Expert' (PEN-300) review"
-description = ""
-type = ["posts","post"]
-tags = [
-    "oswe",
-    "infosec",
+---
+title: "Getting the OSWE Certification: 'Offensive Security Web Expert' (PEN-300) review"
+date: 2022-06-10T18:17:00+07:00
+draft: false
+categories: [
+    "Certificate",
+    "Review",
 ]
-date = "2022-06-10"
-categories = [
-    "oswe",
-    "infosec",
+tags: [
+    "OSWE",
 ]
-series = ["OSWE"]
-[ author ]
-  name = "Quac Tran"
-+++
-
+---
 ### 10-06-2022 / 22 Year Old
 Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)
 

@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Linux - Tag - quactv</title>
+        <link>http://example.org/tags/linux/</link>
+        <description>Linux - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 28 Jun 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux Backdoors</title>
+    <link>http://example.org/posts/linux-backdoors/</link>
+    <pubDate>Mon, 28 Jun 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/linux-backdoors/</guid>
+    <description><![CDATA[Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.]]></description>
+</item>
+<item>
+    <title>Linux Privilege Escalation</title>
+    <link>http://example.org/posts/linux-privilege-escalation/</link>
+    <pubDate>Thu, 18 Mar 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/linux-privilege-escalation/</guid>
+    <description><![CDATA[Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.]]></description>
+</item>
+<item>
+    <title>[Attackdefense.com] Privilege Escalation</title>
+    <link>http://example.org/write-up/attackdefense.com-privilege-escalation/</link>
+    <pubDate>Sun, 30 Aug 2020 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/write-up/attackdefense.com-privilege-escalation/</guid>
+    <description><![CDATA[Summary  Student to Teacher Teacher to Admin Admin to Root Break out of the container  Link https://attackdefense.com/challengedetails?cid=2021
+Student to Teacher Find SUID binaries Using ‘Strings’ to view
+When we run the read-submission file. It will call and run the read-file. Read file is a binary file. We will use the PATH variable method
+First create another read-file executable file in / tmp with the content to generate a shell.]]></description>
+</item>
+</channel>
+</rss>

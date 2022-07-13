@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>OSCP - Tag - quactv</title>
+        <link>http://example.org/tags/oscp/</link>
+        <description>OSCP - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Sun, 25 Apr 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/oscp/" rel="self" type="application/rss+xml" /><item>
+    <title>OSCP CheatSheet</title>
+    <link>http://example.org/posts/oscp-cheat-sheet/</link>
+    <pubDate>Sun, 25 Apr 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/oscp-cheat-sheet/</guid>
+    <description><![CDATA[This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
+ Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb]]></description>
+</item>
+<item>
+    <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>
+    <link>http://example.org/posts/oscp-review/</link>
+    <pubDate>Wed, 21 Apr 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/oscp-review/</guid>
+    <description><![CDATA[28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.]]></description>
+</item>
+</channel>
+</rss>

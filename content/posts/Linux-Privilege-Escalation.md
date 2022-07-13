@@ -1,24 +1,14 @@
-+++
-title = "Linux Privilege Escalation"
-description = ""
-type = ["posts","post"]
-tags = [
-    "oscp",
-    "infosec",
-    "linux",
-    "privilege-escalation",
+---
+title: "Linux Privilege Escalation"
+date: 2021-03-18T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-03-18"
-categories = [
-    "oscp",
-    "infosec",
-    "linux",
-    "privilege-escalation",
+tags: [
+    "Linux", "Privilege Escalation"
 ]
-series = ["Linux"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 # Linux-Privilege-Escalation
 ## Synthesize, supplement from a number of other resources
 ## Editing and addition: TranQuac

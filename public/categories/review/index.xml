@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Review - Category - quactv</title>
+        <link>http://example.org/categories/review/</link>
+        <description>Review - Category - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/categories/review/" rel="self" type="application/rss+xml" /><item>
+    <title>Getting the OSWE Certification: &#39;Offensive Security Web Expert&#39; (PEN-300) review</title>
+    <link>http://example.org/posts/oswe-review/</link>
+    <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/oswe-review/</guid>
+    <description><![CDATA[10-06-2022 / 22 Year Old Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)
+Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20h đối mặt với kì thi đầy cam go và khó khăn.]]></description>
+</item>
+<item>
+    <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>
+    <link>http://example.org/posts/oscp-review/</link>
+    <pubDate>Wed, 21 Apr 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/oscp-review/</guid>
+    <description><![CDATA[28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.]]></description>
+</item>
+</channel>
+</rss>

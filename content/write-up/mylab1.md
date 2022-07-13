@@ -1,22 +1,15 @@
-+++
-title = "[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)"
-description = ""
-type = ["posts","post"]
-tags = [
-    "write-up",
-    "infosec",
-    "red-team"
+---
+title: "[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)"
+date: 2022-02-24T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security",
+    "Lab"
 ]
-date = "2022-02-24"
-categories = [
-    "write-up",
-    "infosec",
-    "red-team",
+tags: [
+    "Java", "Privilege Escalation", "Python"
 ]
-series = ["write-up"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 ### Summary
 * [Overview](#overview)
 * [Rabbit hole](#rabbit-hole)

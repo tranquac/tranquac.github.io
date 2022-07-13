@@ -1,20 +1,14 @@
-+++
-title = "Linux Backdoors"
-description = ""
-type = ["posts","post"]
-tags = [
-    "infosec",
-    "linux",
+---
+title: "Linux Backdoors"
+date: 2021-06-28T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-06-28"
-categories = [
-    "infosec",
-    "linux",
+tags: [
+    "Linux",
 ]
-series = ["Linux"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell ...) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng. Ở đây chúng ta chỉ thảo luận trong thế giới Linux!
 ### Backdoor là gì?
 Backdoor là một đoạn mã ẩn, script hay chương trình đặt trên máy mục tiêu phục vụ cho mục đích truy cập dài hạn vào mục tiêu của kẻ tấn công,với điều đó bạn không phải khai thác cùng một hệ thống hai lần. Nó chỉ đơn giản là cung cấp cho bạn quyền truy cập nhanh hơn và tức thì vào hệ thống.

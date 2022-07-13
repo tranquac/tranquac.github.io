@@ -1,20 +1,14 @@
-+++
-title = "SQL"
-description = ""
-type = ["posts","post"]
-tags = [
-    "web",
-    "infosec",
+---
+title: "SQL"
+date: 2021-06-08T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-06-08"
-categories = [
-    "web",
-    "infosec",
+tags: [
+    "SQL",
 ]
-series = ["web"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [General](#general)
     * [MySQL (3306)](#mysql-3306)
     * [MSSQL (1433)](#mssql-1433)

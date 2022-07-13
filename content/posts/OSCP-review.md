@@ -1,21 +1,15 @@
-+++
-title = "Getting the OSCP Certification: 'Offensive Security Certified Professional' (PEN-200) review"
-description = ""
-type = ["posts","post"]
-tags = [
-    "oscp",
-    "infosec",
+---
+title: "Getting the OSCP Certification: 'Offensive Security Certified Professional' (PEN-200) review"
+date: 2021-04-21T18:17:00+07:00
+draft: false
+categories: [
+    "Certificate",
+    "Review",
 ]
-date = "2021-04-21"
-categories = [
-    "oscp",
-    "infosec",
+tags: [
+    "OSCP",
 ]
-series = ["OSCP"]
-[ author ]
-  name = "Quac Tran"
-+++
-
+---
 ### 28-4-2021 / 21 Year Old
 - Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.
 ![](https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png)

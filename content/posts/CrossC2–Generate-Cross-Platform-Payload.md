@@ -1,20 +1,14 @@
-+++
-title = "CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"
-description = ""
-type = ["posts","post"]
-tags = [
-    "red-team",
-    "infosec",
+---
+title: "CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"
+date: 2021-11-03T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-11-03"
-categories = [
-    "red-team",
-    "infosec",
+tags: [
+    "Tool",
 ]
-series = ["red-team"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [Introduce](#introduce)
 * [Config](#config)
     * [Listener](#listener)

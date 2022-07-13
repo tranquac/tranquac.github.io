@@ -1,20 +1,15 @@
-+++
-title = "OSCP CheatSheet"
-description = ""
-type = ["posts","post"]
-tags = [
-    "oscp",
-    "infosec",
+---
+title: "OSCP CheatSheet"
+date: 2021-04-25T18:17:00+07:00
+draft: false
+categories: [
+    "Certificate",
+    "Offensive Security"
 ]
-date = "2021-04-25"
-categories = [
-    "oscp",
-    "infosec",
+tags: [
+    "OSCP",
 ]
-series = ["OSCP"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
 > ### Try Harder
 ## Summary

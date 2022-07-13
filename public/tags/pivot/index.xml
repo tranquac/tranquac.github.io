@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Pivot - Tag - quactv</title>
+        <link>http://example.org/tags/pivot/</link>
+        <description>Pivot - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/pivot/" rel="self" type="application/rss+xml" /><item>
+    <title>[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network</title>
+    <link>http://example.org/write-up/vulnstack1/</link>
+    <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/write-up/vulnstack1/</guid>
+    <description><![CDATA[Summary  Introduce Setup Foothold  Recon RCE via MySQL Log File RCE via YxCMS   Recon Internal Network Exploit Internal Network Bloodhound  Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
+</item>
+<item>
+    <title>Tunneling, Pivoting to Attack Internal Network</title>
+    <link>http://example.org/posts/tunneling-and-pivoting/</link>
+    <pubDate>Fri, 30 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/tunneling-and-pivoting/</guid>
+    <description><![CDATA[Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.]]></description>
+</item>
+</channel>
+</rss>

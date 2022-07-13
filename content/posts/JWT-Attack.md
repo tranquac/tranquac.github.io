@@ -1,20 +1,14 @@
-+++
-title = "JWT Attack"
-description = ""
-type = ["posts","post"]
-tags = [
-    "infosec",
-    "web",
+---
+title: "JWT Attack"
+date: 2021-07-28T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-07-28"
-categories = [
-    "infosec",
-    "web",
+tags: [
+    "Token","JWT"
 ]
-series = ["web"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [What is JWT?](#what-is-jwt)
     * [Header](#header)
     * [Payload](#payload)

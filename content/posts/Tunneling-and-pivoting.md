@@ -1,20 +1,14 @@
-+++
-title = "Tunneling, Pivoting to Attack Internal Network"
-description = ""
-type = ["posts","post"]
-tags = [
-    "infosec",
-    "tunnel",
+---
+title: "Tunneling, Pivoting to Attack Internal Network"
+date: 2021-07-30T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-07-30"
-categories = [
-    "infosec",
-    "tunnel",
+tags: [
+    "Tunel", "Pivot", "Tool",
 ]
-series = [""]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [Intro](#Intro)
 * [Tools for tunneling](#tools-for-tunneling)
   * [SSH Tunnel](#ssh-tunnel)

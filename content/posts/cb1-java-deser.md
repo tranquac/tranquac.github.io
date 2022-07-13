@@ -1,20 +1,14 @@
-+++
-title = "[Java Deserialization] CommonsBeanutils1 exploit chain analysis"
-description = ""
-type = ["posts","post"]
-tags = [
-    "infosec",
-    "java",
+---
+title: "[Java Deserialization] CommonsBeanutils1 exploit chain analysis"
+date: 2022-01-19T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security",
 ]
-date = "2022-01-19"
-categories = [
-    "infosec",
-    "java",
+tags: [
+    "Java","Code"
 ]
-series = ["java"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1
 
 Apache Commons Beanutils là một dự án khác thuộc bộ công cụ Apache Commons cung cấp một số phương thức thao tác trên các đối tượng lớp Java thông thường (còn được gọi là JavaBeans).

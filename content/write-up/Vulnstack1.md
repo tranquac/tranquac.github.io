@@ -1,23 +1,15 @@
-+++
-title = "[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network"
-description = ""
-type = ["posts","post"]
-tags = [
-    "write-up",
-    "infosec",
-    "red-team",
-    "vulnstack"
+---
+title: "[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network"
+date: 2021-12-20T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security",
+    "Lab"
 ]
-date = "2021-12-20"
-categories = [
-    "write-up",
-    "infosec",
-    "red-team",
+tags: [
+    "Pivot", "Tunel", "Privilege Escalation"
 ]
-series = ["write-up"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 ### Summary
 * [Introduce](#introduce)
 * [Setup](#setup)

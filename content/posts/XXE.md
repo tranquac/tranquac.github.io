@@ -1,20 +1,14 @@
-+++
-title = "XXE"
-description = ""
-type = ["posts","post"]
-tags = [
-    "web",
-    "infosec",
+---
+title: "XXE"
+date: 2021-06-07T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2021-06-07"
-categories = [
-    "web",
-    "infosec",
+tags: [
+    "XXE",
 ]
-series = ["web"]
-[ author ]
-  name = "Quac Tran"
-+++
+---
 * [What is XXE](#what-is-xxe)
 * [Types of XXE attacks](#types-of-xxe-attacks)
     * [XXE To retrieve files](#xxe-to-retrieve-files)

@@ -1,0 +1,91 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Offensive Security - Category - quactv</title>
+        <link>http://example.org/categories/offensive-security/</link>
+        <description>Offensive Security - Category - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/categories/offensive-security/" rel="self" type="application/rss+xml" /><item>
+    <title>[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</title>
+    <link>http://example.org/write-up/mylab1/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/write-up/mylab1/</guid>
+    <description><![CDATA[Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.]]></description>
+</item>
+<item>
+    <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
+    <link>http://example.org/posts/cb1-java-deser/</link>
+    <pubDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/cb1-java-deser/</guid>
+    <description><![CDATA[Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1]]></description>
+</item>
+<item>
+    <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
+    <link>http://example.org/posts/introduce-java-serialize/</link>
+    <pubDate>Tue, 18 Jan 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/introduce-java-serialize/</guid>
+    <description><![CDATA[Lỗ hổng bảo mật liên quan đến Java Deserialization (Deser) là khó đối với tôi. Tôi đã mất nhiều thời gian để tìm hiểu nó. Và tôi không dừng lại. Tôi muốn tìm hiểu những thứ mới và tìm hiểu sâu hơn về nó. Bài viết đầu tiên này tôi sẽ giải thích cơ chế Serialize và Deserialize trong Java. Cũng chỉ như những gì tôi ghi chép lại cho việc mình đã học.]]></description>
+</item>
+<item>
+    <title>[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network</title>
+    <link>http://example.org/write-up/vulnstack1/</link>
+    <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/write-up/vulnstack1/</guid>
+    <description><![CDATA[Summary  Introduce Setup Foothold  Recon RCE via MySQL Log File RCE via YxCMS   Recon Internal Network Exploit Internal Network Bloodhound  Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
+</item>
+<item>
+    <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
+    <link>http://example.org/posts/crossc2generate-cross-platform-payload/</link>
+    <pubDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/crossc2generate-cross-platform-payload/</guid>
+    <description><![CDATA[Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.]]></description>
+</item>
+<item>
+    <title>My Notes on Code-Review</title>
+    <link>http://example.org/posts/my-note-for-code-review/</link>
+    <pubDate>Mon, 30 Aug 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/my-note-for-code-review/</guid>
+    <description><![CDATA[The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.]]></description>
+</item>
+<item>
+    <title>Tunneling, Pivoting to Attack Internal Network</title>
+    <link>http://example.org/posts/tunneling-and-pivoting/</link>
+    <pubDate>Fri, 30 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/tunneling-and-pivoting/</guid>
+    <description><![CDATA[Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.]]></description>
+</item>
+<item>
+    <title>JWT Attack</title>
+    <link>http://example.org/posts/jwt-attack/</link>
+    <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/jwt-attack/</guid>
+    <description><![CDATA[What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.]]></description>
+</item>
+<item>
+    <title>Android Pentest Note</title>
+    <link>http://example.org/posts/androi-pentest-note-p1/</link>
+    <pubDate>Wed, 21 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/androi-pentest-note-p1/</guid>
+    <description><![CDATA[Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.]]></description>
+</item>
+<item>
+    <title>Linux Backdoors</title>
+    <link>http://example.org/posts/linux-backdoors/</link>
+    <pubDate>Mon, 28 Jun 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/linux-backdoors/</guid>
+    <description><![CDATA[Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.]]></description>
+</item>
+</channel>
+</rss>

@@ -1,200 +1,63 @@
-baseURL = "https://tranquac.github.io"
-title   = "quac tran"
-languageCode = "en-us"
-theme = "hello-friend-ng"
+baseURL = "http://example.org/"
 
-defaultTheme = "dark"
+# Change the default theme to be use when building the site with Hugo
+theme = "LoveIt"
 
-PygmentsCodeFences = true
-PygmentsStyle = "monokai"
+# website title
+title = "quactv"
 
-paginate  = 10
-rssLimit  = 10  # Maximum number of items in the RSS feed.
-copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
+# language code ["en", "zh-CN", "fr", "pl", ...]
+languageCode = "en"
+# language name ["English", "简体中文", "Français", "Polski", ...]
+languageName = "English"
 
-# googleAnalytics = ""
-# disqusShortname = ""
-
-archetypeDir = "archetypes"
-contentDir   = "content"
-dataDir      = "data"
-layoutDir    = "layouts"
-publishDir   = "docs"
-
-buildDrafts  = false
-buildFuture  = false
-buildExpired = false
-canonifyURLs = true
-
-enableRobotsTXT = true
-enableGitInfo   = false
-enableEmoji     = true
-enableMissingTranslationPlaceholders = false
-disableRSS     = false
-disableSitemap = false
-disable404     = false
-disableHugoGeneratorInject = false
-
-[permalinks]
-  posts = "/posts/:year/:month/:title/"
-
+# Author config
 [author]
-  name = "quac tran"
+  name = "quactv"
+  email = "tranquac0312@gmail.com"
+  link = ""
 
-[blackfriday]
-  hrefTargetBlank = true
-
-[taxonomies]
-  tag      = "tags"
-  category = "categories"
-  series   = "series"
-
-[params]
-  dateform        = "Jan 2, 2021"
-  dateformShort   = "Jan 2"
-  dateformNum     = "2021-01-02"
-  dateformNumTime = "2021-01-02 15:04"
-
-  # Metadata mostly used in document's head
-  # 
-  description = "Welcome to my personal blog!"
-  keywords = ""
-  images = ["https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/Kali.png"]
-
-  # Home subtitle of the index page.
-  #
-  # homeSubtitle = "Welcome to my personal blog! I ramble about security and hacking, mostly. I like to write everything with Golang."
-  homeSubtitle = "student/hacker/red teamer/infosec/gopher"
-
-  # Set a background for the homepage
-  # backgroundImage = "assets/images/background.jpg"
-
-  # Prefix of link to the git commit detail page. GitInfo must be enabled.
-  #
-  # gitUrl = ""
-
-  # Set disableReadOtherPosts to true in order to hide the links to other posts.
-  #
-  disableReadOtherPosts = false
-
-  # Enable theme toggle
-  # 
-  # This options enables the theme toggle for the theme. 
-  # Per default, this option is off. 
-  # The theme is respecting the prefers-color-scheme of the operating systeme. 
-  # With this option on, the page user is able to set the scheme he wants. 
-  enableThemeToggle = false
-
-  # Sharing buttons
-  #
-  # There are a lot of buttons preconfigured. If you want to change them,
-  # generate the buttons here: https://sharingbuttons.io
-  # and add them into your own `layouts/partials/sharing-buttons.html`
-  #
-  enableSharingButtons = true
-
-  # Integrate Javascript files or stylesheets by adding the url to the external assets or by
-  # linking local files with their path relative to the static folder, e.g. "css/styles.css"
-  #
-  customCSS = []
-  customJS  = []
-
-  # Toggle this option need to rebuild SCSS, requires extended version of Hugo
-  #
-  justifyContent = false  # Set "text-align: justify" to .post-content.
-
-  # Custom footer 
-  # If you want, you can easily override the default footer with your own content. 
-  #
-  [params.footer]
-    trademark = true
-    rss = true
-    copyright = true
-    author = true
-
-    topText = []
-    bottomText = ["Powered by <a href=\"http://gohugo.io\">Hugo</a>",
-            "Made with &#10084; by <a href=\"https://github.com/tranquac\">Quac Tran</a>"]
-
-  # Colors for favicons
-  #
-  [params.favicon.color]
-    mask = "#1b1c1d"
-    msapplication = "#1b1c1d"
-    theme = "#1b1c1d"
-
-  [params.logo]
-    logoMark     = ">"
-    logoText     = "Security ramblings"
-    logoHomeLink = "/"
-    # Set true to remove the logo cursor entirely.
-    #logoCursorDisabled = true
-    # Set to a valid CSS color to change the cursor in the logo.
-    # logoCursorColor    = "#67a2c9"
-    # Set to a valid CSS time value to change the animation duration, "0s" to disable.
-    # logoCursorAnimate  = "2s"
-
-  # Commento is more than just a comments widget you can embed — 
-  # it’s a return to the roots of the internet. 
-  # An internet without the tracking and invasions of privacy. 
-  # An internet that is simple and lightweight. 
-  # An internet that is focused on interesting discussions, not ads. 
-  # A better internet.
-  # Uncomment this to enable Commento.
-  #
-  # [params.commento]
-  #  url = ""
-
-  # Uncomment this if you want a portrait on your start page
-  #
-   [params.portrait]
-     path     = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/avatar.jpg"
-     alt      = "Portrait"
-     maxWidth = "150px"
-
-  # Social icons
-  [[params.social]]
-    name = "twitter"
-    url  = "https://twitter.com/quactv1"
-
-  [[params.social]]
-    name = "email"
-    url  = "mailto:quactv1@gmail.com"
-
-  [[params.social]]
-    name = "github"
-    url  = "https://github.com/tranquac"
-
-  [[params.social]]
-    name = "linkedin"
-    url  = "https://www.linkedin.com/"
-
-  [[params.social]]
-    name = "telegram"
-    url  = "https://t.me/quactv"
-
-[languages]
-  [languages.en]
-    subtitle  = ""
-    weight    = 1
-    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
-
-  [languages.fr]
-    subtitle  = ""
-    weight    = 2
-    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
-
+# Menu config
 [menu]
   [[menu.main]]
-    identifier = "about"
-    name       = "about"
-    url        = "about/"
-  [[menu.main]]
+    weight = 1
     identifier = "posts"
-    name       = "posts"
-    url        = "posts/"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    name = "Posts"
+    url = "/posts/"
+    # title will be shown when you hover on this menu link
+    title = ""
   [[menu.main]]
+    weight = 2
     identifier = "write-up"
-    name       = "write-up"
-    url        = "write-up/"
-  
+    pre = ""
+    post = ""
+    name = "Write-up"
+    url = "/write-up/"
+    title = ""
+  [[menu.main]]
+    weight = 3
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = ""
+  [[menu.main]]
+    weight = 4
+    identifier = "About me"
+    pre = ""
+    post = ""
+    name = "About me"
+    url = "/about/"
+    title = ""
+
+# Markup related configuration in Hugo
+[markup]
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false

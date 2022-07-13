@@ -1,21 +1,14 @@
-+++
-title = "[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java"
-description = ""
-type = ["posts","post"]
-tags = [
-    "infosec",
-    "java",
+---
+title: "[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java"
+date: 2022-01-18T18:17:00+07:00
+draft: false
+categories: [
+    "Offensive Security"
 ]
-date = "2022-01-18"
-categories = [
-    "infosec",
-    "java",
+tags: [
+    "Code","Java",
 ]
-series = ["java"]
-[ author ]
-  name = "Quac Tran"
-+++
-
+---
 Lỗ hổng bảo mật liên quan đến Java Deserialization (Deser) là khó đối với tôi. Tôi đã mất nhiều thời gian để tìm hiểu nó. Và tôi không dừng lại. Tôi muốn tìm hiểu những thứ mới và tìm hiểu sâu hơn về nó. Bài viết đầu tiên này tôi sẽ giải thích cơ chế Serialize và Deserialize trong Java. Cũng chỉ như những gì tôi ghi chép lại cho việc mình đã học.
 
 Tôi thật sự ngưỡng mộ một số anh chị đi trước đã có những nghiên cứu sâu về lỗ hổng này cũng như có rất nhiều CVE phức tạp liên quan tới nó: Anh Jangg, chị Quỳnh Lê.

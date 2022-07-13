@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Tunneling, Pivoting to Attack Internal Network - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="Tunneling, Pivoting to Attack Internal Network" />
+<meta property="og:description" content="Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/tunneling-and-pivoting/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-30T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-07-30T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Tunneling, Pivoting to Attack Internal Network"/>
+<meta name="twitter:description" content="Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/tunneling-and-pivoting/" /><link rel="prev" href="http://example.org/posts/jwt-attack/" /><link rel="next" href="http://example.org/posts/my-note-for-code-review/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Tunneling, Pivoting to Attack Internal Network",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/tunneling-and-pivoting\/"
+        },"genre": "posts","keywords": "Tunel, Pivot, Tool","wordcount":  1835 ,
+        "url": "http:\/\/example.org\/posts\/tunneling-and-pivoting\/","datePublished": "2021-07-30T18:17:00+07:00","dateModified": "2021-07-30T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Tunneling, Pivoting to Attack Internal Network</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-30">2021-07-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1835 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#tools-for-tunneling">Tools for Tunneling</a>
+      <ul>
+        <li><a href="#ssh-tunnel">SSH Tunnel</a></li>
+        <li><a href="#netword-layer-tunnel">Netword Layer Tunnel</a></li>
+        <li><a href="#transport-layer-tunnel">Transport Layer Tunnel</a></li>
+        <li><a href="#application-layer-tunnel">Application Layer Tunnel</a></li>
+        <li><a href="#other-tools-pivoting-without-ssh">Other tools pivoting without SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</a>
+      <ul>
+        <li><a href="#ssh">Ssh</a></li>
+        <li><a href="#powershell">Powershell</a></li>
+        <li><a href="#rdp">RDP</a></li>
+        <li><a href="#metasploit-framework-1">Metasploit Framework</a></li>
+        <li><a href="#cobalt-strike">Cobalt Strike</a></li>
+        <li><a href="#http">HTTP</a></li>
+        <li><a href="#dns">DNS</a></li>
+        <li><a href="#icmp">ICMP</a></li>
+      </ul>
+    </li>
+    <li><a href="#refer">Refer</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li><a href="#Intro" rel="">Intro</a></li>
+<li><a href="#tools-for-tunneling" rel="">Tools for tunneling</a>
+<ul>
+<li><a href="#ssh-tunnel" rel="">SSH Tunnel</a>
+<ul>
+<li><a href="#local-port-forwarding" rel="">Local Port Porwarding</a></li>
+<li><a href="#remote-port-forwarding" rel="">Remote Port Porwarding</a></li>
+<li><a href="#dynamic-port-forwarding" rel="">Dynamic Port Porwarding</a></li>
+<li><a href="#sshuttle" rel="">Sshuttle</a></li>
+</ul>
+</li>
+<li><a href="#netword-layer-tunnel" rel="">Netword Layer Tunnel</a></li>
+<li><a href="#transport-layer-tunnel" rel="">Transport Layer Tunnel</a></li>
+<li><a href="#application-layer-tunnel" rel="">Application Layer Tunnel</a></li>
+<li><a href="#other-tools-pivoting-without-ssh" rel="">Other tools pivoting without SSH</a>
+<ul>
+<li><a href="#metasploit-framework" rel="">Metasploit Framework</a></li>
+<li><a href="#chisel" rel="">Chisel</a></li>
+<li><a href="#ssf" rel="">Ssf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#create-socks-proxy-to-attack-internal-network" rel="">Create SOCKS Proxy to Attack Internal Network</a></li>
+<li><a href="#refer" rel="">Refer</a></li>
+</ul>
+<h2 id="intro">Intro</h2>
+<ul>
+<li>
+<p>Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.</p>
+</li>
+<li>
+<p>Tấn công,xâm nhập mạng nội bộ là sử dụng các công nghệ <em>tunnel</em> khác nhau để vượt qua sự phong tỏa, phát hiện của tường lửa với các giao thức được tường lửa cho phép để đạt được quyền truy cập vào mạng mục tiêu bị chặn.</p>
+</li>
+<li>
+<p>Công nghệ <em>tunnel</em> (đường hầm) là một cách để truyền dữ liệu giữa các mạng bằng cách sử dụng cơ sở hạ tầng của Internet. Dữ liệu được truyền bằng <em>tunnel</em> có thể là các <em>frame</em> dữ liệu hoặc các <em>package</em> của các protocol khác nhau. <em>Tunnel protocol</em> đóng gói lại các <em>frame</em> dữ liệu hoặc <em>package</em> dữ liệu của các <em>protocol</em> khác này trong một <em>header</em> mới để truyền. <em>Header</em> mới cung cấp thông tin định tuyến để dữ liệu được đóng gói có thể được truyền qua Internet. Các package dữ liệu đóng gói được định tuyến giữa hai <em>endpoint</em> của <em>tunnel</em> thông qua mạng internet. Đường dẫn logic mà package dữ liệu đã đóng gói được truyền qua Internet được gọi là <em>tunnel</em>. Khi kết thúc, dữ liệu sẽ được giải nén và chuyển tiếp đến đích cuối cùng. Lưu ý rằng công nghệ tunnel đề cập đến toàn bộ quá trình bao gồm đóng gói, truyền và giải nén dữ liệu.</p>
+</li>
+<li>
+<p>Các công nghệ <em>tunnel</em> mà chúng tôi thường sử dụng để xâm nhập mạng nội bộ bao gồm dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel và các giao thức khác mà tường lửa cho phép.</p>
+</li>
+<li>
+<p>Các công nghệ tunnel này có thể được phân lớp theo lớp giao thức:</p>
+<ul>
+<li>Netword layer tunnel: ICMP tunnel, v.v.</li>
+<li>Transport layer tunnel: TCP tunnel, UDP tunnel</li>
+<li>Application layer tunnel: HTTP, DNS, SSH và các tunnel khác</li>
+</ul>
+</li>
+</ul>
+<h2 id="tools-for-tunneling">Tools for Tunneling</h2>
+<h3 id="ssh-tunnel">SSH Tunnel</h3>
+<ul>
+<li>Vì đây là một phần quan trọng và sử dụng cực kì hữu ích trong thực tế nên tôi sẽ nói kĩ về nó. Nó nằm trong Application layer tunnel.</li>
+</ul>
+<h4 id="local-port-forwarding">Local Port Forwarding</h4>
+<ul>
+<li>
+<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT</code><br>
+-&gt; Tất cả traffic đến [LOCAL_IP:]LOCAL_PORT sẽ được forward đến DESTINATION:DESTINATION_PORT qua ssh tunnel</p>
+</li>
+<li>
+<p><code>ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT -L [LOCAL_IP2:]LOCAL_PORT2:DESTINATION2:DESTINATION_PORT2</code><br>
+-&gt; Multi local port forwarding</p>
+</li>
+<li>
+<p><code>ssh user@10.66.66.4 -CNfg -L 13389:127.0.0.1:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 127.0.0.1:3389 trên server</p>
+</li>
+<li>
+<p><code>ssh user@10.66.66.4 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Tất cả traffic đến 13389 trên localhost sẽ được forward tới 10.9.9.123:3389 nếu từ server có thể kết nối đến 10.9.9.123:3389</p>
+</li>
+<li>
+<p><code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389</code><br>
+-&gt; Có thể forward port ssh từ local lên server public (remote port forwarding) để tất cả mọi người từ bên ngoài đều có thể kết nối được đến 10.9.9.123:3389 (mạng local)</p>
+</li>
+<li>
+<p><code>ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389 -L 13390:10.9.9.123:3390 -L 13391:10.9.9.123:3391</code><br>
+-&gt; Ví dụ multi local port forwarding\</p>
+</li>
+<li>
+<p><strong>Local port forwarding thường được sử dụng để kéo một port từ server hoặc trong vùng mạng với server -&gt; local</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
+    [KALI]    &lt;===&gt;    [Debian]    &lt;===&gt;    [Windows Server]<br>
+10.10.10.10        192.168.10.10                172.16.10.10<br>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
+                                &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</p>
+</li>
+<li>
+<p>Trong trường hợp này : Khi ta khai thác và chiếm quyền kiểm soát được máy chủ 192.168.10.10 của mục tiêu. 172.16.10.10 là một máy chủ nội bộ, không có kết nối internet và không thể kết nối đến mạng bên ngoài. Giả sử nó đang mở port 445. Vậy làm sao có thể khai thác và enum thông tin của nó từ máy của chúng ta?</p>
+</li>
+<li>
+<p>From KALI : <code>ssh -N -L 0.0.0.0:4445:172.16.10.10:445 root@192.168.10.10</code></p>
+</li>
+<li>
+<p>Sau khi sử dụng lệnh này trên máy KALI chúng ta có thể truy cập 172.16.10.10:445 từ <code>localhost:445</code></p>
+</li>
+</ul>
+<h4 id="remote-port-forwarding">Remote Port Forwarding</h4>
+<ul>
+<li>
+<p><code>ssh -R [REMOTE:]REMOTE_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER</code><br>
+-&gt; Tất cả traffic đến [REMOTE:]REMOTE_PORT trên server sẽ forward đến DESTINATION:DESTINATION_PORT (client)</p>
+</li>
+<li>
+<p><code>ssh user@remote.host -CNfg -R 8080:127.0.0.1:3000</code><br>
+-&gt; Tất cả traffic đến port 8080 trên server sẽ được forward đến 127.0.0.1:3000 trên máy của bạn</p>
+</li>
+<li>
+<p><code>ssh -tt -R 3389:localhost:3389 root@103.81.86.132 -p 9020 ssh -L 103.81.86.132:3389:127.0.0.1:3389 root@localhost -p 9020</code><br>
+-&gt; Ví dụ bạn có một server public. Bạn có thể sử dụng lệnh này để kéo port 3389 từ local lên server để mọi người từ internet có thể kết nối đến (trong trường hợp này là remote desktop). Vì remote port fowarding mặc định chỉ foward đến interface 127.0.0.1 nên tả sẽ sử dụng thêm một lệnh local port fowarding nữa để chuyển traffic qua interface public.</p>
+</li>
+<li>
+<p><strong>Remote port forwarding thường được sử dụng để kéo 1 port từ local hoặc trong vùng mạng của local -&gt; server</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
+     [KALI]                        [Debian]            <br>
+103.81.86.132              172.16.10.10   <br>
+                                 (Compromised)<br>
+        &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/22<br>
+        &mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;-&gt; tcp/3306<br>
+      ANY &lt;&mdash;&mdash;V&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+</li>
+<li>
+<p>From Debian : <code>ssh -N -R 103.81.86.132:2221:127.0.0.1:3306 kali@10.10.10.10</code></p>
+</li>
+<li>
+<p>Bây giờ trên Kali, khi traffic đến tcp / 2221, nó sẽ chuyển đến tcp / 3306 của Debian</p>
+</li>
+</ul>
+<h4 id="dynamic-port-forwarding">Dynamic Port Forwarding</h4>
+<ul>
+<li>
+<p><code>ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER</code></p>
+</li>
+<li>
+<p><code>ssh -CNfg -D 127.0.0.1:7777 root@192.168.1.1</code>
+-&gt; Lúc này 127.0.0.1:7777 sẽ đóng vai trò như một SOCKS proxy forward mọi traffic qua nó đến vùng mạng của server</p>
+</li>
+<li>
+<p><strong>Dymanic port forwarding được sử dụng để tạo SOCKS proxy để truy cập mọi IP, port trên mạng server qua SOCKs proxy</strong></p>
+</li>
+<li>
+<p><strong>Ví dụ thực tế</strong></p>
+</li>
+<li>
+<p>Kịch bản:<br>
+   [KALI]      &lt;===&gt;      [Debian]      &lt;===&gt;      [Windows Server]<br>
+10.10.10.10            192.168.10.10                  172.16.10.10<br>
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-X&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;   tcp/445<br>
+                                           &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/445<br>
+                                           &mdash;&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&gt;   tcp/any<br>
+&mdash;&mdash;&mdash;&ndash;V&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt; tcp/22</p>
+</li>
+<li>
+<p>From Kali: <code>ssh -N -D 127.0.0.1:8080 user@192.168.10.10</code></p>
+</li>
+<li>
+<p>Lúc này 127.0.0.1:8080 đóng vai trò như một SOCKS proxy forward toàn bộ traffic đi qua nó tới vùng mạng mà 192.168.10.10 có thể kết nối đến.</p>
+</li>
+<li>
+<p>Nếu là http traffic có thể sử dụng FoxyProxy, traffic khác có thể sử dụng proxychains</p>
+</li>
+<li>
+<p>Cấu hình /etc/proxychains.conf:</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">...
+socks4 127.0.0.1 <span class="m">8080</span>
+</code></pre></div><ul>
+<li>Scan nmap qua proxychains: <code>proxychains --top-ports -sT -Pn 172.16.10.10</code></li>
+</ul>
+<h4 id="options">Options</h4>
+<ul>
+<li>Options:<br>
+-C Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11 and TCP connections)<br>
+-N Do not execute a remote command. This is useful for just forwarding ports<br>
+-g Allows remote hosts to connect to local forwarded ports.<br>
+-L Local port forwarding<br>
+-R Local port forwarding<br>
+-D Local port forwarding (SOCKS proxy)<br>
+-p port</li>
+</ul>
+<h4 id="sshuttle">Sshuttle</h4>
+<ul>
+<li>Một công cụ rất hay chúng ta cũng có thể sử dụng là sshuttle (<a href="https://github.com/sshuttle/sshuttle">https://github.com/sshuttle/sshuttle</a>)</li>
+<li>Install
+<ul>
+<li>Debian    : <code>apt-get install sshuttle -y</code></li>
+<li>Rpm-based : <code>yum install sshuttle</code></li>
+</ul>
+</li>
+<li>Usage
+<ul>
+<li><code>sshuttle -r USERNAME@SERVER_IP 0.0.0.0/0 -vv</code> (mọi kết nối sẽ đi qua server)</li>
+<li><code>sshuttle -r sean@10.11.1.251 10.1.1.27</code> (tạo kết nối trực tiếp đến 10.1.1.27 thông qua trung gian 10.11.1.251)</li>
+<li><code>sshuttle -r sean@10.11.1.251 10.1.1.27/24</code> (tạo kết nối trực tiếp đến 10.1.1.27/24 thông qua trung gian 10.11.1.251)\</li>
+<li><code>nmap -Pn -v -sT -sV -p 22,80,443,21,25 10.1.1.27/24</code>(có thể sử dụng nmap scan trực tiếp không cần qua proxy như ssh dynamic port fowarding)</li>
+</ul>
+</li>
+</ul>
+<h4 id="chú-ý">Chú ý</h4>
+<ul>
+<li>Trong thực tế giả sử bạn có quyền truy cập máy chủ thông qua một lỗ hổng web hay ứng dụng, chúng ta không có thông tin đăng nhập của ssh. Bạn hoàn toàn có thể tạo một cặp key từ máy chủ và có thể ssh qua private key của nó với options <code>-i</code> như phần đầu tiên trong bài viết này của tôi :<br>
+<a href="https://tranquac.com/posts/2021/06/linux-backdoors/">https://tranquac.com/posts/2021/06/linux-backdoors/</a></li>
+</ul>
+<h3 id="netword-layer-tunnel">Netword Layer Tunnel</h3>
+<ul>
+<li>Tôi sẽ giới thiệu một số công cụ các bạn có thể tự nghiên cứu và thực hành</li>
+<li>ICMP tunnel:
+<ul>
+<li>icmpsh (<a href="https://github.com/bdamele/icmpsh">https://github.com/bdamele/icmpsh</a>)</li>
+<li>icmptunnel (<a href="https://github.com/DhavalKapil/icmptunnel">https://github.com/DhavalKapil/icmptunnel</a>)</li>
+<li>pingtunnel (<a href="https://www.mit.edu/afs.new/sipb/user/golem/tmp/ptunnel-0.61.orig/web/">https://www.mit.edu/afs.new/sipb/user/golem/tmp/ptunnel-0.61.orig/web/</a>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="transport-layer-tunnel">Transport Layer Tunnel</h3>
+<ul>
+<li>TCP tunnel, UDP tunnel:
+<ul>
+<li>netcat</li>
+<li>powercat</li>
+<li>socat</li>
+<li>netsh</li>
+<li>lcx</li>
+<li>NATBypass</li>
+<li>iox</li>
+</ul>
+</li>
+</ul>
+<h3 id="application-layer-tunnel">Application Layer Tunnel</h3>
+<ul>
+<li>HTTP, DNS, SSH và các tunnel khác. SSH tôi đã nói rất chi tiết ở trên.
+<ul>
+<li>dnscat2</li>
+<li>dnscat2-powershell</li>
+<li>dns2tcp</li>
+<li>iodine</li>
+<li>reGeorg</li>
+<li>Neo-reGeorg</li>
+<li>reDuh</li>
+<li>Tunna</li>
+<li>ABPTTS</li>
+<li>EarthWorm</li>
+<li>Termite</li>
+<li>Venom</li>
+<li>ssocks</li>
+<li>s5.go</li>
+</ul>
+</li>
+</ul>
+<h3 id="other-tools-pivoting-without-ssh">Other tools pivoting without SSH</h3>
+<h4 id="metasploit-framework">Metasploit Framework</h4>
+<ul>
+<li>Khi có shell meterpreter bạn hoàn toàn có thể sử dụng để tạo tunnel dễ dàng. Không cần phải có thông tin đăng nhập giống SSH. Với SSH ta phải có một tài khoản đăng nhập hay private-key SSH của server thì mới có thể kết nối đến và tạo tunnel.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd -h
+Usage: portfwd <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>add <span class="p">|</span> delete <span class="p">|</span> list <span class="p">|</span> flush<span class="o">]</span> <span class="o">[</span>args<span class="o">]</span>
+OPTIONS:
+     -L &gt;opt&gt;  The <span class="nb">local</span> host to listen on <span class="o">(</span>optional<span class="o">)</span>.
+     -h        Help banner.
+     -l &gt;opt&gt;  The <span class="nb">local</span> port to listen on.
+     -p &gt;opt&gt;  The remote port to connect on.
+     -r &gt;opt&gt;  The remote host to connect on.
+meterpreter &gt;
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd add –l <span class="m">3389</span> –p <span class="m">3389</span> –r 172.16.194.191
+<span class="o">[</span>*<span class="o">]</span> Local TCP relay created: 0.0.0.0:3389 &gt;-&gt; 172.16.194.191:3389
+meterpreter &gt; 
+</code></pre></div><p>-&gt; Tạo một tunnel forward toàn bộ traffic đến port 3339 trên localhost tới 172.16.194.191 qua pivot là máy đang có shell meterpreter hiện tại.Nó cũng tương tự SSH local port forwarding vậy đó.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">meterpreter &gt; portfwd delete –l <span class="m">3389</span> –p <span class="m">3389</span> –r 172.16.194.191
+<span class="o">[</span>*<span class="o">]</span> Successfully stopped TCP relay on 0.0.0.0:3389
+meterpreter &gt; 
+</code></pre></div><p>-&gt; Hủy một tunnel</p>
+<ul>
+<li>Liệt kê tất cả tunnel : <code>meterpreter &gt; portfwd list</code></li>
+<li>Xóa tất cả tunnel : <code>portfwd flush</code></li>
+<li>Xem chi tiết hơn tại : <a href="https://www.offensive-security.com/metasploit-unleashed/portfwd/">https://www.offensive-security.com/metasploit-unleashed/portfwd/</a></li>
+</ul>
+<h4 id="chisel">Chisel</h4>
+<ul>
+<li>A fast TCP/UDP tunnel over HTTP (<a href="https://github.com/jpillora/chisel">https://github.com/jpillora/chisel</a>)</li>
+<li>Sử dụng thông thường: Ví dụ Kali hoặc máy tấn công khác có IP là 10.10.15.13, máy client có IP là 10.10.10.10.</li>
+<li>Trên máy tấn công bắt đầu tạo chisel server lắng nghe trên port 8000:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">./chisel server -p <span class="m">8000</span> --reverse
+</code></pre></div><ul>
+<li>Trên máy client:
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:80:127.0.0.1:80 R:389:localhost:389</td>
+<td>Listen on Kali 80,389, forward to localhost port 80,389 on client</td>
+</tr>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:4444:10.10.10.214:80</td>
+<td>Listen on Kali 4444, forward to 10.10.10.214 port 80</td>
+</tr>
+<tr>
+<td>chisel client 10.10.15.13:8000 R:socks</td>
+<td>Create SOCKS5 listener on 1080 on Kali, proxy through client</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Lưu ý là Chisel phải chạy cả trên server và client</li>
+</ul>
+<h4 id="ssf">Ssf</h4>
+<ul>
+<li><a href="https://github.com/securesocketfunneling/ssf">https://github.com/securesocketfunneling/ssf</a></li>
+</ul>
+<h2 id="create-socks-proxy-to-attack-internal-network">Create SOCKS Proxy to Attack Internal Network</h2>
+<h3 id="ssh">Ssh</h3>
+<ul>
+<li><a href="#dynamic-port-forwarding" rel="">Dynamic Port Porwarding</a></li>
+<li>Cũng có thể tạo một SOCKS proxy là chính máy của bạn: <code>ssh user@localhost -CNfg -D 9000</code></li>
+<li><a href="#sshuttle" rel="">Sshuttle</a></li>
+</ul>
+<h3 id="powershell">Powershell</h3>
+<ul>
+<li><a href="https://www.varonis.com/blog/nmap-reverse-proxies/">https://www.varonis.com/blog/nmap-reverse-proxies/</a></li>
+<li><a href="https://tokyoneon.github.io/">https://tokyoneon.github.io/</a></li>
+<li><a href="https://github.com/tokyoneon/Invoke-SocksProxy">https://github.com/tokyoneon/Invoke-SocksProxy</a></li>
+</ul>
+<h3 id="rdp">RDP</h3>
+<ol>
+<li><strong>Client</strong>: Register the <code>UDVC-Plugin.dll</code> on the system (<a href="https://github.com/earthquake/UniversalDVC#installation">https://github.com/earthquake/UniversalDVC#installation</a>)</li>
+<li><strong>Client</strong>: connect via <code>RDP</code> to the server (by default it will create the virtual channel on all RDP connections, by binding the TCP port 31337)</li>
+<li>Copy <code>UDVC-Server.exe</code> and the <code>SSF package</code> on the remote server</li>
+<li><strong>Server</strong>: execute <code>ssfd.exe -p 9898</code></li>
+<li><strong>Server</strong>: execute <code>UDVC-Server.exe -c -p 9898 -i 127.0.0.1</code></li>
+<li><strong>Client</strong>: execute <code>ssf.exe -D 9999 -p 31337 127.0.0.1</code><br>
+-&gt; At this point you will have the socks server listening on port 9999 of your client.</li>
+</ol>
+<h3 id="metasploit-framework-1">Metasploit Framework</h3>
+<ul>
+<li><a href="https://www.offensive-security.com/metasploit-unleashed/proxytunnels/">https://www.offensive-security.com/metasploit-unleashed/proxytunnels/</a></li>
+</ul>
+<h3 id="cobalt-strike">Cobalt Strike</h3>
+<ul>
+<li><a href="https://www.cobaltstrike.com/help-socks-proxy-pivoting">https://www.cobaltstrike.com/help-socks-proxy-pivoting</a></li>
+</ul>
+<h3 id="http">HTTP</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+</ul>
+<h3 id="dns">DNS</h3>
+<ul>
+<li><a href="http://blog.dengxj.com/archives/14/">http://blog.dengxj.com/archives/14/</a></li>
+</ul>
+<h3 id="icmp">ICMP</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+</ul>
+<h2 id="refer">Refer</h2>
+<ul>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/108896857">https://blog.csdn.net/qq_34801745/article/details/108896857</a></li>
+<li><a href="https://blog.csdn.net/qq_34801745/article/details/109022922">https://blog.csdn.net/qq_34801745/article/details/109022922</a></li>
+<li><a href="https://www.ms509.com/2020/06/17/Intranet-penetration/">https://www.ms509.com/2020/06/17/Intranet-penetration/</a></li>
+<li><a href="https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/">https://techblog.mediaservice.net/2019/10/remote-desktop-tunneling-tips-tricks/</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Network%20Pivoting%20Techniques.md">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Network%20Pivoting%20Techniques.md</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-07-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/tunneling-and-pivoting/" data-title="Tunneling, Pivoting to Attack Internal Network" data-via="quactv1" data-hashtags="Tunel,Pivot,Tool"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/tunneling-and-pivoting/" data-hashtag="Tunel"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/tunneling-and-pivoting/" data-title="Tunneling, Pivoting to Attack Internal Network"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/tunneling-and-pivoting/" data-title="Tunneling, Pivoting to Attack Internal Network"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/tunneling-and-pivoting/" data-title="Tunneling, Pivoting to Attack Internal Network"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/tunel/">Tunel</a>,&nbsp;<a href="/tags/pivot/">Pivot</a>,&nbsp;<a href="/tags/tool/">Tool</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jwt-attack/" class="prev" rel="prev" title="JWT Attack"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JWT Attack</a>
+            <a href="/posts/my-note-for-code-review/" class="next" rel="next" title="My Notes on Code-Review">My Notes on Code-Review<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

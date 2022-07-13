@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>XXE - Tag - quactv</title>
+        <link>http://example.org/tags/xxe/</link>
+        <description>XXE - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 07 Jun 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/xxe/" rel="self" type="application/rss+xml" /><item>
+    <title>XXE</title>
+    <link>http://example.org/posts/xxe/</link>
+    <pubDate>Mon, 07 Jun 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>http://example.org/posts/xxe/</guid>
+    <description><![CDATA[What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
+XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:]]></description>
+</item>
+</channel>
+</rss>
