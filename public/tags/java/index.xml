@@ -1,33 +1,33 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Java - Tag - quactv</title>
-        <link>http://example.org/tags/java/</link>
+        <link>https://tranquac.github.io/tags/java/</link>
         <description>Java - Tag - quactv</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/java/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
     <title>[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</title>
-    <link>http://example.org/write-up/mylab1/</link>
+    <link>https://tranquac.github.io/write-up/mylab1/</link>
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/write-up/mylab1/</guid>
+    <guid>https://tranquac.github.io/write-up/mylab1/</guid>
     <description><![CDATA[Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
  1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.]]></description>
 </item>
 <item>
     <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
-    <link>http://example.org/posts/cb1-java-deser/</link>
+    <link>https://tranquac.github.io/posts/cb1-java-deser/</link>
     <pubDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/posts/cb1-java-deser/</guid>
+    <guid>https://tranquac.github.io/posts/cb1-java-deser/</guid>
     <description><![CDATA[Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1]]></description>
 </item>
 <item>
     <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
-    <link>http://example.org/posts/introduce-java-serialize/</link>
+    <link>https://tranquac.github.io/posts/introduce-java-serialize/</link>
     <pubDate>Tue, 18 Jan 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/posts/introduce-java-serialize/</guid>
+    <guid>https://tranquac.github.io/posts/introduce-java-serialize/</guid>
     <description><![CDATA[Lỗ hổng bảo mật liên quan đến Java Deserialization (Deser) là khó đối với tôi. Tôi đã mất nhiều thời gian để tìm hiểu nó. Và tôi không dừng lại. Tôi muốn tìm hiểu những thứ mới và tìm hiểu sâu hơn về nó. Bài viết đầu tiên này tôi sẽ giải thích cơ chế Serialize và Deserialize trong Java. Cũng chỉ như những gì tôi ghi chép lại cho việc mình đã học.]]></description>
 </item>
 </channel>

@@ -1,87 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - quactv</title>
-        <link>http://example.org/tags/</link>
+        <link>https://tranquac.github.io/tags/</link>
         <description>Tags - Tag - quactv</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>OSWE</title>
-    <link>http://example.org/tags/oswe/</link>
+    <link>https://tranquac.github.io/tags/oswe/</link>
     <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/oswe/</guid>
+    <guid>https://tranquac.github.io/tags/oswe/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Java</title>
-    <link>http://example.org/tags/java/</link>
+    <link>https://tranquac.github.io/tags/java/</link>
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/java/</guid>
+    <guid>https://tranquac.github.io/tags/java/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Privilege Escalation</title>
-    <link>http://example.org/tags/privilege-escalation/</link>
+    <link>https://tranquac.github.io/tags/privilege-escalation/</link>
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/privilege-escalation/</guid>
+    <guid>https://tranquac.github.io/tags/privilege-escalation/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Python</title>
-    <link>http://example.org/tags/python/</link>
+    <link>https://tranquac.github.io/tags/python/</link>
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/python/</guid>
+    <guid>https://tranquac.github.io/tags/python/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Code</title>
-    <link>http://example.org/tags/code/</link>
+    <link>https://tranquac.github.io/tags/code/</link>
     <pubDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/code/</guid>
+    <guid>https://tranquac.github.io/tags/code/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Pivot</title>
-    <link>http://example.org/tags/pivot/</link>
+    <link>https://tranquac.github.io/tags/pivot/</link>
     <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/pivot/</guid>
+    <guid>https://tranquac.github.io/tags/pivot/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Tunel</title>
-    <link>http://example.org/tags/tunel/</link>
+    <link>https://tranquac.github.io/tags/tunel/</link>
     <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/tunel/</guid>
+    <guid>https://tranquac.github.io/tags/tunel/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Tool</title>
-    <link>http://example.org/tags/tool/</link>
+    <link>https://tranquac.github.io/tags/tool/</link>
     <pubDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/tool/</guid>
+    <guid>https://tranquac.github.io/tags/tool/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>JWT</title>
-    <link>http://example.org/tags/jwt/</link>
+    <link>https://tranquac.github.io/tags/jwt/</link>
     <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/jwt/</guid>
+    <guid>https://tranquac.github.io/tags/jwt/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Token</title>
-    <link>http://example.org/tags/token/</link>
+    <link>https://tranquac.github.io/tags/token/</link>
     <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
-    <guid>http://example.org/tags/token/</guid>
+    <guid>https://tranquac.github.io/tags/token/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
