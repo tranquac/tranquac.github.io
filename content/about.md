@@ -9,7 +9,7 @@ draft: false
 * 2021 - Offensive Security Certified Professional (OSCP) [Badge here!](https://www.credential.net/1bd293ff-5d2d-4c9c-980b-6ce89f50747f#gs.5nbjcd)
 * 2022 - Offensive Security Web Expert (OSWE) [Badge here!](https://www.credential.net/5992b7ce-f6db-411e-a042-d917e85ddf29#gs.5nbm3s)
 ### [#](#) Work Experience
-**01/2020 -> Now - Red Team-er at CMC Cyber Security**
+**01/2020 -> Now - Red Team-er**
 - Assess the security of websites, API endpoints, mobile applications (black box/grey box/white box)
 - Assess the security of computer systems (Windows Server, Linux/Unix servers,
 etc).
