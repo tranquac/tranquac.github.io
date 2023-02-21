@@ -4,7 +4,15 @@
         <link>https://tranquac.github.io/tags/</link>
         <description>Tags - Tag - quactv</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>CDP</title>
+    <link>https://tranquac.github.io/tags/cdp/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/cdp/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>OSWE</title>
     <link>https://tranquac.github.io/tags/oswe/</link>
     <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
@@ -74,14 +82,6 @@
     <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/tags/jwt/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Token</title>
-    <link>https://tranquac.github.io/tags/token/</link>
-    <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/tags/token/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

