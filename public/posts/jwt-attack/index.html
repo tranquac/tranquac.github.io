@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>JWT Attack - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="JWT Attack" />
+<meta property="og:description" content="What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/jwt-attack/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-28T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-07-28T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="JWT Attack"/>
+<meta name="twitter:description" content="What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/jwt-attack/" /><link rel="prev" href="https://tranquac.github.io/posts/androi-pentest-note-p1/" /><link rel="next" href="https://tranquac.github.io/posts/tunneling-and-pivoting/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "JWT Attack",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/jwt-attack\/"
+        },"genre": "posts","keywords": "Token, JWT","wordcount":  1059 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/jwt-attack\/","datePublished": "2021-07-28T18:17:00+07:00","dateModified": "2021-07-28T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JWT Attack</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-28">2021-07-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1059 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-jwt">What is JWT</a>
+      <ul>
+        <li><a href="#header">Header</a></li>
+        <li><a href="#payload">Payload</a></li>
+        <li><a href="#signature">Signature</a></li>
+        <li><a href="#sample-jwt">Sample JWT</a></li>
+      </ul>
+    </li>
+    <li><a href="#attack-methods">Attack methods</a>
+      <ul>
+        <li><a href="#encryption-algorithm">Encryption algorithm</a></li>
+        <li><a href="#brute-force-secret-key">Brute force secret key</a></li>
+        <li><a href="#change-kid">Change KID</a></li>
+        <li><a href="#change-jku-or-x5u">Change JKU or X5U</a></li>
+        <li><a href="#other-methods">Other methods</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li><a href="#what-is-jwt" rel="">What is JWT?</a>
+<ul>
+<li><a href="#header" rel="">Header</a></li>
+<li><a href="#payload" rel="">Payload</a></li>
+<li><a href="#signature" rel="">Signature</a></li>
+<li><a href="#sample-jwt" rel="">Sample JWT</a></li>
+</ul>
+</li>
+<li><a href="#attack-methods" rel="">Attack methods</a>
+<ul>
+<li><a href="#encryption-algorithm" rel="">Encryption algorithm</a></li>
+<li><a href="#brute-force-secret-key" rel="">Brute force secret key</a></li>
+<li><a href="#change-kid" rel="">Change KID</a></li>
+<li><a href="#change-jku-or-x5u" rel="">Change JKU / X5U</a></li>
+<li><a href="#other-methods" rel="">Other methods</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="what-is-jwt">What is JWT</h2>
+<ul>
+<li>Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.</li>
+<li>JWT bao gồm ba phần: <code>header</code>.<code>payload</code>.<code>signature</code>.</li>
+</ul>
+<h3 id="header">Header</h3>
+<ul>
+<li>Hai trường thường được sử dụng nhất trong phần tiêu đề là <code>alg</code> và <code>typ</code>, <code>alg</code> chỉ định thuật toán được sử dụng để mã hóa token (thường được sử dụng nhất là thuật toán <code>HMAC</code> và <code>RSA</code> ) và kiểu khai báo <code>typ</code> là JWT</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="payload">Payload</h3>
+<ul>
+<li>Payload là dữ liệu người dùng và một số khai báo liên quan đến dữ liệu để khai báo quyền hạn của người dùng. Ví dụ: dữ liệu sau có thể được truyền trong quá trình đăng nhập</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;user_role&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>    <span class="err">//người</span> <span class="err">dùng</span> <span class="err">đã</span> <span class="err">đăng</span> <span class="err">nhập</span>
+    <span class="nt">&#34;iss&#34;</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span><span class="p">,</span>          <span class="err">//admin</span> <span class="err">hay</span> <span class="err">user</span> <span class="err">...</span>
+    <span class="nt">&#34;iat&#34;</span><span class="p">:</span> <span class="mi">1573423433</span><span class="p">,</span>        <span class="err">//thời</span> <span class="err">gian</span> <span class="err">bắt</span> <span class="err">đầu</span>
+    <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1573932423</span><span class="p">,</span>        <span class="err">//thời</span> <span class="err">gian</span> <span class="err">hết</span> <span class="err">hạn</span>
+    <span class="nt">&#34;domain&#34;</span><span class="p">:</span> <span class="s2">&#34;tranquac.com&#34;</span><span class="p">,</span>   <span class="err">//scope</span>
+    <span class="nt">&#34;jti&#34;</span><span class="p">:</span> <span class="s2">&#34;slkdfj343ekhdclsnd923redcdhfsd9s&#34;</span>   <span class="err">//token</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="signature">Signature</h3>
+<ul>
+<li>Chức năng của Signature là để bảo vệ tính toàn vẹn của jwt.</li>
+<li>Phương pháp tạo là kết nối hai phần header và payload, sau đó tính toán signature thông qua thuật toán được chỉ định trong phần header.</li>
+<li>Tóm tắt thành một công thức là:<br>
+<code>signature = HMAC-SHA256(base64urlEncode(header) + '.' + base64urlEncode(payload), secret_key)</code></li>
+</ul>
+<h3 id="sample-jwt">Sample JWT</h3>
+<ul>
+<li>Ví dụ sử dụng python hay jwt.io đều cho ra jwt tương ứng</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">jwt</span>
+
+<span class="n">encoded_jwt</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">encode</span><span class="p">({</span><span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="s1">&#39;admin&#39;</span><span class="p">},</span> <span class="s1">&#39;secret_key&#39;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;HS256&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">encoded_jwt</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_jwt</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HS256&#39;</span><span class="p">]))</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/jwt/jwt.PNG" /></p>
+<ul>
+<li>jwt được tạo tương ứng:
+<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiJ9.jBrzPBuyrCIYNdAqeQZn9-696uNQoghaCQMnC33GQ9Y</code></li>
+</ul>
+<h2 id="attack-methods">Attack methods</h2>
+<h3 id="encryption-algorithm">Encryption algorithm</h3>
+<p><strong>Thuật toán mã hóa rỗng</strong></p>
+<ul>
+<li>JWT hỗ trợ việc sử dụng thuật toán mã hóa null, bạn có thể chỉ định <code>alg</code> trong tiêu đề thành <code>None</code></li>
+<li>Trong trường hợp này, miễn là chữ ký được đặt thành trống (nghĩa là trường chữ ký không được thêm vào) và được gửi đến máy chủ, thì bất kỳ mã thông báo nào cũng có thể vượt qua xác minh của máy chủ. Ví dụ:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;None&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="nt">&#34;user&#34;</span> <span class="p">:</span> <span class="s2">&#34;Admin&#34;</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>Mã thông báo hoàn chỉnh được tạo là <code>ew0KCSJhbGciIDogIk5vbmUiLA0KCSJ0eXAiIDogImp3dCINCn0.ew0KCSJ1c2VyIiA6ICJBZG1pbiINCn0</code></li>
+<li>Mục đích ban đầu của thuật toán mã hóa trống là được sử dụng để gỡ lỗi\</li>
+</ul>
+<p><strong>Sửa đổi thuật toán mã hóa RSA thành HMAC</strong>\</p>
+<ul>
+<li>Hai thuật toán được sử dụng phổ biến nhất trong JWT là HMACtổng RSA.</li>
+<li><a href="https://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/#Pastebin/">https://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/#Pastebin/</a></li>
+</ul>
+<h3 id="brute-force-secret-key">Brute force secret key</h3>
+<ul>
+<li>Như người ta nói, nơi nào có xác minh mật khẩu, nơi đó có brute force XD.</li>
+<li>Tuy nhiên, việc brute force của JWT cần phải được thực hiện trong một số cơ sở nhất định:
+<ul>
+<li>Biết thuật toán mã hóa được JWT sử dụng</li>
+<li>jwt hợp lệ, đã ký</li>
+<li>Khóa ký không phức tạp (khóa yếu)</li>
+</ul>
+</li>
+<li>Vì vậy trên thực tế, việc brute force JWT có những hạn chế lớn.</li>
+<li>Công cụ liên quan: c-jwt-cracker (<a href="https://github.com/brendan-rius/c-jwt-cracker">https://github.com/brendan-rius/c-jwt-cracker</a>)
+<code>./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiJ9.jBrzPBuyrCIYNdAqeQZn9-696uNQoghaCQMnC33GQ9Y</code></li>
+</ul>
+<h3 id="change-kid">Change KID</h3>
+<ul>
+<li><code>kid</code> Nó là một tham số tùy chọn trong tiêu đề jwt, tên đầy đủ là key ID, nó được sử dụng để chỉ định khóa của thuật toán mã hóa</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/home/jwt/.ssh/pem&#34;</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>Bởi vì thông số này có thể được nhập bởi người dùng, nó cũng có thể gây ra một số vấn đề về bảo mật.\</li>
+</ul>
+<p><strong>Đọc tệp tùy ý</strong></p>
+<ul>
+<li><code>kid</code> : Các tham số được sử dụng để đọc tệp khóa, nhưng hệ thống không biết liệu người dùng có muốn đọc tệp khóa hay không, do đó, nếu các tham số không được lọc, kẻ tấn công có thể đọc hệ thống bất kỳ tệp nào.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/etc/passwd&#34;</span>
+<span class="p">}</span>
+</code></pre></div><p><strong>SQL injection</strong></p>
+<ul>
+<li><code>kid</code> : Bạn cũng có thể trích xuất dữ liệu từ cơ sở dữ liệu. Tại thời điểm này, nó có thể gây ra các cuộc tấn công chèn SQL. Bạn có thể lấy dữ liệu bằng cách tạo câu lệnh SQL hoặc bỏ qua xác minh chữ ký.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;key1234&#39; || union select &#39;secretkey&#39; -- &#34;</span>
+<span class="p">}</span>
+</code></pre></div><p><strong>Command inject</strong></p>
+<ul>
+<li><code>kid</code> : Việc lọc không đầy đủ các tham số cũng có thể gây ra các vấn đề về inject command, nhưng các điều kiện sử dụng đòi hỏi nhiều hơn. Nếu phần máy chủ sử dụng Ruby và các open chức năng được sử dụng khi đọc tệp khóa, thì việc chèn lệnh có thể được gây ra bởi các tham số.<br>
+<code>&quot;/ path / to / key_file | whoami&quot;</code></li>
+<li>Đối với các ngôn ngữ khác, chẳng hạn như php, nếu code sử dụng exec hoặc system đọc tệp khóa, nó cũng có thể gây ra hiện tượng chèn lệnh. Tất nhiên, khả năng này là tương đối nhỏ.</li>
+</ul>
+<h3 id="change-jku-or-x5u">Change JKU or X5U</h3>
+<ul>
+<li><code>JKU</code> : Tên đầy đủ của là &ldquo;JSON Web Key Set URL&rdquo;, được sử dụng để chỉ định một tập hợp các URL được sử dụng để xác minh jwt. Tương tự <code>kid</code>,từ <code>JKU</code> người dùng cũng có thể chỉ định dữ liệu đầu vào. Nếu dữ liệu đó không được lọc chặt chẽ, bạn có thể chỉ định một tập hợp các tệp khóa tùy chỉnh và chỉ định rằng ứng dụng web sử dụng tập hợp khóa để xác minh jwt.</li>
+<li><code>X5U</code> : Cho phép kẻ tấn công chỉ định chứng chỉ khóa công khai hoặc chuỗi chứng chỉ được sử dụng để xác minh jwt, tương tự như <code>JKU</code> phương pháp khai thác tấn công.</li>
+</ul>
+<h3 id="other-methods">Other methods</h3>
+<ul>
+<li>JWT đảm bảo tính toàn vẹn hơn là tính bảo mật trong quá trình truyền dữ liệu.</li>
+<li>Vì payload được encode base64url nên nó tương đương với truyền bản rõ. Nếu payload mang thông tin nhạy cảm (chẳng hạn như đường dẫn tệp nơi lưu trữ cặp khóa) và phần payload được base64url decode , thì thông tin được mang trong payload có thể được đọc .</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-07-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/jwt-attack/" data-title="JWT Attack" data-via="quactv1" data-hashtags="Token,JWT"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/jwt-attack/" data-hashtag="Token"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/jwt-attack/" data-title="JWT Attack"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/jwt-attack/" data-title="JWT Attack"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/jwt-attack/" data-title="JWT Attack"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/token/">Token</a>,&nbsp;<a href="/tags/jwt/">JWT</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/androi-pentest-note-p1/" class="prev" rel="prev" title="Android Pentest Note"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Android Pentest Note</a>
+            <a href="/posts/tunneling-and-pivoting/" class="next" rel="next" title="Tunneling, Pivoting to Attack Internal Network">Tunneling, Pivoting to Attack Internal Network<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

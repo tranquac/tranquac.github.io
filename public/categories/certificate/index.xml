@@ -1,0 +1,45 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Certificate - Category - quactv</title>
+        <link>https://tranquac.github.io/categories/certificate/</link>
+        <description>Certificate - Category - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/categories/certificate/" rel="self" type="application/rss+xml" /><item>
+    <title>Getting the CDP Certification: &#39;Certified DevSecOps Professional (CDP)&#39; review</title>
+    <link>https://tranquac.github.io/posts/cdp-review/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/cdp-review/</guid>
+    <description><![CDATA[21-02-2023 / 23 Year Old Ảo thật. Nghĩ về quả chứng chỉ này cũng có nhiều kỉ niệm hài hước đó :))
+Certified DevSecOps Professional (CDP) Badge here!
+Khoan đã, để tôi nói về nó một chụt:
+The CDP credential validates the practical expertise to understand, implement and manage the DevSecOps program in an organization. A CDP can assess the current state of DevSecOps, embed security as part of DevOps, manage vulnerabilities and improve the overall Maturity Level.]]></description>
+</item>
+<item>
+    <title>Getting the OSWE Certification: &#39;Offensive Security Web Expert&#39; (PEN-300) review</title>
+    <link>https://tranquac.github.io/posts/oswe-review/</link>
+    <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/oswe-review/</guid>
+    <description><![CDATA[10-06-2022 / 22 Year Old Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)
+Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20h đối mặt với kì thi đầy cam go và khó khăn.]]></description>
+</item>
+<item>
+    <title>OSCP CheatSheet</title>
+    <link>https://tranquac.github.io/posts/oscp-cheat-sheet/</link>
+    <pubDate>Sun, 25 Apr 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/oscp-cheat-sheet/</guid>
+    <description><![CDATA[This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
+ Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb]]></description>
+</item>
+<item>
+    <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>
+    <link>https://tranquac.github.io/posts/oscp-review/</link>
+    <pubDate>Wed, 21 Apr 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/oscp-review/</guid>
+    <description><![CDATA[28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.]]></description>
+</item>
+</channel>
+</rss>

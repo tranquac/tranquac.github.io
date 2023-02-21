@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>My Notes on Code-Review - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="My Notes on Code-Review" />
+<meta property="og:description" content="The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/my-note-for-code-review/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-30T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-08-30T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="My Notes on Code-Review"/>
+<meta name="twitter:description" content="The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/my-note-for-code-review/" /><link rel="prev" href="https://tranquac.github.io/posts/tunneling-and-pivoting/" /><link rel="next" href="https://tranquac.github.io/posts/crossc2generate-cross-platform-payload/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "My Notes on Code-Review",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/my-note-for-code-review\/"
+        },"genre": "posts","keywords": "Code","wordcount":  969 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/my-note-for-code-review\/","datePublished": "2021-08-30T18:17:00+07:00","dateModified": "2021-08-30T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">My Notes on Code-Review</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-30">2021-08-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;969 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-fast-approach">The Fast Approach</a>
+      <ul>
+        <li><a href="#first">First</a></li>
+        <li><a href="#leaked-secrets-and-weak-encryption">Leaked Secrets and Weak Encryption</a></li>
+        <li><a href="#new-patches-and-outdated-dependencies">New Patches and Outdated Dependencies</a></li>
+        <li><a href="#developer-comments">Developer Comments</a></li>
+        <li><a href="#debug-functionalities-and-configuration-files-and-endpoints">Debug Functionalities and Configuration Files and Endpoints</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-detailed-approach">The Detailed Approach</a>
+      <ul>
+        <li><a href="#important-functions">Important Functions</a></li>
+        <li><a href="#user-input">User Input</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li><a href="#the-fast-approach" rel="">The Fast Approach</a>
+<ul>
+<li><a href="#first" rel="">First</a></li>
+<li><a href="#leaked-secrets-and-weak-wncryption" rel="">Leaked Secrets and Weak Encryption</a></li>
+<li><a href="#new-patches-and-outdated-dependencies" rel="">New Patches and Outdated Dependencies</a></li>
+<li><a href="#developer-comments" rel="">Developer Comments</a></li>
+<li><a href="#debug-functionalities-and-configuration-files-and-endpoints" rel="">Debug Functionalities, Configuration Files, and Endpoints</a></li>
+</ul>
+</li>
+<li><a href="#the-detailed-approach" rel="">The Detailed Approach</a>
+<ul>
+<li><a href="#important-functions" rel="">Important Functions</a></li>
+<li><a href="#user-input" rel="">User Input</a></li>
+</ul>
+</li>
+<li><a href="#reference" rel="">Reference</a></li>
+</ul>
+<h2 id="the-fast-approach">The Fast Approach</h2>
+<h3 id="first">First</h3>
+<ul>
+<li>Using grep =&gt; Look for specific dangerous patterns like specific -&gt;
+<ul>
+<li>functions</li>
+<li>strings</li>
+<li>keywords</li>
+<li>and coding patterns that are known to be dangerous.</li>
+<li>Like =&gt; eval() function</li>
+</ul>
+</li>
+<li>Focus on the search for dangerous functions used on user-controlled data.
+<ul>
+<li>Potential Dangerous Functions =&gt;
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/codereview/function_vuln.PNG" /></li>
+<li><strong>Graudit</strong> : grep rough audit - source code auditing tool (<a href="https://github.com/wireghoul/graudit">https://github.com/wireghoul/graudit</a>)</li>
+<li><strong>APKleaks</strong> : Scanning APK file for URIs, endpoints &amp; secrets.</li>
+<li><strong>gitleaks</strong> : Scan git repos (or files) for secrets using regex and entropy 🔑(<a href="https://github.com/zricethezav/gitleaks">https://github.com/zricethezav/gitleaks</a>)
+(<a href="https://github.com/dwisiswant0/apkleaks">https://github.com/dwisiswant0/apkleaks</a>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="leaked-secrets-and-weak-encryption">Leaked Secrets and Weak Encryption</h3>
+<ul>
+<li>Look for leaked secrets and credentials</li>
+<li>Developers make mistakes of hardcoding secrets such as =&gt; <strong>API keys, encryption keys, and database passwords into source code</strong>
+<ul>
+<li>If Leak -&gt; the attacker can use these credentials to access the company’s assets.</li>
+</ul>
+</li>
+<li>Grep keywords like =&gt; such as =&gt;
+<ul>
+<li><strong>key, secret, password, encrypt, API, login, or token</strong></li>
+</ul>
+</li>
+<li>Also <strong>regex</strong> based search for hex or base64 strings
+<ul>
+<li>It depends on the key format of the credentials we are looking for</li>
+<li>Example =&gt; GitHub access tokens are lowercase, 40-character hex strings
+<ul>
+<li>A search pattern like <strong>[a-f0-9]{40}</strong> would find them in the source code</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Entropy scanning</strong> -&gt; Can help us to find secrets that don’t adhere to a specific format.
+<ul>
+<li>That means =&gt; find secrets that is in randomness formats [Thus unpredictable]</li>
+<li>Example =&gt; <strong>aaaaa</strong> =&gt; weak entropy or low entropy</li>
+<li>Example =&gt; A longer string with a larger set of characters, like <strong>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</strong> =&gt; has higher entropy.</li>
+<li><strong>Entropy is therefore a good tool to find highly randomized and complex strings, which often indicate a secret</strong></li>
+<li>Good Tool =&gt; <strong>TruffleHog</strong> =&gt; <a href="https://github.com/trufflesecurity/truffleHog/">https://github.com/trufflesecurity/truffleHog/</a>
+<ul>
+<li>searches for secrets by using both regex and entropy scanning</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Weak Cryptography or Hashing Algorithm</strong>
+<ul>
+<li>Hard - During Black Box Pentesting</li>
+<li>Easy to spot - During Code Review</li>
+<li>Look for issues such as weak encryption keys, breakable encryption algorithms, and weak hashing algorithms</li>
+<li>Grep the names of weak algorithms like <strong>ECB, MD4, and MD5</strong>.
+<ul>
+<li>The application might have functions named after these algorithms, such as
+<ul>
+<li><strong>ecb(), create_md4(), or md5_hash()</strong></li>
+</ul>
+</li>
+<li>might also have variables with the name of the algorithm, like <strong>ecb_key</strong>, and so on</li>
+</ul>
+</li>
+<li>The impact of weak hashing algorithms depends on where they are used</li>
+<li>If they are used to hash values that are not considered security sensitive, their usage will have less of an impact than if they are used to hash passwords.</li>
+</ul>
+</li>
+</ul>
+<h3 id="new-patches-and-outdated-dependencies">New Patches and Outdated Dependencies</h3>
+<ul>
+<li>If have access to the <strong>commit</strong> or <strong>change history</strong> of the source code
+<ul>
+<li>Focus on the most <strong>recent code fixes</strong> and <strong>security patches</strong></li>
+</ul>
+</li>
+<li>Recent changes haven’t stood the test of time and are more likely to contain bugs.</li>
+<li>Look at the protection mechanisms implemented and see if you can bypass them.</li>
+<li>Also search for the <strong>program’s dependencies</strong> and check whether any of them <strong>are outdated</strong></li>
+<li>Grep for specific code <strong>import functions</strong> in the language we are using with <strong>keywords</strong> =&gt;
+<ul>
+<li><strong>import, require, and dependencies</strong></li>
+</ul>
+</li>
+<li>Then research the versions they’re using to see if any vulnerabilities are associated with them in the CVE database
+<ul>
+<li>The OWASP Dependency-Check tool =&gt; <a href="https://owasp.org/www-project-dependency-check/">https://owasp.org/www-project-dependency-check/</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="developer-comments">Developer Comments</h3>
+<ul>
+<li>We must also look for
+<ul>
+<li><strong>developer comments</strong> and</li>
+<li><strong>hidden debug functionalities</strong>, and</li>
+<li><strong>accidentally exposed configuration files</strong></li>
+</ul>
+</li>
+<li>Developers often forgot above things</li>
+<li>Developer comments can point out obvious programming mistakes.</li>
+<li>We can find developer comments by searching for the comment characters of each programming language
+<ul>
+<li>Python =&gt; <strong>#</strong></li>
+<li>Java / JavaScript / C++ =&gt; <strong>//</strong></li>
+</ul>
+</li>
+<li>Beside comments, we also need to search for =&gt;
+<ul>
+<li><strong>todo, fix, completed, config, setup</strong>, and <strong>removed</strong> in source code</li>
+</ul>
+</li>
+</ul>
+<h3 id="debug-functionalities-and-configuration-files-and-endpoints">Debug Functionalities and Configuration Files and Endpoints</h3>
+<ul>
+<li>Hidden debug functionalities often lead to privilege escalation,
+<ul>
+<li>as they’re intended to let the developers themselves bypass protection mechanisms</li>
+</ul>
+</li>
+<li>We can often find them at special endpoints
+<ul>
+<li>so search for strings like HTTP, HTTPS, FTP, and dev.</li>
+<li>e.g. =&gt; <a href="http://dev.example.com/admin?debug=1&amp;password=password">http://dev.example.com/admin?debug=1&amp;password=password</a> # Access debug panel</li>
+</ul>
+</li>
+<li><strong>Configuration files</strong>
+<ul>
+<li>allows us to gain more information about the target application and might contain credentials</li>
+<li>Look for <strong>filepaths</strong> to configuration files in source code as well</li>
+<li>Configuration files often have the file extensions
+<ul>
+<li><strong>.conf, .env, .cnf, .cfg, .cf, .ini, .sys, or .plist</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Additional paths, deprecated endpoints, and endpoints
+<ul>
+<li>These are endpoints that users might not encounter when using the application normally.</li>
+<li>But , If found by attacker =&gt; lead to vulnerabilities such as <strong>authentication bypass</strong> and <strong>sensitive   - information leak</strong>, depending on the exposed endpoint.</li>
+<li>search for strings and characters that indicate URLs like
+<ul>
+<li><strong>HTTP, HTTPS, slashes (/), URL parameter markers (?), file extensions (.php, .html, .js, .json), and so on.</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-detailed-approach">The Detailed Approach</h2>
+<p><em>Instead of reading the entire codebase line by line, try following strategies to maximize our efficiency</em></p>
+<h3 id="important-functions">Important Functions</h3>
+<ul>
+<li>When reading source code, focus on <strong>important functions</strong>,
+<ul>
+<li>such as <strong>authentication, password reset, state-changing actions</strong>, and <strong>sensitive info reads</strong>.</li>
+</ul>
+</li>
+<li>Which parts of the application are important depend on the priorities of the organization.</li>
+<li>Also review how important components interact with other parts of the application.</li>
+<li>This will show us that =&gt; how an attacker’s input can affect different parts of the application.</li>
+</ul>
+<h3 id="user-input">User Input</h3>
+<ul>
+<li>Another approach is to carefully read the code that processes user input.</li>
+<li>User Input =&gt; the entry points for attackers to exploit the application’s vulnerabilities
+<ul>
+<li>HTTP request parameters</li>
+<li>HTTP headers</li>
+<li>HTTP request paths</li>
+<li>Database entries</li>
+<li>File Reads</li>
+<li>File Uploads</li>
+</ul>
+</li>
+<li>Focusing on parts of the code that deal with user input will provide a good starting point for identifying potential - dangers</li>
+<li>Also must review to how the user input gets stored or transferred.</li>
+<li>Also, see whether other parts of the application use the previously processed user input.</li>
+<li>We, might find that the same user input interacts differently with various components of the application.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>Bug Bounty Bootcamp - Chapper 22 (<a href="https://www.amazon.in/Bug-Bounty-Bootcamp-Reporting-Vulnerabilities-ebook/dp/B08YK368Y3">https://www.amazon.in/Bug-Bounty-Bootcamp-Reporting-Vulnerabilities-ebook/dp/B08YK368Y3</a>)<br>
+<strong>Thanks for reading!</strong></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/my-note-for-code-review/" data-title="My Notes on Code-Review" data-via="quactv1" data-hashtags="Code"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/my-note-for-code-review/" data-hashtag="Code"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/my-note-for-code-review/" data-title="My Notes on Code-Review"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/my-note-for-code-review/" data-title="My Notes on Code-Review"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/my-note-for-code-review/" data-title="My Notes on Code-Review"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/code/">Code</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/tunneling-and-pivoting/" class="prev" rel="prev" title="Tunneling, Pivoting to Attack Internal Network"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Tunneling, Pivoting to Attack Internal Network</a>
+            <a href="/posts/crossc2generate-cross-platform-payload/" class="next" rel="next" title="CrossC2 – Generate CobaltStrike’s Cross-Platform Payload">CrossC2 – Generate CobaltStrike’s Cross-Platform Payload<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

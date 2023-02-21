@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>JWT - Tag - quactv</title>
+        <link>https://tranquac.github.io/tags/jwt/</link>
+        <description>JWT - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/jwt/" rel="self" type="application/rss+xml" /><item>
+    <title>JWT Attack</title>
+    <link>https://tranquac.github.io/posts/jwt-attack/</link>
+    <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/jwt-attack/</guid>
+    <description><![CDATA[What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.]]></description>
+</item>
+</channel>
+</rss>

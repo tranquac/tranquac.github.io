@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - quactv</title>
+        <link>https://tranquac.github.io/tags/</link>
+        <description>Tags - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>CDP</title>
+    <link>https://tranquac.github.io/tags/cdp/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/cdp/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>OSWE</title>
+    <link>https://tranquac.github.io/tags/oswe/</link>
+    <pubDate>Fri, 10 Jun 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/oswe/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Java</title>
+    <link>https://tranquac.github.io/tags/java/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/java/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Privilege Escalation</title>
+    <link>https://tranquac.github.io/tags/privilege-escalation/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/privilege-escalation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Python</title>
+    <link>https://tranquac.github.io/tags/python/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/python/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Code</title>
+    <link>https://tranquac.github.io/tags/code/</link>
+    <pubDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/code/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Pivot</title>
+    <link>https://tranquac.github.io/tags/pivot/</link>
+    <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/pivot/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Tunel</title>
+    <link>https://tranquac.github.io/tags/tunel/</link>
+    <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/tunel/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Tool</title>
+    <link>https://tranquac.github.io/tags/tool/</link>
+    <pubDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/tool/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>JWT</title>
+    <link>https://tranquac.github.io/tags/jwt/</link>
+    <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/tags/jwt/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

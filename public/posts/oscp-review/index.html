@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review" />
+<meta property="og:description" content="28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/oscp-review/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-21T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-04-21T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review"/>
+<meta name="twitter:description" content="28-4-2021 / 21 Year Old  Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/oscp-review/" /><link rel="prev" href="https://tranquac.github.io/posts/linux-privilege-escalation/" /><link rel="next" href="https://tranquac.github.io/posts/oscp-cheat-sheet/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Getting the OSCP Certification: 'Offensive Security Certified Professional' (PEN-200) review",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/oscp-review\/"
+        },"genre": "posts","keywords": "OSCP","wordcount":  1523 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/oscp-review\/","datePublished": "2021-04-21T18:17:00+07:00","dateModified": "2021-04-21T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Getting the OSCP Certification: 'Offensive Security Certified Professional' (PEN-200) review</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/certificate/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Certificate</a>&nbsp;<a href="/categories/review/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Review</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-21">2021-04-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1523 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#28-4-2021--21-year-old">28-4-2021 / 21 Year Old</a></li>
+      </ul>
+    </li>
+    <li><a href="#oscp-là-gì">OSCP là gì?</a></li>
+    <li><a href="#tại-sao-tôi-lại-đăng-kí-oscp">Tại sao tôi lại đăng kí OSCP?</a></li>
+    <li><a href="#giai-đoạn-đăng-kí-học-và-chuẩn-bị">Giai đoạn đăng kí học và chuẩn bị</a></li>
+    <li><a href="#ghi-chép">Ghi chép</a></li>
+    <li><a href="#kì-thi">Kì thi</a></li>
+    <li><a href="#lời-kết">Lời kết</a></li>
+    <li><a href="#update">Update</a></li>
+    <li><a href="#đây-là-một-số-nguồn-cực-kì-hữu-ích-tôi-đã-tham-khảo-và-học-tập-cho-kì-thi">ĐÂY LÀ MỘT SỐ NGUỒN CỰC KÌ HỮU ÍCH TÔI ĐÃ THAM KHẢO VÀ HỌC TẬP CHO KÌ THI:</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="28-4-2021--21-year-old">28-4-2021 / 21 Year Old</h3>
+<ul>
+<li>Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png"
+        data-srcset="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png 1.5x, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png"
+        title="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png" /></li>
+</ul>
+<h2 id="oscp-là-gì">OSCP là gì?</h2>
+<ul>
+<li>OSCP là một chương trình chứng chỉ mà tập trung vào những kỹ năng tấn công và kiểm thử bảo mật. Nó bao gồm 2 phần: một bài thi pentest trong vòng 23h45p. Kết quả thi sau đó phải được viết thành báo cáo bằng Tiếng Anh, thẩm định trong 7 ngày trước khi chính thức công bố kết quả.</li>
+<li>Chứng chỉ OSCP nằm trong TOP 5 chứng chỉ thâm nhập và kiểm thử đáng mơ ước cho các chuyên gia bảo mật và là một trong những chứng chỉ đòi hỏiphần thi thực hành. Tại kỳ thi, các kỹ sư phải thể hiện khả năng nghiên cứu hệ thống mạng, phát hiện các lỗ hổng hay điểm yếu về bảo mật trong hệ thống ứng dụng từ đó giúp các chuyên gia đánh giá được mức độ rủi ro cũng như xây dựng các phương pháp ứng phó và khắc phục sự cố.Có thể nói, đánh giá quan trọng nhất trong kỳ thi chính là tư duy nhạy bén và kỹ năng thực thi dưới áp lực lớn.</li>
+</ul>
+<h2 id="tại-sao-tôi-lại-đăng-kí-oscp">Tại sao tôi lại đăng kí OSCP?</h2>
+<ul>
+<li>Đầu tiên là để học hỏi nâng cao kiến thức lẫn kĩ năng về kiểm thử bảo mật, hacking cộng với đó là lòng quyết tâm, niềm đam mê trong tôi.</li>
+<li>Thứ 2 là vì công việc.                                                                                                                                                          - Thứ 3 là tăng lương thì chúng ta không nói đến ở đây nhé :)))</li>
+</ul>
+<h2 id="giai-đoạn-đăng-kí-học-và-chuẩn-bị">Giai đoạn đăng kí học và chuẩn bị</h2>
+<ul>
+<li>Để thi bạn phải trải qua khóa học PWK (PENETRATION TESTING WITH KALI LINUX), nó có 3 sự lựa chọn: 30,60 hoặc 90 ngày. Đến thời điểm hiện tại offensive đã tung ra gói mới có thời gian 1 năm với giá 2147$. Lúc đó tôi đã lựa chọn gói 90 ngày với giá 1350$.</li>
+<li>Khi đăng kí bạn sẽ nhận được những tài liệu: một sách lý thuyết 800 trang, một bộ video (kiến thức cũng tương tự nhưng không kĩ bằng sách), một gói kết nối tới VPN của họ và đây cũng chính là thứ giá trị nhất mà chúng ta có thể thực hành và rèn luyện.</li>
+<li>Tôi bắt đầu đăng kí học chính thức là vào 26 tết. Khi đó gần với kì nghỉ Tết Nguyên Đán. Do ở quê Tết đến cũng khá nhiều việc, bận rộn nên trong khoảng thời gian 20 ngày đầu tôi chỉ đọc sách mà cũng không thực hành được gì mấy. Qua đợt nghỉ Tết và đọc hòm hòm sách lý thuyết tôi bắt đầu thực hành. Tôi bắt đầu với 2 máy alpha và beta và tôi khuyên các bạn cũng nên bắt đầu từ 2 máy này. Vì đây là 2 máy duy nhất offensive hướng dẫn đầy đủ để chúng ta có thể tham khảo.</li>
+<li>Tôi khuyên thật sự trước khi đăng kí bạn cũng nên chuẩn bị tinh thần cũng như kiến thức phù hơp, nếu không bạn sẽ bị ngợp, choáng với lượng kiến thức mà bạn sẽ được tiếp xúc. Và tôi nghĩ đây không phải là khóa học dành cho người mới bắt đầu (theo quan điểm của tôi).</li>
+<li>Có thể tôi sẽ liệt kê một số kiến thức sẽ là cần thiết cho bạn:
+<ul>
+<li>Hệ điều hành Linux và Windows. Bạn nên quen thuộc với cả 2 loại. Đặc biết là linux. Bạn nên thành thạo với việc sử dụng terminal, command trên linux vì nó là cái chúng ta sẽ   sử dụng chính cho việc làm lab và kì thi.</li>
+</ul>
+<ul>
+<li>các kỹ năng lập trình để có thể đọc hiểu khai thác và modify tùy vào trường hợp. Các khai thác chủ yếu được viết bằng python,perl&hellip;Bạn không cần viết một khai thác cho một   bài toán cụ thể nhưng bạn sẽ cần hiểu nó và tùy chỉnh nó.</li>
+<li>Các web attack vector phổ biến như: SQLi, Command Injection, LFI, RFI, Upload File&hellip;</li>
+<li>Đã từng thực hành với labs là một lợi thế. Bạn có thể làm các labs trên hackthebox, tryhackme, vulnhub trước khi đến với PWK. Trước khi đến với khóa học tôi cũng thực hành     được một ít trên các nền tảng này nhưng không được nhiều lắm. Ở đây có một list các bài trên hackthebox và vulnhub like OSCP của TJNULL. Nếu hoàn thành nó hết trước khi làm     lab OSCP. Bạn chắc chắn sẽ tự tin hơn tôi nhiều:                                                                                            <br>
+<a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=1839402159">https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=1839402159</a></li>
+<li>Cuối cùng một số công cụ mà bạn không thể không biết sử dụng: nmap, burpsuite, nc, metasploit &hellip;</li>
+</ul>
+</li>
+</ul>
+<h2 id="ghi-chép">Ghi chép</h2>
+<ul>
+<li>Tôi rành riêng một mục để nói về điều này vì thực sự nó rất quan trọng. Tôi khuyên bạn nên note cẩn thận hết lại tất cả những gì bạn học được, nghiên cứu được trong suốt quá trình học tập, thực hành. Nó thực sự giúp bạn nhớ lâu hơn và bạn sẽ biết tìm lại khi gặp một bài toán tương tự hoặc quên chẳng hạn.</li>
+<li>Không chỉ lý thuyết bạn hãy note lại toàn bộ quá trình bạn làm lab. Hãy ghi rõ quá trình bạn làm, cách giải quyết mỗi khi gặp lỗi,&hellip;Nó sẽ rất hữu ích đó.</li>
+<li>Tôi có cả một kho về những điều đó:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png"
+        data-srcset="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png 1.5x, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png"
+        title="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png"
+        data-srcset="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png 1.5x, https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png"
+        title="https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png" /></li>
+</ul>
+<h2 id="kì-thi">Kì thi</h2>
+<ul>
+<li>Tính đến thời điểm trước khi và kì thi tôi đã hoàn thành tổng cộng 53 machine trên tổng số khoảng 60 machine, phần còn lại chủ yếu là tấn công active directory vì không có trong kì thi nên tôi đã quyết định làm nó sau kì thi của mình. Và bây giờ thì sẵn sàng rồi. Bắt đầu lên thớt thôi!</li>
+<li>Kì thi OSCP gồm có 5 machine trong đó có:                                                                                                                            <br>
+1 máy buffer overflow 25 điểm.                                                                                                                                                    1 máy 25 điểm.                                                                                                                                                                    2 máy 20 điểm.                                                                                                                                                                    1 máy 10 điểm.</li>
+<li>Bạn làm sao làm được 70 điểm là đủ điểm pass. Nhưng sau đó bạn phải làm report về quá trình mình làm gửi cho offensive trong 24h sau đó.</li>
+<li>Tôi đã đặt lịch thi vào 11h ngày 25/4/2021. Do mạng phòng trọ không ổn định nên tôi đã lên công ty thi. Và may mắn trong ngày hôm đó tôi không gặp vấn đề về mạng cũng như lỗi kĩ thuật.                                                                                                                                                               <br>
+10h45-&gt;11h30 -&gt; thời gian xác thực trước khi thi.                                                                                                                   <br>
+11h30-&gt;~7h tối tôi đã hoàn thành 4 machine. Được tổng cộng 80đ.                                                                                                      <br>
+7h   -&gt;7h30 tôi có một bát bún bò làm ấm lòng.                                                                                                               <br>
+7h30 -&gt;12h tôi cố gắng khai thác máy cuối cùng nhưng không có kết quả gì. Nó quá khó nhai.                                                                           <br>
+12h  -&gt;3h thời gian để ngủ.                                                                                                                                                       3h   -&gt; đánh răng, rửa mặt, vệ sinh cá nhân.                                                                                                          <br>
+3h30 -&gt; 7h sáng tôi tiếp tục cho máy cuối cùng nhưng vẫn không nhận lại được kết quả gì mặc dù tôi đã biết chính xác CVE cho ứng dụng trên máy đó.           <br>
+7h   -&gt;7h30 kiểm tra lại và kết thúc cho kì thì.</li>
+<li>Tôi đã kết thúc sớm khoảng 4 tiếng. Vì tôi đã mất khoảng 10h cho máy đó nhưng không nhận lại được gì. Tôi quyết định ra về và viết report cho bài thi của mình.</li>
+</ul>
+<h2 id="lời-kết">Lời kết</h2>
+<ul>
+<li>Hành trình của tôi là như vậy đó. Suốt 3 tháng cố gắng, cuối cùng tôi đã được đền đáp bằng kết quả xứng đáng. 3 tháng đó quả là một quãng thời gian tôi đã vượt quá giới hạn của bản thân: ôn thi OSCP, học và kiểm tra trên trường, tôi đã đi làm cả ngày (bao gồm cả làm công việc ở công ty, ôn thi) và tối trở lại trường để học trên. Thời gian biểu của tôi trong 3 tháng đó như một vòng lặp : ngày đi làm, tối về đi học, khoảng 9h15 về đến nhà, làm việc hoặc làm labs oscp đến khoảng 12h-1h đi ngủ và hôm sau lại lặp lại. Đó quả là quãng thời gian đáng nhớ cho sự cố gắng của tôi!</li>
+<li>Hi vọng đây không phải bài viết cuối cùng, và tôi sẽ không dừng lại ở đó, sẽ cố gắng cho những đang dự định còn dang dở, còn rất nhiều thứ cần học hỏi ở phía trước.</li>
+<li>Cuối cùng tôi gửi lời cảm ơn những người bạn, đồng nghiệp đã giúp đỡ tôi, cùng tôi cố gắng trong suốt quãng thời gian đó: aishee, catmandx, minhnq22, ewind!</li>
+</ul>
+<h2 id="update">Update</h2>
+<ul>
+<li>Vào 03-06-2021 tôi đã nhận được chứng chỉ của mình. Thật sự vui mừng!
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg" /></li>
+</ul>
+<h2 id="đây-là-một-số-nguồn-cực-kì-hữu-ích-tôi-đã-tham-khảo-và-học-tập-cho-kì-thi">ĐÂY LÀ MỘT SỐ NGUỒN CỰC KÌ HỮU ÍCH TÔI ĐÃ THAM KHẢO VÀ HỌC TẬP CHO KÌ THI:</h2>
+<p><a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank" rel="noopener noreffer ">https://github.com/swisskyrepo/PayloadsAllTheThings</a>                                             <br>
+<a href="https://guide.offsecnewbie.com/" target="_blank" rel="noopener noreffer ">https://guide.offsecnewbie.com/</a>                                                                     <br>
+<a href="https://sushant747.gitbooks.io/total-oscp-guide/content/" target="_blank" rel="noopener noreffer ">https://sushant747.gitbooks.io/total-oscp-guide/content/</a>                                   <br>
+<a href="https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished" target="_blank" rel="noopener noreffer ">https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished</a>                               <br>
+<a href="https://blog.adithyanak.com/" target="_blank" rel="noopener noreffer ">https://blog.adithyanak.com/</a>                                                                                                                  <br>
+<a href="https://github.com/tranquac/Linux-Privilege-Escalation" target="_blank" rel="noopener noreffer ">https://github.com/tranquac/Linux-Privilege-Escalation</a>                                          <br>
+<a href="https://github.com/tranquac/OSCP-PWK-Notes-Public" target="_blank" rel="noopener noreffer ">https://github.com/tranquac/OSCP-PWK-Notes-Public</a>                                                               <br>
+<a href="https://burmat.gitbook.io/security/" target="_blank" rel="noopener noreffer ">https://burmat.gitbook.io/security/</a>                                                                                                                   <br>
+<a href="https://guif.re/linuxeop#Post%20exploitation" target="_blank" rel="noopener noreffer ">https://guif.re/linuxeop#Post%20exploitation</a></p>
+<h4 id="cảm-ơn-các-bạn-đã-đọc-đến-đây">Cảm ơn các bạn đã đọc đến đây!</h4>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-04-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/oscp-review/" data-title="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review" data-via="quactv1" data-hashtags="OSCP"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/oscp-review/" data-hashtag="OSCP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/oscp-review/" data-title="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/oscp-review/" data-title="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/oscp-review/" data-title="Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/oscp/">OSCP</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/linux-privilege-escalation/" class="prev" rel="prev" title="Linux Privilege Escalation"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Linux Privilege Escalation</a>
+            <a href="/posts/oscp-cheat-sheet/" class="next" rel="next" title="OSCP CheatSheet">OSCP CheatSheet<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

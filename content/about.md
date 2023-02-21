@@ -4,10 +4,11 @@ date: 2021-05-21T18:17:00+07:00
 draft: false
 ---
 ### [#](#) Whoami
-- Hi! I'm Quac Tran, a student/infosec/gopher. I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
+- Hi! I'm Quac Tran, a Security Engineer . I like to play around with anything that is related to hacking, pentesting, security, or tech in general. I love to share the things I've learned, which is why I set up this blog!
 ### [#](#) Certifications
 * 2021 - Offensive Security Certified Professional (OSCP) [Badge here!](https://www.credential.net/1bd293ff-5d2d-4c9c-980b-6ce89f50747f#gs.5nbjcd)
 * 2022 - Offensive Security Web Expert (OSWE) [Badge here!](https://www.credential.net/5992b7ce-f6db-411e-a042-d917e85ddf29#gs.5nbm3s)
+* 2023 - Certified DevSecOps Professional (CDP) [Badge here!](https://www.credly.com/badges/bc4d98aa-0752-478e-99e0-57986ab9e8b5)
 ### [#](#) Work Experience
 **01/2020 -> Now - Red Team-er**
 - Assess the security of websites, API endpoints, mobile applications (black box/grey box/white box)
@@ -25,7 +26,7 @@ SQL Server, Postgres, etc).
 ### [#](#) Expectation
 - To become professional red teamer, pentester,hacker and bug hunter.
 ### [#](#) Contact me
-* [Twitter](https://twitter.com/quactv1)
+* [Twitter](https://twitter.com/quaccws)
 
 <!-- 
 Hugo is the **world’s fastest framework for building websites**. It is written in Go.

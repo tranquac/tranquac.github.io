@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - quactv</title>
+        <link>https://tranquac.github.io/categories/</link>
+        <description>Categories - Category - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>Certificate</title>
+    <link>https://tranquac.github.io/categories/certificate/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/categories/certificate/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Review</title>
+    <link>https://tranquac.github.io/categories/review/</link>
+    <pubDate>Tue, 21 Feb 2023 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/categories/review/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Lab</title>
+    <link>https://tranquac.github.io/categories/lab/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/categories/lab/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Offensive Security</title>
+    <link>https://tranquac.github.io/categories/offensive-security/</link>
+    <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/categories/offensive-security/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

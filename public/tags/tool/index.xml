@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tool - Tag - quactv</title>
+        <link>https://tranquac.github.io/tags/tool/</link>
+        <description>Tool - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/tool/" rel="self" type="application/rss+xml" /><item>
+    <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
+    <link>https://tranquac.github.io/posts/crossc2generate-cross-platform-payload/</link>
+    <pubDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/crossc2generate-cross-platform-payload/</guid>
+    <description><![CDATA[Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.]]></description>
+</item>
+<item>
+    <title>Tunneling, Pivoting to Attack Internal Network</title>
+    <link>https://tranquac.github.io/posts/tunneling-and-pivoting/</link>
+    <pubDate>Fri, 30 Jul 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/tunneling-and-pivoting/</guid>
+    <description><![CDATA[Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.]]></description>
+</item>
+</channel>
+</rss>

