@@ -10,7 +10,7 @@
     <pubDate>Wed, 21 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/androi-pentest-note-p1/</guid>
-    <description><![CDATA[Concept Decompile and compile Using Adb and Frida interact Android  Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.]]></description>
+    <description><![CDATA[Concept Structure  AndroidManifest file contains the application’s structure Res folder contains all the resources that the application needs to run , including user interface layout, icons, audio, etc. The most interesting files for us are the classes.dex files because they are the compiled java files. The .dex extension stands for Dalvik EXecutable. So we need to decompile these dex files to get the java classes.  Tools  Apktool : tool for reverse engineering Android apk files.]]></description>
 </item>
 </channel>
 </rss>

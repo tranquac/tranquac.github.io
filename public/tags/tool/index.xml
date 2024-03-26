@@ -10,8 +10,9 @@
     <pubDate>Wed, 03 Nov 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/crossc2generate-cross-platform-payload/</guid>
-    <description><![CDATA[Introduce Config  Listener Generate beacon  Gen via command Gen via install plugin     Result References  Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
-  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.]]></description>
+    <description><![CDATA[Introduce   &ldquo;Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing.&rdquo;
+  Nếu như bạn từng sử dụng Cobalt Strike chắc cũng sẽ biết Cobalt Strike không hỗ trợ điều khiển từ xa Linux, MacOS, Android&hellip; theo mặc định.
+  CrossC2 là một plugin mở rộng hỗ trợ Cobalt Strike điều khiển từ xa các máy chủ Linux, MacOS, Android&hellip;.]]></description>
 </item>
 <item>
     <title>Tunneling, Pivoting to Attack Internal Network</title>

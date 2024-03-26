@@ -9,14 +9,6 @@ tags: [
     "Tool",
 ]
 ---
-* [Introduce](#introduce)
-* [Config](#config)
-    * [Listener](#listener)
-    * [Generate beacon](#generate-beacon)
-        * [Gen via command](#gen-via-command)
-        * [Gen via install plugin](#gen-via-install-plugin)
-* [Result](#result)
-* [References](#references)
 ## Introduce
 - "Cobalt Strike is threat emulation software. Execute targeted attacks against modern enterprises with one of the most powerful network attack kits available to penetration testers. This is not compliance testing."
 
