@@ -9,22 +9,6 @@ tags: [
     "Tunel", "Pivot", "Tool",
 ]
 ---
-* [Intro](#Intro)
-* [Tools for tunneling](#tools-for-tunneling)
-  * [SSH Tunnel](#ssh-tunnel)
-    * [Local Port Porwarding](#local-port-forwarding)
-    * [Remote Port Porwarding](#remote-port-forwarding)
-    * [Dynamic Port Porwarding](#dynamic-port-forwarding)
-    * [Sshuttle](#sshuttle)
-  * [Netword Layer Tunnel](#netword-layer-tunnel)
-  * [Transport Layer Tunnel](#transport-layer-tunnel)
-  * [Application Layer Tunnel](#application-layer-tunnel)
-  * [Other tools pivoting without SSH](#other-tools-pivoting-without-ssh)
-    * [Metasploit Framework](#metasploit-framework)
-    * [Chisel](#chisel)
-    * [Ssf](#ssf)
-* [Create SOCKS Proxy to Attack Internal Network](#create-socks-proxy-to-attack-internal-network)
-* [Refer](#refer)
 ## Intro
 - Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.
 

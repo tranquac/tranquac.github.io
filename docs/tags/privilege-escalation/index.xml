@@ -10,9 +10,9 @@
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/write-up/mylab1/</guid>
-    <description><![CDATA[Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+    <description><![CDATA[Overview Địa chỉ: 10.14.140.127
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
- 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.]]></description>
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.  Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI).]]></description>
 </item>
 <item>
     <title>[Vulnstack1] RCE via MySQL Log File, YxCMS, Pivoting Attack Internal Network</title>
@@ -20,7 +20,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/write-up/vulnstack1/</guid>
-    <description><![CDATA[Summary  Introduce Setup Foothold  Recon RCE via MySQL Log File RCE via YxCMS   Recon Internal Network Exploit Internal Network Bloodhound  Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
+    <description><![CDATA[Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
 </item>
 <item>
     <title>Linux Privilege Escalation</title>
@@ -28,7 +28,9 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Thu, 18 Mar 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/linux-privilege-escalation/</guid>
-    <description><![CDATA[Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.]]></description>
+    <description><![CDATA[Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors. Here are a few:
+  LinPEAS - Linux Privilege Escalation Awesome Script
+wget &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -O linpeas.sh curl &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -o linpeas.sh ./linpeas.sh -a #all checks - deeper system enumeration, but it takes longer to complete. ./linpeas.sh -s #superfast &amp; stealth - This will bypass some time consuming checks.]]></description>
 </item>
 <item>
     <title>[Attackdefense.com] Privilege Escalation</title>
@@ -36,10 +38,10 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Sun, 30 Aug 2020 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</guid>
-    <description><![CDATA[Summary  Student to Teacher Teacher to Admin Admin to Root Break out of the container  Link https://attackdefense.com/challengedetails?cid=2021
+    <description><![CDATA[Link https://attackdefense.com/challengedetails?cid=2021
 Student to Teacher Find SUID binaries Using ‘Strings’ to view
 When we run the read-submission file. It will call and run the read-file. Read file is a binary file. We will use the PATH variable method
-First create another read-file executable file in / tmp with the content to generate a shell.]]></description>
+First create another read-file executable file in / tmp with the content to generate a shell. Then use export to append the $ PATH variable. Then run the read-submission file. Because of the teacher’s suid, when running will generate the teacher’s shell:]]></description>
 </item>
 </channel>
 </rss>

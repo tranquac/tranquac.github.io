@@ -9,17 +9,6 @@ tags: [
     "SQL",
 ]
 ---
-* [General](#general)
-    * [MySQL (3306)](#mysql-3306)
-    * [MSSQL (1433)](#mssql-1433)
-    * [Oracle (1521)](#oracle-1521)
-    * [PostgresSQL (5432)](#postgressql-5432)
-* [SQL Injection](#sql-injection)
-    * [Bad character detect](#bad-character-detect)
-    * [Authen bypass](#authen-bypass)
-    * [Sql injection bypass filter](#sql-injection-bypass-filter)
-* [SQLMAP](#sqlmap)
-* [Reference](#reference)
 # General
 ## MySQL-3306
 #### Nmap

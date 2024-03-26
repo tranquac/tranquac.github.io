@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>JWT Attack - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="JWT Attack" />
-<meta property="og:description" content="What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token." />
+<meta property="og:description" content="What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie &#43; session truyền thống." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/jwt-attack/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-28T18:17:00&#43;07:00" />
@@ -15,7 +15,7 @@
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="JWT Attack"/>
-<meta name="twitter:description" content="What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token."/>
+<meta name="twitter:description" content="What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie &#43; session truyền thống."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/jwt-attack\/"
-        },"genre": "posts","keywords": "Token, JWT","wordcount":  1059 ,
+        },"genre": "posts","keywords": "Token, JWT","wordcount":  1035 ,
         "url": "https:\/\/tranquac.github.io\/posts\/jwt-attack\/","datePublished": "2021-07-28T18:17:00+07:00","dateModified": "2021-07-28T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -73,7 +73,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JWT Attack</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-28">2021-07-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1059 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-28">2021-07-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1035 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -101,26 +101,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><ul>
-<li><a href="#what-is-jwt" rel="">What is JWT?</a>
-<ul>
-<li><a href="#header" rel="">Header</a></li>
-<li><a href="#payload" rel="">Payload</a></li>
-<li><a href="#signature" rel="">Signature</a></li>
-<li><a href="#sample-jwt" rel="">Sample JWT</a></li>
-</ul>
-</li>
-<li><a href="#attack-methods" rel="">Attack methods</a>
-<ul>
-<li><a href="#encryption-algorithm" rel="">Encryption algorithm</a></li>
-<li><a href="#brute-force-secret-key" rel="">Brute force secret key</a></li>
-<li><a href="#change-kid" rel="">Change KID</a></li>
-<li><a href="#change-jku-or-x5u" rel="">Change JKU / X5U</a></li>
-<li><a href="#other-methods" rel="">Other methods</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="what-is-jwt">What is JWT</h2>
+            </div><div class="content" id="content"><h2 id="what-is-jwt">What is JWT</h2>
 <ul>
 <li>Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.</li>
 <li>JWT bao gồm ba phần: <code>header</code>.<code>payload</code>.<code>signature</code>.</li>
@@ -283,7 +264,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

@@ -10,13 +10,6 @@ tags: [
     "Java", "Privilege Escalation", "Python"
 ]
 ---
-### Summary
-* [Overview](#overview)
-* [Rabbit hole](#rabbit-hole)
-* [Foothold with Java deserialization](#foothold-with-java-deserialization)
-    * [Recon](#recon)
-    * [Exploit](#exploit)
-* [Datmom to root with Python escape sandbox](#datmom-to-root-with-python-escape-sandbox)
 
 ### Overview
 Địa chỉ: 10.14.140.127\

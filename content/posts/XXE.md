@@ -9,17 +9,6 @@ tags: [
     "XXE",
 ]
 ---
-* [What is XXE](#what-is-xxe)
-* [Types of XXE attacks](#types-of-xxe-attacks)
-    * [XXE To retrieve files](#xxe-to-retrieve-files)
-        * [Example](#example)
-        * [XXE through the XInclude tag](#xxe-through-the-xinclude-tag)
-        * [Exploiting XXE using SVG Files or docx files or xlsx files](#exploiting-xxe-using-svg-files-or-docx-files-or-xlsx-files)
-    * [XXE Into SSRF](#xxe-into-ssrf)
-    * [Blind XXE](#blind-xxe)
-* [Payloads](#payloads)
-* [Note](#note)
-* [References](#references)
 ## What is XXE
 XXE = XML eXternal Entities
 

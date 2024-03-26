@@ -6,7 +6,11 @@
         <meta name="robots" content="noodp" />
         <title>OSCP CheatSheet - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="OSCP CheatSheet" />
 <meta property="og:description" content="This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
- Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb" />
+ Try Harder  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
+updatedb
+locate ssh.config
+which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
+which python" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/oscp-cheat-sheet/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-25T18:17:00&#43;07:00" />
@@ -17,7 +21,11 @@
 
 <meta name="twitter:title" content="OSCP CheatSheet"/>
 <meta name="twitter:description" content="This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
- Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb"/>
+ Try Harder  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
+updatedb
+locate ssh.config
+which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
+which python"/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -32,7 +40,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/oscp-cheat-sheet\/"
-        },"genre": "posts","keywords": "OSCP","wordcount":  14306 ,
+        },"genre": "posts","keywords": "OSCP","wordcount":  14262 ,
         "url": "https:\/\/tranquac.github.io\/posts\/oscp-cheat-sheet\/","datePublished": "2021-04-25T18:17:00+07:00","dateModified": "2021-04-25T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -75,8 +83,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OSCP CheatSheet</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/certificate/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Certificate</a>&nbsp;<a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-25">2021-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;14306 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;68 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-25">2021-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;14262 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;67 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -89,7 +97,6 @@
         <li><a href="#try-harder">Try Harder</a></li>
       </ul>
     </li>
-    <li><a href="#summary">Summary</a></li>
   </ul>
 
   <ul>
@@ -361,27 +368,6 @@
 <blockquote>
 <h3 id="try-harder">Try Harder</h3>
 </blockquote>
-<h2 id="summary">Summary</h2>
-<ul>
-<li><a href="#around-kali" rel="">Around Kali</a></li>
-<li><a href="#the-essential-tools" rel="">The Essential Tools</a></li>
-<li><a href="#passive-info-gathering" rel="">Passive Info Gathering</a></li>
-<li><a href="#active-information-gathering" rel="">Active Information Gathering</a></li>
-<li><a href="#vulnerability-scanning" rel="">Vulnerability Scanning</a></li>
-<li><a href="#buffer-overflows" rel="">Buffer Overflows</a></li>
-<li><a href="#win32-buffer-overflows" rel="">Win32 Buffer Overflows</a></li>
-<li><a href="#linux-buffer-overflows" rel="">Linux Buffer Overflows</a></li>
-<li><a href="#exploits" rel="">Exploits</a></li>
-<li><a href="#file-transfers" rel="">File Transfers</a></li>
-<li><a href="#privilege-escalation" rel="">Privilege Escalation</a></li>
-<li><a href="#client-side-attacks" rel="">Client Side Attacks</a></li>
-<li><a href="#web-application-attacks" rel="">Web Application Attacks</a></li>
-<li><a href="#password-attacks" rel="">Password Attacks</a></li>
-<li><a href="#port-redirection-and-tunneling" rel="">Port Redirection and Tunneling</a></li>
-<li><a href="#metasploit" rel="">Metasploit</a></li>
-<li><a href="#bypassing-antivirus-software" rel="">Bypassing Antivirus Software</a></li>
-<li><a href="#forensics" rel="">Forensics</a></li>
-</ul>
 <h1 id="around-kali">Around Kali</h1>
 <h2 id="finding-around-kali">Finding Around Kali</h2>
 <h3 id="find-locate-and-which">Find, Locate, and Which</h3>
@@ -2759,7 +2745,7 @@ photorec <span class="o">[</span>file<span class="o">]</span>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

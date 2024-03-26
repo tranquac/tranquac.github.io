@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape) - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)" />
-<meta property="og:description" content="Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+<meta property="og:description" content="Overview Địa chỉ: 10.14.140.127
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
- 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root." />
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.  Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/write-up/mylab1/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="write-up" />
 <meta property="article:published_time" content="2022-02-24T18:17:00&#43;07:00" />
@@ -17,9 +17,9 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)"/>
-<meta name="twitter:description" content="Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+<meta name="twitter:description" content="Overview Địa chỉ: 10.14.140.127
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
- 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root."/>
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.  Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI)."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -34,7 +34,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/write-up\/mylab1\/"
-        },"genre": "write-up","keywords": "Java, Privilege Escalation, Python","wordcount":  1700 ,
+        },"genre": "write-up","keywords": "Java, Privilege Escalation, Python","wordcount":  1683 ,
         "url": "https:\/\/tranquac.github.io\/write-up\/mylab1\/","datePublished": "2022-02-24T18:17:00+07:00","dateModified": "2022-02-24T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -72,19 +72,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
             </a></div>
     </div>
 </header><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</h1><div class="content" id="content"><h3 id="summary">Summary</h3>
-<ul>
-<li><a href="#overview" rel="">Overview</a></li>
-<li><a href="#rabbit-hole" rel="">Rabbit hole</a></li>
-<li><a href="#foothold-with-java-deserialization" rel="">Foothold with Java deserialization</a>
-<ul>
-<li><a href="#recon" rel="">Recon</a></li>
-<li><a href="#exploit" rel="">Exploit</a></li>
-</ul>
-</li>
-<li><a href="#datmom-to-root-with-python-escape-sandbox" rel="">Datmom to root with Python escape sandbox</a></li>
-</ul>
-<h3 id="overview">Overview</h3>
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[My Lab] Writeup My Lab 1 (Java Deserialization, Python Sandbox Escape)</h1><div class="content" id="content"><h3 id="overview">Overview</h3>
 <p>Địa chỉ: 10.14.140.127<br>
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và  phát triển bản thân.</p>
 <ul>
@@ -578,7 +566,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
 <p>Cảm ơn vì đã đọc tới đây!</p>
 </div></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

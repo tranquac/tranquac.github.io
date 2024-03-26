@@ -10,9 +10,9 @@
     <pubDate>Thu, 24 Feb 2022 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/write-up/mylab1/</guid>
-    <description><![CDATA[Summary  Overview Rabbit hole Foothold with Java deserialization  Recon Exploit   Datmom to root with Python escape sandbox  Overview Địa chỉ: 10.14.140.127
+    <description><![CDATA[Overview Địa chỉ: 10.14.140.127
 Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và phát triển bản thân.
- 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.]]></description>
+ 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom 2 – Từ datmom escape python sandbox để leo thang lên root.  Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI).]]></description>
 </item>
 <item>
     <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
@@ -36,7 +36,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Mon, 20 Dec 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/write-up/vulnstack1/</guid>
-    <description><![CDATA[Summary  Introduce Setup Foothold  Recon RCE via MySQL Log File RCE via YxCMS   Recon Internal Network Exploit Internal Network Bloodhound  Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
+    <description><![CDATA[Introduce Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy.]]></description>
 </item>
 <item>
     <title>CrossC2 – Generate CobaltStrike’s Cross-Platform Payload</title>
@@ -53,7 +53,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Mon, 30 Aug 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/my-note-for-code-review/</guid>
-    <description><![CDATA[The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.]]></description>
+    <description><![CDATA[The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.  Potential Dangerous Functions =&gt;  Graudit : grep rough audit - source code auditing tool (https://github.com/wireghoul/graudit) APKleaks : Scanning APK file for URIs, endpoints &amp; secrets.]]></description>
 </item>
 <item>
     <title>Tunneling, Pivoting to Attack Internal Network</title>
@@ -61,7 +61,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Fri, 30 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/tunneling-and-pivoting/</guid>
-    <description><![CDATA[Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.]]></description>
+    <description><![CDATA[Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau.]]></description>
 </item>
 <item>
     <title>JWT Attack</title>
@@ -69,7 +69,7 @@ Bài Lab được tạo ra với mục đích cho bản thân và mọi người
     <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/jwt-attack/</guid>
-    <description><![CDATA[What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.]]></description>
+    <description><![CDATA[What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.]]></description>
 </item>
 <item>
     <title>Android Pentest Note</title>

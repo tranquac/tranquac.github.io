@@ -9,56 +9,6 @@ tags: [
     "Linux", "Privilege Escalation"
 ]
 ---
-# Linux-Privilege-Escalation
-## Synthesize, supplement from a number of other resources
-## Editing and addition: TranQuac
-## Summary
-
-* [Tools](#tools)
-* [Scheduled tasks](#scheduled-tasks)
-    * [Cron jobs](#cron-jobs)
-    * [Systemd timers](#systemd-timers)
-* [PATH Variables](#path-variables)
-* [SUID](#suid)
-    * [Find SUID binaries](#find-suid-binaries)
-    * [Exploitation](#exploitation-suid)
-    * [Create a SUID binary](#create-a-suid-binary)
-* [Capabilities](#capabilities)
-    * [List capabilities of binaries](#list-capabilities-of-binaries)
-    * [Edit capabilities](#edit-capabilities)
-    * [Interesting capabilities](#interesting-capabilities)
-* [SUDO](#sudo)
-    * [Allow Root Privilege to Binary commands](#allow-root-privilege-to-binary-commands)
-    * [Allow Root Privilege to Shell Script](#allow-root-privilege-to-shell-script)
-    * [Allow Sudo Right to other Programs](#allow-sudo-right-to-other-programs)
-    * [LD_PRELOAD](#ld_preload)
-    * [Doas](#doas)
-    * [sudo_inject](#sudo_inject)
-    * [CVE-2019-14287](#cve-2019-14287)
-* [GTFOBins](#gtfobins)
-* [Wildcard](#wildcard)
-* [Writable files](#writable-files)
-    * [Writable /etc/passwd](#writable-etcpasswd)
-    * [Writable /etc/sudoers](#writable-etcsudoers)
-* [Exploiting Services](#exploiting-services)
-    * [Services manual enumeration](#services-manual-enumeration)
-    * [Automatic enumeration](automatic-enumeration)
-    * [Port forwarding](port-forwarding)
-* [NFS Root Squashing](#nfs-root-squashing)
-* [Shared Library](#shared-library)
-    * [ldconfig](#ldconfig)
-    * [RPATH](#rpath)
-* [Groups](#groups)
-    * [Docker](#docker)
-    * [LXC/LXD](#lxclxd)
-* [Kernel Exploits](#kernel-exploits)
-    * [CVE-2016-5195 (DirtyCow)](#CVE-2016-5195-dirtycow)
-    * [CVE-2010-3904 (RDS)](#[CVE-2010-3904-rds)
-    * [CVE-2010-4258 (Full Nelson)](#CVE-2010-4258-full-nelson)
-    * [CVE-2012-0056 (Mempodipper)](#CVE-2012-0056-mempodipper)
-    * [LIST KERNEL](#LIST)
-
-
 ## Tools
 
 There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.

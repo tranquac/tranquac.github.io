@@ -10,8 +10,9 @@
     <pubDate>Mon, 07 Jun 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/xxe/</guid>
-    <description><![CDATA[What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
-XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:]]></description>
+    <description><![CDATA[What is XXE XXE = XML eXternal Entities
+XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;]&gt; &lt;foo&gt;&amp;xxe;&lt;/foo&gt; We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files.]]></description>
 </item>
 </channel>
 </rss>

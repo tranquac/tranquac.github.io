@@ -11,7 +11,11 @@
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/oscp-cheat-sheet/</guid>
     <description><![CDATA[This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
- Try Harder  Summary  Around Kali The Essential Tools Passive Info Gathering Active Information Gathering Vulnerability Scanning Buffer Overflows Win32 Buffer Overflows Linux Buffer Overflows Exploits File Transfers Privilege Escalation Client Side Attacks Web Application Attacks Password Attacks Port Redirection and Tunneling Metasploit Bypassing Antivirus Software Forensics  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb]]></description>
+ Try Harder  Around Kali Finding Around Kali Find, Locate, and Which locate Reads from a database prepared by updatedb
+updatedb
+locate ssh.config
+which Returns pathnames of files or links which would be executed in the current environment. It does this by searching the PATH variable.
+which python]]></description>
 </item>
 <item>
     <title>Getting the OSCP Certification: &#39;Offensive Security Certified Professional&#39; (PEN-200) review</title>

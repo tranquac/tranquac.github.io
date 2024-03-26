@@ -10,16 +10,6 @@ tags: [
     "Pivot", "Tunel", "Privilege Escalation"
 ]
 ---
-### Summary
-* [Introduce](#introduce)
-* [Setup](#setup)
-* [Foothold](#foothold)
-    * [Recon](#recon)
-    * [RCE via MySQL Log File](#rce-via-mysql-log-file)
-    * [RCE via YxCMS](#rce-via-yxcms)
-* [Recon Internal Network](#recon-internal-network)
-* [Exploit Internal Network](#exploit-internal-network)
-* [Bloodhound](#bloodhound)
 ### Introduce
 Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ  biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy. Nên tôi quyết định phải chinh phục hết toàn bộ series lab. Series này là vulnstack, gồm 7 phần từ 1-7. Được tạo bởi nhóm bảo mật Red Sun. Mỗi lab khoảng từ 10 – 25GB. Tải từ cloud của baidu. Tải thôi cũng mất nguyên mấy ngày.
 

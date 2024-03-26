@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Tunneling, Pivoting to Attack Internal Network - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="Tunneling, Pivoting to Attack Internal Network" />
-<meta property="og:description" content="Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều." />
+<meta property="og:description" content="Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/tunneling-and-pivoting/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-30T18:17:00&#43;07:00" />
@@ -15,7 +15,7 @@
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="Tunneling, Pivoting to Attack Internal Network"/>
-<meta name="twitter:description" content="Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều."/>
+<meta name="twitter:description" content="Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/tunneling-and-pivoting\/"
-        },"genre": "posts","keywords": "Tunel, Pivot, Tool","wordcount":  1835 ,
+        },"genre": "posts","keywords": "Tunel, Pivot, Tool","wordcount":  1793 ,
         "url": "https:\/\/tranquac.github.io\/posts\/tunneling-and-pivoting\/","datePublished": "2021-07-30T18:17:00+07:00","dateModified": "2021-07-30T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -73,7 +73,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Tunneling, Pivoting to Attack Internal Network</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-30">2021-07-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1835 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-30">2021-07-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1793 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -107,34 +107,7 @@
     <li><a href="#refer">Refer</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><ul>
-<li><a href="#Intro" rel="">Intro</a></li>
-<li><a href="#tools-for-tunneling" rel="">Tools for tunneling</a>
-<ul>
-<li><a href="#ssh-tunnel" rel="">SSH Tunnel</a>
-<ul>
-<li><a href="#local-port-forwarding" rel="">Local Port Porwarding</a></li>
-<li><a href="#remote-port-forwarding" rel="">Remote Port Porwarding</a></li>
-<li><a href="#dynamic-port-forwarding" rel="">Dynamic Port Porwarding</a></li>
-<li><a href="#sshuttle" rel="">Sshuttle</a></li>
-</ul>
-</li>
-<li><a href="#netword-layer-tunnel" rel="">Netword Layer Tunnel</a></li>
-<li><a href="#transport-layer-tunnel" rel="">Transport Layer Tunnel</a></li>
-<li><a href="#application-layer-tunnel" rel="">Application Layer Tunnel</a></li>
-<li><a href="#other-tools-pivoting-without-ssh" rel="">Other tools pivoting without SSH</a>
-<ul>
-<li><a href="#metasploit-framework" rel="">Metasploit Framework</a></li>
-<li><a href="#chisel" rel="">Chisel</a></li>
-<li><a href="#ssf" rel="">Ssf</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#create-socks-proxy-to-attack-internal-network" rel="">Create SOCKS Proxy to Attack Internal Network</a></li>
-<li><a href="#refer" rel="">Refer</a></li>
-</ul>
-<h2 id="intro">Intro</h2>
+            </div><div class="content" id="content"><h2 id="intro">Intro</h2>
 <ul>
 <li>
 <p>Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.</p>
@@ -512,7 +485,7 @@ meterpreter &gt;
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

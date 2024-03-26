@@ -9,17 +9,6 @@ tags: [
     "Token","JWT"
 ]
 ---
-* [What is JWT?](#what-is-jwt)
-    * [Header](#header)
-    * [Payload](#payload)
-    * [Signature](#signature)
-    * [Sample JWT](#sample-jwt)
-* [Attack methods](#attack-methods)
-    * [Encryption algorithm](#encryption-algorithm)
-    * [Brute force secret key](#brute-force-secret-key)
-    * [Change KID](#change-kid)
-    * [Change JKU / X5U](#change-jku-or-x5u)
-    * [Other methods](#other-methods)
 ## What is JWT
 - Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.
 - JWT bao gồm ba phần: `header`.`payload`.`signature`.

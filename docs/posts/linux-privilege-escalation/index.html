@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Linux Privilege Escalation - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="Linux Privilege Escalation" />
-<meta property="og:description" content="Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors." />
+<meta property="og:description" content="Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors. Here are a few:
+  LinPEAS - Linux Privilege Escalation Awesome Script
+wget &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -O linpeas.sh curl &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -o linpeas.sh ./linpeas.sh -a #all checks - deeper system enumeration, but it takes longer to complete. ./linpeas.sh -s #superfast &amp; stealth - This will bypass some time consuming checks." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/linux-privilege-escalation/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-18T18:17:00&#43;07:00" />
@@ -15,7 +17,9 @@
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="Linux Privilege Escalation"/>
-<meta name="twitter:description" content="Linux-Privilege-Escalation Synthesize, supplement from a number of other resources Editing and addition: TranQuac Summary  Tools Scheduled tasks  Cron jobs Systemd timers   PATH Variables SUID  Find SUID binaries Exploitation Create a SUID binary   Capabilities  List capabilities of binaries Edit capabilities Interesting capabilities   SUDO  Allow Root Privilege to Binary commands Allow Root Privilege to Shell Script Allow Sudo Right to other Programs LD_PRELOAD Doas sudo_inject CVE-2019-14287   GTFOBins Wildcard Writable files  Writable /etc/passwd Writable /etc/sudoers   Exploiting Services  Services manual enumeration Automatic enumeration Port forwarding   NFS Root Squashing Shared Library  ldconfig RPATH   Groups  Docker LXC/LXD   Kernel Exploits  CVE-2016-5195 (DirtyCow) CVE-2010-3904 (RDS) CVE-2010-4258 (Full Nelson) CVE-2012-0056 (Mempodipper) LIST KERNEL    Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors."/>
+<meta name="twitter:description" content="Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors. Here are a few:
+  LinPEAS - Linux Privilege Escalation Awesome Script
+wget &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -O linpeas.sh curl &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -o linpeas.sh ./linpeas.sh -a #all checks - deeper system enumeration, but it takes longer to complete. ./linpeas.sh -s #superfast &amp; stealth - This will bypass some time consuming checks."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +34,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/linux-privilege-escalation\/"
-        },"genre": "posts","keywords": "Linux, Privilege Escalation","wordcount":  3053 ,
+        },"genre": "posts","keywords": "Linux, Privilege Escalation","wordcount":  2949 ,
         "url": "https:\/\/tranquac.github.io\/posts\/linux-privilege-escalation\/","datePublished": "2021-03-18T18:17:00+07:00","dateModified": "2021-03-18T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -73,8 +77,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Linux Privilege Escalation</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-18">2021-03-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3053 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-18">2021-03-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2949 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;14 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -82,9 +86,6 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#synthesize-supplement-from-a-number-of-other-resources">Synthesize, supplement from a number of other resources</a></li>
-    <li><a href="#editing-and-addition-tranquac">Editing and addition: TranQuac</a></li>
-    <li><a href="#summary">Summary</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#scheduled-tasks">Scheduled tasks</a>
       <ul>
@@ -165,83 +166,7 @@
     <li><a href="#references">References</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="linux-privilege-escalation">Linux-Privilege-Escalation</h1>
-<h2 id="synthesize-supplement-from-a-number-of-other-resources">Synthesize, supplement from a number of other resources</h2>
-<h2 id="editing-and-addition-tranquac">Editing and addition: TranQuac</h2>
-<h2 id="summary">Summary</h2>
-<ul>
-<li><a href="#tools" rel="">Tools</a></li>
-<li><a href="#scheduled-tasks" rel="">Scheduled tasks</a>
-<ul>
-<li><a href="#cron-jobs" rel="">Cron jobs</a></li>
-<li><a href="#systemd-timers" rel="">Systemd timers</a></li>
-</ul>
-</li>
-<li><a href="#path-variables" rel="">PATH Variables</a></li>
-<li><a href="#suid" rel="">SUID</a>
-<ul>
-<li><a href="#find-suid-binaries" rel="">Find SUID binaries</a></li>
-<li><a href="#exploitation-suid" rel="">Exploitation</a></li>
-<li><a href="#create-a-suid-binary" rel="">Create a SUID binary</a></li>
-</ul>
-</li>
-<li><a href="#capabilities" rel="">Capabilities</a>
-<ul>
-<li><a href="#list-capabilities-of-binaries" rel="">List capabilities of binaries</a></li>
-<li><a href="#edit-capabilities" rel="">Edit capabilities</a></li>
-<li><a href="#interesting-capabilities" rel="">Interesting capabilities</a></li>
-</ul>
-</li>
-<li><a href="#sudo" rel="">SUDO</a>
-<ul>
-<li><a href="#allow-root-privilege-to-binary-commands" rel="">Allow Root Privilege to Binary commands</a></li>
-<li><a href="#allow-root-privilege-to-shell-script" rel="">Allow Root Privilege to Shell Script</a></li>
-<li><a href="#allow-sudo-right-to-other-programs" rel="">Allow Sudo Right to other Programs</a></li>
-<li><a href="#ld_preload" rel="">LD_PRELOAD</a></li>
-<li><a href="#doas" rel="">Doas</a></li>
-<li><a href="#sudo_inject" rel="">sudo_inject</a></li>
-<li><a href="#cve-2019-14287" rel="">CVE-2019-14287</a></li>
-</ul>
-</li>
-<li><a href="#gtfobins" rel="">GTFOBins</a></li>
-<li><a href="#wildcard" rel="">Wildcard</a></li>
-<li><a href="#writable-files" rel="">Writable files</a>
-<ul>
-<li><a href="#writable-etcpasswd" rel="">Writable /etc/passwd</a></li>
-<li><a href="#writable-etcsudoers" rel="">Writable /etc/sudoers</a></li>
-</ul>
-</li>
-<li><a href="#exploiting-services" rel="">Exploiting Services</a>
-<ul>
-<li><a href="#services-manual-enumeration" rel="">Services manual enumeration</a></li>
-<li><a href="automatic-enumeration" rel="">Automatic enumeration</a></li>
-<li><a href="port-forwarding" rel="">Port forwarding</a></li>
-</ul>
-</li>
-<li><a href="#nfs-root-squashing" rel="">NFS Root Squashing</a></li>
-<li><a href="#shared-library" rel="">Shared Library</a>
-<ul>
-<li><a href="#ldconfig" rel="">ldconfig</a></li>
-<li><a href="#rpath" rel="">RPATH</a></li>
-</ul>
-</li>
-<li><a href="#groups" rel="">Groups</a>
-<ul>
-<li><a href="#docker" rel="">Docker</a></li>
-<li><a href="#lxclxd" rel="">LXC/LXD</a></li>
-</ul>
-</li>
-<li><a href="#kernel-exploits" rel="">Kernel Exploits</a>
-<ul>
-<li><a href="#CVE-2016-5195-dirtycow" rel="">CVE-2016-5195 (DirtyCow)</a></li>
-<li><a href="#[CVE-2010-3904-rds" rel="">CVE-2010-3904 (RDS)</a></li>
-<li><a href="#CVE-2010-4258-full-nelson" rel="">CVE-2010-4258 (Full Nelson)</a></li>
-<li><a href="#CVE-2012-0056-mempodipper" rel="">CVE-2012-0056 (Mempodipper)</a></li>
-<li><a href="#LIST" rel="">LIST KERNEL</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="tools">Tools</h2>
+            </div><div class="content" id="content"><h2 id="tools">Tools</h2>
 <p>There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors.
 Here are a few:</p>
 <ul>
@@ -955,7 +880,7 @@ Copy the kernel version and distribution, and search for it in google or in <a h
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

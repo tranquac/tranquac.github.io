@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>XXE - quactv</title><meta name="Description" content="quactv blog"><meta property="og:title" content="XXE" />
-<meta property="og:description" content="What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
-XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:" />
+<meta property="og:description" content="What is XXE XXE = XML eXternal Entities
+XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;]&gt; &lt;foo&gt;&amp;xxe;&lt;/foo&gt; We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tranquac.github.io/posts/xxe/" /><meta property="og:image" content="https://tranquac.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-07T18:17:00&#43;07:00" />
@@ -16,8 +17,9 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
 <meta name="twitter:image" content="https://tranquac.github.io/logo.png"/>
 
 <meta name="twitter:title" content="XXE"/>
-<meta name="twitter:description" content="What is XXE Types of XXE attacks  XXE To retrieve files  Example XXE through the XInclude tag Exploiting XXE using SVG Files or docx files or xlsx files   XXE Into SSRF Blind XXE   Payloads Note References  What is XXE XXE = XML eXternal Entities
-XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:"/>
+<meta name="twitter:description" content="What is XXE XXE = XML eXternal Entities
+XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;]&gt; &lt;foo&gt;&amp;xxe;&lt;/foo&gt; We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files."/>
 <meta name="application-name" content="quactv blog">
 <meta name="apple-mobile-web-app-title" content="quactv blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -32,7 +34,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/tranquac.github.io\/posts\/xxe\/"
-        },"genre": "posts","keywords": "XXE","wordcount":  937 ,
+        },"genre": "posts","keywords": "XXE","wordcount":  901 ,
         "url": "https:\/\/tranquac.github.io\/posts\/xxe\/","datePublished": "2021-06-07T18:17:00+07:00","dateModified": "2021-06-07T18:17:00+07:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -75,7 +77,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">XXE</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>quactv</a></span>&nbsp;<span class="post-category">included in <a href="/categories/offensive-security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Offensive Security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-07">2021-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;937 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-07">2021-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;901 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -97,26 +99,7 @@ XXE can occur when XML documents get parsed. We traditionally think of XXE vulne
     <li><a href="#references">References</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><ul>
-<li><a href="#what-is-xxe" rel="">What is XXE</a></li>
-<li><a href="#types-of-xxe-attacks" rel="">Types of XXE attacks</a>
-<ul>
-<li><a href="#xxe-to-retrieve-files" rel="">XXE To retrieve files</a>
-<ul>
-<li><a href="#example" rel="">Example</a></li>
-<li><a href="#xxe-through-the-xinclude-tag" rel="">XXE through the XInclude tag</a></li>
-<li><a href="#exploiting-xxe-using-svg-files-or-docx-files-or-xlsx-files" rel="">Exploiting XXE using SVG Files or docx files or xlsx files</a></li>
-</ul>
-</li>
-<li><a href="#xxe-into-ssrf" rel="">XXE Into SSRF</a></li>
-<li><a href="#blind-xxe" rel="">Blind XXE</a></li>
-</ul>
-</li>
-<li><a href="#payloads" rel="">Payloads</a></li>
-<li><a href="#note" rel="">Note</a></li>
-<li><a href="#references" rel="">References</a></li>
-</ul>
-<h2 id="what-is-xxe">What is XXE</h2>
+            </div><div class="content" id="content"><h2 id="what-is-xxe">What is XXE</h2>
 <p>XXE = XML eXternal Entities</p>
 <p>XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;</span>
@@ -336,7 +319,7 @@ XXE inside SVG:
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">quactv</a></span>&nbsp;|&nbsp;<span class="license">Infosec</span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">Security</span></div>
         </div>
     </footer></div>

@@ -9,16 +9,6 @@ tags: [
     "Code"
 ]
 ---
-* [The Fast Approach](#the-fast-approach)
-    * [First](#first)
-    * [Leaked Secrets and Weak Encryption](#leaked-secrets-and-weak-wncryption)
-    * [New Patches and Outdated Dependencies](#new-patches-and-outdated-dependencies)
-    * [Developer Comments](#developer-comments)
-    * [Debug Functionalities, Configuration Files, and Endpoints](#debug-functionalities-and-configuration-files-and-endpoints)
-* [The Detailed Approach](#the-detailed-approach)
-    * [Important Functions](#important-functions)
-    * [User Input](#user-input)
-* [Reference](#reference)
 ## The Fast Approach
 ### First
 - Using grep => Look for specific dangerous patterns like specific ->

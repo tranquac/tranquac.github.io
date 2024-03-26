@@ -10,11 +10,6 @@ tags: [
     "Linux","Privilege Escalation"
 ]
 ---
-## Summary
-* [Student to Teacher](#student-to-teacher)
-* [Teacher to Admin](#teacher-to-admin)
-* [Admin to Root](#admin-to-root)
-* [Break out of the container](#break-out-of-the-container)
 ## Link
 [https://attackdefense.com/challengedetails?cid=2021](https://attackdefense.com/challengedetails?cid=2021)
 ## Student to Teacher

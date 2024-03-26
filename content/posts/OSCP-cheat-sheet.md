@@ -12,25 +12,6 @@ tags: [
 ---
 This is all I have gathered from my practice and oscp exam. It is quite complete. Hope it will help your exam.
 > ### Try Harder
-## Summary
-* [Around Kali](#around-kali)
-* [The Essential Tools](#the-essential-tools)
-* [Passive Info Gathering](#passive-info-gathering)
-* [Active Information Gathering](#active-information-gathering)
-* [Vulnerability Scanning](#vulnerability-scanning)
-* [Buffer Overflows](#buffer-overflows)
-* [Win32 Buffer Overflows](#win32-buffer-overflows)
-* [Linux Buffer Overflows](#linux-buffer-overflows)
-* [Exploits](#exploits)
-* [File Transfers](#file-transfers)
-* [Privilege Escalation](#privilege-escalation)
-* [Client Side Attacks](#client-side-attacks)
-* [Web Application Attacks](#web-application-attacks)
-* [Password Attacks](#password-attacks)
-* [Port Redirection and Tunneling](#port-redirection-and-tunneling)
-* [Metasploit](#metasploit)
-* [Bypassing Antivirus Software](#bypassing-antivirus-software)
-* [Forensics](#forensics)
 # Around Kali
 ## Finding Around Kali
 
