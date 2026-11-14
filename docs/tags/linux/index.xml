@@ -1,37 +1,7 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Linux - Tag - quactv</title>
-        <link>https://tranquac.github.io/tags/linux/</link>
-        <description>Linux - Tag - quactv</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 28 Jun 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
-    <title>Linux Backdoors</title>
-    <link>https://tranquac.github.io/posts/linux-backdoors/</link>
-    <pubDate>Mon, 28 Jun 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/linux-backdoors/</guid>
-    <description><![CDATA[Trong thực tế khi có quyền truy cập vào mục tiêu(SSH, VNC, interactive shell &hellip;) thì việc để lại backdoor là một phần quan trọng để duy trì quyền truy cập vào hệ thống mục tiêu. Do đó, việc học một số kỹ thuật backdoor là điều cần thiết, không chỉ đối với những kẻ tấn công mà cả những người phòng thủ. Sau đây chúng ta sẽ tìm hiểu một số kĩ thuật backdoor thông dụng.]]></description>
-</item>
-<item>
-    <title>Linux Privilege Escalation</title>
-    <link>https://tranquac.github.io/posts/linux-privilege-escalation/</link>
-    <pubDate>Thu, 18 Mar 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/linux-privilege-escalation/</guid>
-    <description><![CDATA[Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors. Here are a few:
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Linux - Tag - quactv</title><link>https://tranquac.github.io/tags/linux/</link><description>Linux - Tag - quactv</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor><webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 28 Jun 2021 18:17:00 +0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/linux/" rel="self" type="application/rss+xml"/><item><title>Linux Backdoors</title><link>https://tranquac.github.io/posts/linux-backdoors/</link><pubDate>Mon, 28 Jun 2021 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/linux-backdoors/</guid><description><![CDATA[In practice, once you have access to a target (SSH, VNC, interactive shell &hellip;), leaving a backdoor is an important part of maintaining access to the target system. Therefore, learning some backdoor techniques is essential, not only for attackers but also for defenders. In what follows we&rsquo;ll look at some common backdoor techniques. Here we only discuss within the Linux world!
+What is a backdoor? A backdoor is a piece of hidden code, a script or a program placed on the target machine serving the attacker&rsquo;s purpose of long-term access to the target, with which you don&rsquo;t have to exploit the same system twice.]]></description></item><item><title>Linux Privilege Escalation</title><link>https://tranquac.github.io/posts/linux-privilege-escalation/</link><pubDate>Thu, 18 Mar 2021 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/linux-privilege-escalation/</guid><description><![CDATA[Tools There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escelation vectors. Here are a few:
   LinPEAS - Linux Privilege Escalation Awesome Script
-wget &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -O linpeas.sh curl &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -o linpeas.sh ./linpeas.sh -a #all checks - deeper system enumeration, but it takes longer to complete. ./linpeas.sh -s #superfast &amp; stealth - This will bypass some time consuming checks.]]></description>
-</item>
-<item>
-    <title>[Attackdefense.com] Privilege Escalation</title>
-    <link>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</link>
-    <pubDate>Sun, 30 Aug 2020 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</guid>
-    <description><![CDATA[Link https://attackdefense.com/challengedetails?cid=2021
+wget &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -O linpeas.sh curl &#34;https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh&#34; -o linpeas.sh ./linpeas.sh -a #all checks - deeper system enumeration, but it takes longer to complete. ./linpeas.sh -s #superfast &amp; stealth - This will bypass some time consuming checks.]]></description></item><item><title>[Attackdefense.com] Privilege Escalation</title><link>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</link><pubDate>Sun, 30 Aug 2020 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/write-up/attackdefense.com-privilege-escalation/</guid><description>Link https://attackdefense.com/challengedetails?cid=2021
 Student to Teacher Find SUID binaries Using ‘Strings’ to view
 When we run the read-submission file. It will call and run the read-file. Read file is a binary file. We will use the PATH variable method
-First create another read-file executable file in / tmp with the content to generate a shell. Then use export to append the $ PATH variable. Then run the read-submission file. Because of the teacher’s suid, when running will generate the teacher’s shell:]]></description>
-</item>
-</channel>
-</rss>
+First create another read-file executable file in / tmp with the content to generate a shell. Then use export to append the $ PATH variable. Then run the read-submission file. Because of the teacher’s suid, when running will generate the teacher’s shell:</description></item></channel></rss>

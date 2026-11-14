@@ -11,16 +11,15 @@ tags: [
 ]
 ---
 ### 10-06-2022 / 22 Year Old
-Cuối cùng sau gần 1 năm kể từ khi có được chứng chỉ OSCP đến nay. Hôm nay, một lần nữa lại được vui mừng khi nhận được mail từ Offensive thông báo tôi đã hoàn thành và nhận được chứng chỉ OSWE (Offensive Security Web Expert)
+Finally, after almost a year since I earned the OSCP certification. Today, once again I was overjoyed to get an email from Offensive letting me know I had completed and earned the OSWE (Offensive Security Web Expert) certification
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/oswe/1.png)
 
-Thật tuyệt vời sau quá trình nỗ lực 3 tháng học tập và hơn 20h đối mặt với kì thi đầy cam go và khó khăn. Thật sự cảm ơn Offensive vì những kiến thức nâng cao mà khoá học đã đem lại. Nhiều thứ mới, vector mới trong khoá học chắc chắn sẽ giúp ích cho tôi rất nhiều trên con đường Offensive Security của tôi hiện tại và  trong tương lai.
-Bài viết này tôi cũng chỉ muốn chia sẻ một chút niềm vui của mình như vậy. Nhưng chắc chắn con đường học tập tri thức sẽ không dừng lại ở đây. Sẽ tiếp tục cố gắng và phát triển bản thân hơn nữa với những kiến thức, con đường và thế giới rộng lớn phía trước!
-### Kết
-Quá trình chuẩn bị của AWAE và OSWE là một quá trình phức tạp và khó khăn hơn bạn nghĩ. Bạn sẽ hiểu khi bạn thực sự bước chân vào nó. Quá trình này có thể hơi chông gai khi đi cùng với nó tôi vẫn phải đi học và đi làm, không tập trung được hoàn toàn vào nó nhưng tôi cũng gặp được rất nhiều người bạn xuất sắc trong quá trình ôn luyện và những người đồng nghiệp support tinh thần. Toàn bộ quá trình này thực chất là một quá trình leo núi, bạn phải luôn kiên trì leo lên, nếu không bạn có thể bỏ cuộc giữa chừng và không có kết quả. Nhưng khi nó thực sự kết thúc và bạn đã trải qua kỳ thi này, bạn có thể hiểu được ý nghĩa của từ Try Harder!
+It feels wonderful after 3 months of hard study and more than 20 hours facing a grueling, difficult exam. I'm truly grateful to Offensive for the advanced knowledge the course brought me. The many new things and new vectors in the course will definitely help me a lot on my Offensive Security path, both now and in the future.
+With this post I just want to share a bit of my joy. But the road of learning will surely not stop here. I'll keep trying and developing myself even more, with all the knowledge, the road, and the vast world ahead!
+### Wrap-up
+Preparing for AWAE and OSWE is a process more complex and difficult than you think. You'll understand it once you actually set foot in it. This process can be a bit rough, because alongside it I still had to go to school and work and couldn't focus on it completely, but I also met many excellent friends during the prep and colleagues who supported me mentally. This whole process is really a mountain climb: you have to keep persistently climbing, otherwise you might give up halfway and get no result. But when it truly ends and you've been through this exam, you can understand the meaning of the words Try Harder!
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/oswe/2.png)
 
-Cảm ơn vì đã đọc đến đây!
-
+Thanks for reading this far!

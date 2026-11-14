@@ -11,65 +11,70 @@ tags: [
 ]
 ---
 ### 28-4-2021 / 21 Year Old
-- Hôm nay tôi ngồi đây để viết những dòng suy nghĩ này khi tôi vừa nhận được email thông báo tôi đã vượt qua kì thi OSCP của offensive security.Đây chỉ là một bài viết đơn giản để tôi có thể chia sẻ những suy nghĩ,cảm nhận và hành trình tôi đạt đượt chứng chỉ OSCP trong lần thi đầu tiền . Đó là cả một quá trình gian nan, cố gắng hết mình của tôi trong 3 tháng.
+- Today I'm sitting here writing down these thoughts right after receiving the email telling me I had passed Offensive Security's OSCP exam. This is just a simple post so I can share my thoughts, feelings and the journey I took to earn the OSCP certification on my first attempt. It was a whole grueling process, three months of giving it my all.
 ![](https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/pass.png)
-## OSCP là gì?
-- OSCP là một chương trình chứng chỉ mà tập trung vào những kỹ năng tấn công và kiểm thử bảo mật. Nó bao gồm 2 phần: một bài thi pentest trong vòng 23h45p. Kết quả thi sau đó phải được viết thành báo cáo bằng Tiếng Anh, thẩm định trong 7 ngày trước khi chính thức công bố kết quả.
-- Chứng chỉ OSCP nằm trong TOP 5 chứng chỉ thâm nhập và kiểm thử đáng mơ ước cho các chuyên gia bảo mật và là một trong những chứng chỉ đòi hỏiphần thi thực hành. Tại kỳ thi, các kỹ sư phải thể hiện khả năng nghiên cứu hệ thống mạng, phát hiện các lỗ hổng hay điểm yếu về bảo mật trong hệ thống ứng dụng từ đó giúp các chuyên gia đánh giá được mức độ rủi ro cũng như xây dựng các phương pháp ứng phó và khắc phục sự cố.Có thể nói, đánh giá quan trọng nhất trong kỳ thi chính là tư duy nhạy bén và kỹ năng thực thi dưới áp lực lớn.
+## What is OSCP?
+- OSCP is a certification program that focuses on offensive and security-testing skills. It has 2 parts: a pentest exam within 23h45m. The exam results then have to be written up into a report in English, reviewed within 7 days before the result is officially announced.
+- The OSCP certification ranks among the TOP 5 most sought-after penetration and testing certifications for security professionals, and it's one of the certifications that requires a hands-on exam. In the exam, engineers have to demonstrate the ability to research a network system and discover vulnerabilities or security weaknesses in an application system, which then helps professionals assess the level of risk as well as build methods for response and incident remediation. You could say the most important thing being assessed in the exam is a sharp mindset and the ability to execute under heavy pressure.
 
-## Tại sao tôi lại đăng kí OSCP?
-- Đầu tiên là để học hỏi nâng cao kiến thức lẫn kĩ năng về kiểm thử bảo mật, hacking cộng với đó là lòng quyết tâm, niềm đam mê trong tôi. 
-- Thứ 2 là vì công việc.                                                                                                                                                          - Thứ 3 là tăng lương thì chúng ta không nói đến ở đây nhé :)))                                                                               
-##  Giai đoạn đăng kí học và chuẩn bị
-- Để thi bạn phải trải qua khóa học PWK (PENETRATION TESTING WITH KALI LINUX), nó có 3 sự lựa chọn: 30,60 hoặc 90 ngày. Đến thời điểm hiện tại offensive đã tung ra gói mới có thời gian 1 năm với giá 2147$. Lúc đó tôi đã lựa chọn gói 90 ngày với giá 1350$.
-- Khi đăng kí bạn sẽ nhận được những tài liệu: một sách lý thuyết 800 trang, một bộ video (kiến thức cũng tương tự nhưng không kĩ bằng sách), một gói kết nối tới VPN của họ và đây cũng chính là thứ giá trị nhất mà chúng ta có thể thực hành và rèn luyện.
-- Tôi bắt đầu đăng kí học chính thức là vào 26 tết. Khi đó gần với kì nghỉ Tết Nguyên Đán. Do ở quê Tết đến cũng khá nhiều việc, bận rộn nên trong khoảng thời gian 20 ngày đầu tôi chỉ đọc sách mà cũng không thực hành được gì mấy. Qua đợt nghỉ Tết và đọc hòm hòm sách lý thuyết tôi bắt đầu thực hành. Tôi bắt đầu với 2 máy alpha và beta và tôi khuyên các bạn cũng nên bắt đầu từ 2 máy này. Vì đây là 2 máy duy nhất offensive hướng dẫn đầy đủ để chúng ta có thể tham khảo. 
-- Tôi khuyên thật sự trước khi đăng kí bạn cũng nên chuẩn bị tinh thần cũng như kiến thức phù hơp, nếu không bạn sẽ bị ngợp, choáng với lượng kiến thức mà bạn sẽ được tiếp xúc. Và tôi nghĩ đây không phải là khóa học dành cho người mới bắt đầu (theo quan điểm của tôi).
-- Có thể tôi sẽ liệt kê một số kiến thức sẽ là cần thiết cho bạn:
-  - Hệ điều hành Linux và Windows. Bạn nên quen thuộc với cả 2 loại. Đặc biết là linux. Bạn nên thành thạo với việc sử dụng terminal, command trên linux vì nó là cái chúng ta sẽ   sử dụng chính cho việc làm lab và kì thi.
-  + các kỹ năng lập trình để có thể đọc hiểu khai thác và modify tùy vào trường hợp. Các khai thác chủ yếu được viết bằng python,perl...Bạn không cần viết một khai thác cho một   bài toán cụ thể nhưng bạn sẽ cần hiểu nó và tùy chỉnh nó.
-  + Các web attack vector phổ biến như: SQLi, Command Injection, LFI, RFI, Upload File...
-  + Đã từng thực hành với labs là một lợi thế. Bạn có thể làm các labs trên hackthebox, tryhackme, vulnhub trước khi đến với PWK. Trước khi đến với khóa học tôi cũng thực hành     được một ít trên các nền tảng này nhưng không được nhiều lắm. Ở đây có một list các bài trên hackthebox và vulnhub like OSCP của TJNULL. Nếu hoàn thành nó hết trước khi làm     lab OSCP. Bạn chắc chắn sẽ tự tin hơn tôi nhiều:                                                                                               
+## Why did I sign up for OSCP?
+- First, to learn and advance both my knowledge and my skills in security testing and hacking, combined with the determination and passion in me.
+- Second, because of work.
+  Third, a raise... well, we won't talk about that here :)))
+##  The registration and preparation phase
+- To take the exam you have to go through the PWK (PENETRATION TESTING WITH KALI LINUX) course, which has 3 options: 30, 60 or 90 days. By now Offensive has released a new package with a 1-year duration priced at $2147. At the time I chose the 90-day package at $1350.
+- When you register you'll receive these materials: an 800-page theory book, a set of videos (similar knowledge but not as thorough as the book), a package to connect to their VPN, and this is also the most valuable thing we can use to practice and train.
+- I officially started the course on the 26th of the lunar month. That was close to the Lunar New Year (Tet) holiday. Since there was quite a lot to do and I was busy with Tet back home, in the first 20 days or so I only read the book and couldn't really practice much. After the Tet break and once I'd read a decent chunk of the theory book, I started practicing. I began with the two machines alpha and beta, and I'd advise you to start from these two as well. Because these are the only two machines Offensive walks through fully so we have something to reference.
+- I really do advise that before registering you should also prepare yourself mentally as well as with the right knowledge, otherwise you'll be overwhelmed and dazed by the amount of knowledge you'll be exposed to. And I think this is not a course for beginners (in my opinion).
+- Maybe I'll list out some knowledge that will be necessary for you:
+  - The Linux and Windows operating systems. You should be familiar with both. Especially Linux. You should be proficient with using the terminal and commands on Linux because it's what we'll mainly use for doing the labs and the exam.
+  + programming skills so you can read, understand, exploit and modify depending on the case. The exploits are mostly written in python, perl... You don't need to write an exploit for a specific problem, but you'll need to understand it and customize it.
+  + Common web attack vectors such as: SQLi, Command Injection, LFI, RFI, Upload File...
+  + Having practiced with labs is an advantage. You can do labs on hackthebox, tryhackme, vulnhub before coming to PWK. Before taking the course I also practiced a little on these platforms but not all that much. Here's a list of the hackthebox and vulnhub boxes that are OSCP-like, by TJNULL. If you finish it all before doing the OSCP labs, you'll surely be a lot more confident than I was:
   https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=1839402159
-  + Cuối cùng một số công cụ mà bạn không thể không biết sử dụng: nmap, burpsuite, nc, metasploit ...  
-## Ghi chép
-- Tôi rành riêng một mục để nói về điều này vì thực sự nó rất quan trọng. Tôi khuyên bạn nên note cẩn thận hết lại tất cả những gì bạn học được, nghiên cứu được trong suốt quá trình học tập, thực hành. Nó thực sự giúp bạn nhớ lâu hơn và bạn sẽ biết tìm lại khi gặp một bài toán tương tự hoặc quên chẳng hạn.
-- Không chỉ lý thuyết bạn hãy note lại toàn bộ quá trình bạn làm lab. Hãy ghi rõ quá trình bạn làm, cách giải quyết mỗi khi gặp lỗi,...Nó sẽ rất hữu ích đó.
-- Tôi có cả một kho về những điều đó:
+  + Finally, some tools you simply can't not know how to use: nmap, burpsuite, nc, metasploit ...
+## Note-taking
+- I'm setting aside a dedicated section to talk about this because it's really important. I advise you to carefully note down everything you learn and research throughout the whole process of studying and practicing. It really helps you remember longer and you'll know where to find it again when you hit a similar problem or forget something, for example.
+- Not just theory, note down your entire lab process too. Write out clearly the steps you took, how you solved each error you ran into... It'll be very useful.
+- I have a whole stash of those:
 ![](https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture.png)
 ![](https://raw.githubusercontent.com/tranquac/OSCP-Journey/main/Capture2.png)
-## Kì thi
-- Tính đến thời điểm trước khi và kì thi tôi đã hoàn thành tổng cộng 53 machine trên tổng số khoảng 60 machine, phần còn lại chủ yếu là tấn công active directory vì không có trong kì thi nên tôi đã quyết định làm nó sau kì thi của mình. Và bây giờ thì sẵn sàng rồi. Bắt đầu lên thớt thôi!
-- Kì thi OSCP gồm có 5 machine trong đó có:                                                                                                                               
-1 máy buffer overflow 25 điểm.                                                                                                                                                    1 máy 25 điểm.                                                                                                                                                                    2 máy 20 điểm.                                                                                                                                                                    1 máy 10 điểm.                                                                                                                           
-- Bạn làm sao làm được 70 điểm là đủ điểm pass. Nhưng sau đó bạn phải làm report về quá trình mình làm gửi cho offensive trong 24h sau đó.
-- Tôi đã đặt lịch thi vào 11h ngày 25/4/2021. Do mạng phòng trọ không ổn định nên tôi đã lên công ty thi. Và may mắn trong ngày hôm đó tôi không gặp vấn đề về mạng cũng như lỗi kĩ thuật.                                                                                                                                                                  
-  10h45->11h30 -> thời gian xác thực trước khi thi.                                                                                                                      
-  11h30->~7h tối tôi đã hoàn thành 4 machine. Được tổng cộng 80đ.                                                                                                         
-  7h   ->7h30 tôi có một bát bún bò làm ấm lòng.                                                                                                                  
-  7h30 ->12h tôi cố gắng khai thác máy cuối cùng nhưng không có kết quả gì. Nó quá khó nhai.                                                                              
-  12h  ->3h thời gian để ngủ.                                                                                                                                                       3h   -> đánh răng, rửa mặt, vệ sinh cá nhân.                                                                                                             
-  3h30 -> 7h sáng tôi tiếp tục cho máy cuối cùng nhưng vẫn không nhận lại được kết quả gì mặc dù tôi đã biết chính xác CVE cho ứng dụng trên máy đó.              
-  7h   ->7h30 kiểm tra lại và kết thúc cho kì thì.                                                                                                          
-- Tôi đã kết thúc sớm khoảng 4 tiếng. Vì tôi đã mất khoảng 10h cho máy đó nhưng không nhận lại được gì. Tôi quyết định ra về và viết report cho bài thi của mình.
+## The exam
+- By the time right before the exam I had completed a total of 53 machines out of roughly 60, the rest being mainly active directory attacks, and since those weren't on the exam I decided to do them after my exam. And now I was ready. Time to get on the chopping block!
+- The OSCP exam consists of 5 machines, which include:
+1 buffer overflow machine, 25 points.
+1 machine, 25 points.
+2 machines, 20 points.
+1 machine, 10 points.
+- You pass once you reach 70 points. But after that you have to write a report on what you did and send it to Offensive within the following 24h.
+- I had booked the exam for 11:00 on 25/4/2021. Since the internet at my rental was unstable, I went to the office to take it. And luckily on that day I had no network issues or technical errors.
+  10:45 -> 11:30 -> verification time before the exam.
+  11:30 -> ~7:00 pm I had completed 4 machines. A total of 80 points.
+  7:00 -> 7:30 I had a bowl of bun bo to warm my heart.
+  7:30 -> 12:00 I tried to exploit the last machine but got nothing. It was too tough to chew.
+  12:00 -> 3:00 time to sleep.
+  3:00 -> brushing teeth, washing my face, personal hygiene.
+  3:30 -> 7:00 am I kept going at the last machine but still got nothing back, even though I knew the exact CVE for the application on that machine.
+  7:00 -> 7:30 double-checking and wrapping up the exam.
+- I finished about 4 hours early. Because I'd spent around 10h on that machine but got nothing back. I decided to head home and write the report for my exam.
 
-## Lời kết
-- Hành trình của tôi là như vậy đó. Suốt 3 tháng cố gắng, cuối cùng tôi đã được đền đáp bằng kết quả xứng đáng. 3 tháng đó quả là một quãng thời gian tôi đã vượt quá giới hạn của bản thân: ôn thi OSCP, học và kiểm tra trên trường, tôi đã đi làm cả ngày (bao gồm cả làm công việc ở công ty, ôn thi) và tối trở lại trường để học trên. Thời gian biểu của tôi trong 3 tháng đó như một vòng lặp : ngày đi làm, tối về đi học, khoảng 9h15 về đến nhà, làm việc hoặc làm labs oscp đến khoảng 12h-1h đi ngủ và hôm sau lại lặp lại. Đó quả là quãng thời gian đáng nhớ cho sự cố gắng của tôi!
-- Hi vọng đây không phải bài viết cuối cùng, và tôi sẽ không dừng lại ở đó, sẽ cố gắng cho những đang dự định còn dang dở, còn rất nhiều thứ cần học hỏi ở phía trước.
-- Cuối cùng tôi gửi lời cảm ơn những người bạn, đồng nghiệp đã giúp đỡ tôi, cùng tôi cố gắng trong suốt quãng thời gian đó: aishee, catmandx, minhnq22, ewind!
+## Closing words
+- That's my journey. Through 3 months of effort, in the end I was rewarded with a result I deserved. Those 3 months were truly a stretch where I pushed past my own limits: studying for OSCP, studying and taking tests at university, I worked all day (including my job at the company and studying for the exam) and in the evening went back to university for class. My schedule during those 3 months was like a loop: by day go to work, in the evening go to class, get home around 9:15, work or do OSCP labs until about 12:00-1:00 and sleep, and the next day it repeats. That was truly a memorable stretch of time for my effort!
+- I hope this isn't the last post, and I won't stop there, I'll keep pushing for the plans still unfinished; there's so much left to learn ahead.
+- Finally, I send my thanks to the friends and colleagues who helped me and tried alongside me throughout that time: aishee, catmandx, minhnq22, ewind!
 
 ## Update
-- Vào 03-06-2021 tôi đã nhận được chứng chỉ của mình. Thật sự vui mừng!
+- On 03-06-2021 I received my certificate. Truly overjoyed!
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cert/OSCP-Cert.jpg)
-                                                                                                                                           
-## ĐÂY LÀ MỘT SỐ NGUỒN CỰC KÌ HỮU ÍCH TÔI ĐÃ THAM KHẢO VÀ HỌC TẬP CHO KÌ THI:
-[https://github.com/swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)                                                
-[https://guide.offsecnewbie.com/](https://guide.offsecnewbie.com/)                                                                        
-[https://sushant747.gitbooks.io/total-oscp-guide/content/](https://sushant747.gitbooks.io/total-oscp-guide/content/)                                      
-[https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished](https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished)                                  
-[https://blog.adithyanak.com/](https://blog.adithyanak.com/)                                                                                                                     
-[https://github.com/tranquac/Linux-Privilege-Escalation](https://github.com/tranquac/Linux-Privilege-Escalation)                                             
-[https://github.com/tranquac/OSCP-PWK-Notes-Public](https://github.com/tranquac/OSCP-PWK-Notes-Public)                                                                  
-[https://burmat.gitbook.io/security/](https://burmat.gitbook.io/security/)                                                                                                                      
-[https://guif.re/linuxeop#Post%20exploitation](https://guif.re/linuxeop#Post%20exploitation)                                                                   
-#### Cảm ơn các bạn đã đọc đến đây!
+
+## HERE ARE SOME EXTREMELY USEFUL RESOURCES I REFERENCED AND STUDIED FOR THE EXAM:
+[https://github.com/swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+[https://guide.offsecnewbie.com/](https://guide.offsecnewbie.com/)
+[https://sushant747.gitbooks.io/total-oscp-guide/content/](https://sushant747.gitbooks.io/total-oscp-guide/content/)
+[https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished](https://cd6629.gitbook.io/ctfwriteups/oscp-cheatsheet-unfinished)
+[https://blog.adithyanak.com/](https://blog.adithyanak.com/)
+[https://github.com/tranquac/Linux-Privilege-Escalation](https://github.com/tranquac/Linux-Privilege-Escalation)
+[https://github.com/tranquac/OSCP-PWK-Notes-Public](https://github.com/tranquac/OSCP-PWK-Notes-Public)
+[https://burmat.gitbook.io/security/](https://burmat.gitbook.io/security/)
+[https://guif.re/linuxeop#Post%20exploitation](https://guif.re/linuxeop#Post%20exploitation)
+#### Thanks everyone for reading this far!

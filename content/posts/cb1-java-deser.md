@@ -9,9 +9,9 @@ tags: [
     "Java","Code"
 ]
 ---
-Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1
+Vulnerabilities related to deserialization in Java have become a hot security topic in recent years. An unsafe deserialization process can lead to serious vulnerabilities such as remote code execution. Ysoserial is a project created by frohoff, one of the people who discovered deserialization vulnerabilities in Java. This post will analyze the CommonsBeanutils1 chain
 
-Apache Commons Beanutils là một dự án khác thuộc bộ công cụ Apache Commons cung cấp một số phương thức thao tác trên các đối tượng lớp Java thông thường (còn được gọi là JavaBeans).
+Apache Commons Beanutils is another project in the Apache Commons toolkit that provides some methods for manipulating ordinary Java class objects (also known as JavaBeans).
 
 ### Gadget chain
 ```
@@ -29,12 +29,12 @@ ObjectInputStream.readObject()
                                             Pwner*(Javassist-generated).<static init>
                                                 Runtime.exec()
 ```
-### Phân tích
-Ví dụ, đây là lớp JavaBean đơn giản nhất
+### Analysis
+For example, here's the simplest JavaBean class
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/1.jpg)
 
-Commons-beanutils cung cấp một phương thức tĩnh PropertyUtils.getProperty cho phép người dùng gọi trực tiếp phương thức getter của bất kỳ JavaBean nào, chẳng hạn như:
+Commons-beanutils provides a static method PropertyUtils.getProperty that lets the user directly call the getter method of any JavaBean, such as:
 
 ```
 PropertyUtils.getProperty (Object bean, String name)
@@ -42,15 +42,15 @@ PropertyUtils.getProperty (Object bean, String name)
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/2.jpg)
 
-Lúc này, commons-beanutils sẽ tự động tìm phương thức getter của thuộc tính name, tức là getName, rồi gọi nó để lấy giá trị trả về. Bằng cách này, người dùng có thể dễ dàng gọi getter của bất kỳ đối tượng nào.
+At this point, commons-beanutils will automatically find the getter method of the name property, i.e. getName, then call it to get the return value. This way, the user can easily call the getter of any object.
 
-Trong phương thức so sánh của lớp BeanComparator, có một lệnh gọi đến hàm PropertyUtils.getProperty, được thực hiện như sau:
+In the compare method of the BeanComparator class, there's a call to the PropertyUtils.getProperty function, implemented as follows:
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/3.jpg)
 
-Phương thức này truyền vào 2 đối tượng. Nếu this.property là null thì so sánh hai objects trực tiếp với nhau, ngược lại this.property khác null, sẽ sử dụng PropertyUtils.getProperty để lấy giá trị property của hai đối tượng và so sánh chúng với nhau. Như đã nói ở trên, PropertyUtils.getProperty sẽ tự động gọi phương thức getter của JavaBean, đây là key để thực thi code tuỳ ý. 
+This method takes in 2 objects. If this.property is null, it compares the two objects directly with each other; otherwise, if this.property is not null, it uses PropertyUtils.getProperty to get the property value of the two objects and compares them with each other. As mentioned above, PropertyUtils.getProperty will automatically call the getter method of the JavaBean, and this is the key to executing arbitrary code. 
 
-Vậy có bất kì phương thức getter nào có thể thực thi mã tuỳ ý không?
+So is there any getter method that can execute arbitrary code?
 
 **TemplatesImpl chain**
 
@@ -62,11 +62,11 @@ TemplatesImpl#defineTransletClasses()->
 TransletClassLoader#defineClass()
 ```
 
-Chain thức này đã được tìm thấy trước đó. PropertyUtils.getProperty(o1, property) : Khi o1 được truyền vào là một TemplatesImpl object và property có giá trị là outputProperties, phương thức getter sẽ tự động gọi để thực thi phương thức TemplatesImpl#getOutputProperties(). Trong nội bộ TemplatesImpl#getOutputProperties() nó lại gọi đến newTransformer()
+This chain was found earlier. PropertyUtils.getProperty(o1, property) : when o1 passed in is a TemplatesImpl object and property has the value outputProperties, the getter method will be called automatically to execute the TemplatesImpl#getOutputProperties() method. Internally, TemplatesImpl#getOutputProperties() in turn calls newTransformer()
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/4.jpg)
 
-Mà TemplatesImpl#newTransformer() thường được sử dụng để thực thi bytecodes độc hại:
+And TemplatesImpl#newTransformer() is commonly used to execute malicious bytecodes:
 
 ```
 TemplatesImpl#newTransformer() ->
@@ -83,7 +83,7 @@ TemplatesImpl#defineTransletClasses()->
 
 TransletClassLoader#defineClass()
 
-Xây dựng TemplatesImpl
+Building TemplatesImpl
 
 ```
 TemplatesImpl templates = new TemplatesImpl();
@@ -95,7 +95,7 @@ PropertyUtils.getProperty(templates,"outputProperties");
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/8.jpg)
 
-Và sau đó truyền đối tượng TemplatesImpl vừa tạo vào BeanComparator
+And then pass the TemplatesImpl object just created into BeanComparator
 
 ```
 BeanComparator beanComparator = new BeanComparator("outputProperties");
@@ -103,7 +103,7 @@ BeanComparator beanComparator = new BeanComparator("outputProperties");
 
 **PriorityQueue**
 
-ReadObject trong PriorityQueue sẽ gọi hàm heapify để sắp xếp các phần tử, sau đó kích hoạt phương thức comparator.compare tạo nên một chuỗi hoàn hảo. Chắc vẫn còn cách khác để trigger được comparator.compare nhưng trong gadget chain này tác giả đã sử dụng cách thức này. Càng phân tích càng thấy hâm mộ những con người đi trước sao có thể tìm được như vậy.
+ReadObject in PriorityQueue calls the heapify function to sort the elements, then triggers the comparator.compare method, forming a perfect chain. There are probably other ways to trigger comparator.compare, but in this gadget chain the author used this approach. The more I analyze it, the more I admire the people who came before, who could find something like this.
 
 ```
 final PriorityQueue<Object> queue = new PriorityQueue<Object>(2, comparator);
@@ -117,13 +117,13 @@ final PriorityQueue<Object> queue = new PriorityQueue<Object>(2, comparator);
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/12.jpg)
 
-Chain hoàn chỉnh:
+The complete chain:
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/13.jpg)
 
-Hoàn hảo!
+Perfect!
 
-Code thao khảo:
+Reference code:
 
 **RunCmd.class**
 ```
@@ -197,15 +197,15 @@ public class TempletesTest {
 
 ![](https://raw.githubusercontent.com/tranquac/Blog_Image/master/cb1/14.jpg)
 
-Học được: 
+What I learned: 
 
-- Kĩ năng nghiên cứu, phân tích vấn đề
-- Học được nhiều điều về java và phân tích gadget chain trong java deserialization.
+- Research skills and problem analysis
+- Learned a lot about java and analyzing gadget chains in java deserialization.
 
-Ngày đầu ngồi đọc không hiểu gì. Ngày 2 bắt đầu vào phân tích thấy rất hay và vỡ ra nhiều điều. Mình sẽ phân tích các gadget chain khác hoặc một CVE nào đó về java deserialization trong thời gian tới.
+On the first day I sat reading and understood nothing. On day 2 I started getting into the analysis, found it really interesting and a lot of things clicked. I'll analyze other gadget chains or some CVE about java deserialization in the near future.
 
-Tham khảo (Để hiểu được không biết tôi đã đọc bao nhiêu bài viết của các pháp sư Trung Hoa nữa!)
+References (to understand it, who knows how many more articles by the Chinese wizards I had to read!)
 
-Cảm ơn bạn đã đọc tới đây!
+Thanks for reading this far!
 
 

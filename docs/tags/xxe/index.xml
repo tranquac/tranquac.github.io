@@ -1,18 +1,3 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>XXE - Tag - quactv</title>
-        <link>https://tranquac.github.io/tags/xxe/</link>
-        <description>XXE - Tag - quactv</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 07 Jun 2021 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/xxe/" rel="self" type="application/rss+xml" /><item>
-    <title>XXE</title>
-    <link>https://tranquac.github.io/posts/xxe/</link>
-    <pubDate>Mon, 07 Jun 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/xxe/</guid>
-    <description><![CDATA[What is XXE XXE = XML eXternal Entities
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>XXE - Tag - quactv</title><link>https://tranquac.github.io/tags/xxe/</link><description>XXE - Tag - quactv</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor><webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Mon, 07 Jun 2021 18:17:00 +0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/xxe/" rel="self" type="application/rss+xml"/><item><title>XXE</title><link>https://tranquac.github.io/posts/xxe/</link><pubDate>Mon, 07 Jun 2021 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/xxe/</guid><description><![CDATA[What is XXE XXE = XML eXternal Entities
 XXE can occur when XML documents get parsed. We traditionally think of XXE vulnerabilities as uploading an XML file that includes an external entity, an example of this would be:
-&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;]&gt; &lt;foo&gt;&amp;xxe;&lt;/foo&gt; We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files.]]></description>
-</item>
-</channel>
-</rss>
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34; &gt;]&gt; &lt;foo&gt;&amp;xxe;&lt;/foo&gt; We might be able to upload this file if we save it as .xml into an application that process XML files but what some people don&rsquo;t know is that some other file types consist of XML files.]]></description></item></channel></rss>

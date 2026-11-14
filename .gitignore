@@ -1,0 +1,5 @@
+# Hugo build artifacts. The site is published to docs/ (publishDir in config.toml),
+# which IS committed because GitHub Pages serves it.
+public/
+resources/_gen/
+.hugo_build.lock

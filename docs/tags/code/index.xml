@@ -1,32 +1,3 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Code - Tag - quactv</title>
-        <link>https://tranquac.github.io/tags/code/</link>
-        <description>Code - Tag - quactv</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor>
-            <webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/code/" rel="self" type="application/rss+xml" /><item>
-    <title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title>
-    <link>https://tranquac.github.io/posts/cb1-java-deser/</link>
-    <pubDate>Wed, 19 Jan 2022 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/cb1-java-deser/</guid>
-    <description><![CDATA[Các lỗ hổng liên quan tới deserialization trên Java đã trở thành một vấn đề bảo mật nóng trong những năm gần đây. Quá trình deserialize không an toàn có thể dẫn đến các lỗ hổng nghiêm trọng như thực thi mã từ xa. Ysoserial là một dự án được tạo bởi frohoff, một người phát hiện ra lỗ hổng deserialization trên Java. Bài viết này sẽ phân tích về chain CommonsBeanutils1]]></description>
-</item>
-<item>
-    <title>[Java Deserialization] Thảo luận về cơ chế Serialize và Deserialize trong Java</title>
-    <link>https://tranquac.github.io/posts/introduce-java-serialize/</link>
-    <pubDate>Tue, 18 Jan 2022 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/introduce-java-serialize/</guid>
-    <description><![CDATA[Lỗ hổng bảo mật liên quan đến Java Deserialization (Deser) là khó đối với tôi. Tôi đã mất nhiều thời gian để tìm hiểu nó. Và tôi không dừng lại. Tôi muốn tìm hiểu những thứ mới và tìm hiểu sâu hơn về nó. Bài viết đầu tiên này tôi sẽ giải thích cơ chế Serialize và Deserialize trong Java. Cũng chỉ như những gì tôi ghi chép lại cho việc mình đã học.]]></description>
-</item>
-<item>
-    <title>My Notes on Code-Review</title>
-    <link>https://tranquac.github.io/posts/my-note-for-code-review/</link>
-    <pubDate>Mon, 30 Aug 2021 18:17:00 &#43;0700</pubDate>
-    <author>quactv</author>
-    <guid>https://tranquac.github.io/posts/my-note-for-code-review/</guid>
-    <description><![CDATA[The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.  Potential Dangerous Functions =&gt;  Graudit : grep rough audit - source code auditing tool (https://github.com/wireghoul/graudit) APKleaks : Scanning APK file for URIs, endpoints &amp; secrets.]]></description>
-</item>
-</channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code - Tag - quactv</title><link>https://tranquac.github.io/tags/code/</link><description>Code - Tag - quactv</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tranquac0312@gmail.com (quactv)</managingEditor><webMaster>tranquac0312@gmail.com (quactv)</webMaster><lastBuildDate>Wed, 19 Jan 2022 18:17:00 +0700</lastBuildDate><atom:link href="https://tranquac.github.io/tags/code/" rel="self" type="application/rss+xml"/><item><title>[Java Deserialization] CommonsBeanutils1 exploit chain analysis</title><link>https://tranquac.github.io/posts/cb1-java-deser/</link><pubDate>Wed, 19 Jan 2022 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/cb1-java-deser/</guid><description>Vulnerabilities related to deserialization in Java have become a hot security topic in recent years. An unsafe deserialization process can lead to serious vulnerabilities such as remote code execution. Ysoserial is a project created by frohoff, one of the people who discovered deserialization vulnerabilities in Java. This post will analyze the CommonsBeanutils1 chain
+Apache Commons Beanutils is another project in the Apache Commons toolkit that provides some methods for manipulating ordinary Java class objects (also known as JavaBeans).</description></item><item><title>[Java Deserialization] A discussion of the Serialize and Deserialize mechanism in Java</title><link>https://tranquac.github.io/posts/introduce-java-serialize/</link><pubDate>Tue, 18 Jan 2022 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/introduce-java-serialize/</guid><description><![CDATA[Security vulnerabilities related to Java Deserialization (Deser) are hard for me. I spent a lot of time learning about it. And I didn&rsquo;t stop. I want to learn new things and dig deeper into it. In this first post I&rsquo;ll explain the Serialize and Deserialize mechanism in Java. It&rsquo;s really just like notes I&rsquo;m writing down for what I&rsquo;ve learned.
+I truly admire some of the seniors before me who have done deep research on this vulnerability and have many complex CVEs related to it: Jangg, Quynh Le.]]></description></item><item><title>My Notes on Code-Review</title><link>https://tranquac.github.io/posts/my-note-for-code-review/</link><pubDate>Mon, 30 Aug 2021 18:17:00 +0700</pubDate><author>quactv</author><guid>https://tranquac.github.io/posts/my-note-for-code-review/</guid><description><![CDATA[The Fast Approach First  Using grep =&gt; Look for specific dangerous patterns like specific -&gt;  functions strings keywords and coding patterns that are known to be dangerous. Like =&gt; eval() function   Focus on the search for dangerous functions used on user-controlled data.  Potential Dangerous Functions =&gt;  Graudit : grep rough audit - source code auditing tool (https://github.com/wireghoul/graudit) APKleaks : Scanning APK file for URIs, endpoints &amp; secrets.]]></description></item></channel></rss>

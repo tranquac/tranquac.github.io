@@ -1,14 +1,16 @@
+# Hugo site config for https://tranquac.github.io
+# Built with Hugo 0.83.1 (extended) + LoveIt theme (git submodule in themes/LoveIt).
+# GitHub Pages serves the "docs/" folder of the master branch, so Hugo publishes there.
+
 baseURL = "https://tranquac.github.io"
-
-# Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
+publishDir = "docs"
 
-# website title
+# website title (browser tab / RSS title)
 title = "quactv"
 
-# language code ["en", "zh-CN", "fr", "pl", ...]
+defaultContentLanguage = "en"
 languageCode = "en"
-# language name ["English", "简体中文", "Français", "Polski", ...]
 languageName = "English"
 
 # Author config
@@ -22,13 +24,10 @@ languageName = "English"
   [[menu.main]]
     weight = 1
     identifier = "posts"
-    # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
-    # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
     name = "Posts"
     url = "/posts/"
-    # title will be shown when you hover on this menu link
     title = ""
   [[menu.main]]
     weight = 2
@@ -48,12 +47,207 @@ languageName = "English"
     title = ""
   [[menu.main]]
     weight = 4
-    identifier = "About me"
+    identifier = "about"
     pre = ""
     post = ""
     name = "About me"
     url = "/about/"
     title = ""
+
+[params]
+  # site default theme ["auto", "light", "dark"]
+  defaultTheme = "auto"
+  # public git repo url, only used when enableGitInfo is true
+  gitRepo = ""
+  # hash function used for SRI; empty = no SRI
+  fingerprint = ""
+  # date format
+  dateFormat = "2006-01-02"
+  # website title for Open Graph and Twitter Cards
+  title = "quactv blog"
+  # website description for RSS, SEO, Open Graph and Twitter Cards
+  description = "quactv blog"
+  # website images for Open Graph and Twitter Cards
+  images = ["/logo.png"]
+
+  # Header config
+  [params.header]
+    # desktop header mode ["fixed", "normal", "auto"]
+    desktopMode = "fixed"
+    # mobile header mode ["fixed", "normal", "auto"]
+    mobileMode = "auto"
+    [params.header.title]
+      logo = ""
+      name = "> root@quaccws:~#"
+      pre = ""
+      post = ""
+      typeit = false
+
+  # Footer config
+  [params.footer]
+    enable = true
+    custom = ""
+    # whether to show Hugo and theme info
+    hugo = false
+    copyright = true
+    author = true
+    # site creation year
+    since = 2022
+    # shown after the license, separated by "|"
+    icp = "Security"
+    # license info (HTML format is supported)
+    license = "Infosec"
+
+  # Section (all posts) page config
+  [params.section]
+    paginate = 20
+    dateFormat = "01-02"
+    rss = 10
+
+  # List (category or tag) page config
+  [params.list]
+    paginate = 20
+    dateFormat = "01-02"
+    rss = 10
+
+  # App icon config
+  [params.app]
+    title = "quactv blog"
+    noFavicon = false
+    svgFavicon = ""
+    themeColor = "#ffffff"
+    iconColor = "#5bbad5"
+    tileColor = "#da532c"
+
+  # Search config (disabled)
+  [params.search]
+    enable = false
+    type = "lunr"
+    contentLength = 4000
+    placeholder = ""
+    maxResultLength = 10
+    snippetLength = 30
+    highlightTag = "em"
+    absoluteURL = false
+
+  # Home page config
+  [params.home]
+    rss = 10
+    [params.home.profile]
+      enable = true
+      gravatarEmail = ""
+      avatarURL = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/avatar.jpg"
+      # title shown in home page (HTML format is supported)
+      title = "Hacker / Red Teamer / Security Enthusiast"
+      # subtitle shown in home page, typed by typeit
+      subtitle = "No system is safe!"
+      typeit = true
+      social = true
+      disclaimer = ""
+    [params.home.posts]
+      enable = true
+      paginate = 6
+
+  # Social links shown in home page profile
+  [params.social]
+    GitHub = "tranquac"
+    Email = "quaccws@gmail.com"
+    RSS = true
+    # full URLs override the theme's default prefixes (linkedin.com/in/, twitter.com/)
+    [params.social.Linkedin]
+      url = "https://www.linkedin.com/in/quac-tran-3b0456197/"
+    [params.social.Twitter]
+      # id feeds the "via @..." of the Twitter share button (see layouts/partials/plugin/share.html)
+      id = "quaccws"
+      url = "https://x.com/quaccws"
+      title = "X"
+
+  # Page global config
+  [params.page]
+    hiddenFromHomePage = false
+    hiddenFromSearch = false
+    twemoji = false
+    lightgallery = false
+    ruby = true
+    fraction = true
+    fontawesome = true
+    linkToMarkdown = false
+    rssFullText = false
+    [params.page.toc]
+      enable = true
+      keepStatic = true
+      auto = true
+    [params.page.code]
+      copy = true
+      maxShownLines = 50
+    # KaTeX math (loaded on every page)
+    [params.page.math]
+      enable = true
+      inlineLeftDelimiter = ""
+      inlineRightDelimiter = ""
+      blockLeftDelimiter = ""
+      blockRightDelimiter = ""
+      copyTex = true
+      mhchem = true
+    # Social share links in post page
+    [params.page.share]
+      enable = true
+      Twitter = true
+      Facebook = true
+      Linkedin = false
+      Whatsapp = false
+      Pinterest = false
+      Tumblr = false
+      HackerNews = true
+      Reddit = false
+      VK = false
+      Buffer = false
+      Xing = false
+      Line = true
+      Instapaper = false
+      Pocket = false
+      Flipboard = false
+      Weibo = true
+      Blogger = false
+      Baidu = false
+      Odnoklassniki = false
+      Evernote = false
+      Skype = false
+      Trello = false
+      Mix = false
+    # Comments (disabled)
+    [params.page.comment]
+      enable = false
+    # Page SEO config (JSON-LD publisher)
+    [params.page.seo]
+      images = []
+      [params.page.seo.publisher]
+        name = ""
+        logoUrl = ""
+
+  # TypeIt config
+  [params.typeit]
+    speed = 100
+    cursorSpeed = 1000
+    cursorChar = "|"
+    duration = -1
+
+  # Analytics (disabled)
+  [params.analytics]
+    enable = false
+
+  # Cookie consent (disabled)
+  [params.cookieconsent]
+    enable = false
+
+  # CDN for third-party libraries: empty = serve from /lib/ on this site
+  [params.cdn]
+    data = ""
+
+  # Compatibility config
+  [params.compatibility]
+    polyfill = false
+    objectFit = false
 
 # Markup related configuration in Hugo
 [markup]
