@@ -1,0 +1,5 @@
+{{- /*
+    One entry of a {{< timeline >}}. `date` is the monospace label on the left;
+    the inner text (inline Markdown is allowed) is the note. See shortcodes/timeline.html.
+*/ -}}
+<li class="timeline-item"><span class="timeline-dot" aria-hidden="true"></span><time class="timeline-date">{{ .Get "date" }}</time><div class="timeline-body">{{ .Inner | markdownify }}</div></li>

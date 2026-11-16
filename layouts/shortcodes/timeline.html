@@ -1,0 +1,12 @@
+{{- /*
+    Disclosure timeline. Pair it with the {{< event >}} shortcode:
+
+        {{< timeline >}}
+        {{< event date="2026-09" >}}Reported to the vendor{{< /event >}}
+        {{< event date="2026-11-10" >}}CVE published{{< /event >}}
+        {{< /timeline >}}
+
+    Renders a vertical line with a dot, a monospace date and a short note per entry.
+    Styling lives in assets/css/_custom.scss (search "Timeline").
+*/ -}}
+<ol class="timeline">{{ .Inner }}</ol>

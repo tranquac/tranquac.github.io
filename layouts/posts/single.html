@@ -6,7 +6,8 @@
     Project override of themes/LoveIt/layouts/posts/single.html.
     Only the post header differs from the theme: the meta line (categories / date /
     word count / reading time) is plain text above the title, without icons, the
-    author name or the title animation. Everything below the header is the theme's.
+    author name or the title animation. Below the header it is the theme's layout,
+    with CVE ids kept from wrapping mid-id (partials/cve-nowrap.html).
 */ -}}
 
 {{- define "content" -}}
@@ -81,7 +82,7 @@
 
         {{- /* Content */ -}}
         <div class="content" id="content">
-            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | partial "cve-nowrap.html" | safeHTML -}}
         </div>
 
         {{- /* Footer */ -}}

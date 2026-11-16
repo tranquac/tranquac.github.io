@@ -1034,6 +1034,68 @@ html {
   }
 
   // ============================================================
+  // Timeline: the {{< timeline >}} / {{< event >}} shortcodes
+  // (a vertical line with a dot, a monospace date and a short note per entry)
+  // ============================================================
+  .single .content .timeline {
+    list-style: none;
+    position: relative;
+    margin: 2rem 0;
+    margin-left: .5rem;
+    padding: 0;
+    border-left: 1px solid var(--c-border-soft);
+  }
+
+  .single .content .timeline .timeline-item {
+    position: relative;
+    margin: 0;
+    padding: 0 0 1.5rem 1.75rem;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  // the dot is centred on the line and filled with the page colour, so the line stops under it
+  .single .content .timeline .timeline-dot {
+    position: absolute;
+    left: 0;
+    top: .3rem;
+    width: .625rem;
+    height: .625rem;
+    box-sizing: border-box;
+    border: 2px solid var(--c-faint);
+    border-radius: 50%;
+    background-color: var(--c-bg);
+    box-shadow: 0 0 6px rgba(113, 113, 122, .15);
+    transform: translateX(-50%);
+  }
+
+  .single .content .timeline .timeline-date {
+    display: block;
+    font-family: var(--code-font-family);
+    font-size: .875rem;
+    line-height: 1;
+    color: var(--c-subtle);
+  }
+
+  .single .content .timeline .timeline-body {
+    margin-top: .375rem;
+    color: var(--c-text);
+
+    p {
+      margin: 0;
+    }
+
+    // an optional second line reads as a quiet note
+    p + p {
+      margin-top: .25rem;
+      font-size: .875rem;
+      color: var(--c-subtle);
+    }
+  }
+
+  // ============================================================
   // Table of contents (collapsed box above the post)
   // ============================================================
   .toc .toc-title {

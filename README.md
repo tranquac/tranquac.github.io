@@ -1,38 +1,38 @@
 # tranquac.github.io
 
-Blog cá nhân, dựng bằng [Hugo](https://gohugo.io) với theme [LoveIt](https://github.com/dillonzq/LoveIt).
+Personal blog, built with [Hugo](https://gohugo.io) and the [LoveIt](https://github.com/dillonzq/LoveIt) theme.
 
-GitHub Pages phục vụ **thẳng thư mục `docs/` trên nhánh `master`**. Vì vậy không sửa tay file trong `docs/`:
-mọi thay đổi làm trong `content/` (hoặc `config.toml`), rồi build lại để Hugo sinh HTML vào `docs/`.
+GitHub Pages serves the **`docs/` directory on the `master` branch directly**. So don't hand-edit files in `docs/`:
+make every change in `content/` (or `config.toml`), then rebuild so Hugo regenerates the HTML into `docs/`.
 
-## Quy trình cập nhật nội dung
+## Content update workflow
 
-1. Sửa Markdown trong `content/`, ví dụ `content/about.md` hoặc `content/posts/*.md`.
-2. Build (Hugo ghi kết quả vào `docs/` vì `publishDir = "docs"` trong `config.toml`):
+1. Edit the Markdown in `content/`, e.g. `content/about.md` or `content/posts/*.md`.
+2. Build (Hugo writes the result into `docs/` because `publishDir = "docs"` in `config.toml`):
 
    ```sh
    hugo --minify --cleanDestinationDir
    ```
 
-   `--minify` là bắt buộc: `docs/` đang được build ở dạng nén, thiếu cờ này thì gần như mọi file HTML đều đổi.
+   `--minify` is required: `docs/` is built minified, and without this flag almost every HTML file changes.
 
-3. Kiểm tra lại: `git status` và `git diff --stat docs`.
-4. Commit cả `content/` và `docs/`, rồi `git push origin master`. GitHub Pages cập nhật sau khoảng một phút.
+3. Check: `git status` and `git diff --stat docs`.
+4. Commit both `content/` and `docs/`, then `git push origin master`. GitHub Pages updates after about a minute.
 
-Xem trước trên máy: `hugo server -D --noHTTPCache` rồi mở <http://localhost:1313> (`-D` hiển thị cả bài còn
-`draft: true`). `--noHTTPCache` buộc trình duyệt luôn tải CSS mới; thiếu cờ này, sau khi sửa giao diện trình duyệt
-có thể vẫn vẽ trang bằng CSS cũ.
+Local preview: `hugo server -D --noHTTPCache`, then open <http://localhost:1313> (`-D` also shows posts still marked
+`draft: true`). `--noHTTPCache` forces the browser to always fetch the latest CSS; without it, after a design change the
+browser may still render the page with the old CSS.
 
-Tạo bài mới: `hugo new posts/ten-bai.md`. Archetype mặc định đặt `draft: true`; đổi thành `false` khi muốn đăng.
+Create a new post: `hugo new posts/post-name.md`. The default archetype sets `draft: true`; change it to `false` to publish.
 
-## Cài đặt trên máy mới
+## Setup on a new machine
 
-Site được ghim ở **Hugo 0.83.1 extended** (bản extended cần cho SCSS của theme). Dùng đúng phiên bản này để
-output không thay đổi ngoài ý muốn.
+The site is pinned to **Hugo 0.83.1 extended** (the extended build is needed for the theme's SCSS). Use this exact
+version so the output doesn't change unexpectedly.
 
 ```sh
 git clone --recurse-submodules https://github.com/tranquac/tranquac.github.io
-# repo đã clone sẵn thì chạy: git submodule update --init
+# if the repo is already cloned, run: git submodule update --init
 ```
 
 Linux x86_64:
@@ -45,101 +45,105 @@ install -m 0755 hugo ~/.local/bin/hugo
 hugo version    # hugo v0.83.1-5AFE0A57+extended linux/amd64
 ```
 
-Windows: tải `hugo_extended_0.83.1_Windows-64bit.zip` ở cùng release
+Windows: download `hugo_extended_0.83.1_Windows-64bit.zip` from the same release
 (SHA-256 `2f7fa00d26c36d076573729fe7027d3cc5a63504d77d0c328b6db64fe3c9c2e9`).
-File checksum gốc: <https://github.com/gohugoio/hugo/releases/download/v0.83.1/hugo_0.83.1_checksums.txt>
+Original checksum file: <https://github.com/gohugoio/hugo/releases/download/v0.83.1/hugo_0.83.1_checksums.txt>
 
-## Cấu trúc
+## Structure
 
-| Đường dẫn | Vai trò |
+| Path | Role |
 |---|---|
-| `config.toml` | Toàn bộ cấu hình site và theme (`[params]`: header, footer, profile, social, ...) |
-| `content/` | Nguồn Markdown: `about.md`, `posts/`, `write-up/`, và `_index.md` (nhãn phía trên danh sách bài ở trang chủ) |
-| `assets/css/` | Giao diện: `_override.scss` (biến màu, font, màu code) và `_custom.scss` (toàn bộ CSS). Xem mục "Giao diện" |
-| `static/` | File copy nguyên xi vào `docs/`: `.nojekyll`, `fonts/` (font tự host), `images/avatar.jpg`, favicon, `CNAME` nếu dùng lại domain riêng |
-| `themes/LoveIt` | Theme, git submodule ghim ở commit `a0d6144` (2022-07-08). Không sửa trực tiếp trong này |
-| `layouts/` | Các template của theme được ghi đè ở cấp project. Xem bảng "Template ghi đè" |
-| `docs/` | Output build, chính là thứ GitHub Pages phục vụ. Không sửa tay |
-| `resources/_gen/` | Cache của Hugo, đã ignore trong `.gitignore` |
+| `config.toml` | All site and theme configuration (`[params]`: header, footer, profile, social, ...) |
+| `content/` | Markdown sources: `about.md`, `posts/`, `write-up/`, and `_index.md` (the label above the post list on the home page) |
+| `assets/css/` | Styling: `_override.scss` (colour variables, fonts, code colours) and `_custom.scss` (all the CSS). See the "Styling" section |
+| `static/` | Files copied verbatim into `docs/`: `.nojekyll`, `fonts/` (self-hosted fonts), `images/avatar.jpg`, favicon, `CNAME` if reusing a custom domain |
+| `themes/LoveIt` | Theme, a git submodule pinned at commit `a0d6144` (2022-07-08). Don't edit directly in here |
+| `layouts/` | Theme templates overridden at the project level. See the "Template overrides" table |
+| `docs/` | Build output, exactly what GitHub Pages serves. Don't hand-edit |
+| `resources/_gen/` | Hugo's cache, already ignored in `.gitignore` |
 
-## Giao diện
+## Styling
 
-Giao diện là theme LoveIt được chỉnh lại theo kiểu tối giản: một cột hẹp, nền tối, chữ là chính.
-Không sửa gì trong `themes/LoveIt`; mọi thứ nằm ở cấp project nên xoá đi là về lại theme gốc.
+The look is the LoveIt theme reworked into a minimal style: one narrow column, dark background, text-first.
+Nothing in `themes/LoveIt` is edited; everything lives at the project level, so deleting it reverts to the stock theme.
 
-| Thành phần | Nằm ở đâu |
+| Component | Where it lives |
 |---|---|
-| Màu (thang xám "zinc"), font, màu tô code (GitHub Light/Dark) | `assets/css/_override.scss` |
-| Toàn bộ quy tắc CSS, có chú thích theo từng phần | `assets/css/_custom.scss` |
-| Font Outfit (chữ) và JetBrains Mono (code), giấy phép SIL OFL 1.1 | `static/fonts/` (kèm `OFL-*.txt`) |
-| Mặc định nền tối, header không dính, chữ `> root@quaccws:~#` | `config.toml`: `defaultTheme`, `[params.header]` |
+| Colours (the "zinc" grey scale), fonts, code highlight colours (GitHub Light/Dark) | `assets/css/_override.scss` |
+| All the CSS rules, commented section by section | `assets/css/_custom.scss` |
+| Outfit (body) and JetBrains Mono (code) fonts, SIL OFL 1.1 license | `static/fonts/` (with `OFL-*.txt`) |
+| Dark background by default, non-sticky header, the `> root@quaccws:~#` text | `config.toml`: `defaultTheme`, `[params.header]` |
 
-Chỉnh nội dung hiển thị:
+Editing the displayed content:
 
-- **Phần đầu trang chủ** (`[params.home.profile]` trong `config.toml`): `title` là tên lớn, `disclaimer` là dòng
-  ngay dưới tên, `subtitle` là dòng thứ hai (gõ chữ tự động), `avatarURL` là ảnh.
-- **Ảnh đại diện**: `static/images/avatar.jpg`, ảnh vuông (đang là 520x520). Thay file này là đổi ở cả trang chủ lẫn About.
-- **Nhãn "LATEST POSTS"** trên danh sách bài: dòng `## Latest posts` trong `content/_index.md`. Xoá file là mất nhãn.
-- **Phần đầu trang About** (front matter của `content/about.md`): `avatar` là ảnh cạnh tiêu đề, `subtitle` là dòng
-  dưới tiêu đề (viết được Markdown trong dòng).
-- **Nút liên hệ ở trang About**: dòng `{{< contact >}}` trong `content/about.md` in hàng nút ra đúng chỗ đặt nó
-  (đang là dòng cuối, nên hàng nút đóng trang). Danh sách nút là `contact` trong front matter, mỗi dòng gồm `icon`, `name`
-  (chữ trên nút) và `url`. `icon` nhận `github`, `linkedin`, `x`, `telegram`, `mail`; tên khác thì nút chỉ có chữ.
-  Khi là thứ cuối cùng của trang, hàng nút được căn giữa cột và nằm giữa dòng chữ cuối với dòng chân trang.
-  Thêm icon mới trong `layouts/partials/contact-icon.html`.
-- **Nhãn mức độ CVE có màu** trong `content/about.md`: đặt một dòng `{.severity .severity-critical}`
-  (hoặc `-high`, `-medium`, `-low`) ngay dưới đoạn cần tô. Đây là chỗ duy nhất trên site dùng màu.
-- **Mã CVE** cứ viết thường (`CVE-2026-12345`). Trên trang About và write-up, mỗi mã tự được giữ liền một
-  khối nên không bị ngắt giữa chừng khi xuống dòng (`layouts/partials/cve-nowrap.html`).
-- **Dòng trên tiêu đề bài viết** (chuyên mục / ngày / số từ / thời gian đọc) lấy từ `categories` và `date` của bài.
+- **Home page header** (`[params.home.profile]` in `config.toml`): `title` is the large name, `disclaimer` is the line
+  right under the name, `subtitle` is the second line (typed out automatically), `avatarURL` is the image.
+- **Avatar**: `static/images/avatar.jpg`, a square image (currently 520x520). Replacing this file changes it on both the home page and About.
+- **The "LATEST POSTS" label** above the post list: the `## Latest posts` line in `content/_index.md`. Delete the file and the label is gone.
+- **About page header** (front matter of `content/about.md`): `avatar` is the image next to the title, `subtitle` is the line
+  under the title (inline Markdown allowed).
+- **Contact buttons on the About page**: the `{{< contact >}}` line in `content/about.md` prints the button row exactly where
+  it's placed (currently the last line, so the row closes the page). The button list is `contact` in the front matter, each entry has `icon`, `name`
+  (the button text) and `url`. `icon` accepts `github`, `linkedin`, `x`, `telegram`, `mail`; any other name gives a text-only button.
+  When it's the last thing on the page, the row is centred in the column and sits halfway between the last line of text and the footer.
+  Add a new icon in `layouts/partials/contact-icon.html`.
+- **Timeline** inside a post: the `{{< timeline >}}` ... `{{< /timeline >}}` shortcode pair, with each entry as
+  `{{< event date="2026-11" >}}Description{{< /event >}}` (`date` is the mono label on the left, the inner text is the content and allows
+  Markdown). Renders a vertical line with dots, good for CVE/disclosure posts. CSS is in `assets/css/_custom.scss` (search "Timeline").
+- **Coloured CVE severity labels** in `content/about.md`: put a `{.severity .severity-critical}` line
+  (or `-high`, `-medium`, `-low`) right under the paragraph to colour. This is the only place on the site that uses colour.
+- **CVE ids** are written plainly (`CVE-2026-12345`). On the About page, write-ups and Posts, each id is kept as a single
+  block so it never breaks mid-id when wrapping (`layouts/partials/cve-nowrap.html`).
+- **The line above a post title** (category / date / word count / reading time) comes from the post's `categories` and `date`.
 
-Khối code không còn thanh tiêu đề: nút copy hiện ở góc phải khi rê chuột, và khối dài luôn hiện đầy đủ.
+Code blocks no longer have a title bar: the copy button appears at the top right on hover, and long blocks are always shown in full.
 
-### Template ghi đè
+### Template overrides
 
-Mỗi file dưới đây là bản sao template cùng tên trong `themes/LoveIt/layouts/`, chỉ sửa đúng phần ghi ở cột phải
-(đầu mỗi file có chú thích). Nếu đổi pin theme thì so lại với bản gốc.
+Each file below is a copy of the same-named template in `themes/LoveIt/layouts/`, changed only where noted in the right column
+(each file has a comment at the top). If you change the theme pin, diff them against the originals.
 
-| File trong `layouts/` | Khác theme ở chỗ nào |
+| File in `layouts/` | How it differs from the theme |
 |---|---|
-| `partials/plugin/share.html` | Cho phép `params.social.Twitter` là dict (`id`, `url`, `title`) để profile trỏ sang x.com mà nút share vẫn có `via @quaccws` |
-| `posts/single.html` | Dòng meta nằm trên tiêu đề, dạng chữ thường, không icon, không tên tác giả, không hiệu ứng tiêu đề |
-| `_default/summary.html` | Thẻ bài ở trang chủ: dòng meta (chuyên mục / ngày) nằm trên tiêu đề, không icon |
-| `_default/single.html` | Trang thường (About, write-up): thêm phần đầu trang với `avatar` và `subtitle` tuỳ chọn, và giữ mã CVE không bị ngắt dòng |
-| `taxonomy/list.html`, `taxonomy/terms.html` | Bỏ icon thư mục/thẻ ở tiêu đề và hiệu ứng tiêu đề |
+| `partials/plugin/share.html` | Lets `params.social.Twitter` be a dict (`id`, `url`, `title`) so the profile points to x.com while the share button still has `via @quaccws` |
+| `posts/single.html` | The meta line sits above the title, plain text, no icons, no author name, no title animation; keeps CVE ids from wrapping mid-id |
+| `_default/summary.html` | Home-page post card: the meta line (category / date) sits above the title, no icons |
+| `_default/single.html` | Plain pages (About, write-ups): adds a page header with optional `avatar` and `subtitle`, and keeps CVE ids from wrapping mid-id |
+| `taxonomy/list.html`, `taxonomy/terms.html` | Drop the category/tag icon on the title and the title animation |
 
-Ba file riêng của project (theme không có file trùng tên): `partials/cve-nowrap.html` (gọi từ
-`_default/single.html`), `shortcodes/contact.html` và `partials/contact-icon.html` (hàng nút liên hệ).
+Project-only files (the theme has no same-named file): `partials/cve-nowrap.html` (called from
+`_default/single.html` and `posts/single.html`), `shortcodes/contact.html` and `partials/contact-icon.html`
+(the contact button row), `shortcodes/timeline.html` and `shortcodes/event.html` (the timeline).
 
-Lưu ý khi viết template: Hugo chỉ áp `baseof.html` khi file **bắt đầu** bằng `{{ define ... }}`, nên chú thích
-phải đặt sau khối `define` đầu tiên, không đặt ở dòng đầu.
+A note on writing templates: Hugo only applies `baseof.html` when the file **starts** with `{{ define ... }}`, so a comment
+must go after the first `define` block, not on the first line.
 
-### Quay về giao diện cũ
+### Reverting to the old look
 
-Bản trước khi đổi giao diện được đánh dấu bằng tag `backup-pre-redesign-20261115`
-(và nhánh `backup/pre-redesign-20261115`), cả hai đã có trên GitHub.
+The version before the redesign is marked with the tag `backup-pre-redesign-20261115`
+(and the branch `backup/pre-redesign-20261115`), both already on GitHub.
 
-- Xem lại bản cũ: `git checkout backup-pre-redesign-20261115`, rồi `hugo server`.
-- Bỏ giao diện mới nhưng giữ nội dung: xoá `assets/css/`, `static/fonts/`, `content/_index.md` và các file trong
-  `layouts/` trừ `partials/plugin/share.html`; trả lại các dòng đã đổi trong `config.toml`
-  (`git diff backup-pre-redesign-20261115 -- config.toml` liệt kê chúng); rồi build lại.
-  Dòng `{{< contact >}}` trong `content/about.md` cần `layouts/shortcodes/contact.html` và
-  `layouts/partials/contact-icon.html`: giữ lại hai file đó, hoặc thay dòng ấy bằng chữ thường, nếu không
-  build sẽ báo lỗi.
+- Review the old version: `git checkout backup-pre-redesign-20261115`, then `hugo server`.
+- Drop the new look but keep the content: delete `assets/css/`, `static/fonts/`, `content/_index.md` and the files in
+  `layouts/` except `partials/plugin/share.html`; restore the changed lines in `config.toml`
+  (`git diff backup-pre-redesign-20261115 -- config.toml` lists them); then rebuild.
+  The `{{< contact >}}` line in `content/about.md` needs `layouts/shortcodes/contact.html` and
+  `layouts/partials/contact-icon.html`: keep those two files, or replace that line with plain text, otherwise
+  the build errors out.
 
-## Ghi chú
+## Notes
 
-- `hugo server` chỉ theo dõi các thư mục có sẵn lúc khởi động. Nếu vừa tạo thư mục mới (ví dụ `assets/`)
-  mà trang xem trước không đổi thì tắt và chạy lại `hugo server`.
-- Nếu lưu một template sai cú pháp đúng lúc `hugo server` đang nạp lại `config.toml`, server có thể trả lỗi
-  cho mọi trang kể cả sau khi đã sửa. Tắt và chạy lại `hugo server`.
-- Sau khi push, GitHub Pages cho trình duyệt giữ file CSS cũ tối đa 10 phút. Nếu trang trên site thật trông
-  lệch so với bản xem trước thì tải lại bằng Ctrl+Shift+R.
-- `--cleanDestinationDir` xoá mọi file trong `docs/` không còn được sinh ra. File tĩnh cần giữ
-  (`CNAME`, favicon, ...) phải đặt trong `static/`.
-- Nâng cấp theme hoặc Hugo là việc riêng: LoveIt mới hơn yêu cầu Hugo mới hơn và đổi HTML/CSS toàn site.
-  Build thử ra thư mục tạm (`hugo -d /tmp/build`) và so sánh với `docs/` trước khi đổi pin.
-- `hugo.exe` ở gốc repo là binary Windows từ quy trình cũ. Kiểm tra `hugo.exe version` ra `0.83.1+extended`
-  trước khi dùng, nếu không output sẽ khác.
-- `<head>` hiện tham chiếu `/favicon.ico`, `/apple-touch-icon.png`, `/site.webmanifest`, `/logo.png`
-  nhưng chưa có file nào trong repo (trả về 404). Thêm vào `static/` nếu muốn có favicon.
+- `hugo server` only watches directories that exist at startup. If you just created a new directory (e.g. `assets/`)
+  and the preview doesn't change, stop and restart `hugo server`.
+- If you save a template with a syntax error right as `hugo server` is reloading `config.toml`, the server may return an error
+  for every page even after you fix it. Stop and restart `hugo server`.
+- After a push, GitHub Pages lets the browser keep the old CSS for up to 10 minutes. If the live site looks off
+  compared to the preview, reload with Ctrl+Shift+R.
+- `--cleanDestinationDir` removes any file in `docs/` that is no longer generated. Static files you need to keep
+  (`CNAME`, favicon, ...) must go in `static/`.
+- Upgrading the theme or Hugo is a separate job: a newer LoveIt needs a newer Hugo and changes the HTML/CSS site-wide.
+  Build into a temp directory (`hugo -d /tmp/build`) and compare with `docs/` before changing the pin.
+- `hugo.exe` at the repo root is a Windows binary from the old workflow. Check that `hugo.exe version` prints
+  `0.83.1+extended` before using it, otherwise the output will differ.
+- `<head>` currently references `/favicon.ico`, `/apple-touch-icon.png`, `/site.webmanifest`, `/logo.png`
+  but none of those files exist in the repo yet (they return 404). Add them to `static/` if you want a favicon.
