@@ -1,0 +1,47 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- /*
+    (This note cannot be the first thing in the file: Hugo only applies baseof.html
+    when the template starts with a define block.)
+    Project override of themes/LoveIt/layouts/_default/single.html (plain pages: About, write-ups).
+    Differences from the theme:
+    - no pulse animation on the title;
+    - the title and the optional `subtitle` sit in a header block, and a page that sets
+      `avatar` in its front matter gets that image next to them (used by content/about.md);
+    - `subtitle` accepts inline Markdown;
+    - a CVE id in the text never wraps in the middle (partials/cve-nowrap.html).
+*/ -}}
+
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+    <div class="page single special">
+        <div class="single-header{{ with $params.avatar }} has-avatar{{ end }}">
+            {{- /* Avatar */ -}}
+            {{- with $params.avatar -}}
+                <div class="single-avatar">
+                    <img src="{{ . | relURL }}" alt="" width="112" height="112">
+                </div>
+            {{- end -}}
+
+            <div class="single-header-text">
+                {{- /* Title */ -}}
+                <h1 class="single-title">
+                    {{- .Title -}}
+                </h1>
+
+                {{- /* Subtitle */ -}}
+                {{- with $params.subtitle -}}
+                    <p class="single-subtitle">{{ . | markdownify }}</p>
+                {{- end -}}
+            </div>
+        </div>
+
+        {{- /* Content */ -}}
+        <div class="content" id="content">
+            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | partial "cve-nowrap.html" | safeHTML -}}
+        </div>
+
+        {{- /* Comment */ -}}
+        {{- partial "comment.html" . -}}
+    </div>
+{{- end -}}

@@ -50,13 +50,14 @@ languageName = "English"
     identifier = "about"
     pre = ""
     post = ""
-    name = "About me"
+    name = "About"
     url = "/about/"
     title = ""
 
 [params]
   # site default theme ["auto", "light", "dark"]
-  defaultTheme = "auto"
+  # the design is dark first; visitors can still switch with the toggle in the menu
+  defaultTheme = "dark"
   # public git repo url, only used when enableGitInfo is true
   gitRepo = ""
   # hash function used for SRI; empty = no SRI
@@ -73,14 +74,16 @@ languageName = "English"
   # Header config
   [params.header]
     # desktop header mode ["fixed", "normal", "auto"]
-    desktopMode = "fixed"
+    # "normal": the header scrolls away with the page (assets/css/_custom.scss relies on it)
+    desktopMode = "normal"
     # mobile header mode ["fixed", "normal", "auto"]
-    mobileMode = "auto"
+    mobileMode = "normal"
+    # shown as "> root@quaccws:~#"; pre and post are the dimmed prompt characters
     [params.header.title]
       logo = ""
-      name = "> root@quaccws:~#"
-      pre = ""
-      post = ""
+      name = "root@quaccws"
+      pre = ">"
+      post = ":~#"
       typeit = false
 
   # Footer config
@@ -115,7 +118,8 @@ languageName = "English"
     title = "quactv blog"
     noFavicon = false
     svgFavicon = ""
-    themeColor = "#ffffff"
+    # browser UI colour on mobile; matches the dark page background
+    themeColor = "#09090b"
     iconColor = "#5bbad5"
     tileColor = "#da532c"
 
@@ -136,14 +140,17 @@ languageName = "English"
     [params.home.profile]
       enable = true
       gravatarEmail = ""
-      avatarURL = "https://raw.githubusercontent.com/tranquac/Blog_Image/master/avatar/avatar.jpg"
-      # title shown in home page (HTML format is supported)
-      title = "Hacker / Red Teamer / Security Enthusiast"
-      # subtitle shown in home page, typed by typeit
+      # static/images/avatar.jpg: a 520x520 crop (x 187-707, y 760-1280) of the original 960x1280 photo
+      avatarURL = "/images/avatar.jpg"
+      # Home hero: name, then two quiet lines under it (see "Home: profile" in assets/css/_custom.scss)
+      # title: the big name (HTML format is supported)
+      title = "Quac Tran"
+      # subtitle: second line under the name, typed by typeit
       subtitle = "No system is safe!"
       typeit = true
       social = true
-      disclaimer = ""
+      # disclaimer: used as the first line under the name (HTML format is supported)
+      disclaimer = "Hacker / Red Teamer / Security Enthusiast"
     [params.home.posts]
       enable = true
       paginate = 6
@@ -255,3 +262,9 @@ languageName = "English"
   [markup.highlight]
     # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        # lets a paragraph take a class: a line like {.name} right under it
+        # (content/about.md uses it for the CVE severity labels)
+        block = true

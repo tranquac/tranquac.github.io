@@ -1,0 +1,1558 @@
+// ==============================
+// Custom style for the LoveIt theme: a quiet, typographic look.
+//
+// How this file works
+// - Colours are CSS variables: light values on `body`, dark values on
+//   `body[theme=dark]` (the theme toggles that attribute).
+// - Every rule is nested under `:root`. That adds one class-level of
+//   specificity, which is what the theme's own `[theme=dark] ...` variants
+//   have, so the rules below win in both modes without !important.
+//   The few !important here answer !important in the theme.
+// - The base palette, fonts and syntax colours are SCSS variables in
+//   _override.scss.
+// ==============================
+
+// ---------- Fonts: self-hosted, SIL OFL 1.1 (static/fonts/OFL-*.txt) ----------
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/outfit-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/outfit-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("/fonts/jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// ---------- Palette ----------
+body {
+  --c-bg: #fff; // page
+  --c-text: #{$zinc-700}; // body copy
+  --c-heading: #{$zinc-950}; // page titles and headings
+  --c-strong: #{$zinc-900}; // bold text, links in content
+  --c-title: #{$zinc-800}; // post titles in lists
+  --c-muted: #{$zinc-500}; // navigation, footer, excerpts
+  --c-subtle: #{$zinc-500}; // dates, labels, small print
+  --c-faint: #{$zinc-400}; // separators, prompt characters, bullets
+  --c-nav-active: #{$zinc-900};
+  --c-nav-hover: #{$zinc-700};
+  --c-border: #{$zinc-200};
+  --c-border-soft: #{$zinc-200};
+  --c-surface: #{$zinc-100}; // chips, inline code
+  --c-surface-hover: #{rgba($zinc-100, .7)}; // hovered list row
+  // the only colour on the site: severity labels
+  --c-sev-critical: #dc2626;
+  --c-sev-high: #ea580c;
+  --c-sev-medium: #b45309;
+  --c-sev-low: #2563eb;
+}
+
+body[theme=dark] {
+  --c-bg: #{$zinc-950};
+  --c-text: #{$zinc-300};
+  --c-heading: #{$zinc-50};
+  --c-strong: #{$zinc-100};
+  --c-title: #{$zinc-200};
+  --c-muted: #{$zinc-400};
+  --c-subtle: #{$zinc-500};
+  --c-faint: #{$zinc-600};
+  --c-nav-active: #{$zinc-200};
+  --c-nav-hover: #{$zinc-300};
+  --c-border: #{$zinc-800};
+  --c-border-soft: #{rgba($zinc-800, .6)};
+  --c-surface: #{rgba($zinc-800, .5)};
+  --c-surface-hover: #{rgba($zinc-900, .4)};
+  --c-sev-critical: #ef4444;
+  --c-sev-high: #f97316;
+  --c-sev-medium: #eab308;
+  --c-sev-low: #3b82f6;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  // ============================================================
+  // Base
+  // ============================================================
+  a {
+    transition: color .15s cubic-bezier(.4, 0, .2, 1);
+  }
+
+  // the header is not fixed any more, so anchors need less room above them
+  main [id] {
+    scroll-margin-top: 1.5rem;
+  }
+
+  // ============================================================
+  // Page frame: one narrow column, shared by header, content and footer
+  // ============================================================
+  .wrapper main .container {
+    padding: 0 1.5rem;
+  }
+
+  .page {
+    // space between the end of the page and the footer line
+    // (the contact buttons reuse it to sit halfway between the two)
+    --page-pad-bottom: 6rem;
+
+    width: 100%;
+    max-width: 39rem;
+    padding-top: 4rem;
+    padding-bottom: var(--page-pad-bottom);
+  }
+
+  // ============================================================
+  // Header
+  // ============================================================
+  header {
+    background-color: transparent;
+    transition: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  // prompt characters around the name ("> " and ":~#") are dimmed
+  .header-title-pre {
+    padding-right: .6em;
+    color: var(--c-faint);
+  }
+
+  .header-title-post {
+    padding-left: 0;
+    color: var(--c-faint);
+  }
+
+  #header-desktop {
+    position: static;
+    height: auto;
+    line-height: 1.25rem;
+
+    .header-wrapper {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem .5rem;
+
+      .header-title {
+        margin-right: 1.5rem;
+        font-size: var(--header-title-font-size);
+        font-weight: 400;
+        letter-spacing: -.025em;
+
+        a {
+          color: var(--c-heading);
+        }
+      }
+
+      .menu {
+        font-size: .875rem;
+
+        .menu-inner {
+          display: flex;
+          align-items: center;
+          float: none;
+          gap: 1.25rem;
+        }
+
+        .menu-item {
+          margin: 0;
+          color: var(--c-muted);
+
+          &:hover {
+            color: var(--c-nav-hover);
+          }
+
+          &.delimiter {
+            display: none;
+          }
+
+          &.theme-switch {
+            font-size: .8125rem;
+          }
+        }
+
+        a.active {
+          font-weight: 400;
+          color: var(--c-nav-active);
+        }
+      }
+    }
+  }
+
+  // ============================================================
+  // Footer
+  // ============================================================
+  footer {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 42rem;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 1.5rem 2.5rem;
+    line-height: 1rem;
+    text-align: left;
+
+    .footer-container {
+      font-size: .75rem;
+      color: var(--c-muted);
+
+      a {
+        color: inherit;
+
+        &:hover {
+          color: var(--c-nav-hover);
+        }
+      }
+    }
+  }
+
+  // ============================================================
+  // Page titles (post, page, list)
+  // ============================================================
+  .single .single-title,
+  .archive .single-title {
+    margin: 0 0 1rem;
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -.025em;
+    color: var(--c-heading);
+    text-align: left;
+    animation: none;
+  }
+
+  .single .single-subtitle {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.625;
+    letter-spacing: 0;
+    color: var(--c-muted);
+    text-align: left;
+
+    b,
+    strong {
+      font-weight: 500;
+      color: var(--c-strong);
+    }
+  }
+
+  // A page that sets `avatar` in its front matter (About): the image on the left,
+  // the title and the line under it on the right, then a wide gap before the text.
+  .single .single-header.has-avatar {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .single-avatar {
+      flex: none;
+      line-height: 0;
+
+      img {
+        display: block;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .single-header-text {
+      min-width: 0;
+    }
+
+    .single-subtitle {
+      margin-bottom: 0;
+    }
+
+    + .content {
+      margin-top: 5rem;
+    }
+  }
+
+  // ============================================================
+  // Meta line: CATEGORY / date / ... (post header and home list)
+  // ============================================================
+  .single .post-meta {
+    // Every item starts with a "/" in a box of fixed width. The row is pulled left by
+    // that width and clipped there, so the first "/" of each line is cut off: no
+    // separator in front of the first item, and none dangling when the row wraps.
+    $separator-width: 1.625rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: .25rem;
+    margin: 0 0 1.25rem (-$separator-width);
+    clip-path: inset(0 0 0 $separator-width);
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--c-subtle);
+
+    .post-meta-item::before {
+      content: "/";
+      display: inline-block;
+      width: $separator-width;
+      font-family: var(--global-font-family);
+      font-size: .875rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: var(--c-faint);
+      text-align: center;
+    }
+
+    a {
+      color: inherit;
+
+      &:hover {
+        color: var(--c-nav-hover);
+      }
+    }
+
+    .post-meta-item {
+      white-space: nowrap;
+    }
+
+    .post-category {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+    }
+
+    .post-publish {
+      font-family: var(--code-font-family);
+      font-size: .8125rem;
+    }
+  }
+
+  // ============================================================
+  // Home: profile
+  // Avatar on the left; on the right the name, the roles line, the typed line
+  // and the social links. (The roles line is the theme's "disclaimer" field,
+  // which comes last in the markup, so the rows are placed explicitly.)
+  // ============================================================
+  .home .home-profile,
+  .home[data-home=posts] .home-profile {
+    display: grid;
+    // rows 1 and 6 are spacers: they centre the text block against the avatar
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto auto 1fr;
+    column-gap: 2rem;
+    margin-bottom: 6rem;
+    padding: 0;
+    text-align: left;
+    transform: none;
+  }
+
+  .home .home-profile {
+    .home-avatar {
+      grid-column: 1;
+      grid-row: 1 / 7;
+      align-self: center;
+      padding: 0;
+      line-height: 0;
+
+      img {
+        display: block;
+        width: 7rem;
+        height: 7rem;
+        margin: 0;
+        object-fit: cover;
+        box-shadow: none;
+        transition: none;
+
+        &:hover {
+          transform: none;
+        }
+      }
+    }
+
+    .home-title {
+      grid-column: 2;
+      grid-row: 2;
+      margin: 0 0 1rem;
+      padding: 0;
+      font-size: 2.25rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      color: var(--c-heading);
+    }
+
+    // the two lines under the name share one style
+    .home-disclaimer,
+    .home-subtitle {
+      grid-column: 2;
+      margin: 0;
+      padding: 0;
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.625;
+      letter-spacing: 0;
+      color: var(--c-muted);
+    }
+
+    .home-disclaimer {
+      grid-row: 3;
+    }
+
+    .home-subtitle {
+      grid-row: 4;
+      // keeps its line while the text is being typed
+      min-height: 1.625em;
+
+      .typeit {
+        --ti-cursor-font-size: 1.125rem;
+        --ti-cursor-line-height: 1.625;
+        --ti-cursor-color: var(--c-faint);
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      grid-column: 2;
+      grid-row: 5;
+      gap: .5rem 1.125rem;
+      margin-top: 1.125rem;
+      padding: 0;
+      font-size: 1rem;
+      line-height: 1;
+
+      a {
+        color: var(--c-subtle);
+
+        &:hover {
+          color: var(--c-strong);
+        }
+      }
+    }
+  }
+
+  // ============================================================
+  // Home: section label above the list (the "## ..." heading in content/_index.md)
+  // ============================================================
+  // (:not(.summary): the post rows are also ".single" children of the home page)
+  .home > .single:not(.summary) .content {
+    margin: 0 0 1rem;
+
+    > h2 {
+      margin: 0;
+      font-family: var(--code-font-family);
+      font-size: .75rem;
+      font-weight: 400;
+      line-height: 1rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-subtle);
+    }
+  }
+
+  // ============================================================
+  // Home: post list
+  // ============================================================
+  .home[data-home=posts] .summary {
+    position: relative;
+    margin: 0 -.75rem .25rem;
+    padding: 1rem .75rem;
+    border: 0;
+    border-radius: .5rem;
+    color: var(--c-text);
+    transition: background-color .15s cubic-bezier(.4, 0, .2, 1);
+
+    &:hover {
+      background-color: var(--c-surface-hover);
+    }
+
+    .post-meta {
+      // above the stretched title link, but only the category links take clicks
+      position: relative;
+      z-index: 1;
+      margin-bottom: .375rem;
+      pointer-events: none;
+
+      a {
+        pointer-events: auto;
+      }
+    }
+
+    .single-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0;
+
+      a {
+        color: var(--c-title);
+
+        // the whole row is the link
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+      }
+    }
+
+    &:hover .single-title a {
+      color: var(--c-heading);
+    }
+
+    .content {
+      margin-top: .25rem;
+      font-size: .875rem;
+      line-height: 1.625;
+      // dimmer than the title on purpose: the title is what is read first
+      color: var(--c-subtle);
+      -webkit-line-clamp: 2;
+
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: 0;
+        color: inherit;
+      }
+    }
+
+    // the row itself links to the post; tags are on the post page
+    .post-footer {
+      display: none;
+    }
+  }
+
+  // ============================================================
+  // Content (post and page body)
+  // ============================================================
+  .single .content {
+    margin-top: 3rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--c-text);
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 500;
+      letter-spacing: -.025em;
+      color: var(--c-heading);
+    }
+
+    // the small levels are close to body size, so weight carries the hierarchy
+    h4,
+    h5,
+    h6 {
+      font-weight: 600;
+      letter-spacing: -.0125em;
+    }
+
+    // some posts use "#" sections inside the body
+    > h1 {
+      margin: 4rem 0 1.5rem;
+      font-size: 1.875rem;
+      line-height: 1.25;
+    }
+
+    > h2 {
+      margin: 3.5rem 0 1.25rem;
+      font-size: 1.5rem;
+      line-height: 1.333;
+    }
+
+    > h3 {
+      margin: 2.5rem 0 .75rem;
+      font-size: 1.25rem;
+      line-height: 1.5;
+    }
+
+    > h4 {
+      margin: 2rem 0 .5rem;
+      font-size: 1.0625rem;
+      line-height: 1.5;
+    }
+
+    > h5,
+    > h6 {
+      margin: 1.75rem 0 .5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    // a heading right under another heading sits close to it
+    > h1 + h2,
+    > h2 + h3,
+    > h3 + h4,
+    > h4 + h5,
+    > h5 + h6 {
+      margin-top: 0;
+    }
+
+    // no "#" / "|" marks in front of headings
+    .header-mark {
+      display: none;
+    }
+
+    p {
+      margin: 1.25em 0;
+    }
+
+    b,
+    strong {
+      font-weight: 600;
+      color: var(--c-strong);
+    }
+
+    a {
+      font-weight: 500;
+      color: var(--c-strong);
+      text-decoration: underline;
+      text-decoration-color: var(--c-faint);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color .15s cubic-bezier(.4, 0, .2, 1), text-decoration-color .15s cubic-bezier(.4, 0, .2, 1);
+
+      &:hover {
+        color: var(--c-heading);
+        text-decoration-color: currentColor;
+      }
+
+      b,
+      strong {
+        color: inherit;
+      }
+    }
+
+    ul,
+    ol {
+      margin: 1.25em 0;
+      padding-left: 1.625em;
+
+      ul,
+      ol {
+        margin: .5em 0;
+      }
+    }
+
+    li {
+      margin: .5em 0;
+      padding-left: .375em;
+
+      > p {
+        margin: .5em 0;
+      }
+    }
+
+    ul > li::marker {
+      color: var(--c-faint);
+    }
+
+    ol > li::marker {
+      color: var(--c-muted);
+    }
+
+    blockquote {
+      margin: 1.6em 0;
+      padding: 0 0 0 1em;
+      border-left: 2px solid var(--c-border);
+      background-color: transparent;
+      color: var(--c-muted);
+    }
+
+    hr {
+      margin: 3em 0;
+      border-top: 1px solid var(--c-border);
+    }
+
+    img {
+      border-radius: .5rem;
+
+      // only once loaded: the lazy-load placeholder is a spinner
+      &.lazyloaded {
+        box-shadow: 0 0 0 1px var(--c-border-soft);
+      }
+
+      // a dead image link: no frame, just its alt text in small print
+      // (the theme stores an object-fit hint in font-family, so the font is set back here)
+      &.lazyerror {
+        box-shadow: none;
+        font-family: var(--global-font-family);
+        font-size: .75rem;
+        color: var(--c-subtle);
+      }
+    }
+
+    iframe {
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 2em 0;
+
+      .image-caption:not(:empty) {
+        color: var(--c-subtle);
+      }
+    }
+
+    .footnotes {
+      font-size: .875rem;
+      color: var(--c-muted);
+    }
+
+    kbd {
+      padding: .125em .375em;
+      border: 1px solid var(--c-border);
+      border-radius: .3125rem;
+      background-color: transparent;
+      box-shadow: none;
+      font-size: .8125em;
+      color: var(--c-strong);
+    }
+
+    // ---------- Severity label: a paragraph marked {.severity .severity-<level>} ----------
+    .severity {
+      margin: 2rem 0 .75rem;
+      font-size: .75rem;
+      font-weight: 500;
+      line-height: 1rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+
+      b,
+      strong {
+        font-weight: inherit;
+        color: inherit;
+      }
+
+      + ul,
+      + ol {
+        margin-top: 0;
+      }
+    }
+
+    .severity-critical {
+      color: var(--c-sev-critical);
+    }
+
+    .severity-high {
+      color: var(--c-sev-high);
+    }
+
+    .severity-medium {
+      color: var(--c-sev-medium);
+    }
+
+    .severity-low {
+      color: var(--c-sev-low);
+    }
+
+    // A CVE id stays on one line (the span is added by layouts/partials/cve-nowrap.html)
+    .cve-id {
+      white-space: nowrap;
+    }
+
+    // ---------- Tables: rules instead of a grid ----------
+    .table-wrapper > table {
+      margin: 2em 0;
+      background: transparent;
+      font-size: .875rem;
+      line-height: 1.7;
+
+      thead {
+        background: transparent;
+      }
+
+      th,
+      td {
+        padding: .6em .75em;
+        border: 0;
+        border-bottom: 1px solid var(--c-border-soft);
+        vertical-align: top;
+      }
+
+      th {
+        border-bottom-color: var(--c-border);
+        font-weight: 600;
+        color: var(--c-heading);
+        vertical-align: bottom;
+      }
+
+      th:first-child,
+      td:first-child {
+        padding-left: 0;
+      }
+
+      th:last-child,
+      td:last-child {
+        padding-right: 0;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+    }
+
+    // ---------- Inline code ----------
+    code {
+      padding: .125em .375em;
+      border-radius: .25rem;
+      font-weight: 400;
+    }
+
+    :not(pre) > code {
+      background: var(--c-surface) !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      code {
+        font-size: .875em;
+        color: inherit;
+      }
+    }
+
+    // ---------- Code blocks ----------
+    // fenced block without a language: a plain <pre>
+    > pre,
+    li > pre,
+    blockquote > pre {
+      margin: 1.5rem 0;
+      padding: .875rem 1.125rem;
+      border: 1px solid var(--c-border-soft);
+      border-radius: .5rem;
+      overflow-x: auto;
+      font-size: var(--code-font-size);
+      line-height: 1.7;
+
+      code {
+        display: inline;
+        padding: 0;
+      }
+    }
+
+    .highlight {
+      margin: 1.5rem 0;
+      border: 1px solid var(--c-border-soft);
+      border-radius: .5rem;
+      overflow: hidden;
+      line-height: 1.7;
+
+      pre {
+        padding: .875rem 1.125rem;
+      }
+
+      pre code {
+        padding: 0;
+        border-radius: 0;
+      }
+
+      // the code is laid out in a table by the theme: keep it out of the table rules above
+      .table-wrapper > table {
+        margin: 0;
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      // comments upright (the mono font ships without an italic)
+      .c,
+      .ch,
+      .cm,
+      .c1,
+      .cs,
+      .cp,
+      .cpf {
+        font-style: normal;
+      }
+
+      > .chroma {
+        // No header bar: the block is a plain box. What is left of the theme's header
+        // is the copy button, in the top right corner while the block is hovered.
+        .code-header {
+          position: absolute;
+          top: .5rem;
+          right: .5rem;
+          z-index: 1;
+          width: auto;
+          background: transparent;
+          opacity: 0;
+          transition: opacity .15s cubic-bezier(.4, 0, .2, 1);
+
+          .code-title,
+          .ellipses {
+            display: none;
+          }
+
+          .copy {
+            display: block;
+            padding: .375rem .4375rem;
+            border: 1px solid var(--c-border);
+            border-radius: .375rem;
+            background: var(--c-bg);
+            font-size: .75rem;
+            line-height: 1;
+            color: var(--c-muted);
+
+            &:hover {
+              color: var(--c-heading);
+            }
+          }
+        }
+
+        &.open .code-header {
+          background: transparent;
+        }
+
+        // every block is shown in full: the header that folded long ones is gone
+        .table-wrapper {
+          max-height: none;
+          transition: none;
+        }
+
+        .ln,
+        .lnt {
+          color: var(--c-faint);
+        }
+      }
+
+      &:hover > .chroma .code-header,
+      > .chroma .code-header:focus-within {
+        opacity: 1;
+      }
+
+      // touch screens have no hover: keep the button visible
+      @media (hover: none) {
+        > .chroma .code-header {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  // ============================================================
+  // Contact buttons: the {{< contact >}} shortcode (used by content/about.md)
+  // ============================================================
+  .single .content .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    // narrower than the text column, so the buttons wrap into rows of similar length
+    max-width: 24rem;
+    margin: 2.5rem auto;
+  }
+
+  // As the last thing on the page, the buttons sit halfway between the text above and the footer line.
+  // (- .3125rem: the line of text above ends that far below its baseline; with it, the gap measured from
+  // the letters above equals the gap to the letters of the footer)
+  .single .content > .contact-links:last-child {
+    margin-top: calc(var(--page-pad-bottom) - .3125rem);
+    margin-bottom: 0;
+  }
+
+  // (.content in the selector: these must win over the link style of the page text)
+  .single .content .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .375rem .75rem;
+    border-radius: .375rem;
+    background-color: var(--c-surface);
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: var(--c-muted);
+    text-decoration: none;
+    transition: color .15s cubic-bezier(.4, 0, .2, 1);
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: var(--c-strong);
+    }
+
+    svg {
+      flex: none;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  // ============================================================
+  // Table of contents (collapsed box above the post)
+  // ============================================================
+  .toc .toc-title {
+    font-family: var(--code-font-family);
+    font-size: .6875rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+    color: var(--c-subtle);
+  }
+
+  .toc .toc-content {
+    font-size: .875rem;
+    line-height: 1.5;
+
+    ul {
+      padding-left: 0;
+      text-indent: 0;
+
+      ul {
+        padding-left: 1rem;
+      }
+
+      a:first-child::before {
+        content: none;
+      }
+    }
+
+    li {
+      margin: .375rem 0;
+    }
+
+    a {
+      color: var(--c-muted);
+
+      &:hover {
+        color: var(--c-strong);
+      }
+    }
+  }
+
+  // collapsed, it is just the word "CONTENTS" with an arrow; opened, a plain list
+  #toc-static {
+    margin: 2.5rem 0 0;
+
+    .toc-title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: .5rem;
+      padding: 0;
+      background: transparent;
+      line-height: 1.25rem;
+      transition: color .15s cubic-bezier(.4, 0, .2, 1);
+
+      &:hover {
+        color: var(--c-nav-hover);
+      }
+    }
+
+    .toc-content {
+      background-color: transparent;
+
+      > nav > ul {
+        margin: .75rem 0 0;
+        padding: 0 0 0 1rem;
+        border-left: 1px solid var(--c-border);
+      }
+    }
+
+    &.open .toc-title {
+      background: transparent;
+    }
+  }
+
+  .details i.details-icon {
+    font-size: .75rem;
+    color: var(--c-faint);
+  }
+
+  // ============================================================
+  // Post footer: updated date, share, tags, previous / next
+  // ============================================================
+  .single .post-footer {
+    margin-top: 4rem;
+    font-size: .8125rem;
+    color: var(--c-subtle);
+
+    .post-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem 1rem;
+      padding: 1.25rem 0 0;
+      border-top: 1px solid var(--c-border);
+      border-bottom: 0;
+
+      .post-info-line {
+        align-items: center;
+        gap: 1rem;
+
+        .post-info-mod,
+        .post-info-license {
+          font-size: .8125rem;
+          color: var(--c-subtle);
+        }
+
+        .post-info-md {
+          width: auto;
+
+          &:empty {
+            display: none;
+          }
+        }
+
+        .post-info-share a {
+          margin-left: .75rem;
+          font-size: .9375rem;
+          color: var(--c-subtle);
+
+          &:hover {
+            color: var(--c-strong);
+          }
+        }
+      }
+    }
+
+    .post-info-more {
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0 0;
+      font-size: .8125rem;
+      color: var(--c-faint);
+
+      a {
+        color: var(--c-muted);
+
+        &:hover {
+          color: var(--c-strong);
+        }
+      }
+    }
+
+    // tags as plain chips: the icon and the commas between tags are dropped
+    .post-tags {
+      max-width: 70%;
+      font-size: 0;
+
+      i {
+        display: none;
+      }
+
+      a {
+        display: inline-block;
+        margin: 0 .375rem .375rem 0;
+        padding: .25rem .625rem;
+        border-radius: .375rem;
+        background-color: var(--c-surface);
+        font-size: .8125rem;
+        line-height: 1.25rem;
+      }
+    }
+
+    .post-nav {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+
+      &::before,
+      &::after {
+        content: none;
+      }
+
+      a.prev,
+      a.next {
+        float: none;
+        max-width: 48%;
+        font-size: .9375rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--c-title);
+
+        &:hover {
+          color: var(--c-heading);
+          transform: none;
+        }
+
+        i {
+          font-size: .75rem;
+          color: var(--c-faint);
+        }
+      }
+
+      a.next {
+        margin-left: auto;
+        text-align: right;
+      }
+    }
+  }
+
+  // ============================================================
+  // Lists: all posts, one category, one tag
+  // ============================================================
+  .archive {
+    .group-title {
+      margin: 2.5rem 0 .75rem;
+      font-family: var(--code-font-family);
+      font-size: .75rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--c-subtle);
+    }
+  }
+
+  .archive-item {
+    align-items: baseline;
+    gap: 1.5rem;
+    margin: 0 -.75rem;
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    transition: background-color .15s cubic-bezier(.4, 0, .2, 1);
+
+    &:hover {
+      background-color: var(--c-surface-hover);
+    }
+  }
+
+  .archive-item-link {
+    overflow: visible;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--c-title);
+    white-space: normal;
+
+    &:hover {
+      color: var(--c-heading);
+    }
+  }
+
+  .archive-item-date {
+    flex: none;
+    width: auto;
+    font-family: var(--code-font-family);
+    font-size: .8125rem;
+    color: var(--c-subtle);
+  }
+
+  // ---------- All categories ----------
+  .categories-card {
+    display: block;
+    margin-top: 0;
+    line-height: inherit;
+
+    .card-item {
+      display: block;
+      width: 100%;
+      min-height: 0;
+      margin-top: 2.5rem;
+      padding: 0;
+      font-size: 1rem;
+
+      .card-item-wrapper {
+        overflow: visible;
+
+        .card-item-title {
+          display: block;
+          margin: 0 0 .75rem;
+          font-size: .75rem;
+          font-weight: 500;
+          letter-spacing: .1em;
+          text-transform: uppercase;
+
+          a {
+            color: var(--c-muted);
+
+            &:hover {
+              color: var(--c-strong);
+            }
+          }
+        }
+
+        span {
+          float: none;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
+  .more-post {
+    display: block;
+    margin-top: .5rem;
+    font-size: .875rem;
+    text-align: left;
+
+    a {
+      color: var(--c-muted);
+
+      &:hover {
+        color: var(--c-nav-hover);
+      }
+    }
+  }
+
+  // ---------- All tags: chips ----------
+  .tag-cloud-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .625rem;
+    margin: 2.5rem 0 0;
+
+    a {
+      margin: 0;
+      padding: .375rem .75rem;
+      border-radius: .375rem;
+      background-color: var(--c-surface);
+      font-size: .875rem;
+      line-height: 1.25rem;
+      color: var(--c-muted);
+      transition: color .15s cubic-bezier(.4, 0, .2, 1);
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: var(--c-strong);
+        transform: none;
+      }
+
+      sup {
+        margin-left: .125rem;
+        font-family: var(--code-font-family);
+        font-size: .6875rem;
+        color: var(--c-subtle);
+      }
+    }
+  }
+
+  // ============================================================
+  // Pagination
+  // ============================================================
+  .pagination {
+    justify-content: flex-start;
+    gap: .25rem;
+    margin: 0;
+    padding: 2.5rem 0 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      a,
+      .page-link {
+        font-family: var(--code-font-family);
+        font-size: .8125rem;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: var(--c-subtle);
+      }
+
+      a {
+        display: inline-block;
+        min-width: 1.25rem;
+        padding: .25rem .5rem;
+        border-radius: .375rem;
+        line-height: 1.5rem;
+        text-align: center;
+      }
+
+      &:hover a {
+        color: var(--c-strong);
+      }
+
+      &.active a {
+        background-color: var(--c-surface);
+        color: var(--c-heading);
+      }
+    }
+  }
+
+  // ============================================================
+  // Back-to-top button
+  // ============================================================
+  .fixed-button {
+    padding: .5rem .5625rem;
+    border: 1px solid var(--c-border);
+    background: var(--c-bg);
+    font-size: .8125rem;
+    color: var(--c-muted);
+
+    &:hover,
+    &:active {
+      color: var(--c-heading);
+    }
+  }
+
+  // ============================================================
+  // Small screens
+  // ============================================================
+  @media only screen and (max-width: 680px) {
+    // the same header on every width: the name on one row, the menu below it
+    #header-desktop {
+      display: block;
+
+      .header-wrapper {
+        flex-wrap: wrap;
+        row-gap: .875rem;
+        padding-top: 1.75rem;
+
+        .header-title {
+          max-width: 100%;
+          margin-right: 0;
+        }
+
+        .menu {
+          flex: 1 0 100%;
+          overflow: visible;
+          white-space: normal;
+
+          .menu-inner {
+            flex-wrap: wrap;
+            row-gap: .5rem;
+          }
+        }
+      }
+    }
+
+    #header-mobile {
+      display: none;
+    }
+
+    .page {
+      --page-pad-bottom: 4rem;
+
+      padding-top: 2.5rem;
+    }
+
+    .single .single-title,
+    .archive .single-title {
+      font-size: 1.875rem;
+    }
+
+    .single .single-header.has-avatar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+
+      + .content {
+        margin-top: 4rem;
+      }
+    }
+
+    // avatar on top, then the text; the order of the lines is kept
+    .home .home-profile,
+    .home[data-home=posts] .home-profile {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      margin-bottom: 4rem;
+    }
+
+    .home .home-profile {
+      .home-avatar {
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 1.5rem;
+      }
+
+      .home-title,
+      .home-disclaimer,
+      .home-subtitle,
+      .links {
+        grid-column: 1;
+      }
+
+      .home-title {
+        grid-row: 2;
+        font-size: 1.875rem;
+      }
+
+      .home-disclaimer {
+        grid-row: 3;
+      }
+
+      .home-subtitle {
+        grid-row: 4;
+      }
+
+      .links {
+        grid-row: 5;
+      }
+    }
+
+    .single .post-footer {
+      .post-tags {
+        max-width: 100%;
+      }
+
+      .post-info-more {
+        flex-direction: column;
+      }
+
+      .post-nav {
+        flex-direction: column;
+
+        a.prev,
+        a.next {
+          max-width: 100%;
+        }
+
+        a.next {
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}

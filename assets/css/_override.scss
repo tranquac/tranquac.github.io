@@ -1,0 +1,259 @@
+// ==============================
+// Variable overrides for the LoveIt theme.
+// Imported by the theme right after its own _variables.scss, so plain
+// assignments here replace the theme defaults.
+//
+// Look: a quiet, typographic style on the Tailwind "zinc" greys, dark first.
+// The matching rules live in _custom.scss.
+// ==============================
+
+// ---------- Zinc scale ----------
+$zinc-50: #fafafa;
+$zinc-100: #f4f4f5;
+$zinc-200: #e4e4e7;
+$zinc-300: #d4d4d8;
+$zinc-400: #a1a1aa;
+$zinc-500: #71717a;
+$zinc-600: #52525b;
+$zinc-700: #3f3f46;
+$zinc-800: #27272a;
+$zinc-900: #18181b;
+$zinc-950: #09090b;
+
+// ---------- Fonts (self-hosted in static/fonts, @font-face in _custom.scss) ----------
+$global-font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Emoji, Helvetica, Arial, sans-serif;
+$global-font-size: 16px;
+$global-font-weight: 400;
+// unitless, so small text does not inherit a fixed 24px line box
+$global-line-height: 1.6;
+
+$code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$code-font-size: .8125rem;
+
+// the site name in the header is a shell prompt, so it is set in the code font
+$header-title-font-family: $code-font-family;
+$header-title-font-size: .875rem;
+
+// ---------- Global colours ----------
+$global-background-color: #fff;
+$global-background-color-dark: $zinc-950;
+
+$global-font-color: $zinc-700;
+$global-font-color-dark: $zinc-300;
+
+$global-font-secondary-color: $zinc-500;
+$global-font-secondary-color-dark: $zinc-500;
+
+$global-link-color: $zinc-700;
+$global-link-color-dark: $zinc-300;
+
+$global-link-hover-color: $zinc-950;
+$global-link-hover-color-dark: $zinc-50;
+
+$global-border-color: $zinc-200;
+$global-border-color-dark: $zinc-800;
+
+$scrollbar-color: $zinc-600;
+$scrollbar-hover-color: $zinc-500;
+
+$selection-color: rgba($zinc-400, .35);
+$selection-color-dark: rgba($zinc-400, .35);
+
+// ---------- Header ----------
+// same colour as the page: the header is not a separate bar
+$header-background-color: #fff;
+$header-background-color-dark: $zinc-950;
+
+$header-hover-color: $zinc-950;
+$header-hover-color-dark: $zinc-50;
+
+$search-background-color: $zinc-100;
+$search-background-color-dark: $zinc-900;
+
+// ---------- Post content ----------
+// links are text-coloured and underlined instead of tinted (see _custom.scss)
+$single-link-color: $zinc-900;
+$single-link-color-dark: $zinc-100;
+
+$single-link-hover-color: $zinc-950;
+$single-link-hover-color-dark: $zinc-50;
+
+$table-background-color: #fff;
+$table-background-color-dark: $zinc-950;
+
+$table-thead-color: $zinc-100;
+$table-thead-color-dark: $zinc-900;
+
+$blockquote-color: $zinc-300;
+$blockquote-color-dark: $zinc-700;
+
+// ---------- Pagination ----------
+$pagination-link-color: $zinc-500;
+$pagination-link-color-dark: $zinc-500;
+
+$pagination-link-hover-color: $zinc-950;
+$pagination-link-hover-color-dark: $zinc-50;
+
+// ---------- Code ----------
+// neutral inline code; this is also the default text colour inside code blocks
+$code-color: $zinc-800;
+$code-color-dark: $zinc-300;
+
+// code block surface (zinc-900 at 60% over the page colour in dark mode)
+$code-background-color: $zinc-50;
+$code-background-color-dark: #121215;
+
+$code-info-color: $zinc-500;
+$code-info-color-dark: $zinc-500;
+
+// Syntax colours: GitHub Light / GitHub Dark, mapped onto Chroma's token classes
+$code-highlight-color-map: (
+  /* Punctuation */ "p": #24292e,
+  /* Keyword */ "k": #d73a49,
+  /* KeywordConstant */ "kc": #005cc5,
+  /* KeywordDeclaration */ "kd": #d73a49,
+  /* KeywordNamespace */ "kn": #d73a49,
+  /* KeywordPseudo */ "kp": #d73a49,
+  /* KeywordReserved */ "kr": #d73a49,
+  /* KeywordType */ "kt": #d73a49,
+  /* Name */ "n": #24292e,
+  /* NameAttribute */ "na": #6f42c1,
+  /* NameBuiltin */ "nb": #005cc5,
+  /* NameBuiltinPseudo */ "bp": #005cc5,
+  /* NameClass */ "nc": #6f42c1,
+  /* NameConstant */ "no": #005cc5,
+  /* NameDecorator */ "nd": #6f42c1,
+  /* NameEntity */ "ni": #005cc5,
+  /* NameException */ "ne": #6f42c1,
+  /* NameFunction */ "nf": #6f42c1,
+  /* NameFunctionMagic */ "fm": #6f42c1,
+  /* NameLabel */ "nl": #005cc5,
+  /* NameNamespace */ "nn": #24292e,
+  /* NameOther */ "nx": #24292e,
+  /* NameProperty */ "py": #005cc5,
+  /* NameTag */ "nt": #22863a,
+  /* NameVariable */ "nv": #e36209,
+  /* NameVariableClass */ "vc": #e36209,
+  /* NameVariableGlobal */ "vg": #e36209,
+  /* NameVariableInstance */ "vi": #e36209,
+  /* NameVariableMagic */ "vm": #e36209,
+  /* Literal */ "l": #005cc5,
+  /* LiteralDate */ "ld": #005cc5,
+  /* LiteralString */ "s": #032f62,
+  /* LiteralStringAffix */ "sa": #032f62,
+  /* LiteralStringBacktick */ "sb": #032f62,
+  /* LiteralStringChar */ "sc": #032f62,
+  /* LiteralStringDelimiter */ "dl": #032f62,
+  /* LiteralStringDoc */ "sd": #032f62,
+  /* LiteralStringDouble */ "s2": #032f62,
+  /* LiteralStringEscape */ "se": #005cc5,
+  /* LiteralStringHeredoc */ "sh": #032f62,
+  /* LiteralStringInterpol */ "si": #032f62,
+  /* LiteralStringOther */ "sx": #032f62,
+  /* LiteralStringRegex */ "sr": #032f62,
+  /* LiteralStringSingle */ "s1": #032f62,
+  /* LiteralStringSymbol */ "ss": #032f62,
+  /* LiteralNumber */ "m": #005cc5,
+  /* LiteralNumberBin */ "mb": #005cc5,
+  /* LiteralNumberFloat */ "mf": #005cc5,
+  /* LiteralNumberHex */ "mh": #005cc5,
+  /* LiteralNumberInteger */ "mi": #005cc5,
+  /* LiteralNumberIntegerLong */ "il": #005cc5,
+  /* LiteralNumberOct */ "mo": #005cc5,
+  /* Operator */ "o": #d73a49,
+  /* OperatorWord */ "ow": #d73a49,
+  /* Comment */ "c": #6a737d,
+  /* CommentHashbang */ "ch": #6a737d,
+  /* CommentMultiline */ "cm": #6a737d,
+  /* CommentSingle */ "c1": #6a737d,
+  /* CommentSpecial */ "cs": #6a737d,
+  /* CommentPreproc */ "cp": #d73a49,
+  /* CommentPreprocFile */ "cpf": #032f62,
+  /* Generic */ "g": #24292e,
+  /* GenericDeleted */ "gd": #b31d28,
+  /* GenericEmph */ "ge": #24292e,
+  /* GenericError */ "gr": #b31d28,
+  /* GenericHeading */ "gh": #005cc5,
+  /* GenericInserted */ "gi": #22863a,
+  /* GenericOutput */ "go": $zinc-600,
+  /* GenericPrompt */ "gp": $zinc-500,
+  /* GenericStrong */ "gs": #24292e,
+  /* GenericSubheading */ "gu": #005cc5,
+  /* GenericTraceback */ "gt": #b31d28,
+  /* TextWhitespace */ "w": $zinc-400,
+);
+$code-highlight-color-map-dark: (
+  /* Punctuation */ "p": $zinc-300,
+  /* Keyword */ "k": #f97583,
+  /* KeywordConstant */ "kc": #79b8ff,
+  /* KeywordDeclaration */ "kd": #f97583,
+  /* KeywordNamespace */ "kn": #f97583,
+  /* KeywordPseudo */ "kp": #f97583,
+  /* KeywordReserved */ "kr": #f97583,
+  /* KeywordType */ "kt": #f97583,
+  /* Name */ "n": $zinc-300,
+  /* NameAttribute */ "na": #b392f0,
+  /* NameBuiltin */ "nb": #79b8ff,
+  /* NameBuiltinPseudo */ "bp": #79b8ff,
+  /* NameClass */ "nc": #b392f0,
+  /* NameConstant */ "no": #79b8ff,
+  /* NameDecorator */ "nd": #b392f0,
+  /* NameEntity */ "ni": #79b8ff,
+  /* NameException */ "ne": #b392f0,
+  /* NameFunction */ "nf": #b392f0,
+  /* NameFunctionMagic */ "fm": #b392f0,
+  /* NameLabel */ "nl": #79b8ff,
+  /* NameNamespace */ "nn": $zinc-300,
+  /* NameOther */ "nx": $zinc-300,
+  /* NameProperty */ "py": #79b8ff,
+  /* NameTag */ "nt": #85e89d,
+  /* NameVariable */ "nv": #ffab70,
+  /* NameVariableClass */ "vc": #ffab70,
+  /* NameVariableGlobal */ "vg": #ffab70,
+  /* NameVariableInstance */ "vi": #ffab70,
+  /* NameVariableMagic */ "vm": #ffab70,
+  /* Literal */ "l": #79b8ff,
+  /* LiteralDate */ "ld": #79b8ff,
+  /* LiteralString */ "s": #9ecbff,
+  /* LiteralStringAffix */ "sa": #9ecbff,
+  /* LiteralStringBacktick */ "sb": #9ecbff,
+  /* LiteralStringChar */ "sc": #9ecbff,
+  /* LiteralStringDelimiter */ "dl": #9ecbff,
+  /* LiteralStringDoc */ "sd": #9ecbff,
+  /* LiteralStringDouble */ "s2": #9ecbff,
+  /* LiteralStringEscape */ "se": #79b8ff,
+  /* LiteralStringHeredoc */ "sh": #9ecbff,
+  /* LiteralStringInterpol */ "si": #9ecbff,
+  /* LiteralStringOther */ "sx": #9ecbff,
+  /* LiteralStringRegex */ "sr": #dbedff,
+  /* LiteralStringSingle */ "s1": #9ecbff,
+  /* LiteralStringSymbol */ "ss": #9ecbff,
+  /* LiteralNumber */ "m": #79b8ff,
+  /* LiteralNumberBin */ "mb": #79b8ff,
+  /* LiteralNumberFloat */ "mf": #79b8ff,
+  /* LiteralNumberHex */ "mh": #79b8ff,
+  /* LiteralNumberInteger */ "mi": #79b8ff,
+  /* LiteralNumberIntegerLong */ "il": #79b8ff,
+  /* LiteralNumberOct */ "mo": #79b8ff,
+  /* Operator */ "o": #f97583,
+  /* OperatorWord */ "ow": #f97583,
+  /* Comment */ "c": #6a737d,
+  /* CommentHashbang */ "ch": #6a737d,
+  /* CommentMultiline */ "cm": #6a737d,
+  /* CommentSingle */ "c1": #6a737d,
+  /* CommentSpecial */ "cs": #6a737d,
+  /* CommentPreproc */ "cp": #f97583,
+  /* CommentPreprocFile */ "cpf": #9ecbff,
+  /* Generic */ "g": $zinc-300,
+  /* GenericDeleted */ "gd": #fdaeb7,
+  /* GenericEmph */ "ge": $zinc-300,
+  /* GenericError */ "gr": #fdaeb7,
+  /* GenericHeading */ "gh": #79b8ff,
+  /* GenericInserted */ "gi": #85e89d,
+  /* GenericOutput */ "go": $zinc-400,
+  /* GenericPrompt */ "gp": $zinc-500,
+  /* GenericStrong */ "gs": $zinc-300,
+  /* GenericSubheading */ "gu": #79b8ff,
+  /* GenericTraceback */ "gt": #fdaeb7,
+  /* TextWhitespace */ "w": $zinc-600,
+);

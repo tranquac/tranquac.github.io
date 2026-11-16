@@ -1,0 +1,19 @@
+{{- /*
+    {{< contact >}}: a row of contact buttons, placed wherever the shortcode is written.
+    The buttons come from the page's front matter:
+        contact:
+          - { icon: "github", name: "GitHub", url: "https://github.com/..." }
+    icon is one of the names known to layouts/partials/contact-icon.html (any other name: label only).
+    A mailto: link opens in place; every other link opens in a new tab.
+    The links are separated by whitespace on purpose: without the stylesheet they still read as separate words.
+*/ -}}
+{{- with .Page.Params.contact -}}
+    <div class="contact-links">
+        {{- range . }}
+            <a class="contact-link" href="{{ .url }}"{{ if not (hasPrefix .url "mailto:") }} target="_blank" rel="noopener noreferrer"{{ end }}>
+                {{- partial "contact-icon.html" .icon -}}
+                <span>{{ .name }}</span>
+            </a>
+        {{ end -}}
+    </div>
+{{- end -}}

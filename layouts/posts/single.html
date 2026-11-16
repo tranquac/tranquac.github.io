@@ -1,0 +1,93 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- /*
+    (This note cannot be the first thing in the file: Hugo only applies baseof.html
+    when the template starts with a define block.)
+    Project override of themes/LoveIt/layouts/posts/single.html.
+    Only the post header differs from the theme: the meta line (categories / date /
+    word count / reading time) is plain text above the title, without icons, the
+    author name or the title animation. Everything below the header is the theme's.
+*/ -}}
+
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+
+    {{- $toc := $params.toc -}}
+    {{- if eq $toc true -}}
+        {{- $toc = .Site.Params.page.toc | default dict -}}
+    {{- else if eq $toc false -}}
+        {{- $toc = dict "enable" false -}}
+    {{- end -}}
+
+    {{- /* Auto TOC */ -}}
+    {{- if ne $toc.enable false -}}
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{{ T "contents" }}</h2>
+            <div class="toc-content{{ if eq $toc.auto false }} always-active{{ end }}" id="toc-content-auto"></div>
+        </div>
+    {{- end -}}
+
+    <article class="page single">
+        {{- /* Meta: categories / date / word count / reading time, one quiet row above the title */ -}}
+        <div class="post-meta">
+            {{- range .Params.categories -}}
+                {{- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -}}
+                <span class="post-meta-item post-category"><a href="{{ $category.RelPermalink }}">{{ $category.Title }}</a></span>
+            {{- end -}}
+            {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}
+                <span class="post-meta-item post-publish"><time datetime="{{ . }}">{{ . }}</time></span>
+            {{- end -}}
+            <span class="post-meta-item">{{ T "wordCount" .WordCount }}</span>
+            <span class="post-meta-item">{{ T "readingTime" .ReadingTime }}</span>
+            {{- $comment := .Scratch.Get "comment" | default dict -}}
+            {{- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
+                <span id="{{ .RelPermalink }}" class="post-meta-item leancloud_visitors" data-flag-title="{{ .Title }}">
+                    <span class=leancloud-visitors-count></span>&nbsp;{{ T "views" }}
+                </span>
+            {{- end -}}
+        </div>
+
+        {{- /* Title */ -}}
+        <h1 class="single-title">{{ .Title | emojify }}</h1>
+
+        {{- /* Subtitle */ -}}
+        {{- with $params.subtitle -}}
+            <h2 class="single-subtitle">{{ . }}</h2>
+        {{- end -}}
+
+        {{- /* Featured image */ -}}
+        {{- $image := $params.featuredimage -}}
+        {{- with .Resources.GetMatch "featured-image" -}}
+            {{- $image = .RelPermalink -}}
+        {{- end -}}
+        {{- with $image -}}
+            <div class="featured-image">
+                {{- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -}}
+            </div>
+        {{- end -}}
+
+        {{- /* Static TOC */ -}}
+        {{- if ne $toc.enable false -}}
+            <div class="details toc" id="toc-static"  data-kept="{{ if $toc.keepStatic }}true{{ end }}">
+                <div class="details-summary toc-title">
+                    <span>{{ T "contents" }}</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static">
+                    {{- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                </div>
+            </div>
+        {{- end -}}
+
+        {{- /* Content */ -}}
+        <div class="content" id="content">
+            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+        </div>
+
+        {{- /* Footer */ -}}
+        {{- partial "single/footer.html" . -}}
+
+        {{- /* Comment */ -}}
+        {{- partial "comment.html" . -}}
+    </article>
+{{- end -}}

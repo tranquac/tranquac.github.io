@@ -1,14 +1,25 @@
 ---
-title: "About me"
+title: "About"
 date: 2021-05-21T18:17:00+07:00
-lastmod: 2026-11-14T00:00:00+07:00
+lastmod: 2026-11-16T00:00:00+07:00
 draft: false
+# shown next to the title (layouts/_default/single.html)
+avatar: "/images/avatar.jpg"
+# the line under the title; inline Markdown is allowed
+subtitle: "**Quac Tran** (quaccws) - Hacker | Security Researcher | Bug Bounty Hunter | Founder"
+# the buttons printed by {{< contact >}} in the text; icon is one of: github, linkedin, x, telegram, mail
+contact:
+  - { icon: "github", name: "GitHub", url: "https://github.com/tranquac" }
+  - { icon: "linkedin", name: "LinkedIn", url: "https://www.linkedin.com/in/quac-tran-3b0456197/" }
+  - { icon: "x", name: "X", url: "https://x.com/quaccws" }
+  - { icon: "telegram", name: "Telegram", url: "https://t.me/ponsix2" }
+  - { icon: "mail", name: "tranquac0312@gmail.com", url: "mailto:tranquac0312@gmail.com" }
 ---
 ## Whoami
 
-**Quac Tran** (quaccws) - Hacker | Security Researcher | Bug Bounty Hunter | Founder
+Hi! I'm a hacker based in Vietnam, passionate about technology and hacking. I like to play around with anything related to hacking and security. Hacking is a burning passion for me. Most of my time goes into taking software apart to see how it works and where it breaks: browsers, enterprise software, open-source projects. This blog is where I write up what I've learned.
 
-Hi! I like to play around with anything related to hacking and security. Most of my time goes into taking software apart to see how it works and where it breaks: browsers, enterprise software, open-source projects. This blog is where I write up what I've learned.
+Outside of security, I love sports and I'm interested in economics and startups.
 
 Founder of Vantage Security Corporation
 
@@ -17,25 +28,22 @@ Founder of Vantage Security Corporation
 Credited as: Quac Tran / Tran Quac / Vantage Sec
 
 **Critical (2)**
+{.severity .severity-critical}
 
 - Microsoft - CVE-2026-62815
 - Apache Camel - CVE-2026-47323
 
 **High (11)**
+{.severity .severity-high}
 
-- Microsoft
-  - CVE-2026-118745
-  - CVE-2026-96224
-  - CVE-2026-62898
-  - CVE-2026-96238
-  - CVE-2026-80092
-  - CVE-2026-111296
+- Microsoft - CVE-2026-118745, CVE-2026-96224, CVE-2026-62898, CVE-2026-96238, CVE-2026-80092, CVE-2026-111296
 - Apache Fineract - CVE-2026-35152 (SQL injection)
 - Mozilla Firefox - CVE-2026-124855 (sandbox escape), CVE-2026-16349
 - Google Chrome - CVE-2026-11646 (use-after-free)
 - JetBrains IntelliJ IDEA - CVE-2026-123301
 
 **Medium (3)**
+{.severity .severity-medium}
 
 - Mozilla Firefox - CVE-2026-100820 (XSS)
 - Google Chrome - CVE-2026-14391 (integer overflow)
@@ -51,22 +59,6 @@ Credited as: Quac Tran / Tran Quac / Vantage Sec
 - [Palo Alto Networks Security Researcher Acknowledgments](https://www.paloaltonetworks.com/security-researcher-acknowledgement)
 - [Apple Hall of Fame](https://support.apple.com/en-vn/122162) - 3 times
 - Bug bounty acknowledgements from Adobe, BMW, AXIS and others
-- Best Performer of the Year - XXX Cyber Security
-- 3rd place - CTF Academy Level
-
-## Open Source
-
-Security fixes I sent upstream during my time at VinFast:
-
-- [Apache Struts #1657](https://github.com/apache/struts/pull/1657)
-- [Cockpit #306](https://github.com/Cockpit-HQ/Cockpit/pull/306)
-- [go-chat #16](https://github.com/kone-net/go-chat/pull/16)
-- [telescope #110](https://github.com/iamtelescope/telescope/pull/110)
-- [lylme_spage #125](https://github.com/LyLme/lylme_spage/pull/125)
-- [PiCAST #71](https://github.com/lanceseidman/PiCAST/pull/71)
-- [go-drive #142](https://github.com/devld/go-drive/pull/142)
-- [komari #495](https://github.com/komari-monitor/komari/pull/495)
-- [fpp #2593](https://github.com/FalconChristmas/fpp/pull/2593)
 
 ## Certifications
 
@@ -83,6 +75,4 @@ Security fixes I sent upstream during my time at VinFast:
 - **AI for security**: LLM-assisted vulnerability research, code review and tooling; security testing of AI/LLM applications (prompt injection, agent and tool abuse)
 - **Knowledge sharing**: technical writing, teaching and mentoring
 
-## Contact
-
-Ping me on [Telegram](https://t.me/ponsix2), [X](https://x.com/quaccws) or [LinkedIn](https://www.linkedin.com/in/quac-tran-3b0456197/).
+{{< contact >}}
