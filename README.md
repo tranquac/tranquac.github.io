@@ -165,7 +165,10 @@ How the numbers are counted:
   itself is never stored, the hash changes every day, and the rows are deleted the next day. No cookies.
 - Crawlers and scripts that identify themselves are not counted, and a tab opened in the background counts
   only when it is actually looked at.
-- The API accepts changes only from this site's origin and limits each address to 120 requests a minute.
+- The API accepts changes only from this site's origin.
+- A rate limit of 120 requests a minute per address acts as a brake on floods. Cloudflare applies it approximately:
+  measured on the live API, a flood was refused after about 3 seconds and a few hundred requests, and moderate
+  traffic above the number was not refused at all. It is not an exact cap.
 
 **If the API is slow, blocked, broken or gone, the page is unaffected.** The block is hidden in the HTML and is
 shown only after the API has answered with valid numbers (it gives up after 6 seconds), so without an answer the

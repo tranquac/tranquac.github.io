@@ -13,8 +13,9 @@
  *     article per day;
  *   - a "visitor" is HMAC(SALT, day + IP). The IP address is never stored, the hash changes
  *     every day, and the rows of earlier days are deleted by the daily cron;
- *   - writes are accepted only from the blog's own origin, as JSON, and every caller is rate
- *     limited per IP.
+ *   - writes are accepted only from the blog's own origin, as JSON;
+ *   - a flood from one address is slowed by Cloudflare's rate limiter. That limiter is approximate:
+ *     it starts refusing within seconds, after a few hundred requests, not at an exact count.
  */
 
 // Reaction keys. The emoji for each key lives in the blog (layouts/partials/engagement.html).

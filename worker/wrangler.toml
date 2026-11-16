@@ -23,7 +23,8 @@ database_name = "blog-engagement"
 # Printed by `npx wrangler d1 create blog-engagement`; identifies the database, it is not a secret.
 database_id = "56717054-e288-4e7e-9941-dac06e1b2338"
 
-# At most 120 requests a minute from one IP address (one IPv6 /64).
+# A brake on floods: about 120 requests a minute from one IP address (one IPv6 /64).
+# Cloudflare applies it approximately, so a short burst can go well over before it refuses.
 [[ratelimits]]
 name = "LIMITER"
 namespace_id = "1001"
