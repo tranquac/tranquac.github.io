@@ -158,7 +158,7 @@ languageName = "English"
   # Social links shown in home page profile
   [params.social]
     GitHub = "tranquac"
-    Email = "quaccws@gmail.com"
+    Email = "tranquac0312@gmail.com"
     RSS = true
     # full URLs override the theme's default prefixes (linkedin.com/in/, twitter.com/)
     [params.social.Linkedin]
