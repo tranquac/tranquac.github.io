@@ -3,3 +3,8 @@
 public/
 resources/_gen/
 .hugo_build.lock
+
+# Cloudflare Worker (worker/): local state, local settings and tooling are not committed.
+worker/.wrangler/
+worker/.dev.vars
+worker/node_modules/

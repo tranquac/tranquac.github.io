@@ -1,0 +1,5 @@
+# Settings for running the Worker on this machine (`npx wrangler dev`).
+# Copy to .dev.vars (which is not committed). They replace the [vars] of wrangler.toml locally.
+SALT=local-development-only
+SITE_ORIGIN=http://127.0.0.1:1313
+ALLOWED_ORIGINS=http://localhost:1313,http://127.0.0.1:1313

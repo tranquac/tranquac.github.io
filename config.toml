@@ -169,6 +169,13 @@ languageName = "English"
       url = "https://x.com/quaccws"
       title = "X"
 
+  # Views and reactions under each article (layouts/partials/engagement.html).
+  # api is the address of the Worker in worker/. Leave it empty to switch the feature off:
+  # the block and its script are then left out of the pages.
+  [params.engagement]
+    api = "https://blog-engagement.tranquac.workers.dev"
+    sections = ["posts", "write-up"]
+
   # Page global config
   [params.page]
     hiddenFromHomePage = false

@@ -1176,6 +1176,150 @@ html {
   }
 
   // ============================================================
+  // Views and reactions under an article (partials/engagement.html)
+  // The block carries the `hidden` attribute until the API has answered,
+  // so every rule below applies only while it is actually shown.
+  // ============================================================
+  .single .engagement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-border);
+    animation: engagement-in .3s ease-out;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .single .engagement-views {
+    display: flex;
+    align-items: center;
+    gap: .375rem;
+    // the same face and size as the reaction counts: every number in the row reads alike
+    font-family: var(--code-font-family);
+    font-size: .8125rem;
+    line-height: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--c-muted);
+
+    svg {
+      flex: none;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  .single .engagement-reactions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .single .reaction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .375rem;
+    // the padding only enlarges the area that can be clicked; the negative margin
+    // keeps the emoji where they would be without it
+    margin: -.375rem;
+    padding: .375rem;
+    border: 0;
+    border-radius: .375rem;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--c-faint);
+      outline-offset: 0;
+    }
+
+    // quiet until hovered or chosen, so the row is not a strip of colour
+    .reaction-emoji {
+      // a fixed box, so the four sit at the same pitch whatever emoji font the system has
+      display: block;
+      width: 1.5rem;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif;
+      font-size: 1.25rem;
+      line-height: 1;
+      text-align: center;
+      filter: saturate(.3) brightness(.7);
+      transition: filter .2s, transform .15s;
+    }
+
+    .reaction-count {
+      font-family: var(--code-font-family);
+      font-size: .8125rem;
+      font-weight: 500;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--c-subtle);
+      transition: color .2s;
+    }
+
+    // chosen: full colour, and the button no longer invites a click
+    &[aria-pressed="true"] {
+      cursor: default;
+
+      .reaction-emoji {
+        filter: none;
+      }
+
+      .reaction-count {
+        color: var(--c-muted);
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    .single .reaction:hover .reaction-emoji {
+      filter: none;
+    }
+
+    .single .reaction[aria-pressed="false"]:hover .reaction-emoji {
+      transform: scale(1.25);
+    }
+  }
+
+  // With the block shown, the footer follows it closely: the block then sits between its own
+  // line and the footer's line, the same distance from both. (~ and not +: the block's <script>
+  // comes between the two.) With the block hidden the footer is exactly as it was.
+  .single .engagement:not([hidden]) ~ .post-footer {
+    margin-top: 1.5rem;
+  }
+
+  @keyframes engagement-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .single .engagement {
+      animation: none;
+    }
+
+    .single .reaction .reaction-emoji {
+      transition: none;
+    }
+  }
+
+  // ============================================================
   // Post footer: updated date, share, tags, previous / next
   // ============================================================
   .single .post-footer {

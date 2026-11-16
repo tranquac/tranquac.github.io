@@ -1,0 +1,37 @@
+# Cloudflare Worker behind the view counter and the reactions under each article.
+# How to deploy and run it locally: see "Views and reactions" in the repository README.
+name = "blog-engagement"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+# Served at https://blog-engagement.<account>.workers.dev only; no per-version preview addresses.
+workers_dev = true
+preview_urls = false
+send_metrics = false
+
+[vars]
+# The site whose sitemap lists the articles that may be counted.
+SITE_ORIGIN = "https://tranquac.github.io"
+# Browser origins allowed to call the API (comma separated).
+ALLOWED_ORIGINS = "https://tranquac.github.io"
+
+# One more setting is a secret and is not in this file: SALT, the key for the visitor hash.
+# Set it once with:  npx wrangler secret put SALT
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blog-engagement"
+# Printed by `npx wrangler d1 create blog-engagement`; identifies the database, it is not a secret.
+database_id = "56717054-e288-4e7e-9941-dac06e1b2338"
+
+# At most 120 requests a minute from one IP address (one IPv6 /64).
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 120
+  period = 60
+
+# Once a day, drop the "already counted" rows of earlier days.
+[triggers]
+crons = ["17 0 * * *"]

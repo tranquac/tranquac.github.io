@@ -9,7 +9,8 @@
     - the title and the optional `subtitle` sit in a header block, and a page that sets
       `avatar` in its front matter gets that image next to them (used by content/about.md);
     - `subtitle` accepts inline Markdown;
-    - a CVE id in the text never wraps in the middle (partials/cve-nowrap.html).
+    - a CVE id in the text never wraps in the middle (partials/cve-nowrap.html);
+    - write-ups get the views and reactions block after the content (partials/engagement.html).
 */ -}}
 
 {{- define "content" -}}
@@ -40,6 +41,9 @@
         <div class="content" id="content">
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | partial "cve-nowrap.html" | safeHTML -}}
         </div>
+
+        {{- /* Views and reactions (only for the sections in params.engagement.sections) */ -}}
+        {{- partial "engagement.html" . -}}
 
         {{- /* Comment */ -}}
         {{- partial "comment.html" . -}}

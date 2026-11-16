@@ -1,0 +1,41 @@
+{{- /*
+    Views and reactions under an article: the eye with the view count on the left, four
+    emoji reactions on the right. Called from posts/single.html and _default/single.html.
+
+    It is printed only when
+      - params.engagement.api (config.toml) holds the address of the API (the Worker in worker/),
+      - the page is in one of params.engagement.sections (default: posts and write-up),
+      - the page does not set `engagement: false` in its front matter.
+    With an empty `api` neither the block nor its script is in the page.
+
+    The block starts with the `hidden` attribute; assets/js/engagement.js removes it once the
+    API has answered. Without an answer the block is never shown.
+    Reaction keys (data-kind) must match KINDS in worker/src/index.js.
+    The eye icon is from Heroicons (MIT).
+*/ -}}
+{{- $config := .Site.Params.engagement | default dict -}}
+{{- $sections := $config.sections | default (slice "posts" "write-up") -}}
+{{- if and $config.api .IsPage (in $sections .Section) (ne .Params.engagement false) -}}
+    {{- $script := resources.Get "js/engagement.js" | fingerprint -}}
+    {{- $reactions := slice
+        (dict "kind" "fire" "emoji" "🔥" "label" "Fire")
+        (dict "kind" "eyes" "emoji" "👀" "label" "Interesting")
+        (dict "kind" "bulb" "emoji" "💡" "label" "Insightful")
+        (dict "kind" "target" "emoji" "🎯" "label" "Accurate")
+    -}}
+    <div class="engagement" id="engagement" data-api="{{ strings.TrimSuffix "/" $config.api }}" data-path="{{ .RelPermalink }}" hidden>
+        <div class="engagement-views" role="img">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="engagement-view-count">0</span>
+        </div>
+        <div class="engagement-reactions">
+            {{- range $reactions }}
+                <button type="button" class="reaction" data-kind="{{ .kind }}" title="{{ .label }}" aria-label="{{ .label }}" aria-pressed="false">
+                    <span class="reaction-emoji" aria-hidden="true">{{ .emoji }}</span>
+                    <span class="reaction-count">0</span>
+                </button>
+            {{- end }}
+        </div>
+    </div>
+    <script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+{{- end -}}

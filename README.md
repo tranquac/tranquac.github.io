@@ -56,10 +56,12 @@ Original checksum file: <https://github.com/gohugoio/hugo/releases/download/v0.8
 | `config.toml` | All site and theme configuration (`[params]`: header, footer, profile, social, ...) |
 | `content/` | Markdown sources: `about.md`, `posts/`, `write-up/`, and `_index.md` (the label above the post list on the home page) |
 | `assets/css/` | Styling: `_override.scss` (colour variables, fonts, code colours) and `_custom.scss` (all the CSS). See the "Styling" section |
+| `assets/js/` | `engagement.js`, the script of the views and reactions block. See "Views and reactions" |
 | `static/` | Files copied verbatim into `docs/`: `.nojekyll`, `fonts/` (self-hosted fonts), `images/avatar.jpg`, favicon, `CNAME` if reusing a custom domain |
 | `themes/LoveIt` | Theme, a git submodule pinned at commit `a0d6144` (2022-07-08). Don't edit directly in here |
 | `layouts/` | Theme templates overridden at the project level. See the "Template overrides" table |
 | `docs/` | Build output, exactly what GitHub Pages serves. Don't hand-edit |
+| `worker/` | The Cloudflare Worker that stores the view counts and reactions. Not part of the Hugo build. See "Views and reactions" |
 | `resources/_gen/` | Hugo's cache, already ignored in `.gitignore` |
 
 ## Styling
@@ -95,6 +97,7 @@ Editing the displayed content:
 - **CVE ids** are written plainly (`CVE-2026-12345`). On the About page, write-ups and Posts, each id is kept as a single
   block so it never breaks mid-id when wrapping (`layouts/partials/cve-nowrap.html`).
 - **The line above a post title** (category / date / word count / reading time) comes from the post's `categories` and `date`.
+- **Views and reactions** under each article: see the "Views and reactions" section.
 
 Code blocks no longer have a title bar: the copy button appears at the top right on hover, and long blocks are always shown in full.
 
@@ -106,14 +109,15 @@ Each file below is a copy of the same-named template in `themes/LoveIt/layouts/`
 | File in `layouts/` | How it differs from the theme |
 |---|---|
 | `partials/plugin/share.html` | Lets `params.social.Twitter` be a dict (`id`, `url`, `title`) so the profile points to x.com while the share button still has `via @quaccws` |
-| `posts/single.html` | The meta line sits above the title, plain text, no icons, no author name, no title animation; keeps CVE ids from wrapping mid-id |
+| `posts/single.html` | The meta line sits above the title, plain text, no icons, no author name, no title animation; keeps CVE ids from wrapping mid-id; prints the views and reactions block between the content and the footer |
 | `_default/summary.html` | Home-page post card: the meta line (category / date) sits above the title, no icons |
-| `_default/single.html` | Plain pages (About, write-ups): adds a page header with optional `avatar` and `subtitle`, and keeps CVE ids from wrapping mid-id |
+| `_default/single.html` | Plain pages (About, write-ups): adds a page header with optional `avatar` and `subtitle`, keeps CVE ids from wrapping mid-id, and prints the views and reactions block after a write-up |
 | `taxonomy/list.html`, `taxonomy/terms.html` | Drop the category/tag icon on the title and the title animation |
 
 Project-only files (the theme has no same-named file): `partials/cve-nowrap.html` (called from
 `_default/single.html` and `posts/single.html`), `shortcodes/contact.html` and `partials/contact-icon.html`
-(the contact button row), `shortcodes/timeline.html` and `shortcodes/event.html` (the timeline).
+(the contact button row), `shortcodes/timeline.html` and `shortcodes/event.html` (the timeline),
+`partials/engagement.html` (the views and reactions block).
 
 A note on writing templates: Hugo only applies `baseof.html` when the file **starts** with `{{ define ... }}`, so a comment
 must go after the first `define` block, not on the first line.
@@ -130,6 +134,91 @@ The version before the redesign is marked with the tag `backup-pre-redesign-2026
   The `{{< contact >}}` line in `content/about.md` needs `layouts/shortcodes/contact.html` and
   `layouts/partials/contact-icon.html`: keep those two files, or replace that line with plain text, otherwise
   the build errors out.
+
+## Views and reactions
+
+Under each post and write-up there is a row with the view count on the left and four reactions on the right.
+The site itself stays static: the numbers live in a small API, a Cloudflare Worker with a D1 database (`worker/`),
+and the page asks it for them after it has loaded.
+
+| Part | Where it lives |
+|---|---|
+| The block's HTML | `layouts/partials/engagement.html` |
+| Its script (no dependencies, served from this site with an integrity hash) | `assets/js/engagement.js` |
+| Its CSS | `assets/css/_custom.scss` (search "Views and reactions") |
+| The API | `worker/src/index.js`, database schema in `worker/schema.sql`, settings in `worker/wrangler.toml` |
+| The switch | `[params.engagement]` in `config.toml` |
+
+Settings in `config.toml`:
+
+- `api`: the address of the Worker. **Empty means off**: the block and its script are left out of the pages entirely.
+- `sections`: where the block is printed (`posts` and `write-up`).
+- A single page can opt out with `engagement: false` in its front matter.
+
+How the numbers are counted:
+
+- Only articles listed in the site's `sitemap.xml` are accepted, so nobody can fill the database with made-up pages.
+  A new article is picked up about a minute after it is published.
+- A reader adds at most one view per article per day, and can give each reaction once per article.
+  The browser remembers a reader's reactions; the API also refuses a repeat from the same address on the same day.
+- A reader is recognised by a keyed hash of the day and the IP address (one hash per IPv6 /64). The IP address
+  itself is never stored, the hash changes every day, and the rows are deleted the next day. No cookies.
+- Crawlers and scripts that identify themselves are not counted, and a tab opened in the background counts
+  only when it is actually looked at.
+- The API accepts changes only from this site's origin and limits each address to 120 requests a minute.
+
+**If the API is slow, blocked, broken or gone, the page is unaffected.** The block is hidden in the HTML and is
+shown only after the API has answered with valid numbers (it gives up after 6 seconds), so without an answer the
+end of the article looks exactly as it does with the feature switched off.
+
+### Deploying the Worker
+
+Needs a free Cloudflare account and Node.js. From `worker/`:
+
+```sh
+npx wrangler@4 login                                # once per machine, opens the browser
+npx wrangler@4 d1 create blog-engagement            # once: put the printed database_id into wrangler.toml
+npx wrangler@4 d1 execute blog-engagement --remote --file=schema.sql
+npx wrangler@4 deploy                               # prints the address, https://blog-engagement.<account>.workers.dev
+openssl rand -hex 32 | npx wrangler@4 secret put SALT   # once: the key for the visitor hash
+```
+
+Then set `api` in `config.toml` to the printed address, rebuild and push as usual.
+After changing `worker/src/index.js` only `npx wrangler@4 deploy` is needed.
+If the site moves to another domain, change `SITE_ORIGIN` and `ALLOWED_ORIGINS` in `worker/wrangler.toml` and deploy.
+
+### Running it locally
+
+```sh
+cd worker
+cp .dev.vars.example .dev.vars                                         # first time
+npx wrangler@4 d1 execute blog-engagement --local --file=schema.sql    # first time
+npx wrangler@4 dev                                                     # the API on http://127.0.0.1:8787, with its own local database
+```
+
+and, in another terminal at the repository root, the preview pointed at that local API:
+
+```sh
+HUGO_PARAMS_ENGAGEMENT_API=http://127.0.0.1:8787 hugo server -D --noHTTPCache
+```
+
+Nothing done locally touches the real numbers.
+
+### Looking at or correcting the numbers
+
+```sh
+cd worker
+npx wrangler@4 d1 execute blog-engagement --remote --command "SELECT path, kind, n FROM counts ORDER BY path, kind"
+npx wrangler@4 d1 execute blog-engagement --remote --command "UPDATE counts SET n = 0 WHERE path = '/posts/some-post/' AND kind = 'fire'"
+```
+
+`kind` is `view` or a reaction (`fire`, `eyes`, `bulb`, `target`). The numbers are stored per URL path: if an
+article's URL changes, move its rows with an `UPDATE counts SET path = ...`.
+
+The free plan allows 100,000 requests and 100,000 database row writes a day. A page view costs one or two
+requests (the count, plus the browser's permission check the first time) and a counted view up to three writes,
+so the ceiling is roughly 30,000 counted views a day, far more than this site needs. If a limit is ever hit, the API answers with an
+error until midnight UTC, the block is hidden for that time, and nothing is billed.
 
 ## Notes
 
