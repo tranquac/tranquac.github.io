@@ -33,10 +33,10 @@ Credited as: Quac Tran / Tran Quac / Vantage Sec
 - Microsoft - CVE-2026-62815
 - Apache Camel - CVE-2026-47323
 
-**High (12)**
+**High (13)**
 {.severity .severity-high}
 
-- Microsoft - CVE-2026-118745, CVE-2026-96224, CVE-2026-62898, CVE-2026-96238, CVE-2026-80092, CVE-2026-111296
+- Microsoft - CVE-2026-118745, CVE-2026-96224, CVE-2026-62898, CVE-2026-96238, CVE-2026-80092, CVE-2026-111296, CVE-2026-70035
 - Apache Fineract - CVE-2026-35152 (SQL injection)
 - Mozilla Firefox - CVE-2026-124855 (sandbox escape), CVE-2026-135529 (sandbox escape), CVE-2026-16349
 - Google Chrome - CVE-2026-11646 (use-after-free)
